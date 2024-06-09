@@ -1,6 +1,5 @@
 import { PORT, SRC_FOLDER } from '../../constants.js'
 import { BrowserWindow, ipcMain } from 'electron'
-import { getLocalIpAddress } from '../../utils/getLocalIpAddress.js'
 import { join } from 'path'
 
 // Función para crear una nueva ventana del navegador
@@ -22,8 +21,8 @@ export function createWindow () {
     }
   })
 
-  // Cargar la URL del servidor en la nueva ventana
-  mainWindow.loadURL('http://' + getLocalIpAddress() + ':' + PORT)
+  // Cargar el archivo index.html en la nueva ventana
+  mainWindow.loadFile(join(SRC_FOLDER, 'admin', 'index.html'))
 
   // Window buttons
   ipcMain.on('closeApp', () => { mainWindow.close() })
