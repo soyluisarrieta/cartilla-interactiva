@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Este proyecto está diseñado para ofrecer una amplia gama de recursos educativos musicales dirigidos a estudiantes de primaria y secundaria, de edades comprendidas entre los 6 y los 16 años. La cartilla interactiva incluye cinco módulos con información histórica y teórica, material gráfico, ejercicios interactivos, actividades en video, y juegos didácticos.",
   "type": "module",
-  "main": "src/server.js",
+  "main": "main.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon --watch . --exec \"electron .\"",
+    "build": "electron-builder"
   },
   "keywords": [
     "educación",
@@ -27,6 +28,8 @@
     "express": "4.19.2"
   },
   "devDependencies": {
+    "electron": "30.1.0",
+    "electron-builder": "24.13.3",
     "nodemon": "3.1.3",
     "standard": "17.1.0"
   },
