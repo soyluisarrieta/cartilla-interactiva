@@ -22,7 +22,7 @@ export function createWindow () {
   })
 
   // Cargar el archivo index.html en la nueva ventana
-  mainWindow.loadFile(join(SRC_FOLDER, 'admin', 'index.html'))
+  mainWindow.loadFile(join(SRC_FOLDER, '..', 'desktop', 'index.html'))
 
   // Window buttons
   ipcMain.on('closeApp', () => { mainWindow.close() })
