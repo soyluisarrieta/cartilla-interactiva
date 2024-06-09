@@ -1,0 +1,21 @@
+# Configuración de la aplicación
+appId: com.example.myapp  # Identificador único de la aplicación
+productName: Cartilla-Interactiva  # Nombre del producto
+
+# Directorios de salida
+directories:
+  output: dist  # Directorio de salida para los archivos generados
+
+# Configuración específica para Windows
+win:
+  target: nsis  # Tipo de instalador: NSIS (Nullsoft Scriptable Install System)
+  icon: build/favicon-256x256.png  # Icono para el ejecutable de la aplicación
+  artifactName: Instalador-Cartilla-Interactiva.${ext}  # Nombre del instalador generado
+
+# Configuración específica para NSIS
+nsis:
+  oneClick: false  # Habilitar la instalación con un solo clic
+  perMachine: true  # Instalación a nivel de máquina (para todos los usuarios)
+  allowToChangeInstallationDirectory: true  # Permitir al usuario cambiar el directorio de instalación
+  createDesktopShortcut: true  # Crear un acceso directo en el escritorio
+  createStartMenuShortcut: true  # Crear un acceso directo en el menú de inicio
