@@ -1,5 +1,5 @@
 # Configuración de la aplicación
-appId: com.example.myapp  # Identificador único de la aplicación
+appId: com.sennova.cartilla-interactiva  # Identificador único de la aplicación
 productName: Cartilla-Interactiva  # Nombre del producto
 
 # Directorios de salida
