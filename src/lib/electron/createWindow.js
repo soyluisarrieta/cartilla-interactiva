@@ -1,9 +1,9 @@
-import { PORT, SRC_FOLDER } from '../../constants.js'
+import { SRC_FOLDER } from '../../constants.js'
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 
 // Función para crear una nueva ventana del navegador
-export function createWindow () {
+export async function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 700,
@@ -16,8 +16,7 @@ export function createWindow () {
       nodeIntegration: true,
       contextIsolation: false,
       devTools: true,
-      preload: join(SRC_FOLDER, 'preload.js'),
-      partition: `persist:${PORT}`
+      preload: join(SRC_FOLDER, 'lib', 'electron', 'preload.mjs')
     }
   })
 
