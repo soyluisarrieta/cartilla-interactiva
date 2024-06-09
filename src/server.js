@@ -12,9 +12,9 @@ export function startServer () {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
 
-  // Middleware: Servir archivos estáticos desde el directorio 'public'
-  const publicPath = path.join(SRC_FOLDER, '..', 'public')
-  app.use(express.static(publicPath))
+  // Middleware: Servir archivos estáticos desde el directorio 'browser'
+  const browserPath = path.join(SRC_FOLDER, '..', 'browser')
+  app.use(express.static(browserPath))
 
   // Iniciar el servidor
   app.listen(PORT, () => {
