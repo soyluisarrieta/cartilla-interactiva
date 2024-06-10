@@ -1,6 +1,5 @@
 import path from 'path'
-import express from 'express'
-import bodyParser from 'body-parser'
+import express, { json } from 'express'
 import { SRC_FOLDER, PORT } from './constants.js'
 import { getLocalIpAddress } from './utils/getLocalIpAddress.js'
 
@@ -8,9 +7,9 @@ import { getLocalIpAddress } from './utils/getLocalIpAddress.js'
 export function startServer () {
   const app = express()
 
-  // Middleware: Body-Parser
-  app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(bodyParser.json())
+  // Middleware: Configurar express como json y x-powered-by deshabilitado
+  app.use(json())
+  app.disable('x-powered-by')
 
   // Middleware: Servir archivos estáticos desde el directorio 'browser'
   const browserPath = path.join(SRC_FOLDER, '..', 'browser')
