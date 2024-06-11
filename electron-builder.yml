@@ -9,7 +9,7 @@ directories:
 # Configuración específica para Windows
 win:
   target: nsis  # Tipo de instalador: NSIS (Nullsoft Scriptable Install System)
-  icon: build/favicon-256x256.png  # Icono para el ejecutable de la aplicación
+  icon: browser/images/favicons/favicon-256x256.png  # Icono para el ejecutable de la aplicación
   artifactName: Instalador-Cartilla-Interactiva.${ext}  # Nombre del instalador generado
 
 # Configuración específica para NSIS
