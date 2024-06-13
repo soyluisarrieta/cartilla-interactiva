@@ -1,5 +1,7 @@
 import path from 'path'
 import express, { json } from 'express'
+import http from 'http'
+import { Server } from 'socket.io'
 import { SRC_FOLDER, PORT } from './constants.js'
 import { getLocalIpAddress } from './utils/getLocalIpAddress.js'
 
@@ -15,8 +17,20 @@ export function startServer () {
   const browserPath = path.join(SRC_FOLDER, '..', 'browser')
   app.use(express.static(browserPath))
 
-  // Iniciar el servidor
-  app.listen(PORT, () => {
-    console.log(`Server running on http://${getLocalIpAddress()}:${PORT}`)
+  // Crear servidor HTTP con Express app
+  const httpServer = http.createServer(app)
+  const expressServer = httpServer.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo en http://${getLocalIpAddress()}:${PORT}`)
+  })
+
+  // Configurar y manejar conexiones de Socket.IO
+  const io = new Server(expressServer)
+
+  io.on('connection', (socket) => {
+    console.log(`Un usuario se ha conectado - Total de usuarios: ${socket.server.engine.clientsCount}`)
+
+    socket.on('disconnect', () => {
+      console.log(`Un usuario se ha desconectado - Total de usuarios: ${socket.server.engine.clientsCount}`)
+    })
   })
 }
