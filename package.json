@@ -25,7 +25,8 @@
   "author": "@SoyLuisArrieta",
   "license": "MIT",
   "dependencies": {
-    "express": "4.19.2"
+    "express": "4.19.2",
+    "socket.io": "4.7.5"
   },
   "devDependencies": {
     "concurrently": "8.2.2",
