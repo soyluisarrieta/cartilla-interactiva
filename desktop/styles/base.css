@@ -25,6 +25,14 @@
   padding: var(--padding-top-bar) 0;
 }
 
+#top-bar .action-buttons button {
+  opacity: 0.7;
+}
+
+#top-bar .action-buttons button:hover {
+  opacity: 1;
+}
+
 #top-bar .action-buttons button svg {
   width: 1.6rem;
   height: 1.6rem;
