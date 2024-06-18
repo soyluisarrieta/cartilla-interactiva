@@ -53,11 +53,11 @@ Un manual detallado disponible en formato PDF para guiar a los usuarios en el us
 
 ### Diagrama del Flujo del Sistema
 
-![Diagrama del flujo del sistema](./system-flow.png)
+![Diagrama del flujo del sistema](./assets/system-flow.png)
 
 ### Diagrama de Distinción de Roles
 
-![Diagrama de distinción de roles](./role-distintion.png)
+![Diagrama de distinción de roles](./assets/role-distintion.png)
 
 ---
 
