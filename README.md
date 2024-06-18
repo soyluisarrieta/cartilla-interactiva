@@ -1,8 +1,22 @@
 # Cartilla Interactiva para la Enseñanza de Música
 
+<table border>
+<tr>
+<td>
 Este proyecto está diseñado para ofrecer una amplia gama de recursos educativos musicales dirigidos a estudiantes de primaria y secundaria, de edades comprendidas entre los 6 y los 16 años. La cartilla interactiva incluye cinco módulos con información histórica y teórica, material gráfico, ejercicios interactivos, actividades en video, y juegos didácticos.
+</td>
+</tr>
+</table>
 
-Para obtener más información sobre la estructura del proyecto y su funcionamiento, consulte el [Resumen del proyecto](doc/README.md).
+---
+
+## 📖 Documentación
+
+- [📘 Sobre el proyecto](doc/about.md)
+- [📕 Arquitectura](doc/architecture.md)
+- [🖼️ Diagrama de flujo](doc/assets/system-flow.png)
+
+---
 
 ## ☝️ Requisitos Previos
 
@@ -54,3 +68,54 @@ Antes de ejecutar este proyecto, asegúrate de tener instalado lo siguiente:
    ```plaintext
    http://localhost:3000
    ```
+
+---
+
+## 🌐 Soporte del navegador
+
+Aquí está la lista de todos los navegadores que admite esta aplicación.
+
+<table align="center" border>
+  <tr>
+    <td align="center">
+      <img src="doc/assets/icons/edge.svg" alt="edge" width="24" />
+      <br />
+      <strong>IE / Edge</strong>
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/firefox.svg" alt="firefox" width="24" />
+      <br />
+      <strong>Firefox</strong>
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/safari.svg" alt="safari" width="24" />
+      <br />
+      <strong>Safari</strong>
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/opera.svg" alt="opera" width="24" />
+      <br />
+      <strong>Opera</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
+    </td>
+    <td align="center">
+      <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
+    </td>
+  </tr>
+</table>
+
+---
+
+<pre align="center">
+  Copyright © 2024 SENA - SENNOVA
+</pre>
