@@ -78,6 +78,11 @@ Aquí está la lista de todos los navegadores que admite esta aplicación.
 <table align="center" border>
   <tr>
     <td align="center">
+      <img src="doc/assets/icons/chrome.svg" alt="edge" width="24" />
+      <br />
+      <strong>Chrome</strong>
+    </td>
+    <td align="center">
       <img src="doc/assets/icons/edge.svg" alt="edge" width="24" />
       <br />
       <strong>IE / Edge</strong>
@@ -99,6 +104,9 @@ Aquí está la lista de todos los navegadores que admite esta aplicación.
     </td>
   </tr>
   <tr>
+    <td align="center">
+      <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
+    </td>
     <td align="center">
       <img src="doc/assets/icons/check.svg" alt="check" width="20px" align="center" />
     </td>
