@@ -14,7 +14,8 @@ Este proyecto está diseñado para ofrecer una amplia gama de recursos educativo
 
 - [📘 Sobre el proyecto](doc/about.md)
 - [📕 Arquitectura](doc/architecture.md)
-- [🖼️ Diagrama de flujo](doc/assets/system-flow.png)
+- [🖼️ Diagrama de Flujo](doc/assets/system-flow.png)
+- [🖼️ Diagrama de Entidad Relación](doc/assets/entity-relationship-diagram.png)
 
 ---
 
