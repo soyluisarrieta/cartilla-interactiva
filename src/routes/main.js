@@ -9,7 +9,7 @@ export default function mainRouter () {
 
   // Middleware para manejar errores 404
   router.use((req, res, next) => {
-    res.status(404).render('404') // Renderiza la vista 404 para cualquier ruta no encontrada
+    res.status(404).render('404')
   })
 
   return router
