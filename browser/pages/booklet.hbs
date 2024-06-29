@@ -1,0 +1,13 @@
+{{> page-info
+  title="Cartilla"
+  description="Descripción de la página cartilla."
+}}
+
+  <h1>Cartilla!</h1>
+{{#if moduleId}}
+  <h2>Módulo #{{moduleId}} seleccionado.</h2>
+{{else}}
+  <h2>Mostrar todos los módulos.</h2>
+{{/if}} 
+
+{{> sidebar}}
