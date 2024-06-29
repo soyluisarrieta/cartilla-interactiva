@@ -6,7 +6,7 @@ export function bookletRoutes () {
 
   const bookletController = new BookletController()
 
-  router.get('/', (req, res) => res.render('booklet'))
+  router.get('/', bookletController.renderAllModules)
   router.get('/modulo-:id', bookletController.renderModule)
 
   return router

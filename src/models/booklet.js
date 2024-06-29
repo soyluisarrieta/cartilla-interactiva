@@ -11,7 +11,7 @@ const Modules = Schema('Modules', {
 export class BookletModel {
   static async getAll () {
     try {
-      const allModules = await Modules.find()
+      const allModules = await Modules.find().reverse()
       return allModules
     } catch (error) {
       console.error('Error obteniendo los módulos:', error)
