@@ -25,6 +25,7 @@
   "author": "@SoyLuisArrieta",
   "license": "MIT",
   "dependencies": {
+    "db-local": "^3.1.0",
     "express": "^4.19.2",
     "express-handlebars": "^7.1.3",
     "socket.io": "^4.2.0"
