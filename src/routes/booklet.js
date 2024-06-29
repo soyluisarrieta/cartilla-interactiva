@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { BookletController } from '../controller/BookletController.js'
+import { BookletController } from '../controller/booklet.js'
 
 export function bookletRoutes () {
   const router = Router()
