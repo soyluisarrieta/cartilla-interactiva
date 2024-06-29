@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cartilla interactiva para la enseñanza de música - SENA Amazonas</title>
-
+  
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
@@ -24,10 +23,14 @@
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-   <!-- Importar el módulo de Socket.IO -->
-   <script type="module" src="./scripts/main.js"></script>
+  {{> page-info
+    title=title
+    description=description
+  }}
+
+  {{{_sections.head}}}
 </head>
 <body>
-  <h1>¡Hola Mundo!</h1>
+  {{{body}}}
 </body>
 </html>
