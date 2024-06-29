@@ -5,6 +5,7 @@ import { Server } from 'socket.io'
 import { SRC_FOLDER, PORT } from './constants.js'
 import { getLocalIpAddress } from './utils/getLocalIpAddress.js'
 import { hbs } from './lib/handlebars/helper.js'
+import mainRouter from './routes/main.js'
 
 // Función para iniciar el servidor
 export function startServer () {
@@ -23,10 +24,8 @@ export function startServer () {
   const browserPath = path.join(SRC_FOLDER, '..', 'browser')
   app.use(express.static(browserPath))
 
-  // Ruta de ejemplo para renderizar una vista con Handlebars
-  app.get('/', (req, res) => {
-    res.render('home')
-  })
+  // Router
+  app.use(mainRouter())
 
   // Crear servidor HTTP con Express app
   const httpServer = http.createServer(app)
