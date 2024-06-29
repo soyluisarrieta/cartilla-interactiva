@@ -7,3 +7,6 @@ export const SRC_FOLDER = dirname(__filename)
 
 // Puerto
 export const PORT = process.env.PORT || 3000
+
+// Cartilla
+export const NUMBER_BOOKLET_MODULES = 5
