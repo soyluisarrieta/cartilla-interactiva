@@ -8,6 +8,14 @@
   <h2>Módulo #{{moduleId}} seleccionado.</h2>
 {{else}}
   <h2>Mostrar todos los módulos.</h2>
+  <ul>
+    {{#each modules}}
+      <li>
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+      </li>
+    {{/each}}
+  </ul>
 {{/if}} 
 
 {{> sidebar}}
