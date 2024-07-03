@@ -3,7 +3,7 @@ import { BookletModel } from '../models/booklet.js'
 
 export class BookletController {
   /**
-   * Renderizar el página con todos los módulos
+   * Renderizar la página con todos los módulos
    */
   renderAllModules = async (req, res) => {
     const modules = await BookletModel.getAll()
