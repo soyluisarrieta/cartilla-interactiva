@@ -3,27 +3,13 @@
   description="Descripción de la página cartilla."
 }}
 
-<div style="display: none;">
-  <h1>Cartilla!</h1>
-{{#if moduleId}}
-  <h2>Módulo #{{moduleId}} seleccionado.</h2>
-{{else}}
-  <h2>Mostrar todos los módulos.</h2>
-  <ul>
-    {{#each modules}}
-      <li>
-        <h3>{{this.title}}</h3>
-        <p>{{this.description}}</p>
-      </li>
-    {{/each}}
-  </ul>
-{{/if}} 
-</div>
-
 <main>
   <div class="img-page">
-    <img class="full-screen-image" src="assets/images/pages/modules.jpg">
+    <img class="full-screen-image" src="/assets/images/pages/modules.jpg">
     <div class="buttons-modules">
+      {{#each modules}}
+        <a href="cartilla/modulo-{{_id}}" title="{{this.title}}: {{this.description}}"></a>
+      {{/each}}
     </div>
   </div>
 </main>

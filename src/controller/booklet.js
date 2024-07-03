@@ -17,7 +17,7 @@ export class BookletController {
     const moduleId = parseInt(req.params.id, 10)
 
     !isNaN(moduleId) && moduleId >= 1 && moduleId <= NUMBER_BOOKLET_MODULES
-      ? res.render('booklet', { moduleId })
+      ? res.render('page', { moduleId })
       : res.status(404).render('404')
   }
 }
