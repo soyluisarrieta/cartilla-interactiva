@@ -1,0 +1,86 @@
+:root {
+  /* Tema 👉 https://ui.jln.dev/ */
+  --background: 225 40% 96.08%;
+  --foreground: 229 63% 4%;
+  --muted: 229 12% 86%;
+  --muted-foreground: 229 10% 37%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 229 63% 3%;
+  --card: 240 100% 99.8%;
+  --card-foreground: 229 63% 3%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --primary: 229 100% 62%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 229 20% 90%;
+  --secondary-foreground: 229 20% 30%;
+  --accent: 229 28% 85%;
+  --accent-foreground: 229 28% 25%;
+  --destructive: 0 94.26% 59.02%;
+  --destructive-foreground: 3 0% 100%;
+  --ring: 229 100% 62%;
+  --radius: 0.5rem;
+
+  /* Colores informativos */
+  --info: 188, 78%, 41%;
+  --info-foreground: 0 0% 100%;
+  --success: 134, 61%, 41%;
+  --success-foreground: 0 0% 100%;
+  --warning: 45, 100%, 51%;
+  --warning-foreground: 0 0% 100%;
+  --danger: 0 94.26% 59.02%;
+  --danger-foreground: 3 0% 100%;
+
+  /* Texto */
+  --font-family-base: Lato;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Espaciado */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --border-radius-base: 0.5rem;
+  --border-radius-lg: 0.7rem;
+  --border-radius-xl: 1rem;
+
+  /* Z-index */
+  --z-index-dropdown: 1000;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-navbar: 1060;
+
+  /* Otros */
+  --transition-duration: 0.3s;
+}
+
+.dark {
+  --background: 229 41% 4%;
+  --foreground: 229 23% 99%;
+  --muted: 229 12% 14%;
+  --muted-foreground: 229 10% 63%;
+  --popover: 229 41% 5%;
+  --popover-foreground: 0 0% 100%;
+  --card: 229 41% 5%;
+  --card-foreground: 0 0% 100%;
+  --border: 215 27.9% 16.9%;
+  --input: 215 27.9% 16.9%;
+  --primary: 229 100% 62%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 229 14% 8%;
+  --secondary-foreground: 229 14% 68%;
+  --accent: 229 23% 17%;
+  --accent-foreground: 229 23% 77%;
+  --destructive: 3 89% 54%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 229 100% 62%;
+}
