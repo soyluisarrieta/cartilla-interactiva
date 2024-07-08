@@ -1,32 +1,32 @@
 {{#section "head"}}
-{{> page-info
-title="Cartilla interactiva | SENNOVA"
-description="Descripción de la página de inicio."
-}}
+  {{> page-info
+  title="Cartilla interactiva | SENNOVA"
+  description="Descripción de la página de inicio."
+  }}
 
-<link rel="stylesheet" href="/assets/lib/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/assets/lib/swiper/swiper-bundle.min.css">
 
-<style>
-   .nav-buttons {
-    position: fixed;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-   }
+  <style>
+    .nav-buttons {
+      position: fixed;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
 
-  .nav-buttons button, .nav-buttons a {
-    width: 8rem;
-    height: 8rem;
-    z-index: 10;
-    border-radius: 50%;
-    border: solid rgb(255 0 0 / 50%);
-    background-color: rgb(255 0 0 / 30%);
-  }
-</style>
+    .nav-buttons button, .nav-buttons a {
+      width: 8rem;
+      height: 8rem;
+      z-index: 10;
+      border-radius: 50%;
+      border: solid rgb(255 0 0 / 50%);
+      background-color: rgb(255 0 0 / 30%);
+    }
+  </style>
 {{/section}}
 
 <main>
@@ -57,9 +57,9 @@ description="Descripción de la página de inicio."
 
   <!-- Add Navigation -->
   <div class="nav-buttons">
-    <button class="button-next"></button>
-    <a href=".." class="button-home"></a>
     <button class="button-prev"></button>
+    <a href="/cartilla" class="button-home"></a>
+    <button class="button-next"></button>
   </div>
 </div>
 </main>
