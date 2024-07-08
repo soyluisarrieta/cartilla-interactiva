@@ -54,3 +54,34 @@ main {
     aspect-ratio: 1;
   }
 }
+
+footer {
+  position: fixed;
+  bottom: 2rem;
+  z-index: 10;
+  background-color: rgb(255 255 255 / 70%);
+  backdrop-filter: blur(13px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+  padding: 1rem;
+  border-radius: 1rem;
+
+  .logos img {
+    width: auto;
+    height: 8rem;
+    object-fit: contain;
+    padding: 1rem;
+  }
+}
+
+footer.align-right, footer.align- {
+  right: 10rem;
+}
+
+footer.align-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+footer.align-left {
+  left: 10rem;
+}
