@@ -1,8 +1,23 @@
-{{> page-info
-  title="Cartilla"
-  description="Descripción de la página cartilla."
-}}
+{{#section "head"}}
+  {{> page-info
+  title="Cartilla interactiva | SENNOVA"
+  description="Descripción de la página de inicio."
+  }}
 
+  <style>
+    .button-home {
+      width: 10rem;
+      height: 10rem;
+      position: fixed;
+      top: 3rem;
+      left: 3rem;
+      z-index: 10;
+      border: solid rgb(255 0 0 / 70%);
+      background-color: rgb(255 0 0 / 50%);
+      border-radius: 50%;
+    }
+  </style>
+{{/section}}
 <main>
   <div class="img-page">
     <img class="full-screen-image" src="/assets/images/pages/modules.jpg">
@@ -12,4 +27,6 @@
       {{/each}}
     </div>
   </div>
+  
+  <a href="/" class="button-home"></a>
 </main>
