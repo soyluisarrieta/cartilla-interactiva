@@ -12,21 +12,21 @@ description="Descripción de la página de inicio."
   <section id="nav-buttons">
     {{> button 
       id="btn-cartilla-interactiva"
-      href="#1" 
+      href="/cartilla" 
       label="Cartilla interactiva" 
       gradient-from="#52c1d4" 
       gradient-to="#5063a8" 
     }}
     {{> button 
       id="btn-videos-de-calentamiento" 
-      href="#1" 
+      href="/calentamiento" 
       label="Videos de calentamiento" 
       gradient-from="#9E53D2" 
       gradient-to="#6C53D3" 
     }}
     {{> button 
       id="btn-zona-de-juegos" 
-      href="#1" 
+      href="/zona-de-juegos" 
       label="Zona de juegos" 
       gradient-from="#D3D156" 
       gradient-to="#57AC4E" 
@@ -43,13 +43,17 @@ description="Descripción de la página de inicio."
     background-image: url('/assets/images/pages/main-bg.jpg');
     background-position: center;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   #booklet-title {
     width: 100%;
     min-width: 40rem;
     max-width: 100rem;
-    padding: 10rem 2rem 0rem;
+    padding: 0rem 2rem;
     margin: 0 auto;
 
     img {
