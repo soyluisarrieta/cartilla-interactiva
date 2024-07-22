@@ -9,6 +9,7 @@ main {
   object-fit: fill;
 }
 
+/* Botón con degradado */
 .btn {
   width: auto;
   height: 14rem;
@@ -40,6 +41,26 @@ main {
 
 a.btn:hover {
   transform: scale(1.03);
+  filter: saturate(170%);
+}
+
+/* Botón ir atrás  */
+a.back-btn {
+  width: 20rem;
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  display: inline-block;
+  transition: 100ms;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.back-btn:hover {
+  transform: translateX(-0.4rem);
   filter: saturate(170%);
 }
 
