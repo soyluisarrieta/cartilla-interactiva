@@ -1,16 +1,97 @@
 {{#section "head"}}
-  {{> page-info
-    title="Cartilla interactiva | SENNOVA"
-    description="Descripción de la página de inicio."
-  }}
+{{> page-info
+  title="Cartilla interactiva | SENNOVA"
+}}
 {{/section}}
 
 <main>
-  <div class="img-page">
-    <img class="full-screen-image" src="assets/images/pages/panel-admin.jpg">
-    <div class="buttons-warm-up">
-    </div>
+  <a class="back-btn" href="/">
+    <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
+  </a>
+  
+  <div id="warm-up-title" class="static-content">
+    <img src="/assets/images/pages/modules-title.png" alt="Videos de calentamiento" />
   </div>
+
+  <div id="warm-up-videos">
+  <video onclick="playFullscreenVideo(1)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/01-cabeza.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(2)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/02-hombros.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(3)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/03-cintura.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(4)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/03-cintura.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(5)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/04-manos.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(6)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/05-mascara-facial.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(7)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/06-vocal-resonador-labios.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(8)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/07-vocal-resonador-garganta.mp4">
+  </video>
+  <video onclick="playFullscreenVideo(9)" preload="metadata" controls poster="/assets/images/thumbnails/warm-up/01-thumbnail.png">
+    <source type="video/mp4" src="/assets/videos/warm-up/08-vocal-respiracion.mp4">
+  </video>
 </main>
 
 {{> footer}}
+
+{{#section "style"}}
+<style>
+  main {
+    width: 100%;
+    background-image: url('/assets/images/pages/main-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0 10rem;
+  }
+
+  #warm-up-title {
+    width: 100%;
+    min-width: 40rem;
+    max-width: 60rem;
+    padding: 7rem 2rem 2rem;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  #warm-up-videos {
+    max-width: 130rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+
+    video {
+      width: 100%;
+      cursor: pointer;
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: 200ms;
+    }
+
+    video:hover {
+      transform: scale(1.03) translateY(-0.5rem);
+      box-shadow: 0 7px 12px rgba(0,0,0,0.4);
+    }
+
+  }
+</style>
+{{/section}}
