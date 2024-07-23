@@ -9,16 +9,14 @@
     <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
   </a>
   
-  <div id="modules-title">
+  <div id="modules-title" class="static-content">
     <img src="/assets/images/pages/modules-title.png" alt="Módulos de la cartilla" />
   </div>
 
   <div id="nav-modules">
-    <a href="/cartilla/modulo-1"><img src="/assets/images/modules/mod-1.png" alt="Módulo #1" /></a>
-    <a href="/cartilla/modulo-2"><img src="/assets/images/modules/mod-2.png" alt="Módulo #2" /></a>
-    <a href="/cartilla/modulo-3"><img src="/assets/images/modules/mod-3.png" alt="Módulo #3" /></a>
-    <a href="/cartilla/modulo-4"><img src="/assets/images/modules/mod-4.png" alt="Módulo #4" /></a>
-    <a href="/cartilla/modulo-5"><img src="/assets/images/modules/mod-5.png" alt="Módulo #5" /></a>
+    {{#each modules}}
+        <a href="/cartilla/modulo-{{_id}}"><img src="/assets/images/modules/mod-{{_id}}.png" alt="{{this.title}}" title="{{this.description}}" /></a>
+      {{/each}}
   </div>
 </main>
 
