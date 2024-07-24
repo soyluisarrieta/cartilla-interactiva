@@ -7,7 +7,7 @@ export default function mainRouter () {
   router.get('/', (req, res) => res.render('home'))
   router.use('/cartilla', bookletRoutes())
   router.get('/calentamiento', (req, res) => res.render('warm-up'))
-  router.get('/zona-juegos', (req, res) => res.render('game-zone'))
+  router.get('/zona-de-juegos', (req, res) => res.render('game-zone'))
 
   // Middleware para manejar errores 404
   router.use((req, res, next) => {
