@@ -39,6 +39,12 @@
     "standard": "17.1.0"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "standard",
+    "rules": {
+      "import/no-absolute-path": "off"
+    },
+    "globals": {
+      "Phaser": "readonly"
+    }
   }
 }
