@@ -1,19 +1,16 @@
+<style>
+  body {
+    background-image: url(/assets/games/resources/pattern_bg.png);
+    background-repeat: repeat;
+  } 
+</style>
 <script type="module">
     import BootScene from '/scripts/scenes/BootScene.js';
-    import GameScene from '/scripts/scenes/GameScene.js';
+    import MenuScene from '/scripts/scenes/MenuScene.js';
+    import gameOptions from '/scripts/gameOptions.js'
 
-    const config = {
-        type: Phaser.AUTO,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        scene: [BootScene, GameScene],
-        resize: true
-    };
-
-    const game = new Phaser.Game(config);
-
-    // Ajusta el tamaño del juego al cambiar el tamaño de la ventana
-    window.addEventListener('resize', () => {
-        game.scale.resize(window.innerWidth, window.innerHeight);
+    const game = new Phaser.Game({
+      ...gameOptions,
+      scene: [BootScene, MenuScene],
     });
 </script>
