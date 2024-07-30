@@ -15,7 +15,7 @@ export default function webRouter () {
 
   // Zona de juegos
   router.get('/zona-de-juegos', (req, res) => res.render('game-zone'))
-  router.get('/zona-de-juegos/la-figura-negra', (req, res) => res.render('games/g1-quarter-note'))
+  router.get('/zona-de-juegos/la-figura-negra', (req, res) => res.render('games/g1-quarter-note', { layout: 'game' }))
 
   // Middleware: para manejar errores 404
   router.use((req, res, next) => {
