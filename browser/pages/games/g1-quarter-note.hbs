@@ -1,13 +1,19 @@
 <script type="module">
-  import BootScene from '/scripts/scenes/BootScene.js';
-  import GameScene from '/scripts/scenes/GameScene.js';
+    import BootScene from '/scripts/scenes/BootScene.js';
+    import GameScene from '/scripts/scenes/GameScene.js';
 
-  const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    scene: [BootScene, GameScene],
-  };
+    const config = {
+        type: Phaser.AUTO,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scene: [BootScene, GameScene],
+        resize: true
+    };
 
-  const game = new Phaser.Game(config);
+    const game = new Phaser.Game(config);
+
+    // Ajusta el tamaño del juego al cambiar el tamaño de la ventana
+    window.addEventListener('resize', () => {
+        game.scale.resize(window.innerWidth, window.innerHeight);
+    });
 </script>
