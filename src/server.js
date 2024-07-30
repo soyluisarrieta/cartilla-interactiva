@@ -5,7 +5,7 @@ import { Server } from 'socket.io'
 import { SRC_FOLDER, PORT } from './constants.js'
 import { getLocalIpAddress } from './utils/getLocalIpAddress.js'
 import { hbs } from './lib/handlebars/helper.js'
-import mainRouter from './routes/main.js'
+import webRouter from './routes/web.js'
 
 // Función para iniciar el servidor
 export function startServer () {
@@ -25,7 +25,7 @@ export function startServer () {
   app.use(express.static(browserPath))
 
   // Router
-  app.use(mainRouter())
+  app.use(webRouter())
 
   // Crear servidor HTTP con Express app
   const httpServer = http.createServer(app)
