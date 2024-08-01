@@ -5,6 +5,10 @@ class BootScene extends Phaser.Scene {
 
   preload () {
     this.load.image('logos', '/assets/games/resources/logos.png')
+
+    // Cargar fuente
+    this.load.setPath('/assets/games/fonts/')
+    this.load.bitmapFont('primaryFont', 'examplefont.png', 'examplefont.fnt')
   }
 
   create () {
