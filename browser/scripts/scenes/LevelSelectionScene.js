@@ -9,6 +9,7 @@ class LevelSelectionScene extends Phaser.Scene {
 
   create () {
     // Mostrar los niveles
+    this.add.bitmapText(10, 10, 'primaryFont', 'Lorem ipsum\ndolor sit amet')
   }
 }
 

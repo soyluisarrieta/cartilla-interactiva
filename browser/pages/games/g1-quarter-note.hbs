@@ -5,12 +5,13 @@
   } 
 </style>
 <script type="module">
+    import gameOptions from '/scripts/gameOptions.js'
     import BootScene from '/scripts/scenes/BootScene.js';
     import MenuScene from '/scripts/scenes/MenuScene.js';
-    import gameOptions from '/scripts/gameOptions.js'
+    import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
 
     const game = new Phaser.Game({
       ...gameOptions,
-      scene: [BootScene, MenuScene],
+      scene: [BootScene, MenuScene, LevelSelectionScene],
     });
 </script>
