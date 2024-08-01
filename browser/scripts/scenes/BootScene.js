@@ -4,30 +4,24 @@ class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('logos', '/assets/games/resources/logos.png')
+    // Cargar recursos
+    this.load.setPath('/assets/games/')
+    this.load.image('logos', 'resources/logos.png')
+    this.load.image('background', 'game-1/bg-menu.jpg')
 
-    // Cargar fuente
+    // Cargar fuentes
     this.load.setPath('/assets/games/fonts/')
     this.load.bitmapFont('primaryFont', 'examplefont.png', 'examplefont.fnt')
+
+    // Cargar UI
+    this.load.setPath('/assets/games/ui/')
+    this.load.atlas('uiMainMenu', 'main-menu.png', 'main-menu.json')
+    this.load.atlas('uiLvlSelection', 'level-selection.png', 'level-selection.json')
   }
 
   create () {
-    // Crear el logo en el centro de la pantalla
+    // Mostrar logos
     const logo = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'logos')
-
-    // Ajustar el tamaño del logo para que se adapte al canvas
-    const canvasWidth = this.cameras.main.width
-    const canvasHeight = this.cameras.main.height
-
-    // Calcular el tamaño máximo para mantener el aspecto del logo
-    const logoAspectRatio = logo.displayWidth / logo.displayHeight
-    const canvasAspectRatio = canvasWidth / canvasHeight
-
-    if (logoAspectRatio > canvasAspectRatio) {
-      logo.setDisplaySize(canvasWidth * 0.8, canvasWidth * 0.8 / logoAspectRatio)
-    } else {
-      logo.setDisplaySize(canvasHeight * 0.4 * logoAspectRatio, canvasHeight * 0.4)
-    }
 
     // Realizar el fade-in y escala, luego el fade-out y escala
     this.tweens.add({

@@ -1,45 +1,33 @@
+import { addInteractions } from '/scripts/Utils.js'
+
 class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: 'MenuScene' })
   }
 
-  preload () {
-    this.load.image('background', '/assets/games/game-1/bg-menu.jpg')
-
-    this.load.setPath('/assets/games/')
-    this.load.atlas('assets', 'main-menu/ui.png', 'main-menu/ui.json')
-  }
-
   create () {
     const { width, height } = this.cameras.main
 
-    // Mostrar imagen de fondo
-    this.add.image(width / 2, height / 2, 'background')
+    // Imagen de fondo y Logo
+    this.add.image(0, 0, 'background')
+      .setOrigin(0)
       .setDisplaySize(width, height)
 
-    this.add.image(width / 2, 40, 'assets', 'logo')
+    this.add.image(width / 2, 40, 'uiMainMenu', 'logo')
       .setOrigin(0.5, 0)
       .setScale(1.6)
 
-    // Texturas del botón
-    const playButton = this.add.image(width / 2, height - 230, 'assets', 'button')
+    // Texturas e interacciónes del botón
+    const playButton = this.add.image(width / 2, height - 230, 'uiMainMenu', 'button')
       .setInteractive()
 
-    playButton.on('pointerout', () => {
-      playButton.setTexture('assets', 'button')
-    })
-
-    playButton.on('pointerover', () => {
-      playButton.setTexture('assets', 'button_hovered')
-    })
-
-    playButton.on('pointerdown', () => {
-      playButton.setTexture('assets', 'button_pressed')
-    })
-
-    playButton.on('pointerup', () => {
-      playButton.setTexture('assets', 'button')
-      this.scene.start('LevelSelectionScene')
+    addInteractions({
+      button: playButton,
+      key: 'uiMainMenu',
+      frame: 'button',
+      onClick: () => {
+        this.scene.start('LevelSelectionScene')
+      }
     })
   }
 }
