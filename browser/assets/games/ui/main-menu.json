@@ -31,7 +31,7 @@
           }
         },
         {
-          "filename": "button_hovered",
+          "filename": "button-hovered",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -73,7 +73,7 @@
           }
         },
         {
-          "filename": "button_pressed",
+          "filename": "button-pressed",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
