@@ -26,7 +26,11 @@ class MenuScene extends Phaser.Scene {
       key: 'uiMainMenu',
       frame: 'button',
       onClick: () => {
-        this.scene.start('LevelSelectionScene')
+        this.scene.start('LevelSelectionScene', {
+          levels: {
+            name: ['Nivel 1', 'Nivel 2']
+          }
+        })
       }
     })
   }
