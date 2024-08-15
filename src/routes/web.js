@@ -10,7 +10,7 @@ export default function webRouter () {
 
   // Cartilla
   const bookletController = new BookletController()
-  router.use('/cartilla', bookletController.renderAllModules)
+  router.get('/cartilla', bookletController.renderAllModules)
   router.get('/cartilla/modulo-:id', bookletController.renderModule)
 
   // Zona de juegos

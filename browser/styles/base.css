@@ -3,12 +3,6 @@ main {
   min-height: 100vh;
 }
 
-.full-screen-image {
-  width: 100vw;
-  height: 100vh;
-  object-fit: fill;
-}
-
 /* Botón con degradado */
 .btn {
   width: auto;

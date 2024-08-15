@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="images/favicons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+  <link rel="manifest" href="images/favicons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  {{> page-info
+    title=title
+    description=description
+  }}
+
+  {{{_sections.head}}}
+
+  <link rel="stylesheet" href="/styles/dist/main.css">
+  <link rel="stylesheet" href="/assets/lib/swiper/swiper-bundle.min.css">
+  
+  <style>
+    .swiper-container .swiper-slide {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+
+      > img {
+        max-width: 100vw;
+        height: 100vh;
+        display: block;
+        margin: 0 auto;
+        object-fit: contain;
+        object-position: top;
+      }
+
+      .swiper-content {
+        width: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: 200ms opacity;
+      }
+
+      .swiper-content.grid-activities {
+        display: flex;
+        justify-content: center;
+        gap: 1.3rem;
+        padding: 5rem;
+
+        > .activity-card {
+          width: 20%;
+          height: fit-content;
+          display: block;
+          margin-top: 10%;
+          font-size: 2rem;
+          font-weight: bold;
+          text-decoration: none;
+          position: relative;
+          border-radius: 2rem;
+          box-shadow: 0 0.5rem 1rem rgb(0  0 0 / 30%);
+          overflow: hidden;
+          transition: 150ms ease-in-out;
+
+          img {
+            width: 100%;
+            object-fit: cover;
+            aspect-ratio: 1;
+          }
+
+          span {
+            width: 100%;
+            background: rgb(0  0 0 / 40%);
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(0.3rem);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            padding: 2rem 1.3rem;
+            color: white;
+            text-shadow: 0 0 1rem rgba(0,0,0,0.3);
+          }
+        }
+
+        > .activity-card:hover {
+          transform: scale(1.04);
+        }
+      }
+    }
+
+    .nav-buttons {
+      position: fixed;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .nav-buttons button, .nav-buttons a {
+      width: 8rem;
+      height: 8rem;
+      z-index: 10;
+      border-radius: 50%;
+      border: solid rgb(255 0 0 / 50%);
+      background-color: rgb(255 0 0 / 30%);
+    }
+  </style>
+  
+  {{{_sections.style}}}
+</head>
+<body>
+  <main>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        {{{body}}}
+      </div>
+
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- Add Navigation -->
+      <div class="nav-buttons">
+        <button class="button-prev"></button>
+        <a href="/cartilla" class="button-home"></a>
+        <button class="button-next"></button>
+      </div>
+    </div>
+  </main>
+
+  <script src="/assets/lib/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper-container', {
+        loop: false,
+        effect: 'fade',
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.button-next',
+          prevEl: '.button-prev',
+        },
+      });
+    });
+
+    // Fijar proporción 16:9 en slides con contenidos
+    const slides = document.querySelectorAll('.swiper-content');
+
+    function setAspectRatio() {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      let width = viewportWidth;
+      let height = width * 9 / 16;
+
+      if (height > viewportHeight) {
+          height = viewportHeight;
+          width = height * 16 / 9;
+      }
+
+      slides.forEach(slide => {
+        slide.style.opacity = `1`;
+        slide.style.width = `${width}px`;
+        slide.style.height = `${height}px`;
+      });
+    }
+
+    slides.length && window.addEventListener('resize', setAspectRatio);
+    slides.length && window.addEventListener('load', setAspectRatio);
+  </script>
+</body>
+</html>
