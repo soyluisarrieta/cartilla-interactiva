@@ -109,22 +109,39 @@
 
     .nav-buttons {
       position: fixed;
-      bottom: 3rem;
+      bottom: 4rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 3rem;
+
+      button:first-child img {
+        transform: scale(-1.3) scaleY(-1) translateX(0.2rem);
+      }
     }
 
     .nav-buttons button, .nav-buttons a {
-      width: 8rem;
       height: 8rem;
-      z-index: 10;
-      border-radius: 50%;
-      border: solid rgb(255 0 0 / 50%);
-      background-color: rgb(255 0 0 / 30%);
+      position: relative;
+      z-index: -1;
+      transition: 150ms ease-in-out;
+
+      img {
+        height: 100%;
+        object-fit: contain;
+        transform: scale(1.3) translateY(0.2rem);
+        pointer-events: initial;
+      }
+    }
+    
+    .nav-buttons button:hover , .nav-buttons a:hover  {
+      transform: scale(1.05) translateY(-0.3rem);
+      filter: saturate(170%);
+    }
+    .nav-buttons button:active , .nav-buttons a:active  {
+        transform: scale(0.9);
     }
   </style>
   
@@ -142,9 +159,9 @@
 
       <!-- Add Navigation -->
       <div class="nav-buttons">
-        <button class="button-prev"></button>
-        <a href="/cartilla" class="button-home"></a>
-        <button class="button-next"></button>
+        <button class="button-prev"><img class="static-content" src="/assets/images/modules/btn-arrow.png" alt="" ></button>
+        <a href="/cartilla" class="button-home"><img class="static-content" src="/assets/images/modules/btn-home.png" alt="" ></a>
+        <button class="button-next"><img class="static-content" src="/assets/images/modules/btn-arrow.png" alt="" ></button>
       </div>
     </div>
   </main>
