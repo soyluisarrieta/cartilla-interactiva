@@ -80,7 +80,7 @@ class LevelSelectionScene extends Phaser.Scene {
         key: levels.image,
         frame: levels.frame,
         onClick: () => {
-          this.scene.start('GameScene', { level: i + 1 })
+          this.scene.start('InstructionsScene', { level: i + 1 })
         }
       })
 
