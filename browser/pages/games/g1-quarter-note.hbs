@@ -3,10 +3,11 @@
   import BootScene from '/scripts/scenes/BootScene.js';
   import MenuScene from '/scripts/scenes/MenuScene.js';
   import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
+  import InstructionsScene from '/scripts/scenes/InstructionsScene.js';
   import GameScene from '/scripts/scenes/GameScene.js';
 
   const game = new Phaser.Game({
     ...gameOptions,
-    scene: [BootScene, MenuScene, LevelSelectionScene, GameScene],
+    scene: [BootScene, MenuScene, LevelSelectionScene, InstructionsScene, GameScene],
   });
 </script>
