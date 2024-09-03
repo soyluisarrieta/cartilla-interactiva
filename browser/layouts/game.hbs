@@ -33,22 +33,29 @@
   <link rel="stylesheet" href="/styles/dist/main.css">
 
   <style>
-      html, body {
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          width: 100%;
-          height: 100%;
-      }
-      canvas {
-        border-radius: 1rem;
-      }
-      #game-container {
-        max-width: 96vw;
-        max-height: 96vh;
-        margin-left: 2vw;
-        margin-top: 2vh;
-      }
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+    
+    body {
+      background-image: url(/assets/games/resources/pattern_bg.png);
+      background-repeat: repeat;
+    } 
+
+    canvas {
+      border-radius: 1rem;
+    }
+    
+    #game-container {
+      max-width: 96vw;
+      max-height: 96vh;
+      margin-left: 2vw;
+      margin-top: 2vh;
+    }
   </style>
   
   {{{_sections.style}}}

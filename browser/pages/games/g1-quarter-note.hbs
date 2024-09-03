@@ -1,17 +1,12 @@
-<style>
-  body {
-    background-image: url(/assets/games/resources/pattern_bg.png);
-    background-repeat: repeat;
-  } 
-</style>
 <script type="module">
-    import gameOptions from '/scripts/gameOptions.js'
-    import BootScene from '/scripts/scenes/BootScene.js';
-    import MenuScene from '/scripts/scenes/MenuScene.js';
-    import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
+  import gameOptions from '/scripts/gameOptions.js'
+  import BootScene from '/scripts/scenes/BootScene.js';
+  import MenuScene from '/scripts/scenes/MenuScene.js';
+  import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
+  import GameScene from '/scripts/scenes/GameScene.js';
 
-    const game = new Phaser.Game({
-      ...gameOptions,
-      scene: [BootScene, MenuScene, LevelSelectionScene],
-    });
+  const game = new Phaser.Game({
+    ...gameOptions,
+    scene: [BootScene, MenuScene, LevelSelectionScene, GameScene],
+  });
 </script>
