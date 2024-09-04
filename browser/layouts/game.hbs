@@ -45,23 +45,26 @@
       background-image: url(/assets/games/resources/pattern_bg.png);
       background-repeat: repeat;
     } 
-
-    canvas {
-      border-radius: 1rem;
-    }
     
     #game-container {
       max-width: 96vw;
       max-height: 96vh;
       margin-left: 2vw;
       margin-top: 2vh;
+
+      canvas {
+        border-radius: 1rem;
+        border: solid 3px rgba(0, 0, 0, 0.1);
+      }
     }
   </style>
   
   {{{_sections.style}}}
 </head>
 <body>
-  <div id="game-container"></div>
+  <div id="game-container">
+    {{!-- CANVAS --}}
+  </div>
   <script src="/assets/lib/phaser/phaser.min.js"></script>
   {{{body}}}
 </body>
