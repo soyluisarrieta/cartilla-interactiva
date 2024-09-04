@@ -3,22 +3,23 @@ import { addInteractions } from '/scripts/Utils.js'
 class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: 'MenuScene' })
+    this.settings = window.gameSettings
   }
 
   create () {
-    const { width, height } = this.cameras.main
+    const { width: widthScreen, height: heightScreen } = this.cameras.main
 
     // Imagen de fondo y Logo
     this.add.image(0, 0, 'background')
       .setOrigin(0)
-      .setDisplaySize(width, height)
+      .setDisplaySize(widthScreen, heightScreen)
 
-    this.add.image(width / 2, 70, 'logo')
+    this.add.image(widthScreen / 2, 70, 'logo')
       .setOrigin(0.5, 0)
       .setScale(1.1)
 
     // Texturas e interacciónes del botón
-    const playButton = this.add.image(width / 2, height - 230, 'uiMainMenu', 'button')
+    const playButton = this.add.image(widthScreen / 2, heightScreen - 230, 'uiMainMenu', 'button')
       .setInteractive()
 
     addInteractions({
@@ -27,9 +28,7 @@ class MenuScene extends Phaser.Scene {
       frame: 'button',
       onClick: () => {
         this.scene.start('LevelSelectionScene', {
-          levels: {
-            name: ['Nivel 1', 'Nivel 2']
-          }
+          levels: this.settings.levels
         })
       }
     })
