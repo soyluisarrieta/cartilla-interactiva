@@ -3,14 +3,12 @@
   import BootScene from '/scripts/scenes/BootScene.js';
   import MenuScene from '/scripts/scenes/MenuScene.js';
   import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
-  import InstructionsScene from '/scripts/scenes/InstructionsScene.js';
-  import GameScene from '/scripts/scenes/GameScene.js';
+  import { InstructionsScene, GameScene } from '/scripts/scenes/g1-quarter-note/index.js';
 
   window.gameSettings = {
     key: 'g1-quarter-note',
     background: '/bg-menu.jpg',
     levels: [{ title: 'Nivel 1' },{ title: 'Nivel 2'}],
-    margin: 100,
   }
 
   new Phaser.Game({

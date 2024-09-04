@@ -1,21 +1,14 @@
-import { mergeObjects, addInteractions } from '/scripts/Utils.js'
+import { addInteractions } from '/scripts/Utils.js'
 
 class InstructionsScene extends Phaser.Scene {
   constructor () {
     super({ key: 'InstructionsScene' })
-
-    // Configuración predeterminada
-    this.config = {
-      level: 1
-    }
-  }
-
-  init (data) {
-    this.config = mergeObjects(this.config, data)
+    this.settings = window.gameSettings
   }
 
   create () {
     const { width: widthScreen, height: heightScreen } = this.cameras.main
+    const levelSelected = this.settings.levelSelected
 
     // Botón de ir atrás
     const btnBack = this.add.image(widthScreen / 2 - 100, heightScreen - 100, 'uiLvlSelection', 'btn-arrow')
@@ -31,9 +24,7 @@ class InstructionsScene extends Phaser.Scene {
       frame: 'btn-arrow',
       onClick: () => {
         this.scene.start('LevelSelectionScene', {
-          levels: {
-            name: ['Nivel 1', 'Nivel 3']
-          }
+          levels: this.settings.levels
         })
       }
     })
@@ -64,12 +55,12 @@ class InstructionsScene extends Phaser.Scene {
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
-        this.scene.start('GameScene', this.config)
+        this.scene.start('GameScene', levelSelected)
       }
     })
 
     // Crear el contenido del juego aquí
-    this.add.bitmapText(widthScreen / 2, 100, 'primaryFont', `Instrucciones del juego #${this.config.level}`)
+    this.add.bitmapText(widthScreen / 2, 100, 'primaryFont', `Instrucciones del juego #${levelSelected}`)
       .setOrigin(0.5, 0)
   }
 }

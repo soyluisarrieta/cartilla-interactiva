@@ -1,13 +1,9 @@
-import { addInteractions, mergeObjects } from '/scripts/Utils.js'
+import { addInteractions } from '/scripts/Utils.js'
 
 class LevelSelectionScene extends Phaser.Scene {
   constructor () {
     super({ key: 'LevelSelectionScene' })
     this.settings = window.gameSettings
-  }
-
-  init (data) {
-    this.config = mergeObjects(this.config, data)
   }
 
   create () {
@@ -50,7 +46,8 @@ class LevelSelectionScene extends Phaser.Scene {
         key: 'uiLvlSelection',
         frame: 'btn-arrow',
         onClick: () => {
-          this.scene.start('InstructionsScene', { levelSelected: i })
+          window.gameSettings.levelSelected = i + 1
+          this.scene.start('InstructionsScene')
         }
       })
 
