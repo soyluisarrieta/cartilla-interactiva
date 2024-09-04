@@ -1,17 +1,14 @@
-import { mergeObjects, addInteractions } from '/scripts/Utils.js'
+import { addInteractions } from '/scripts/Utils.js'
 
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
-
-    // Configuración predeterminada
-    this.config = {
-      level: 1
-    }
+    this.levelSelected = 1
+    this.settings = window.gameSettings
   }
 
-  init (data) {
-    this.config = mergeObjects(this.config, data)
+  init (levelSelected) {
+    this.levelSelected = levelSelected
   }
 
   create () {
@@ -31,15 +28,15 @@ class GameScene extends Phaser.Scene {
       frame: 'btn-arrow',
       onClick: () => {
         this.scene.start('LevelSelectionScene', {
-          levels: {
-            name: ['Nivel 1', 'Nivel 3']
-          }
+          levels: this.settings.levels
         })
       }
     })
 
+    console.log(this.levelSelected)
+
     // Crear el contenido del juego aquí
-    this.add.bitmapText(widthScreen / 2, 100, 'primaryFont', `Jugando el juego #${this.config.level}`)
+    this.add.bitmapText(widthScreen / 2, 100, 'primaryFont', `Jugando el juego #${this.levelSelected}`)
       .setOrigin(0.5, 0)
   }
 }
