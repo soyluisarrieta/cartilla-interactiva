@@ -13,9 +13,9 @@ class MenuScene extends Phaser.Scene {
       .setOrigin(0)
       .setDisplaySize(width, height)
 
-    this.add.image(width / 2, 40, 'uiMainMenu', 'logo')
+    this.add.image(width / 2, 70, 'logo')
       .setOrigin(0.5, 0)
-      .setScale(1.6)
+      .setScale(1.1)
 
     // Texturas e interacciónes del botón
     const playButton = this.add.image(width / 2, height - 230, 'uiMainMenu', 'button')

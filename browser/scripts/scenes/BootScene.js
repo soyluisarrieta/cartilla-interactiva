@@ -38,6 +38,7 @@ class BootScene extends Phaser.Scene {
     this.load.setPath('/assets/games')
     this.load.image('logos', '/resources/logos.png')
     this.load.image('background', `/${this.settings.key}/${this.settings.background}`)
+    this.load.image('logo', `/${this.settings.key}/logo.png`)
 
     // Cargar fuentes
     this.load.setPath('/assets/games/fonts')
