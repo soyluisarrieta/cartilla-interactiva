@@ -4,24 +4,15 @@ class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
-    this.levels = [
-      {
-        maxSlots: 4,
-        noteTypes: ['crotchet', 'crotchet-rest']
-      },
-      {
-        maxSlots: 4,
-        noteTypes: ['crotchet', 'crotchet-rest', 'crotchet', 'crotchet-rest']
-      }
-    ]
   }
 
   init (selectedLevel) {
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
+
     this.config = {
       slots: [],
-      ...this.levels[selectedLevel - 1]
+      ...this.settings.levels[selectedLevel - 1]
     }
   }
 
@@ -104,12 +95,12 @@ class GameScene extends Phaser.Scene {
   // Renderizar los botones para seleccionar notas
   renderNoteButtons () {
     const layout = { gap: 70, marginTop: 800 }
-    const { noteTypes } = this.config
-    const totalWidth = noteTypes.length * layout.gap + (noteTypes.length - 1) * 100
+    const { figures } = this.config
+    const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
     const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
-    noteTypes.forEach((note, index) => {
+    figures.forEach((note, index) => {
       const noteButton = this.add.image(position.x, position.y, note)
         .setScale(0.7)
         .setOrigin(0.5)
