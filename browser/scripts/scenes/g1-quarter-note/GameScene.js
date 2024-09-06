@@ -3,31 +3,39 @@ import { addInteractions } from '/scripts/Utils.js'
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
-    this.levelSelected = 1
+    this.selectedLevel = 1
     this.settings = window.gameSettings
     this.config = {
       slots: [],
-      totalSlots: 4,
-      notes: ['crotchet', 'crotchet-rest']
+      maxSlots: 4,
+      noteTypes: ['crotchet', 'crotchet-rest']
     }
   }
 
-  init (levelSelected) {
-    this.levelSelected = levelSelected
+  init (selectedLevel) {
+    this.selectedLevel = selectedLevel
     this.screen = this.cameras.main
   }
 
   create () {
-    // Botón de ir atrás
-    const btnBack = this.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
+    this.createBackButton()
+    this.displayLevelInfo()
+    this.renderSlots()
+    this.renderNoteButtons()
+    this.selectSlot(this.config.slots[0])
+  }
+
+  // Crear botón para regresar a la selección de niveles
+  createBackButton () {
+    const backButton = this.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
       .setScale(1.5)
       .setOrigin(0.5)
       .setInteractive()
 
-    btnBack.flipX = true
+    backButton.flipX = true
 
     addInteractions({
-      button: btnBack,
+      button: backButton,
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
@@ -36,95 +44,88 @@ class GameScene extends Phaser.Scene {
         })
       }
     })
-
-    // Crear el contenido del juego aquí
-    this.add.bitmapText(this.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.levelSelected}`)
-      .setOrigin(0.5, 0)
-
-    // UI
-    this.drawSlots()
-    this.drawBtnNotes()
-
-    // Autoseleccionar la primer casilla para iniciar
-    this.selectSlot(this.config.slots[0])
   }
 
-  // Dibujar casillas de notas
-  drawSlots () {
-    const style = { gap: 120, marginTop: 400 }
-    const totalSlots = this.config.totalSlots
-    const totalWidth = totalSlots * style.gap + (totalSlots - 1) * 100
-    const startX = (this.screen.width - totalWidth) / 2 + style.gap / 2
-    const position = { x: startX, y: style.marginTop }
+  // Mostrar la información del nivel actual
+  displayLevelInfo () {
+    this.add.bitmapText(this.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.selectedLevel}`)
+      .setOrigin(0.5, 0)
+  }
 
-    for (let i = 0; i < totalSlots; i++) {
+  // Renderizar los espacios para las notas
+  renderSlots () {
+    const layout = { gap: 120, marginTop: 400 }
+    const { maxSlots } = this.config
+    const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100
+    const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
+    const position = { x: startX, y: layout.marginTop }
+
+    for (let i = 0; i < maxSlots; i++) {
       const slot = this.add.image(position.x, position.y, 'slot')
-        .setOrigin(0.5, 0.5)
+        .setOrigin(0.5)
         .setInteractive()
 
-      position.x += style.gap + 100
+      position.x += layout.gap + 100
 
-      // Propiedades de slot
-      const indexItem = this.config.slots.push({
+      const slotIndex = this.config.slots.push({
         element: slot,
         note: null,
         isSelected: false
       }) - 1
 
-      // Selección de slot
-      slot.on('pointerdown', () => {
-        const slotSelected = this.config.slots[indexItem]
-        if (slotSelected.isSelected) { return null }
-        this.selectSlot(slotSelected)
-      })
+      slot.on('pointerdown', () => this.handleSlotSelection(slotIndex))
     }
   }
 
-  selectSlot (slotSelected) {
+  handleSlotSelection (slotIndex) {
+    const selectedSlot = this.config.slots[slotIndex]
+    if (selectedSlot.isSelected) return
+    this.selectSlot(selectedSlot)
+  }
+
+  selectSlot (slotToSelect) {
     this.config.slots.forEach(slot => {
       slot.element.setScale(1)
       slot.isSelected = false
     })
 
-    slotSelected.element.setScale(1.2)
-    slotSelected.isSelected = true
+    slotToSelect.element.setScale(1.2)
+    slotToSelect.isSelected = true
   }
 
-  // Dibutar botones de notas
-  drawBtnNotes () {
-    const style = { gap: 70, marginTop: 800 }
-    const totalButtons = this.config.notes.length
-    const totalWidth = totalButtons * style.gap + (totalButtons - 1) * 100
-    const startX = (this.screen.width - totalWidth) / 2 + style.gap / 2
-    const position = { x: startX, y: style.marginTop }
+  // Renderizar los botones para seleccionar notas
+  renderNoteButtons () {
+    const layout = { gap: 70, marginTop: 800 }
+    const { noteTypes } = this.config
+    const totalWidth = noteTypes.length * layout.gap + (noteTypes.length - 1) * 100
+    const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
+    const position = { x: startX, y: layout.marginTop }
 
-    for (let i = 0; i < totalButtons; i++) {
-      const btnFigure = this.add.image(position.x, position.y, this.config.notes[i])
+    noteTypes.forEach((note, index) => {
+      const noteButton = this.add.image(position.x, position.y, note)
         .setScale(0.7)
-        .setOrigin(0.5, 0.5)
+        .setOrigin(0.5)
         .setInteractive()
 
-      position.x += style.gap + 100
+      position.x += layout.gap + 100
 
-      // Establecer nota en la casilla
-      btnFigure.on('pointerup', () => {
-        btnFigure.setScale(0.7)
-        const slotSelected = this.config.slots.find((slot) => slot.isSelected)
-        if (this.config.notes[i] === slotSelected.note) { return null }
+      noteButton.on('pointerdown', () => this.handleNoteSelection(noteButton, note, index))
+      noteButton.on('pointerup', () => noteButton.setScale(0.7))
+      noteButton.on('pointerout', () => noteButton.setScale(0.7))
+    })
+  }
 
-        slotSelected.note = this.config.notes[i]
-        slotSelected.element
-          .setTexture(this.config.notes[i])
+  handleNoteSelection (noteButton, noteType) {
+    noteButton.setScale(0.6)
 
-        // Autoseleccionar siguiente casilla vacía
-        const nextSlot = this.config.slots.find((slot) => slot.note === null) ?? slotSelected
-        this.selectSlot(nextSlot)
-      })
+    const selectedSlot = this.config.slots.find(slot => slot.isSelected)
+    if (!selectedSlot || selectedSlot.note === noteType) return
 
-      // Interacción de botón presionado
-      btnFigure.on('pointerdown', () => btnFigure.setScale(0.6))
-      btnFigure.on('pointerout', () => btnFigure.setScale(0.7))
-    }
+    selectedSlot.note = noteType
+    selectedSlot.element.setTexture(noteType)
+
+    const nextEmptySlot = this.config.slots.find(slot => slot.note === null) || selectedSlot
+    this.selectSlot(nextEmptySlot)
   }
 }
 
