@@ -1,36 +1,7 @@
-import { mergeObjects } from '/scripts/Utils.js'
-
 class BootScene extends Phaser.Scene {
   constructor () {
     super({ key: 'BootScene' })
-
-    // Configuración predeterminada
-    const defaultSettings = {
-      background: 'background',
-      title: {
-        frame: 'bg-title',
-        image: 'uiLvlSelection',
-        imagePositionY: 50,
-        text: 'Selecciona un nivel',
-        fontFamily: 'primaryFont',
-        textPositionY: 65
-      },
-      levels: {
-        name: ['Nivel 1'],
-        image: 'uiLvlSelection',
-        images: [],
-        frame: 'btn-arrow',
-        width: 200,
-        gap: 100,
-        textScale: 0.5,
-        fontFamily: 'primaryFont',
-        buttonScale: 2,
-        positionY: 400
-      },
-      homeButtonY: 230
-    }
-
-    this.settings = mergeObjects(defaultSettings, window.gameSettings)
+    this.settings = window.gameSettings
   }
 
   preload () {
@@ -39,6 +10,10 @@ class BootScene extends Phaser.Scene {
     this.load.image('logos', '/resources/logos.png')
     this.load.image('background', `/${this.settings.key}/${this.settings.background}`)
     this.load.image('logo', `/${this.settings.key}/logo.png`)
+    this.load.image('slot', `/${this.settings.key}/casilla-vacia.png`)
+
+    this.load.image('crotchet', `/${this.settings.key}/btn-crotchet.png`)
+    this.load.image('crotchet-rest', `/${this.settings.key}/btn-crotchet-rest.png`)
 
     // Cargar fuentes
     this.load.setPath('/assets/games/fonts')
