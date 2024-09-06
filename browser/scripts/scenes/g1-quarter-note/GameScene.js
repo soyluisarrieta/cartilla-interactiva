@@ -71,6 +71,7 @@ class GameScene extends Phaser.Scene {
       // Selección de slot
       slot.on('pointerdown', () => {
         const slotSelected = this.config.slots[indexItem]
+        if (slotSelected.isSelected) { return null }
 
         this.config.slots.forEach(slot => {
           slot.element.setScale(1)
@@ -102,6 +103,7 @@ class GameScene extends Phaser.Scene {
       // Establecer nota en la casilla
       btnFigure.on('pointerup', () => {
         const slotSelected = this.config.slots.find((slot) => slot.isSelected)
+        if (this.config.notes[i] === slotSelected.note) { return null }
 
         slotSelected.note = this.config.notes[i]
         slotSelected.element
