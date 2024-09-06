@@ -3,18 +3,26 @@ import { addInteractions } from '/scripts/Utils.js'
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
-    this.selectedLevel = 1
     this.settings = window.gameSettings
-    this.config = {
-      slots: [],
-      maxSlots: 4,
-      noteTypes: ['crotchet', 'crotchet-rest']
-    }
+    this.levels = [
+      {
+        maxSlots: 4,
+        noteTypes: ['crotchet', 'crotchet-rest']
+      },
+      {
+        maxSlots: 4,
+        noteTypes: ['crotchet', 'crotchet-rest', 'crotchet', 'crotchet-rest']
+      }
+    ]
   }
 
   init (selectedLevel) {
-    this.selectedLevel = selectedLevel
+    this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
+    this.config = {
+      slots: [],
+      ...this.levels[selectedLevel - 1]
+    }
   }
 
   create () {
