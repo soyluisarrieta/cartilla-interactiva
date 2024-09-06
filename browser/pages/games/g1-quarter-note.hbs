@@ -1,9 +1,5 @@
 <script type="module">
-  import gameOptions from '/scripts/gameOptions.js'
-  import BootScene from '/scripts/scenes/BootScene.js';
-  import MenuScene from '/scripts/scenes/MenuScene.js';
-  import LevelSelectionScene from '/scripts/scenes/LevelSelectionScene.js';
-  import { InstructionsScene, GameScene } from '/scripts/games/RhythmSlots/index.js';
+  import StartGame from '/scripts/games/RhythmSlots/index.js';
 
   window.gameSettings = {
     id: 'g1-quarter-note',
@@ -24,14 +20,5 @@
     }],
   }
 
-  new Phaser.Game({
-    ...gameOptions,
-    scene: [
-      BootScene,
-      MenuScene,
-      LevelSelectionScene,
-      InstructionsScene,
-      GameScene
-    ],
-  });
+  StartGame()
 </script>
