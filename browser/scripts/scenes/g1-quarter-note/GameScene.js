@@ -108,6 +108,7 @@ class GameScene extends Phaser.Scene {
 
       // Establecer nota en la casilla
       btnFigure.on('pointerup', () => {
+        btnFigure.setScale(0.7)
         const slotSelected = this.config.slots.find((slot) => slot.isSelected)
         if (this.config.notes[i] === slotSelected.note) { return null }
 
@@ -119,6 +120,10 @@ class GameScene extends Phaser.Scene {
         const nextSlot = this.config.slots.find((slot) => slot.note === null) ?? slotSelected
         this.selectSlot(nextSlot)
       })
+
+      // Interacción de botón presionado
+      btnFigure.on('pointerdown', () => btnFigure.setScale(0.6))
+      btnFigure.on('pointerout', () => btnFigure.setScale(0.7))
     }
   }
 }
