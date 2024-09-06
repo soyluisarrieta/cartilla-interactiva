@@ -53,9 +53,10 @@ class GameScene extends Phaser.Scene {
 
   // Renderizar los espacios para las notas
   renderSlots () {
-    const layout = { gap: 120, marginTop: 400 }
+    const layout = { gap: 30, marginTop: 500 }
     const { maxSlots } = this.config
-    const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100
+    const totalBeats = maxSlots / 4 - 1
+    const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
     const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
@@ -64,7 +65,9 @@ class GameScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setInteractive()
 
-      position.x += layout.gap + 100
+      // Separar por compaces de 4
+      const isOnTheBeat = (i + 1) % 4
+      position.x += layout.gap + (isOnTheBeat ? 100 : 150)
 
       const slotIndex = this.config.slots.push({
         element: slot,
@@ -84,17 +87,17 @@ class GameScene extends Phaser.Scene {
 
   selectSlot (slotToSelect) {
     this.config.slots.forEach(slot => {
-      slot.element.setScale(1)
+      slot.element.setScale(0.66)
       slot.isSelected = false
     })
 
-    slotToSelect.element.setScale(1.2)
+    slotToSelect.element.setScale(0.77)
     slotToSelect.isSelected = true
   }
 
   // Renderizar los botones para seleccionar notas
   renderNoteButtons () {
-    const layout = { gap: 70, marginTop: 800 }
+    const layout = { gap: 10, marginTop: 800 }
     const { figures } = this.config
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
     const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
@@ -102,20 +105,20 @@ class GameScene extends Phaser.Scene {
 
     figures.forEach((note, index) => {
       const noteButton = this.add.image(position.x, position.y, note)
-        .setScale(0.7)
+        .setScale(0.56)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
       noteButton.on('pointerdown', () => this.handleNoteSelection(noteButton, note, index))
-      noteButton.on('pointerup', () => noteButton.setScale(0.7))
-      noteButton.on('pointerout', () => noteButton.setScale(0.7))
+      noteButton.on('pointerup', () => noteButton.setScale(0.56))
+      noteButton.on('pointerout', () => noteButton.setScale(0.56))
     })
   }
 
   handleNoteSelection (noteButton, noteType) {
-    noteButton.setScale(0.6)
+    noteButton.setScale(0.51)
 
     const selectedSlot = this.config.slots.find(slot => slot.isSelected)
     if (!selectedSlot || selectedSlot.note === noteType) return
