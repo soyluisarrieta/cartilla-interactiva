@@ -5,31 +5,32 @@ class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    // Cargar recursos
+    const { key, background } = this.settings
+
+    // Cargar los recursos gráficos
     this.load.setPath('/assets/games')
     this.load.image('logos', '/resources/logos.png')
-    this.load.image('background', `/${this.settings.key}/${this.settings.background}`)
-    this.load.image('logo', `/${this.settings.key}/logo.png`)
-    this.load.image('slot', `/${this.settings.key}/casilla-vacia.png`)
+    this.load.image('background', `/${key}/${background}`)
+    this.load.image('logo', `/${key}/logo.png`)
+    this.load.image('slot', `/${key}/casilla-vacia.png`)
+    this.load.image('crotchet', `/${key}/btn-crotchet.png`)
+    this.load.image('crotchet-rest', `/${key}/btn-crotchet-rest.png`)
 
-    this.load.image('crotchet', `/${this.settings.key}/btn-crotchet.png`)
-    this.load.image('crotchet-rest', `/${this.settings.key}/btn-crotchet-rest.png`)
-
-    // Cargar fuentes
+    // Cargar las fuentes
     this.load.setPath('/assets/games/fonts')
     this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
 
-    // Cargar UI
+    // Cargar la interfaz de usuario (UI)
     this.load.setPath('/assets/games/ui')
     this.load.atlas('uiMainMenu', '/main-menu.png', '/main-menu.json')
     this.load.atlas('uiLvlSelection', '/level-selection.png', '/level-selection.json')
   }
 
+  // Mostrar los logos con la animación de fade-in y fade-out
   create () {
-    // Mostrar logos
-    const logo = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'logos')
+    const { centerX, centerY } = this.cameras.main
+    const logo = this.add.image(centerX, centerY, 'logos')
 
-    // Realizar el fade-in y escala, luego el fade-out y escala
     this.tweens.add({
       targets: logo,
       alpha: { from: 0, to: 1 },
@@ -38,16 +39,21 @@ class BootScene extends Phaser.Scene {
       ease: 'Power2',
       onComplete: () => {
         this.time.delayedCall(1500, () => {
-          this.tweens.add({
-            targets: logo,
-            alpha: 0,
-            duration: 300,
-            ease: 'Power2',
-            onComplete: () => {
-              this.scene.start('MenuScene')
-            }
-          })
+          this.fadeOutLogo(logo)
         })
+      }
+    })
+  }
+
+  // Animación de fade-out de los logo
+  fadeOutLogo (logo) {
+    this.tweens.add({
+      targets: logo,
+      alpha: 0,
+      duration: 300,
+      ease: 'Power2',
+      onComplete: () => {
+        this.scene.start('MenuScene')
       }
     })
   }

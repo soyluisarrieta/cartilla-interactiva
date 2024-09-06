@@ -46,7 +46,7 @@ class LevelSelectionScene extends Phaser.Scene {
         key: 'uiLvlSelection',
         frame: 'btn-arrow',
         onClick: () => {
-          window.gameSettings.levelSelected = i + 1
+          window.gameSettings.selectedLevel = i + 1
           this.scene.start('InstructionsScene')
         }
       })

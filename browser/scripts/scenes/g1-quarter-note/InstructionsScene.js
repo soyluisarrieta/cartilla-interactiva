@@ -7,19 +7,26 @@ class InstructionsScene extends Phaser.Scene {
   }
 
   create () {
-    const { width: widthScreen, height: heightScreen } = this.cameras.main
-    const levelSelected = this.settings.levelSelected
+    const { width: screenWidth, height: screenHeight } = this.cameras.main
+    const selectedLevel = this.settings.selectedLevel
 
-    // Botón de ir atrás
-    const btnBack = this.add.image(widthScreen / 2 - 100, heightScreen - 100, 'uiLvlSelection', 'btn-arrow')
+    this.createBackButton(screenWidth, screenHeight)
+    this.createHomeButton(screenHeight)
+    this.createPlayButton(screenWidth, screenHeight, selectedLevel)
+    this.displayInstructions(screenWidth, selectedLevel)
+  }
+
+  // Crear botón para regresar a la selección de niveles
+  createBackButton (screenWidth, screenHeight) {
+    const backButton = this.add.image(screenWidth / 2 - 100, screenHeight - 100, 'uiLvlSelection', 'btn-arrow')
       .setScale(1.5)
       .setOrigin(0.5)
       .setInteractive()
 
-    btnBack.flipX = true
+    backButton.flipX = true
 
     addInteractions({
-      button: btnBack,
+      button: backButton,
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
@@ -28,39 +35,45 @@ class InstructionsScene extends Phaser.Scene {
         })
       }
     })
+  }
 
-    // Botón de inicio
-    const btnHome = this.add.image(100, heightScreen - 100, 'uiLvlSelection', 'btn-home')
+  // Crear botón para ir al menú principal
+  createHomeButton (screenHeight) {
+    const homeButton = this.add.image(100, screenHeight - 100, 'uiLvlSelection', 'btn-home')
       .setScale(1.5)
       .setOrigin(0.5)
       .setInteractive()
 
     addInteractions({
-      button: btnHome,
+      button: homeButton,
       key: 'uiLvlSelection',
       frame: 'btn-home',
       onClick: () => {
         this.scene.start('MenuScene')
       }
     })
+  }
 
-    // Botón de jugar
-    const btnPlayGame = this.add.image(widthScreen / 2 + 100, heightScreen - 100, 'uiLvlSelection', 'btn-arrow')
+  // Crear botón para empezar a jugar
+  createPlayButton (screenWidth, screenHeight, selectedLevel) {
+    const playButton = this.add.image(screenWidth / 2 + 100, screenHeight - 100, 'uiLvlSelection', 'btn-arrow')
       .setScale(1.5)
       .setOrigin(0.5)
       .setInteractive()
 
     addInteractions({
-      button: btnPlayGame,
+      button: playButton,
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
-        this.scene.start('GameScene', levelSelected)
+        this.scene.start('GameScene', selectedLevel)
       }
     })
+  }
 
-    // Crear el contenido del juego aquí
-    this.add.bitmapText(widthScreen / 2, 100, 'primaryFont', `Instrucciones del juego #${levelSelected}`)
+  // Mostrar las instrucciones del juego
+  displayInstructions (screenWidth, selectedLevel) {
+    this.add.bitmapText(screenWidth / 2, 100, 'primaryFont', `Instrucciones del juego #${selectedLevel}`)
       .setOrigin(0.5, 0)
   }
 }
