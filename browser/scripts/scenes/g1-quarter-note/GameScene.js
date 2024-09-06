@@ -44,6 +44,9 @@ class GameScene extends Phaser.Scene {
     // UI
     this.drawSlots()
     this.drawBtnNotes()
+
+    // Autoseleccionar la primer casilla para iniciar
+    this.selectSlot(this.config.slots[0])
   }
 
   // Dibujar casillas de notas
@@ -72,16 +75,19 @@ class GameScene extends Phaser.Scene {
       slot.on('pointerdown', () => {
         const slotSelected = this.config.slots[indexItem]
         if (slotSelected.isSelected) { return null }
-
-        this.config.slots.forEach(slot => {
-          slot.element.setScale(1)
-          slot.isSelected = false
-        })
-
-        slotSelected.element.setScale(1.2)
-        slotSelected.isSelected = true
+        this.selectSlot(slotSelected)
       })
     }
+  }
+
+  selectSlot (slotSelected) {
+    this.config.slots.forEach(slot => {
+      slot.element.setScale(1)
+      slot.isSelected = false
+    })
+
+    slotSelected.element.setScale(1.2)
+    slotSelected.isSelected = true
   }
 
   // Dibutar botones de notas
