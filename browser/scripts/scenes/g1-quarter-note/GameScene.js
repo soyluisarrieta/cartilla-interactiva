@@ -114,6 +114,10 @@ class GameScene extends Phaser.Scene {
         slotSelected.note = this.config.notes[i]
         slotSelected.element
           .setTexture(this.config.notes[i])
+
+        // Autoseleccionar siguiente casilla vacía
+        const nextSlot = this.config.slots.find((slot) => slot.note === null) ?? slotSelected
+        this.selectSlot(nextSlot)
       })
     }
   }
