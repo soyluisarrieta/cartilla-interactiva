@@ -5,23 +5,23 @@ class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { key, background } = this.settings
+    const { id, type, background } = this.settings
 
     // Cargar los recursos gráficos
     this.load.setPath('/assets/games')
-    this.load.image('logos', '/resources/logos.png')
-    this.load.image('background', `/${key}/${background}`)
-    this.load.image('logo', `/${key}/logo.png`)
-    this.load.image('slot', `/${key}/casilla-vacia.png`)
-    this.load.image('crotchet', `/${key}/btn-crotchet.png`)
-    this.load.image('crotchet-rest', `/${key}/btn-crotchet-rest.png`)
+    this.load.image('openingLogos', '/resources/opening-logos.png')
+    this.load.image('background', `/${type}/${background}`)
+    this.load.image('gameLogo', `/logos/${id}.png`)
+    this.load.image('slot', `/${type}/casilla-vacia.png`)
+    this.load.image('crotchet', `/${type}/btn-crotchet.png`)
+    this.load.image('crotchetRest', `/${type}/btn-crotchet-rest.png`)
 
     // Cargar las fuentes
-    this.load.setPath('/assets/games/fonts')
+    this.load.setPath('/assets/games/resources/fonts')
     this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
 
     // Cargar la interfaz de usuario (UI)
-    this.load.setPath('/assets/games/ui')
+    this.load.setPath(`/assets/games/${type}/ui`)
     this.load.atlas('uiMainMenu', '/main-menu.png', '/main-menu.json')
     this.load.atlas('uiLvlSelection', '/level-selection.png', '/level-selection.json')
   }
@@ -29,7 +29,7 @@ class BootScene extends Phaser.Scene {
   // Mostrar los logos con la animación de fade-in y fade-out
   create () {
     const { centerX, centerY } = this.cameras.main
-    const logo = this.add.image(centerX, centerY, 'logos')
+    const logo = this.add.image(centerX, centerY, 'openingLogos')
 
     this.tweens.add({
       targets: logo,

@@ -14,7 +14,7 @@ class MenuScene extends Phaser.Scene {
       .setOrigin(0)
       .setDisplaySize(widthScreen, heightScreen)
 
-    this.add.image(widthScreen / 2, 70, 'logo')
+    this.add.image(widthScreen / 2, 70, 'gameLogo')
       .setOrigin(0.5, 0)
       .setScale(1.1)
 
