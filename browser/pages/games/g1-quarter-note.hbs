@@ -8,7 +8,19 @@
   window.gameSettings = {
     key: 'g1-quarter-note',
     background: '/bg-menu.jpg',
-    levels: [{ title: 'Nivel 1' },{ title: 'Nivel 2'}],
+    levels: [{ 
+      title: 'Nivel 1 - Fácil',
+      maxSlots: 4,
+      figures: ['crotchet', 'crotchet-rest']
+    },{ 
+      title: 'Nivel 2 - Intermedio',
+      maxSlots: 8,
+      figures: ['crotchet', 'crotchet-rest', 'crotchet', 'crotchet-rest']
+    },{ 
+      title: 'Nivel 3 - Dificil',
+      maxSlots: 12,
+      figures: ['crotchet', 'crotchet-rest', 'crotchet', 'crotchet-rest']
+    }],
   }
 
   new Phaser.Game({
