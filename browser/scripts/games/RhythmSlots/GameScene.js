@@ -18,10 +18,10 @@ class GameScene extends Phaser.Scene {
   }
 
   create () {
-    this.createBackButton()
-    this.displayLevelInfo()
-    this.renderSlots()
-    this.renderNoteButtons()
+    this.drawBackButton()
+    this.drawLevelInfo()
+    this.drawSlots()
+    this.drawNoteButtons()
     this.selectSlot(this.config.slots[0])
 
     // Cantidad de ejercicios
@@ -73,7 +73,7 @@ class GameScene extends Phaser.Scene {
   }
 
   // Crear botón para regresar a la selección de niveles
-  createBackButton () {
+  drawBackButton () {
     const backButton = this.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
       .setScale(1.5)
       .setOrigin(0.5)
@@ -94,13 +94,13 @@ class GameScene extends Phaser.Scene {
   }
 
   // Mostrar la información del nivel actual
-  displayLevelInfo () {
+  drawLevelInfo () {
     this.add.bitmapText(this.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.selectedLevel}`)
       .setOrigin(0.5, 0)
   }
 
-  // Renderizar los espacios para las notas
-  renderSlots () {
+  // Mostrar las casillas para las notas
+  drawSlots () {
     const layout = { gap: 30, marginTop: 500 }
     const { maxSlots } = this.config
     const totalBeats = maxSlots / 4 - 1
@@ -123,28 +123,16 @@ class GameScene extends Phaser.Scene {
         isSelected: false
       }) - 1
 
-      slot.on('pointerdown', () => this.handleSlotSelection(slotIndex))
+      slot.on('pointerdown', () => {
+        const selectedSlot = this.config.slots[slotIndex]
+        if (selectedSlot.isSelected) return
+        this.selectSlot(selectedSlot)
+      })
     }
   }
 
-  handleSlotSelection (slotIndex) {
-    const selectedSlot = this.config.slots[slotIndex]
-    if (selectedSlot.isSelected) return
-    this.selectSlot(selectedSlot)
-  }
-
-  selectSlot (slotToSelect) {
-    this.config.slots.forEach(slot => {
-      slot.element.setScale(0.66)
-      slot.isSelected = false
-    })
-
-    slotToSelect.element.setScale(0.77)
-    slotToSelect.isSelected = true
-  }
-
-  // Renderizar los botones para seleccionar notas
-  renderNoteButtons () {
+  // Mostrar los botones para seleccionar notas
+  drawNoteButtons () {
     const layout = { gap: 10, marginTop: 800 }
     const { figures } = this.config
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
@@ -163,6 +151,17 @@ class GameScene extends Phaser.Scene {
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
     })
+  }
+
+  // Seleccionar un slot especifico
+  selectSlot (slotToSelect) {
+    this.config.slots.forEach(slot => {
+      slot.element.setScale(0.66)
+      slot.isSelected = false
+    })
+
+    slotToSelect.element.setScale(0.77)
+    slotToSelect.isSelected = true
   }
 
   // Manejador para la selección de casillas
