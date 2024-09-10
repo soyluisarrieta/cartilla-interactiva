@@ -12,6 +12,7 @@ class GameScene extends Phaser.Scene {
 
     this.config = {
       slots: [],
+      exercises: [],
       ...this.settings.levels[selectedLevel - 1]
     }
   }
@@ -22,6 +23,21 @@ class GameScene extends Phaser.Scene {
     this.renderSlots()
     this.renderNoteButtons()
     this.selectSlot(this.config.slots[0])
+
+    // Cantidad de ejercicios
+    for (let i = 1; i <= 7; i++) {
+      console.log(100 * i)
+      const styles = { marginTop: 70, gap: 90 }
+      const exerciseElement = this.add.image(this.screen.width - 100, styles.marginTop + (styles.gap * i), 'uiMainMenu', 'button')
+        .setScale(0.4)
+        .setOrigin(0.5)
+        .setInteractive()
+
+      this.config.exercises.push({
+        element: exerciseElement,
+        status: null
+      })
+    }
 
     // Botón para repetir la melodía generada
     const btnRepeatMelody = this.add.image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
