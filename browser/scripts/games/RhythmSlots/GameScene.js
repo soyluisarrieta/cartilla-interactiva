@@ -22,54 +22,9 @@ class GameScene extends Phaser.Scene {
     this.drawLevelInfo()
     this.drawSlots()
     this.drawNoteButtons()
+    this.drawExercises(7)
+    this.drawActionButtons()
     this.selectSlot(this.config.slots[0])
-
-    // Cantidad de ejercicios
-    for (let i = 1; i <= 7; i++) {
-      console.log(100 * i)
-      const styles = { marginTop: 70, gap: 90 }
-      const exerciseElement = this.add.image(this.screen.width - 100, styles.marginTop + (styles.gap * i), 'uiMainMenu', 'button')
-        .setScale(0.4)
-        .setOrigin(0.5)
-        .setInteractive()
-
-      this.config.exercises.push({
-        element: exerciseElement,
-        status: null
-      })
-    }
-
-    // Botón para repetir la melodía generada
-    const btnRepeatMelody = this.add.image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
-      .setScale(0.7)
-      .setOrigin(0.5)
-      .setInteractive()
-
-    this.add.bitmapText(this.screen.width - 300, this.screen.height - 70, 'primaryFont', 'Melodía', 24)
-      .setOrigin(0.5, 0)
-
-    btnRepeatMelody.on('pointerdown', () => {
-      btnRepeatMelody.setScale(0.66)
-      console.log('pressed')
-    })
-    btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
-    btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
-
-    // Botón para verificar la melodía compuesta
-    const btnFinish = this.add.image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button')
-      .setScale(0.7)
-      .setOrigin(0.5)
-      .setInteractive()
-
-    this.add.bitmapText(this.screen.width - 130, this.screen.height - 70, 'primaryFont', 'Siguiente', 24)
-      .setOrigin(0.5, 0)
-
-    btnFinish.on('pointerdown', () => {
-      btnFinish.setScale(0.66)
-      console.log('pressed')
-    })
-    btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
-    btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
   }
 
   // Crear botón para regresar a la selección de niveles
@@ -151,6 +106,58 @@ class GameScene extends Phaser.Scene {
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
     })
+  }
+
+  // Mostrar la los ejercicios
+  drawExercises (numExercises) {
+    for (let i = 1; i <= numExercises; i++) {
+      console.log(100 * i)
+      const styles = { marginTop: 70, gap: 90 }
+      const exerciseElement = this.add.image(this.screen.width - 100, styles.marginTop + (styles.gap * i), 'uiMainMenu', 'button')
+        .setScale(0.4)
+        .setOrigin(0.5)
+        .setInteractive()
+
+      this.config.exercises.push({
+        element: exerciseElement,
+        status: null
+      })
+    }
+  }
+
+  // Mostrar los botones de acción
+  drawActionButtons () {
+    // Botón para repetir la melodía generada
+    const btnRepeatMelody = this.add.image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
+      .setScale(0.7)
+      .setOrigin(0.5)
+      .setInteractive()
+
+    this.add.bitmapText(this.screen.width - 300, this.screen.height - 70, 'primaryFont', 'Melodía', 24)
+      .setOrigin(0.5, 0)
+
+    btnRepeatMelody.on('pointerdown', () => {
+      btnRepeatMelody.setScale(0.66)
+      console.log('pressed')
+    })
+    btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
+    btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
+
+    // Botón para verificar la melodía compuesta
+    const btnFinish = this.add.image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button')
+      .setScale(0.7)
+      .setOrigin(0.5)
+      .setInteractive()
+
+    this.add.bitmapText(this.screen.width - 130, this.screen.height - 70, 'primaryFont', 'Siguiente', 24)
+      .setOrigin(0.5, 0)
+
+    btnFinish.on('pointerdown', () => {
+      btnFinish.setScale(0.66)
+      console.log('pressed')
+    })
+    btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
+    btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
   }
 
   // Seleccionar un slot especifico
