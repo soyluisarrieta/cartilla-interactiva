@@ -22,6 +22,38 @@ class GameScene extends Phaser.Scene {
     this.renderSlots()
     this.renderNoteButtons()
     this.selectSlot(this.config.slots[0])
+
+    // Botón para repetir la melodía generada
+    const btnRepeatMelody = this.add.image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
+      .setScale(0.7)
+      .setOrigin(0.5)
+      .setInteractive()
+
+    this.add.bitmapText(this.screen.width - 300, this.screen.height - 70, 'primaryFont', 'Melodía', 24)
+      .setOrigin(0.5, 0)
+
+    btnRepeatMelody.on('pointerdown', () => {
+      btnRepeatMelody.setScale(0.66)
+      console.log('pressed')
+    })
+    btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
+    btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
+
+    // Botón para verificar la melodía compuesta
+    const btnFinish = this.add.image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button')
+      .setScale(0.7)
+      .setOrigin(0.5)
+      .setInteractive()
+
+    this.add.bitmapText(this.screen.width - 130, this.screen.height - 70, 'primaryFont', 'Siguiente', 24)
+      .setOrigin(0.5, 0)
+
+    btnFinish.on('pointerdown', () => {
+      btnFinish.setScale(0.66)
+      console.log('pressed')
+    })
+    btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
+    btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
   }
 
   // Crear botón para regresar a la selección de niveles
@@ -104,21 +136,22 @@ class GameScene extends Phaser.Scene {
     const position = { x: startX, y: layout.marginTop }
 
     figures.forEach((note, index) => {
-      const noteButton = this.add.image(position.x, position.y, note)
+      const btnNote = this.add.image(position.x, position.y, note)
         .setScale(0.56)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
-      noteButton.on('pointerdown', () => this.handleNoteSelection(noteButton, note, index))
-      noteButton.on('pointerup', () => noteButton.setScale(0.56))
-      noteButton.on('pointerout', () => noteButton.setScale(0.56))
+      btnNote.on('pointerdown', () => this.handleNoteSelection(btnNote, note, index))
+      btnNote.on('pointerup', () => btnNote.setScale(0.56))
+      btnNote.on('pointerout', () => btnNote.setScale(0.56))
     })
   }
 
-  handleNoteSelection (noteButton, noteType) {
-    noteButton.setScale(0.51)
+  // Manejador para la selección de casillas
+  handleNoteSelection (btnNote, noteType) {
+    btnNote.setScale(0.51)
 
     const selectedSlot = this.config.slots.find(slot => slot.isSelected)
     if (!selectedSlot || selectedSlot.note === noteType) return
