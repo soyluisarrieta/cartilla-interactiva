@@ -20,7 +20,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>1</span>
           {{> button 
             id="btn-juego-1"
             href="/zona-de-juegos/la-figura-negra" 
@@ -33,7 +32,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>2</span>
           {{> button 
             id="btn-juego-2"
             href="/zona-de-juegos/juego-1" 
@@ -46,7 +44,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>3</span>
           {{> button 
             id="btn-juego-3"
             href="/zona-de-juegos/juego-1" 
@@ -59,7 +56,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>4</span>
           {{> button 
             id="btn-juego-4"
             href="/zona-de-juegos/juego-1" 
@@ -72,7 +68,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>5</span>
           {{> button 
             id="btn-juego-5"
             href="/zona-de-juegos/juego-1" 
@@ -85,7 +80,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>6</span>
           {{> button 
             id="btn-juego-6"
             href="/zona-de-juegos/juego-1" 
@@ -98,7 +92,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>7</span>
           {{> button 
             id="btn-juego-7"
             href="/zona-de-juegos/juego-1" 
@@ -111,7 +104,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>8</span>
           {{> button 
             id="btn-juego-8"
             href="/zona-de-juegos/juego-1" 
@@ -124,7 +116,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>9</span>
           {{> button 
             id="btn-juego-9"
             href="/zona-de-juegos/juego-1" 
@@ -137,7 +128,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>10</span>
           {{> button 
             id="btn-juego-10"
             href="/zona-de-juegos/juego-1" 
@@ -150,7 +140,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>11</span>
           {{> button 
             id="btn-juego-11"
             href="/zona-de-juegos/juego-1" 
@@ -163,7 +152,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>12</span>
           {{> button 
             id="btn-juego-12"
             href="/zona-de-juegos/juego-1" 
@@ -176,7 +164,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>13</span>
           {{> button 
             id="btn-juego-13"
             href="/zona-de-juegos/juego-1" 
@@ -189,7 +176,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>14</span>
           {{> button 
             id="btn-juego-14"
             href="/zona-de-juegos/juego-1" 
@@ -202,7 +188,6 @@
       <div class="swiper-slide">
         <img src="/assets/images/placeholder.png" alt="Juego">
         <div class="swiper-slide-content">
-          <span>15</span>
           {{> button 
             id="btn-juego-15"
             href="/zona-de-juegos/juego-1" 
@@ -212,16 +197,6 @@
           }}
         </div>
       </div>
-    </div>
-
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-
-    <!-- Add Navigation -->
-    <div class="nav-buttons">
-      <button class="button-prev"></button>
-      <a href="/cartilla" class="button-home"></a>
-      <button class="button-next"></button>
     </div>
   </div>
 </main>
@@ -233,23 +208,12 @@
    document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.swiper-container', {
       effect: "carousel",
-      carouselEffect: {
-          opacityStep: .33,
-          scaleStep: .1,
-          sideSlides: 3
-      },
-      spaceBetween: 100,
+      slidesPerView: 3.5,
+      grid: { rows: 2 },
+      width: 1500,
+      height: 'auto',
       grabCursor: true,
-      loop: true,
-      loopAdditionalSlides: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.button-next',
-        prevEl: '.button-prev',
-      },
+      loop: false,
     });
   });
 </script>
@@ -270,10 +234,9 @@
 
     #game-zone-title {
       width: 100%;
-      height: 30rem;
       min-width: 40rem;
       max-width: 60rem;
-      padding: 3rem 2rem 2rem;
+      padding: 5rem 2rem 2rem;
       margin: 0 auto;
 
       img {
@@ -283,15 +246,14 @@
     }
 
     .swiper-container {
-      width: 60vw;
-      height: 60vh;
-      min-height: 50rem;
+      width: 100%;
+      height: 80rem;
       padding-bottom: 5rem;
 
       .swiper-slide {
-        width: 60vw;
         position: relative;
         border-radius: 9999px;
+        margin-left: 2rem;
 
         img {
           width: 100%;
@@ -305,47 +267,31 @@
           width: 100%;
           height: 100%;
           position: absolute;
-          top: -1rem;
+          top: 0;
           right: -1rem;
           z-index: 10;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: flex-end;
           align-items: flex-end;
 
           > a.btn {
             width: 50%;
             height: auto;
-            flex-shrink: 1;
+            margin-bottom: 2rem;
             align-self: center;
-            margin-bottom: 1.5rem;
             
             span {
               padding: 1rem;
               font-size: 3rem;
             }
           }
-
-          > span {
-            width: 7rem;
-            height: 7rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            aspect-ratio: 1;
-            background-color: red;
-            color: white;
-            text-align: center;
-            font-size: 3rem;
-            border-radius: 9999px; 
-          }
         }
       }
+    }
 
-      .swiper-pagination {
-        position: fixed;
-        bottom: 5rem;
-      }
+    .swiper-slide:nth-child(even) {
+      top: 2rem;
     }
   </style>
 {{/section}}
