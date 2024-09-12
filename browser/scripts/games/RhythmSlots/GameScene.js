@@ -4,6 +4,11 @@ class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
+    this.textureStates = {
+      playing: 'button',
+      failed: 'button-pressed',
+      completed: 'button-hovered'
+    }
   }
 
   init (selectedLevel) {
@@ -56,11 +61,11 @@ class GameScene extends Phaser.Scene {
 
   // Mostrar las casillas para las notas
   drawSlots () {
-    const layout = { gap: 30, marginTop: 500 }
+    const layout = { gap: 30, marginTop: 400, marginRight: 150 }
     const { maxSlots } = this.config
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
-    const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
+    const startX = (this.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     for (let i = 0; i < maxSlots; i++) {
@@ -88,10 +93,10 @@ class GameScene extends Phaser.Scene {
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
-    const layout = { gap: 10, marginTop: 800 }
+    const layout = { gap: 10, marginTop: 700, marginRight: 150 }
     const { figures } = this.config
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
-    const startX = (this.screen.width - totalWidth) / 2 + layout.gap / 2
+    const startX = (this.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     figures.forEach((note, index) => {
@@ -111,18 +116,25 @@ class GameScene extends Phaser.Scene {
   // Mostrar la los ejercicios
   drawExercises (numExercises) {
     for (let i = 1; i <= numExercises; i++) {
-      console.log(100 * i)
-      const styles = { marginTop: 70, gap: 90 }
-      const exerciseElement = this.add.image(this.screen.width - 100, styles.marginTop + (styles.gap * i), 'uiMainMenu', 'button')
-        .setScale(0.4)
+      const layout = { marginTop: 150, gap: 80 }
+      const positionX = this.screen.width - 100
+      const positionY = layout.marginTop + (layout.gap * i)
+      const exerciseElement = this.add.image(positionX, positionY, 'uiMainMenu', 'button-pressed')
+        .setScale(0.5)
         .setOrigin(0.5)
         .setInteractive()
 
       this.config.exercises.push({
         element: exerciseElement,
-        status: null
+        state: null,
+        isPlaying: false
       })
     }
+
+    // Activar el primer ejercicio
+    const firstExercise = this.config.exercises[0]
+    firstExercise.isPlaying = true
+    this.stateExercise(firstExercise.element, 'playing')
   }
 
   // Mostrar los botones de acción
@@ -158,6 +170,10 @@ class GameScene extends Phaser.Scene {
     })
     btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
     btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
+  }
+
+  stateExercise (element, state) {
+    element.setTexture('uiMainMenu', this.textureStates[state])
   }
 
   // Seleccionar un slot especifico
