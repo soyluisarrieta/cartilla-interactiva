@@ -113,12 +113,12 @@ class GameScene extends Phaser.Scene {
     })
   }
 
-  // Mostrar la los ejercicios
+  // Mostrar los ejercicios
   drawExercises (numExercises) {
-    for (let i = 1; i <= numExercises; i++) {
+    for (let i = 0; i <= numExercises; i++) {
       const layout = { marginTop: 150, gap: 80 }
       const positionX = this.screen.width - 100
-      const positionY = layout.marginTop + (layout.gap * i)
+      const positionY = layout.marginTop + (layout.gap * (i + 1))
       const exerciseElement = this.add.image(positionX, positionY, 'uiMainMenu', 'button-pressed')
         .setScale(0.5)
         .setOrigin(0.5)
@@ -127,14 +127,15 @@ class GameScene extends Phaser.Scene {
       this.config.exercises.push({
         element: exerciseElement,
         state: null,
-        isPlaying: false
+        setState: (state) => {
+          this.config.exercises[i].state = state
+          exerciseElement.setTexture('uiMainMenu', this.textureStates[state])
+        }
       })
     }
 
     // Activar el primer ejercicio
-    const firstExercise = this.config.exercises[0]
-    firstExercise.isPlaying = true
-    this.stateExercise(firstExercise.element, 'playing')
+    this.config.exercises[0].setState('playing')
   }
 
   // Mostrar los botones de acción
@@ -170,10 +171,6 @@ class GameScene extends Phaser.Scene {
     })
     btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
     btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
-  }
-
-  stateExercise (element, state) {
-    element.setTexture('uiMainMenu', this.textureStates[state])
   }
 
   // Seleccionar un slot especifico
