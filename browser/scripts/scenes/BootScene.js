@@ -13,8 +13,14 @@ class BootScene extends Phaser.Scene {
     this.load.image('background', `/${type}/${background}`)
     this.load.image('gameLogo', `/logos/${id}.png`)
     this.load.image('slot', `/${type}/casilla-vacia.png`)
+
+    // Cargar figuras musicales
+    this.load.image('semibreve', `/${type}/btn-semibreve.png`)
+    this.load.image('semibreve-rest', `/${type}/btn-semibreve-rest.png`)
+    this.load.image('minim', `/${type}/btn-minim.png`)
+    this.load.image('minim-rest', `/${type}/btn-minim-rest.png`)
     this.load.image('crotchet', `/${type}/btn-crotchet.png`)
-    this.load.image('crotchetRest', `/${type}/btn-crotchet-rest.png`)
+    this.load.image('crotchet-rest', `/${type}/btn-crotchet-rest.png`)
 
     // Cargar las fuentes
     this.load.setPath('/assets/games/resources/fonts')

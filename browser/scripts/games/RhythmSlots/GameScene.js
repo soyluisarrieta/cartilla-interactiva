@@ -138,15 +138,15 @@ class GameScene extends Phaser.Scene {
     const startX = (this.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
-    figures.forEach((note, index) => {
-      const btnNote = this.add.image(position.x, position.y, note)
+    figures.forEach((figure, index) => {
+      const btnNote = this.add.image(position.x, position.y, figure.name)
         .setScale(0.56)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
-      btnNote.on('pointerdown', () => this.handleNoteSelection(btnNote, note, index))
+      btnNote.on('pointerdown', () => this.handleNoteSelection(btnNote, figure.name, index))
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
     })
