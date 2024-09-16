@@ -1,13 +1,21 @@
 import { addInteractions } from '/scripts/Utils.js'
 
+const TEMPO = 1000 // ms
+
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
+    this.isPlayingMelody = false
+    this.currentExercise = null
     this.settings = window.gameSettings
     this.textureStates = {
       playing: 'button',
       failed: 'button-pressed',
       completed: 'button-hovered'
+    }
+    this.figureDurations = {
+      crotchet: 1,
+      crotchetRest: 1
     }
   }
 
@@ -154,9 +162,8 @@ class GameScene extends Phaser.Scene {
     }
 
     // Activar el primer ejercicio
-    this.config.exercises[0].setState('playing')
-
-    console.log(this.config.exercises)
+    this.currentExercise = this.config.exercises[0]
+    this.currentExercise.setState('playing')
   }
 
   // Mostrar los botones de acción
@@ -172,7 +179,7 @@ class GameScene extends Phaser.Scene {
 
     btnRepeatMelody.on('pointerdown', () => {
       btnRepeatMelody.setScale(0.66)
-      console.log('pressed')
+      this.playMelody(this.currentExercise.melody) // Llamar a la función para reproducir la melodía generada
     })
     btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
     btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
@@ -194,6 +201,27 @@ class GameScene extends Phaser.Scene {
     btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
   }
 
+  // Reproducir la melodía generada
+  playMelody (melody) {
+    this.isPlayingMelody = true
+    let timeElapsed = 0
+
+    melody.forEach((figure, i) => {
+      const duration = this.figureDurations[figure]
+      this.time.delayedCall(timeElapsed, () => {
+        if (figure !== 'crotchetRest') {
+          this.sound.play('noteSound')
+        }
+
+        // Establecer en false solo después de la última figura
+        if (i === melody.length - 1) {
+          this.isPlayingMelody = false
+        }
+      })
+      timeElapsed += duration * TEMPO
+    })
+  }
+
   // Verificar si la melodía compuesta es correcta
   checkMelody () {
     const userMelody = this.config.slots.map(slot => slot.note)
@@ -206,11 +234,9 @@ class GameScene extends Phaser.Scene {
 
     // Comprobar melodía
     const mistakes = []
-    const exercise = this.config.exercises.find((exercise) => exercise.state === 'playing')
-
     userMelody.forEach((note, i) => {
-      if (note !== exercise.melody[i]) {
-        mistakes.push({ slot: i, expected: exercise.melody[i], got: note })
+      if (note !== this.currentExercise.melody[i]) {
+        mistakes.push({ slot: i, expected: this.currentExercise.melody[i], got: note })
       }
     })
 
@@ -237,6 +263,8 @@ class GameScene extends Phaser.Scene {
 
   // Manejador para la selección de casillas
   handleNoteSelection (btnNote, noteType) {
+    if (this.isPlayingMelody) { return null }
+
     btnNote.setScale(0.51)
 
     const selectedSlot = this.config.slots.find(slot => slot.isSelected)
@@ -244,6 +272,11 @@ class GameScene extends Phaser.Scene {
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)
+
+    // Reproducir el sonido si no es un silencio
+    if (noteType !== 'crotchetRest') {
+      this.sound.play('noteSound')
+    }
 
     const nextEmptySlot = this.config.slots.find(slot => slot.note === null) || selectedSlot
     this.selectSlot(nextEmptySlot)
