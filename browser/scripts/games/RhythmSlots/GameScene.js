@@ -242,12 +242,34 @@ class GameScene extends Phaser.Scene {
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
-      console.log('Melodía incorrecta. Inténtalo de nuevo. Notas incorrectas:', mistakes)
+      this.advanceToNextExercise('failed')
       return null
     }
 
     // Melodía correcta
-    console.log('¡Melodía correcta!')
+    this.advanceToNextExercise('completed')
+  }
+
+  // Avanzar al siguiente ejercicio
+  advanceToNextExercise (exerciseState) {
+    this.currentExercise.setState(exerciseState)
+
+    // Encontrar el siguiente ejercicio
+    const nextExerciseIndex = this.config.exercises.indexOf(this.currentExercise) + 1
+    if (nextExerciseIndex < this.config.exercises.length) {
+      this.currentExercise = this.config.exercises[nextExerciseIndex]
+      this.currentExercise.setState('playing')
+      this.generatedMelody = this.currentExercise.melody
+
+      // Limpiar las notas en las casillas
+      this.config.slots.forEach(slot => {
+        slot.note = null
+        slot.element.setTexture('slot')
+      })
+      this.selectSlot(this.config.slots[0])
+    } else {
+      console.log('¡Nivel completado!')
+    }
   }
 
   // Seleccionar un slot especifico
