@@ -5,6 +5,7 @@ const TEMPO = 1000 // ms
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
+    this.btnPlayMelody = null
     this.melodyState = {
       isPlaying: false,
       timers: []
@@ -172,7 +173,8 @@ class GameScene extends Phaser.Scene {
   // Mostrar los botones de acción
   drawActionButtons () {
     // Botón para repetir la melodía generada
-    const btnRepeatMelody = this.add.image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
+    const btnPlayMelody = this.btnPlayMelody = this.add
+      .image(this.screen.width - 300, this.screen.height - 130, 'uiMainMenu', 'button')
       .setScale(0.7)
       .setOrigin(0.5)
       .setInteractive()
@@ -180,16 +182,19 @@ class GameScene extends Phaser.Scene {
     this.add.bitmapText(this.screen.width - 300, this.screen.height - 70, 'primaryFont', 'Melodía', 24)
       .setOrigin(0.5, 0)
 
-    btnRepeatMelody.on('pointerdown', () => {
-      btnRepeatMelody.setScale(0.66)
+    // Toggle button
+    btnPlayMelody.on('pointerdown', () => {
+      btnPlayMelody.setScale(0.66)
       if (this.melodyState.isPlaying) {
         this.stopMelody()
+        btnPlayMelody.setTexture('uiMainMenu', 'button')
       } else {
         this.playMelody(this.currentExercise.melody)
+        btnPlayMelody.setTexture('uiMainMenu', 'button-pressed')
       }
     })
-    btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
-    btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
+    btnPlayMelody.on('pointerup', () => btnPlayMelody.setScale(0.7))
+    btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.7))
 
     // Botón para verificar la melodía compuesta
     const btnFinish = this.add.image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button')
@@ -224,6 +229,8 @@ class GameScene extends Phaser.Scene {
         // Establecer en false solo después de la última figura
         if (i === melody.length - 1) {
           this.melodyState.isPlaying = false
+          this.btnPlayMelody.setScale(0.7)
+          this.btnPlayMelody.setTexture('uiMainMenu', 'button')
         }
       })
 
