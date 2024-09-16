@@ -196,13 +196,21 @@ class GameScene extends Phaser.Scene {
 
   // Verificar si la melodía compuesta es correcta
   checkMelody () {
+    const userMelody = this.config.slots.map(slot => slot.note)
+
+    // Melodía incompleta
+    if (userMelody.includes(null)) {
+      console.log('Debes componer toda la melodía antes de comprobarla')
+      return null
+    }
+
+    // Comprobar melodía
     const mistakes = []
     const exercise = this.config.exercises.find((exercise) => exercise.state === 'playing')
-    const userMelody = this.config.slots.map(slot => slot.note)
 
     userMelody.forEach((note, i) => {
       if (note !== exercise.melody[i]) {
-        mistakes.push({ index: i, expected: exercise.melody[i], got: note })
+        mistakes.push({ slot: i, expected: exercise.melody[i], got: note })
       }
     })
 
