@@ -5,13 +5,15 @@ const TEMPO = 1000 // ms
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
+    this.settings = window.gameSettings
+
     this.btnPlayMelody = null
+    this.currentExercise = null
+
     this.melodyState = {
       isPlaying: false,
       timers: []
     }
-    this.currentExercise = null
-    this.settings = window.gameSettings
     this.textureStates = {
       playing: 'button',
       failed: 'button-pressed',
@@ -25,6 +27,7 @@ class GameScene extends Phaser.Scene {
 
   // Método inicial
   init (selectedLevel) {
+    this.intervalIndicators = []
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
 
@@ -89,6 +92,12 @@ class GameScene extends Phaser.Scene {
       const slot = this.add.image(position.x, position.y, 'slot')
         .setOrigin(0.5)
         .setInteractive()
+
+      const intervalIndicator = this.add.image(position.x, position.y + 150, 'uiMainMenu', 'button')
+        .setScale(0.2)
+        .setOrigin(0.5)
+
+      this.intervalIndicators.push(intervalIndicator)
 
       // Separar por compaces de 4
       const isOnTheBeat = (i + 1) % 4
@@ -202,7 +211,7 @@ class GameScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
 
-    this.add.bitmapText(this.screen.width - 130, this.screen.height - 70, 'primaryFont', 'Siguiente', 24)
+    this.add.bitmapText(this.screen.width - 130, this.screen.height - 70, 'primaryFont', 'Confirmar', 24)
       .setOrigin(0.5, 0)
 
     btnFinish.on('pointerdown', () => {
@@ -222,6 +231,12 @@ class GameScene extends Phaser.Scene {
     melody.forEach((figure, i) => {
       const duration = this.figureDurations[figure]
       const timer = this.time.delayedCall(timeElapsed, () => {
+        if (i !== 0) {
+          this.intervalIndicators[i - 1].setScale(0.2)
+        }
+
+        this.intervalIndicators[i].setScale(0.3)
+
         if (figure !== 'crotchetRest') {
           this.sound.play('noteSound')
         }
@@ -231,6 +246,9 @@ class GameScene extends Phaser.Scene {
           this.melodyState.isPlaying = false
           this.btnPlayMelody.setScale(0.7)
           this.btnPlayMelody.setTexture('uiMainMenu', 'button')
+          this.time.delayedCall(TEMPO, () => {
+            this.intervalIndicators[i].setScale(0.2)
+          })
         }
       })
 
@@ -247,6 +265,9 @@ class GameScene extends Phaser.Scene {
     // Cancelar todos los delayedCalls pendientes
     this.melodyState.timers.forEach(timer => timer.remove(false))
     this.melodyState.timers = []
+
+    // Reiniciar los indicadores de intervalo
+    this.intervalIndicators.forEach((interval) => interval.setScale(0.2))
   }
 
   // Verificar si la melodía compuesta es correcta
