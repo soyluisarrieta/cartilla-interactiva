@@ -11,6 +11,7 @@ class GameScene extends Phaser.Scene {
     }
   }
 
+  // Método inicial
   init (selectedLevel) {
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
@@ -22,6 +23,7 @@ class GameScene extends Phaser.Scene {
     }
   }
 
+  // Método principal
   create () {
     this.drawBackButton()
     this.drawLevelInfo()
@@ -91,6 +93,17 @@ class GameScene extends Phaser.Scene {
     }
   }
 
+  // Generar una melodía aleatoria
+  generateMelody () {
+    const { maxSlots, figures } = this.config
+    const melody = []
+    for (let i = 0; i < maxSlots; i++) {
+      const randomFigure = figures[Math.floor(Math.random() * figures.length)]
+      melody.push(randomFigure)
+    }
+    return melody
+  }
+
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
     const layout = { gap: 10, marginTop: 700, marginRight: 150 }
@@ -124,9 +137,12 @@ class GameScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setInteractive()
 
+      const generatedMelody = this.generateMelody()
+
       this.config.exercises.push({
         element: exerciseElement,
         state: null,
+        melody: generatedMelody,
         setState: (state) => {
           this.config.exercises[i].state = state
           exerciseElement.setTexture('uiMainMenu', this.textureStates[state])
@@ -136,6 +152,8 @@ class GameScene extends Phaser.Scene {
 
     // Activar el primer ejercicio
     this.config.exercises[0].setState('playing')
+
+    console.log(this.config.exercises)
   }
 
   // Mostrar los botones de acción
