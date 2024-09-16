@@ -7,6 +7,8 @@ class GameScene extends Phaser.Scene {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
 
+    this.filledSlots = false
+    this.btnFinish = null
     this.btnPlayMelody = null
     this.currentExercise = null
 
@@ -206,7 +208,8 @@ class GameScene extends Phaser.Scene {
     btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.7))
 
     // Botón para verificar la melodía compuesta
-    const btnFinish = this.add.image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button')
+    const btnFinish = this.btnFinish = this.add
+      .image(this.screen.width - 130, this.screen.height - 130, 'uiMainMenu', 'button-pressed')
       .setScale(0.7)
       .setOrigin(0.5)
       .setInteractive()
@@ -215,11 +218,12 @@ class GameScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     btnFinish.on('pointerdown', () => {
+      if (!this.filledSlots) { return null }
       btnFinish.setScale(0.66)
       this.checkMelody() // Llamada para comprobar la melodía
     })
-    btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
-    btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
+    btnFinish.on('pointerup', () => this.filledSlots && btnFinish.setScale(0.7))
+    btnFinish.on('pointerout', () => this.filledSlots && btnFinish.setScale(0.7))
   }
 
   // Reproducir la melodía generada
@@ -273,12 +277,6 @@ class GameScene extends Phaser.Scene {
   // Verificar si la melodía compuesta es correcta
   checkMelody () {
     const userMelody = this.config.slots.map(slot => slot.note)
-
-    // Melodía incompleta
-    if (userMelody.includes(null)) {
-      console.log('Debes componer toda la melodía antes de comprobarla')
-      return null
-    }
 
     // Comprobar melodía
     const mistakes = []
@@ -343,6 +341,17 @@ class GameScene extends Phaser.Scene {
 
     const nextEmptySlot = this.config.slots.find(slot => slot.note === null) || selectedSlot
     this.selectSlot(nextEmptySlot)
+
+    // Mostrar botón de confirmar
+    if (!this.filledSlots) {
+      const isComplete = this.config.slots.every(slot => slot.note !== null)
+
+      if (isComplete) {
+        this.btnFinish.setTexture('uiMainMenu', 'button-hovered')
+        this.filledSlots = true
+        return null
+      }
+    }
   }
 }
 
