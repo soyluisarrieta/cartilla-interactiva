@@ -5,7 +5,10 @@ const TEMPO = 1000 // ms
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
-    this.isPlayingMelody = false
+    this.melodyState = {
+      isPlaying: false,
+      timers: []
+    }
     this.currentExercise = null
     this.settings = window.gameSettings
     this.textureStates = {
@@ -179,7 +182,11 @@ class GameScene extends Phaser.Scene {
 
     btnRepeatMelody.on('pointerdown', () => {
       btnRepeatMelody.setScale(0.66)
-      this.playMelody(this.currentExercise.melody) // Llamar a la función para reproducir la melodía generada
+      if (this.melodyState.isPlaying) {
+        this.stopMelody()
+      } else {
+        this.playMelody(this.currentExercise.melody)
+      }
     })
     btnRepeatMelody.on('pointerup', () => btnRepeatMelody.setScale(0.7))
     btnRepeatMelody.on('pointerout', () => btnRepeatMelody.setScale(0.7))
@@ -203,23 +210,36 @@ class GameScene extends Phaser.Scene {
 
   // Reproducir la melodía generada
   playMelody (melody) {
-    this.isPlayingMelody = true
+    this.melodyState.isPlaying = true
+    this.melodyState.timers = []
     let timeElapsed = 0
 
     melody.forEach((figure, i) => {
       const duration = this.figureDurations[figure]
-      this.time.delayedCall(timeElapsed, () => {
+      const timer = this.time.delayedCall(timeElapsed, () => {
         if (figure !== 'crotchetRest') {
           this.sound.play('noteSound')
         }
 
         // Establecer en false solo después de la última figura
         if (i === melody.length - 1) {
-          this.isPlayingMelody = false
+          this.melodyState.isPlaying = false
         }
       })
+
+      // Guardar cada timer
+      this.melodyState.timers.push(timer)
       timeElapsed += duration * TEMPO
     })
+  }
+
+  // Detener la reproducción de la melodía
+  stopMelody () {
+    this.melodyState.isPlaying = false
+
+    // Cancelar todos los delayedCalls pendientes
+    this.melodyState.timers.forEach(timer => timer.remove(false))
+    this.melodyState.timers = []
   }
 
   // Verificar si la melodía compuesta es correcta
@@ -285,8 +305,6 @@ class GameScene extends Phaser.Scene {
 
   // Manejador para la selección de casillas
   handleNoteSelection (btnNote, noteType) {
-    if (this.isPlayingMelody) { return null }
-
     btnNote.setScale(0.51)
 
     const selectedSlot = this.config.slots.find(slot => slot.isSelected)
@@ -294,11 +312,6 @@ class GameScene extends Phaser.Scene {
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)
-
-    // Reproducir el sonido si no es un silencio
-    if (noteType !== 'crotchetRest') {
-      this.sound.play('noteSound')
-    }
 
     const nextEmptySlot = this.config.slots.find(slot => slot.note === null) || selectedSlot
     this.selectSlot(nextEmptySlot)
