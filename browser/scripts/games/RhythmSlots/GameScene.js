@@ -286,6 +286,9 @@ class GameScene extends Phaser.Scene {
       }
     })
 
+    this.btnFinish.setTexture('uiMainMenu', 'button')
+    this.filledSlots = false
+
     // Melodía incorrecta
     if (mistakes.length > 0) {
       this.advanceToNextExercise('failed')
