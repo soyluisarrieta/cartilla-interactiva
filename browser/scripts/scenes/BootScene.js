@@ -24,6 +24,10 @@ class BootScene extends Phaser.Scene {
     this.load.setPath(`/assets/games/${type}/ui`)
     this.load.atlas('uiMainMenu', '/main-menu.png', '/main-menu.json')
     this.load.atlas('uiLvlSelection', '/level-selection.png', '/level-selection.json')
+
+    // Cargar los sonidos
+    this.load.setPath('/assets/games/sounds')
+    this.load.audio('noteSound', 'note-sound.mp3')
   }
 
   // Mostrar los logos con la animación de fade-in y fade-out
