@@ -21,6 +21,9 @@ class GameScene extends Phaser.Scene {
       exercises: [],
       ...this.settings.levels[selectedLevel - 1]
     }
+
+    // Generar la melodía aleatoria aquí
+    this.generatedMelody = this.generateMelody()
   }
 
   // Método principal
@@ -185,10 +188,23 @@ class GameScene extends Phaser.Scene {
 
     btnFinish.on('pointerdown', () => {
       btnFinish.setScale(0.66)
-      console.log('pressed')
+      this.checkMelody() // Llamada para comprobar la melodía
     })
     btnFinish.on('pointerup', () => btnFinish.setScale(0.7))
     btnFinish.on('pointerout', () => btnFinish.setScale(0.7))
+  }
+
+  // Verificar si la melodía compuesta es correcta
+  checkMelody () {
+    const exercise = this.config.exercises.find((exercise) => exercise.state === 'playing')
+    const userMelody = this.config.slots.map(slot => slot.note)
+    const isCorrect = userMelody.every((note, i) => note === exercise.melody[i])
+
+    if (isCorrect) {
+      console.log('¡Melodía correcta!')
+    } else {
+      console.log('Melodía incorrecta. Inténtalo de nuevo.')
+    }
   }
 
   // Seleccionar un slot especifico
