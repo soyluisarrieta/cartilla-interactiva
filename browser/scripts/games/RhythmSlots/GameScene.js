@@ -1,7 +1,5 @@
 import { addInteractions } from '/scripts/Utils.js'
 
-const TEMPO = 1000 // ms
-
 class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
@@ -239,6 +237,7 @@ class GameScene extends Phaser.Scene {
 
   // Reproducir la melodía generada
   playMelody (melody) {
+    const { tempo } = this.settings
     this.melodyState.isPlaying = true
     this.melodyState.timers = []
     let timeElapsed = 0
@@ -255,7 +254,7 @@ class GameScene extends Phaser.Scene {
         if (beats && figure !== 'crotchetRest') {
           this.sound.play('noteSound')
           for (let beat = 1; beat < beats; beat++) {
-            this.time.delayedCall(TEMPO / beats * beat, () => {
+            this.time.delayedCall(tempo / beats * beat, () => {
               this.sound.play('noteSound')
             })
           }
@@ -266,7 +265,7 @@ class GameScene extends Phaser.Scene {
           this.melodyState.isPlaying = false
           this.btnPlayMelody.setScale(0.7)
           this.btnPlayMelody.setTexture('uiMainMenu', 'button')
-          this.time.delayedCall(TEMPO * duration, () => {
+          this.time.delayedCall(tempo * duration, () => {
             this.intervalIndicators[i].setScale(0.2)
           })
         }
@@ -274,7 +273,7 @@ class GameScene extends Phaser.Scene {
 
       // Guardar cada timer
       this.melodyState.timers.push(timer)
-      timeElapsed += duration * TEMPO
+      timeElapsed += duration * tempo
     })
 
     console.log(melody)
