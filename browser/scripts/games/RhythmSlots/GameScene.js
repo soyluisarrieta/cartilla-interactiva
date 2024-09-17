@@ -21,10 +21,6 @@ class GameScene extends Phaser.Scene {
       failed: 'button-pressed',
       completed: 'button-hovered'
     }
-    this.figureDurations = {
-      crotchet: 1,
-      crotchetRest: 1
-    }
   }
 
   // Método inicial
@@ -233,7 +229,7 @@ class GameScene extends Phaser.Scene {
     let timeElapsed = 0
 
     melody.forEach((figure, i) => {
-      const duration = this.figureDurations[figure]
+      const { duration, beats } = figure
       const timer = this.time.delayedCall(timeElapsed, () => {
         if (i !== 0) {
           this.intervalIndicators[i - 1].setScale(0.2)
@@ -241,8 +237,13 @@ class GameScene extends Phaser.Scene {
 
         this.intervalIndicators[i].setScale(0.3)
 
-        if (figure !== 'crotchetRest') {
+        if (beats && figure !== 'crotchetRest') {
           this.sound.play('noteSound')
+          for (let beat = 1; beat < beats; beat++) {
+            this.time.delayedCall(TEMPO / beats * beat, () => {
+              this.sound.play('noteSound')
+            })
+          }
         }
 
         // Establecer en false solo después de la última figura
@@ -250,7 +251,7 @@ class GameScene extends Phaser.Scene {
           this.melodyState.isPlaying = false
           this.btnPlayMelody.setScale(0.7)
           this.btnPlayMelody.setTexture('uiMainMenu', 'button')
-          this.time.delayedCall(TEMPO, () => {
+          this.time.delayedCall(TEMPO * duration, () => {
             this.intervalIndicators[i].setScale(0.2)
           })
         }
@@ -260,6 +261,8 @@ class GameScene extends Phaser.Scene {
       this.melodyState.timers.push(timer)
       timeElapsed += duration * TEMPO
     })
+
+    console.log(melody)
   }
 
   // Detener la reproducción de la melodía
