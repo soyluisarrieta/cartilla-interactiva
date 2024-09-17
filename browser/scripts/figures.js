@@ -18,12 +18,12 @@ export default {
   quaver: {
     name: 'quaver',
     duration: 1,
-    beats: 0.5
+    beats: 2
   },
   semiquaver: {
     name: 'semiquaver',
     duration: 1,
-    beats: 0.25
+    beats: 4
   },
 
   // Rest figures
