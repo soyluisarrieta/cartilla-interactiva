@@ -1,6 +1,7 @@
 import UIManager from '../components/UIManager.js'
 import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
+import Alert from '../components/Alert.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -26,6 +27,7 @@ export default class GameScene extends Phaser.Scene {
     this.uiManager = new UIManager(this)
     this.slot = new Slot(this)
     this.melody = new Melody(this)
+    this.alert = new Alert(this)
   }
 
   // Método inicial
