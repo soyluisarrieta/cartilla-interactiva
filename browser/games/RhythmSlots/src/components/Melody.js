@@ -11,7 +11,7 @@ export default class Melody {
 
     // Aumentar probabilidad de figuras no-rest
     figures.forEach(figure => {
-      const weight = figure.name.includes('rest') ? 1 : 4
+      const weight = figure.name.includes('rest') ? 1 : 3
       for (let i = 0; i < weight; i++) {
         weightedFigures.push(figure)
       }
