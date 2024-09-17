@@ -119,8 +119,23 @@ class GameScene extends Phaser.Scene {
   generateMelody () {
     const { maxSlots, figures } = this.config
     const melody = []
-    for (let i = 0; i < maxSlots; i++) {
-      const randomFigure = figures[Math.floor(Math.random() * figures.length)]
+    const weightedFigures = []
+
+    // Aumentar probabilidad de figuras no-rest
+    figures.forEach(figure => {
+      const weight = figure.name.includes('rest') ? 1 : 4
+      for (let i = 0; i < weight; i++) {
+        weightedFigures.push(figure)
+      }
+    })
+
+    // Seleccionar la primera figura que no sea una "rest"
+    const firstFigure = weightedFigures.find(figure => !figure.name.includes('rest'))
+    melody.push(firstFigure)
+
+    // Generar el resto de la melodía
+    for (let i = 1; i < maxSlots; i++) {
+      const randomFigure = weightedFigures[Math.floor(Math.random() * weightedFigures.length)]
       melody.push(randomFigure)
     }
     return melody
