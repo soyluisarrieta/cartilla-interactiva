@@ -1,6 +1,6 @@
-import { addInteractions } from '/scripts/Utils.js'
+import { addInteractions } from '../../../utils/addInteractions.js'
 
-class LevelSelectionScene extends Phaser.Scene {
+export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
     super({ key: 'LevelSelectionScene' })
     this.settings = window.gameSettings
@@ -70,5 +70,3 @@ class LevelSelectionScene extends Phaser.Scene {
     })
   }
 }
-
-export default LevelSelectionScene

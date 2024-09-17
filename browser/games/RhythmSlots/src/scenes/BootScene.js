@@ -1,39 +1,42 @@
-class BootScene extends Phaser.Scene {
+export default class BootScene extends Phaser.Scene {
   constructor () {
     super({ key: 'BootScene' })
     this.settings = window.gameSettings
   }
 
   preload () {
-    const { id, type, background } = this.settings
+    const { id } = this.settings
 
-    // Cargar los recursos gráficos
+    // Cargar assets
     this.load.setPath('/assets/games')
     this.load.image('openingLogos', '/resources/opening-logos.png')
-    this.load.image('background', `/${type}/${background}`)
     this.load.image('gameLogo', `/logos/${id}.png`)
-    this.load.image('slot', `/${type}/casilla-vacia.png`)
+
+    // Cargar los recursos gráficos
+    this.load.setPath('/games/RhythmSlots/assets/images')
+    this.load.image('background', '/bg-menu.jpg')
+    this.load.image('slot', '/slot.png')
 
     // Cargar figuras musicales
-    this.load.image('semibreve', `/${type}/btn-semibreve.png`)
-    this.load.image('semibreve-rest', `/${type}/btn-semibreve-rest.png`)
-    this.load.image('minim', `/${type}/btn-minim.png`)
-    this.load.image('minim-rest', `/${type}/btn-minim-rest.png`)
-    this.load.image('crotchet', `/${type}/btn-crotchet.png`)
-    this.load.image('crotchet-rest', `/${type}/btn-crotchet-rest.png`)
+    this.load.image('semibreve', '/btn-semibreve.png')
+    this.load.image('semibreve-rest', '/btn-semibreve-rest.png')
+    this.load.image('minim', '/btn-minim.png')
+    this.load.image('minim-rest', '/btn-minim-rest.png')
+    this.load.image('crotchet', '/btn-crotchet.png')
+    this.load.image('crotchet-rest', '/btn-crotchet-rest.png')
 
-    // Cargar las fuentes
-    this.load.setPath('/assets/games/resources/fonts')
-    this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
-
-    // Cargar la interfaz de usuario (UI)
-    this.load.setPath(`/assets/games/${type}/ui`)
+    // Cargar interfaz de usuario (UI)
+    this.load.setPath('/games/RhythmSlots/assets/ui')
     this.load.atlas('uiMainMenu', '/main-menu.png', '/main-menu.json')
     this.load.atlas('uiLvlSelection', '/level-selection.png', '/level-selection.json')
 
-    // Cargar los sonidos
-    this.load.setPath('/assets/games/sounds')
+    // Cargar sonidos
+    this.load.setPath('/games/RhythmSlots/assets/sounds')
     this.load.audio('noteSound', 'note-sound.mp3')
+
+    // Cargar fuentes
+    this.load.setPath('/assets/games/resources/fonts')
+    this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
   }
 
   // Mostrar los logos con la animación de fade-in y fade-out
@@ -68,5 +71,3 @@ class BootScene extends Phaser.Scene {
     })
   }
 }
-
-export default BootScene
