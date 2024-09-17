@@ -299,8 +299,8 @@ class GameScene extends Phaser.Scene {
     // Comprobar melodía
     const mistakes = []
     userMelody.forEach((note, i) => {
-      if (note !== this.currentExercise.melody[i]) {
-        mistakes.push({ slot: i, expected: this.currentExercise.melody[i], got: note })
+      if (note !== this.currentExercise.melody[i].name) {
+        mistakes.push({ slot: i, expected: this.currentExercise.melody[i].name, got: note })
       }
     })
 
