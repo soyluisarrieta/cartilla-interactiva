@@ -19,12 +19,13 @@ export default class MenuScene extends Phaser.Scene {
       .setScale(1.1)
 
     // Texturas e interacciónes del botón
-    const playButton = this.add.image(widthScreen / 2, heightScreen - 230, 'uiMainMenu', 'button')
+    const playButton = this.add.image(widthScreen / 2, heightScreen - 230, 'btnPlay', 'button')
+      .setScale(0.9)
       .setInteractive()
 
     addInteractions({
       button: playButton,
-      key: 'uiMainMenu',
+      key: 'btnPlay',
       frame: 'button',
       onClick: () => {
         this.scene.start('LevelSelectionScene', {
