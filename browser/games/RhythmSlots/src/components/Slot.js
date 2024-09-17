@@ -5,36 +5,42 @@ export default class Slot {
 
   // Mostrar las casillas para las notas
   drawSlots () {
+    const {
+      add: scene,
+      intervalIndicators,
+      config,
+      config: { maxSlots },
+      screen
+    } = this.scene
     const layout = { gap: 30, marginTop: 400, marginRight: 150 }
-    const { maxSlots } = this.scene.config
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
-    const startX = (this.scene.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
+    const startX = (screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     for (let i = 0; i < maxSlots; i++) {
-      const slot = this.scene.add.image(position.x, position.y, 'slot')
+      const slot = scene.image(position.x, position.y, 'slot')
         .setOrigin(0.5)
         .setInteractive()
 
-      const intervalIndicator = this.scene.add.image(position.x, position.y + 150, 'uiMainMenu', 'button')
+      const intervalIndicator = scene.image(position.x, position.y + 150, 'uiMainMenu', 'button')
         .setScale(0.2)
         .setOrigin(0.5)
 
-      this.scene.intervalIndicators.push(intervalIndicator)
+      intervalIndicators.push(intervalIndicator)
 
       // Separar por compaces de 4
       const isOnTheBeat = (i + 1) % 4
       position.x += layout.gap + (isOnTheBeat ? 100 : 150)
 
-      const slotIndex = this.scene.config.slots.push({
+      const slotIndex = config.slots.push({
         element: slot,
         note: null,
         isSelected: false
       }) - 1
 
       slot.on('pointerdown', () => {
-        const selectedSlot = this.scene.config.slots[slotIndex]
+        const selectedSlot = config.slots[slotIndex]
         if (selectedSlot.isSelected) return
         this.selectSlot(selectedSlot)
       })
@@ -54,20 +60,21 @@ export default class Slot {
 
   // Manejador para la selección de casillas
   handleNoteSelection (btnNote, noteType) {
+    const { config } = this.scene
     btnNote.setScale(0.51)
 
-    const selectedSlot = this.scene.config.slots.find(slot => slot.isSelected)
+    const selectedSlot = config.slots.find(slot => slot.isSelected)
     if (!selectedSlot || selectedSlot.note === noteType) return
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)
 
-    const nextEmptySlot = this.scene.config.slots.find(slot => slot.note === null) || selectedSlot
+    const nextEmptySlot = config.slots.find(slot => slot.note === null) || selectedSlot
     this.selectSlot(nextEmptySlot)
 
     // Mostrar botón de confirmar
     if (!this.scene.filledSlots) {
-      const isComplete = this.scene.config.slots.every(slot => slot.note !== null)
+      const isComplete = config.slots.every(slot => slot.note !== null)
 
       if (isComplete) {
         this.scene.btnFinish.setTexture('uiMainMenu', 'button-hovered')
