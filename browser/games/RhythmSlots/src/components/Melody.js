@@ -126,7 +126,26 @@ export default class Melody {
       })
       this.scene.slot.selectSlot(this.scene.config.slots[0])
     } else {
-      console.log('¡Nivel finalizado!')
+      this.scene.alert.showAlert('¡Nivel finalizado!', {
+        type: 'success',
+        duration: 0,
+        image: 'gameLogo',
+        message: 'Puedes seguir practicando este nivel o cambiar a otra dificultad.',
+        buttons: [
+          {
+            text: 'Volver a jugar',
+            onClick: () => {
+              this.scene.scene.start('GameScene', this.scene.selectedLevel)
+            }
+          },
+          {
+            text: 'Niveles',
+            onClick: () => {
+              this.scene.scene.start('LevelSelectionScene')
+            }
+          }
+        ]
+      })
     }
   }
 }
