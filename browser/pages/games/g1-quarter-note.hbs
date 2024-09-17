@@ -1,3 +1,9 @@
+{{#section "head"}}
+{{> page-info
+  title="Cartilla interactiva | SENNOVA"
+}}
+{{/section}}
+
 <script type="module">
   import FIGURES from '/scripts/figures.js'
   import StartGame from '/games/RhythmSlots/index.js';
@@ -32,3 +38,11 @@
 
   StartGame()
 </script>
+
+{{#section "style"}}
+<style>
+    body {
+      background-image: url(/assets/games/thumbnails/game-1.jpg);
+    }
+</style>
+{{/section}}

@@ -42,19 +42,30 @@
     }
     
     body {
+      background-image: url(/assets/images/pages/main-bg.jpg);
+      background-size: cover;
+      background-color: #2e8b67;
+      backdrop-filter: blur(3rem) contrast(120%);
+    } 
+
+    body > #pattern-bg {
       background-image: url(/assets/games/resources/pattern_bg.png);
       background-repeat: repeat;
-    } 
+      opacity: 0.5;
+      position: absolute;
+      inset: 0;
+    }
     
     #game-container {
-      max-width: 96vw;
+      max-width: 96%;
       max-height: 96vh;
-      margin-left: 2vw;
+      margin-left: 2%;
       margin-top: 2vh;
+      position: relative;
 
       canvas {
-        border-radius: 1rem;
-        border: solid 3px rgba(0, 0, 0, 0.1);
+        border-radius: 1vw;
+        border: solid 4px rgba(17, 78, 73, 0.3);
       }
     }
   </style>
@@ -62,6 +73,7 @@
   {{{_sections.style}}}
 </head>
 <body>
+  <div id="pattern-bg"></div>
   <div id="game-container">
     {{!-- CANVAS --}}
   </div>
