@@ -12,6 +12,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('openingLogos', '/resources/opening-logos.png')
     this.load.image('gameLogo', `/logos/${id}.png`)
 
+    this.load.atlas('btnPlay', '/resources/ui/btn-play.png', '/resources/ui/btn-play.json')
+
     // Cargar los recursos gráficos
     this.load.setPath('/games/RhythmSlots/assets/images')
     this.load.image('background', '/bg-menu.jpg')
