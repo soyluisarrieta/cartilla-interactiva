@@ -1,6 +1,6 @@
-import { addInteractions } from '/scripts/Utils.js'
+import { addInteractions } from '../../../utils/addInteractions.js'
 
-class InstructionsScene extends Phaser.Scene {
+export default class InstructionsScene extends Phaser.Scene {
   constructor () {
     super({ key: 'InstructionsScene' })
     this.settings = window.gameSettings
@@ -77,5 +77,3 @@ class InstructionsScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
   }
 }
-
-export default InstructionsScene

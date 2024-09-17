@@ -1,6 +1,6 @@
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/scripts/games/RhythmSlots/index.js';
+  import StartGame from '/games/RhythmSlots/index.js';
 
   const { 
     crotchet,
@@ -13,8 +13,7 @@
 
   window.gameSettings = {
     id: 'g1-quarter-note',
-    type: 'RhythmSlots',
-    background: '/bg-menu.jpg',
+    game: 'RhythmSlots',
     tempo: 1000,
     levels: [{ 
       title: 'Nivel 1 - Fácil',
