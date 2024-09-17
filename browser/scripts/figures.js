@@ -41,10 +41,10 @@ export default {
   },
   quaverRest: {
     name: 'quaver-rest',
-    duration: 1
+    duration: 0.5
   },
   semiquaverRest: {
     name: 'semiquaver-rest',
-    duration: 1
+    duration: 0.25
   }
 }
