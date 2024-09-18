@@ -6,7 +6,7 @@ main {
 /* Botón con degradado */
 .btn {
   width: auto;
-  height: 14rem;
+  height: 7vw;
   position: relative;
   border-radius: 9999px;
   cursor: pointer;
@@ -27,8 +27,8 @@ main {
     color: white;
     position: relative;
     z-index: 2;
-    padding: 5rem;
-    font-size: 40px;
+    padding:  0 3vw;
+    font-size: 2vw;
     font-family: Lato;
   }
 }
