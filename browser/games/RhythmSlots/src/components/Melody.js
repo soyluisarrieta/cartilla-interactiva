@@ -100,7 +100,7 @@ export default class Melody {
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
-      this.advanceToNextExercise('failed')
+      this.scene.attempts.update(-1)
       return null
     }
 
