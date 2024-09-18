@@ -45,7 +45,7 @@
       background-image: url(/assets/images/pages/main-bg.jpg);
       background-size: cover;
       background-color: #2e8b67;
-      backdrop-filter: blur(3rem) contrast(120%);
+      backdrop-filter: blur(3vw) contrast(120%);
     } 
 
     body > #pattern-bg {
@@ -57,7 +57,7 @@
     }
     
     #game-container {
-      max-width: 96%;
+      max-width: 96vw;
       max-height: 96vh;
       margin-left: 2%;
       margin-top: 2vh;
@@ -65,8 +65,40 @@
 
       canvas {
         border-radius: 1vw;
-        border: solid 4px rgba(17, 78, 73, 0.3);
+        border: solid 0.3vw rgba(17, 78, 73, 0.3);
         cursor: pointer;
+      }
+    }
+
+    #action-buttons {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      padding: 1.2vw;
+
+      .btn-action {
+        padding: 0.7vw;
+        border-radius: 0.3vw;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 200ms;
+
+        svg {
+          width: 2vw;
+        }
+      }
+
+      .btn-action:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+        transform: scale(1.05);
       }
     }
   </style>
@@ -75,10 +107,32 @@
 </head>
 <body>
   <div id="pattern-bg"></div>
+
+  {{!-- Action buttons --}}
+  <div id="action-buttons">
+    <div>
+      <a href="/zona-de-juegos" class="btn-action">
+        <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+      </a>
+    </div>
+    <div>
+      <button class="btn-fullscreen btn-action">
+        <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-maximize"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 4l4 0l0 4" /><path d="M14 10l6 -6" /><path d="M8 20l-4 0l0 -4" /><path d="M4 20l6 -6" /><path d="M16 20l4 0l0 -4" /><path d="M14 14l6 6" /><path d="M8 4l-4 0l0 4" /><path d="M4 4l6 6" /></svg>
+      </button>
+    </div>
+  </div>
+
   <div id="game-container">
     {{!-- CANVAS --}}
   </div>
   <script src="/assets/lib/phaser/phaser.min.js"></script>
   {{{body}}}
+
+  <script type="module">
+    import { fullscreen } from '/scripts/fullscreen.js'
+    const btnFullScreen = document.querySelector('#action-buttons .btn-fullscreen')
+    const canvas = document.querySelector('#game-container canvas')
+    fullscreen(btnFullScreen, canvas)
+  </script>
 </body>
 </html>
