@@ -225,7 +225,6 @@
   });
 </script>
 
-
 {{#section "style"}}
   <style>
     main {
@@ -249,15 +248,29 @@
       }
     }
 
+    /* Animation Fade in */    
+    @keyframes fadeIn {
+      from { 
+        height: 0;
+        opacity: 0; 
+      }
+      to { 
+        height: auto;
+        opacity: 1; 
+      }
+    }
+
     .swiper-container {
       width: 100%;
       padding: 0 5vw 5vw;
       user-select: none;
-      
+
       .swiper-slide {
-        aspect-ratio: 1;
+        height: 0;
         position: relative;
         border-radius: 9999px;
+        opacity: 0;
+        animation: 300ms fadeIn 200ms forwards;
 
         img {
           width: 100%;
