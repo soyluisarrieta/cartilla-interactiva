@@ -40,10 +40,10 @@ a.btn:hover {
 
 /* Botón ir atrás  */
 a.back-btn {
-  width: 20rem;
+  width: 12vw;
   position: fixed;
-  top: 2rem;
-  left: 2rem;
+  top: 1vw;
+  left: 1vw;
   z-index: 100;
   display: inline-block;
   transition: 100ms;
@@ -57,30 +57,6 @@ a.back-btn {
 .back-btn:hover {
   transform: translateX(-0.4rem);
   filter: saturate(170%);
-}
-
-.buttons-modules {
-  width: 72%;
-  height: 30%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -33%);
-  display: flex;
-  justify-content: space-between;
-  gap: 2%;
-  padding: 1% 0;
-
-  >a {
-    width: 100%;
-    height: 90%;
-    display: inline-block;
-    border: solid rgb(255 0 0 / 50%);
-    background-color: rgb(255 0 0 / 30%);
-    border-radius: 50%;
-    cursor: pointer;
-    aspect-ratio: 1;
-  }
 }
 
 footer {
