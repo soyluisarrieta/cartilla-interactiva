@@ -52,15 +52,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 0 10rem;
+    padding: 0 7vw 3vw;
   }
 
   #warm-up-title {
-    width: 100%;
-    min-width: 40rem;
-    max-width: 50rem;
-    padding: 5rem 2rem 3rem;
-    margin: 0 auto;
+    width: 40vw;
+    padding: 0 10vw;
+    margin: 4vw auto 0;
 
     img {
       width: 100%;
@@ -69,23 +67,22 @@
   }
 
   #warm-up-videos {
-    max-width: 170rem;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-    gap: 2rem;
-    padding: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vw;
+    padding: 2vw;
 
     video {
       width: 100%;
       cursor: pointer;
-      border-radius: 1rem;
+      border-radius: 0.5vw;
       overflow: hidden;
       transition: 200ms;
     }
 
     video:hover {
-      transform: scale(1.03) translateY(-0.5rem);
+      transform: scale(1.03) translateY(-0.5vw);
       box-shadow: 0 7px 12px rgba(0,0,0,0.4);
     }
 
