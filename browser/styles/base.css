@@ -85,25 +85,25 @@ a.back-btn {
 
 footer {
   position: fixed;
-  bottom: 2rem;
+  bottom: 1vw;
   z-index: 10;
   background-color: rgb(255 255 255 / 70%);
   backdrop-filter: blur(13px);
   box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
-  padding: 1rem;
-  border-radius: 1rem;
+  padding: 1vw;
+  border-radius: 1vw;
 
   .logos img {
     width: auto;
-    height: 8rem;
+    height: 4vw;
     object-fit: contain;
-    padding: 1rem;
+    padding: 0.5vw;
   }
 }
 
 footer.align-right,
 footer.align- {
-  right: 10rem;
+  right: 1vw;
 }
 
 footer.align-center {
@@ -112,7 +112,7 @@ footer.align-center {
 }
 
 footer.align-left {
-  left: 10rem;
+  left: 1vw;
 }
 
 /* Utils */
