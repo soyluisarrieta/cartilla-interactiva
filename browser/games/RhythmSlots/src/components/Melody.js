@@ -36,14 +36,22 @@ export default class Melody {
     this.scene.melodyState.timers = []
     let timeElapsed = 0
 
+    this.scene.uiManager.disableFinishButton(true)
+
     melody.forEach((figure, i) => {
       const { duration, beats } = figure
       const timer = this.scene.time.delayedCall(timeElapsed, () => {
+        // Reiniciar anterior intervalo
         if (i !== 0) {
-          this.scene.intervalIndicators[i - 1].setScale(0.2)
+          const prevInterval = this.scene.slot.intervalIndicators[i - 1]
+          this.scene.slot.changeIntervalStatus(prevInterval, 'normal')
+            .setScale(0.2)
         }
 
-        this.scene.intervalIndicators[i].setScale(0.3)
+        // Activar invervalo que está sonando
+        const intervalActived = this.scene.slot.intervalIndicators[i]
+        this.scene.slot.changeIntervalStatus(intervalActived, 'actived')
+          .setScale(0.3)
 
         if (beats && figure !== 'crotchetRest') {
           this.scene.sound.play('noteSound')
@@ -54,13 +62,15 @@ export default class Melody {
           }
         }
 
-        // Establecer en false solo después de la última figura
+        // Reiniciar texturas solo si es la última figura
         if (i === melody.length - 1) {
-          this.scene.melodyState.isPlaying = false
-          this.scene.btnPlayMelody.setScale(0.7)
-          this.scene.btnPlayMelody.setTexture('uiMainMenu', 'button')
           this.scene.time.delayedCall(tempo * duration, () => {
-            this.scene.intervalIndicators[i].setScale(0.2)
+            this.scene.melodyState.isPlaying = false
+            this.scene.btnPlayMelody.setScale(0.7)
+            this.scene.btnPlayMelody.setTexture('uiMainMenu', 'button')
+            const lastInterval = this.scene.slot.intervalIndicators[i]
+            this.scene.slot.changeIntervalStatus(lastInterval, 'normal')
+              .setScale(0.2)
           })
         }
       })
@@ -79,8 +89,7 @@ export default class Melody {
     this.scene.melodyState.timers.forEach(timer => timer.remove(false))
     this.scene.melodyState.timers = []
 
-    // Reiniciar los indicadores de intervalo
-    this.scene.intervalIndicators.forEach((interval) => interval.setScale(0.2))
+    this.scene.slot.resetIntervals()
   }
 
   // Verificar si la melodía compuesta es correcta
@@ -95,12 +104,16 @@ export default class Melody {
       }
     })
 
-    this.scene.btnFinish.setTexture('uiMainMenu', 'button')
-    this.scene.filledSlots = false
+    this.scene.slot.resetIntervals()
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
+      mistakes.forEach(({ slot }) => {
+        const intervalFailed = this.scene.slot.intervalIndicators[slot]
+        this.scene.slot.changeIntervalStatus(intervalFailed, 'failed')
+      })
       this.scene.attempts.update(-1)
+      this.scene.uiManager.disableFinishButton(true)
       return null
     }
 
