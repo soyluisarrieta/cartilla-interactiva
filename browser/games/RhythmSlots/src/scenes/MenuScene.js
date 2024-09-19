@@ -28,9 +28,7 @@ export default class MenuScene extends Phaser.Scene {
       key: 'btnPlay',
       frame: 'button',
       onClick: () => {
-        this.scene.start('LevelSelectionScene', {
-          levels: this.settings.levels
-        })
+        this.scene.start('LevelSelectionScene')
       }
     })
   }
