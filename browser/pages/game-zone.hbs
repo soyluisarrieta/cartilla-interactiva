@@ -198,6 +198,9 @@
         </div>
       </div>
     </div>
+    
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
   </div>
 </main>
 
@@ -220,6 +223,10 @@
         depth: 100,
         modifier: 1,
         slideShadows: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
       },
     });
   });
@@ -328,6 +335,33 @@
         transform: translateY(0);
         transition-delay: 50ms;
       }
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+      width: 3vw;
+      height: 3vw !important;
+      margin: 0 3vw;
+      top: 10vw;
+      color: #449342;
+      background-color: rgba(255,255,255,0.8);
+      padding: 2vw;
+      border-radius: 999999px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: 150ms;
+      animation: 300ms fadeIn 700ms forwards;
+
+    }
+
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .swiper-button-next::after, .swiper-button-prev::after {
+      font-size: 2vw;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 {{/section}}
