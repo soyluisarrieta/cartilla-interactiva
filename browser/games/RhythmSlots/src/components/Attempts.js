@@ -1,6 +1,6 @@
 export default class Attempts {
-  constructor (scene) {
-    this.scene = scene
+  constructor (gameScene) {
+    this.game = gameScene
     this.total = null
     this.elements = []
   }
@@ -8,12 +8,12 @@ export default class Attempts {
   // Mostrar los intentos o vidas
   draw (attempts) {
     const layout = { marginTop: 70, gap: 80 }
-    const position = { x: this.scene.screen.width - 90, y: layout.marginTop }
+    const position = { x: this.game.screen.width - 90, y: layout.marginTop }
 
     this.total = attempts
 
     for (let i = 0; i < attempts; i++) {
-      const attempt = this.scene.add.image(position.x - (i * layout.gap), position.y, 'uiLvlSelection', 'btn-arrow-hovered')
+      const attempt = this.game.add.image(position.x - (i * layout.gap), position.y, 'uiLvlSelection', 'btn-arrow-hovered')
         .setScale(0.7)
         .setOrigin(0.5)
 

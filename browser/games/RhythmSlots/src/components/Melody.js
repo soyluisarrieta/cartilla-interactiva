@@ -1,6 +1,6 @@
 export default class Melody {
-  constructor (scene) {
-    this.scene = scene
+  constructor (gameScene) {
+    this.game = gameScene
     this.btnPlay = null
     this.state = {
       isPlaying: false,
@@ -15,7 +15,7 @@ export default class Melody {
 
   // Generar una melodía aleatoria
   generate () {
-    const { maxSlots, figures } = this.scene.config
+    const { maxSlots, figures } = this.game.config
     const melody = []
     const weightedFigures = []
 
@@ -41,45 +41,45 @@ export default class Melody {
 
   // Reproducir la melodía generada
   playMelody (melody) {
-    const { tempo } = this.scene.settings
+    const { tempo } = this.game.settings
     this.state.isPlaying = true
     this.state.timers = []
     let timeElapsed = 0
 
-    this.scene.uiManager.disableFinishButton(true)
+    this.game.uiManager.disableFinishButton(true)
 
     melody.forEach((figure, i) => {
       const { duration, beats } = figure
-      const timer = this.scene.time.delayedCall(timeElapsed, () => {
+      const timer = this.game.time.delayedCall(timeElapsed, () => {
         // Reiniciar anterior intervalo
         if (i !== 0) {
-          const prevInterval = this.scene.slot.intervalIndicators[i - 1]
-          this.scene.slot.changeIntervalStatus(prevInterval, 'normal')
+          const prevInterval = this.game.slot.intervalIndicators[i - 1]
+          this.game.slot.changeIntervalStatus(prevInterval, 'normal')
             .setScale(0.2)
         }
 
         // Activar invervalo que está sonando
-        const intervalActived = this.scene.slot.intervalIndicators[i]
-        this.scene.slot.changeIntervalStatus(intervalActived, 'actived')
+        const intervalActived = this.game.slot.intervalIndicators[i]
+        this.game.slot.changeIntervalStatus(intervalActived, 'actived')
           .setScale(0.3)
 
         if (beats && figure !== 'crotchetRest') {
-          this.scene.sound.play('noteSound')
+          this.game.sound.play('noteSound')
           for (let beat = 1; beat < beats; beat++) {
-            this.scene.time.delayedCall(tempo / beats * beat, () => {
-              this.scene.sound.play('noteSound')
+            this.game.time.delayedCall(tempo / beats * beat, () => {
+              this.game.sound.play('noteSound')
             })
           }
         }
 
         // Reiniciar texturas solo si es la última figura
         if (i === melody.length - 1) {
-          this.scene.time.delayedCall(tempo * duration, () => {
+          this.game.time.delayedCall(tempo * duration, () => {
             this.state.isPlaying = false
             this.btnPlay.setScale(0.7)
             this.btnPlay.setTexture('uiMainMenu', 'button')
-            const lastInterval = this.scene.slot.intervalIndicators[i]
-            this.scene.slot.changeIntervalStatus(lastInterval, 'normal')
+            const lastInterval = this.game.slot.intervalIndicators[i]
+            this.game.slot.changeIntervalStatus(lastInterval, 'normal')
               .setScale(0.2)
           })
         }
@@ -99,31 +99,31 @@ export default class Melody {
     this.state.timers.forEach(timer => timer.remove(false))
     this.state.timers = []
 
-    this.scene.slot.resetIntervals()
+    this.game.slot.resetIntervals()
   }
 
   // Verificar si la melodía compuesta es correcta
   checkMelody () {
-    const userMelody = this.scene.config.slots.map(slot => slot.note)
+    const userMelody = this.game.config.slots.map(slot => slot.note)
 
     // Comprobar melodía
     const mistakes = []
     userMelody.forEach((note, i) => {
-      if (note !== this.scene.currentExercise.melody[i].name) {
-        mistakes.push({ slot: i, expected: this.scene.currentExercise.melody[i].name, got: note })
+      if (note !== this.game.currentExercise.melody[i].name) {
+        mistakes.push({ slot: i, expected: this.game.currentExercise.melody[i].name, got: note })
       }
     })
 
-    this.scene.slot.resetIntervals()
+    this.game.slot.resetIntervals()
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
       mistakes.forEach(({ slot }) => {
-        const intervalFailed = this.scene.slot.intervalIndicators[slot]
-        this.scene.slot.changeIntervalStatus(intervalFailed, 'failed')
+        const intervalFailed = this.game.slot.intervalIndicators[slot]
+        this.game.slot.changeIntervalStatus(intervalFailed, 'failed')
       })
-      this.scene.attempts.update(-1)
-      this.scene.uiManager.disableFinishButton(true)
+      this.game.attempts.update(-1)
+      this.game.uiManager.disableFinishButton(true)
       return null
     }
 
@@ -133,23 +133,23 @@ export default class Melody {
 
   // Avanzar al siguiente ejercicio
   advanceToNextExercise (exerciseState) {
-    this.scene.currentExercise.setState(exerciseState)
+    this.game.currentExercise.setState(exerciseState)
 
     // Encontrar el siguiente ejercicio
-    const nextExerciseIndex = this.scene.exercises.indexOf(this.scene.currentExercise) + 1
-    if (nextExerciseIndex < this.scene.exercises.length) {
-      this.scene.currentExercise = this.scene.exercises[nextExerciseIndex]
-      this.scene.currentExercise.setState('playing')
-      this.scene.generatedMelody = this.scene.currentExercise.melody
+    const nextExerciseIndex = this.game.exercises.indexOf(this.game.currentExercise) + 1
+    if (nextExerciseIndex < this.game.exercises.length) {
+      this.game.currentExercise = this.game.exercises[nextExerciseIndex]
+      this.game.currentExercise.setState('playing')
+      this.game.generatedMelody = this.game.currentExercise.melody
 
       // Limpiar las notas en las casillas
-      this.scene.config.slots.forEach(slot => {
+      this.game.config.slots.forEach(slot => {
         slot.note = null
         slot.element.setTexture('slot')
       })
-      this.scene.slot.selectSlot(this.scene.config.slots[0])
+      this.game.slot.selectSlot(this.game.config.slots[0])
     } else {
-      this.scene.alert.showAlert('¡Nivel finalizado!', {
+      this.game.alert.showAlert('¡Nivel finalizado!', {
         type: 'success',
         duration: 0,
         image: 'gameLogo',
@@ -158,13 +158,13 @@ export default class Melody {
           {
             text: 'Volver a jugar',
             onClick: () => {
-              this.scene.scene.start('GameScene', this.scene.selectedLevel)
+              this.game.scene.start('GameScene', this.game.selectedLevel)
             }
           },
           {
             text: 'Niveles',
             onClick: () => {
-              this.scene.scene.start('LevelSelectionScene')
+              this.game.scene.start('LevelSelectionScene')
             }
           }
         ]
