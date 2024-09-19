@@ -1,6 +1,7 @@
 export default class Slot {
   constructor (scene) {
     this.scene = scene
+    this.filledSlots = false
     this.intervalIndicators = []
     this.invervalTextures = {
       normal: 'button',

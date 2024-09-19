@@ -8,20 +8,7 @@ export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
-
-    this.filledSlots = false
-    this.currentExercise = null
-
-    this.melodyState = {
-      isPlaying: false,
-      timers: []
-    }
-
-    this.textureStates = {
-      playing: 'button',
-      failed: 'button-pressed',
-      completed: 'button-hovered'
-    }
+    this.exercises = []
 
     this.uiManager = new UIManager(this)
     this.attempts = new Attempts(this)
@@ -32,13 +19,11 @@ export default class GameScene extends Phaser.Scene {
 
   // Método inicial
   init (selectedLevel) {
-    this.intervalIndicators = []
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
 
     this.config = {
       slots: [],
-      exercises: [],
       ...this.settings.levels[selectedLevel - 1]
     }
 

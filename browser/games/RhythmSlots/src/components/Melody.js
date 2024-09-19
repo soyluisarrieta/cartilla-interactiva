@@ -2,6 +2,15 @@ export default class Melody {
   constructor (scene) {
     this.scene = scene
     this.btnPlay = null
+    this.state = {
+      isPlaying: false,
+      timers: []
+    }
+    this.textureStates = {
+      playing: 'button',
+      failed: 'button-pressed',
+      completed: 'button-hovered'
+    }
   }
 
   // Generar una melodía aleatoria
@@ -33,8 +42,8 @@ export default class Melody {
   // Reproducir la melodía generada
   playMelody (melody) {
     const { tempo } = this.scene.settings
-    this.scene.melodyState.isPlaying = true
-    this.scene.melodyState.timers = []
+    this.state.isPlaying = true
+    this.state.timers = []
     let timeElapsed = 0
 
     this.scene.uiManager.disableFinishButton(true)
@@ -66,7 +75,7 @@ export default class Melody {
         // Reiniciar texturas solo si es la última figura
         if (i === melody.length - 1) {
           this.scene.time.delayedCall(tempo * duration, () => {
-            this.scene.melodyState.isPlaying = false
+            this.state.isPlaying = false
             this.btnPlay.setScale(0.7)
             this.btnPlay.setTexture('uiMainMenu', 'button')
             const lastInterval = this.scene.slot.intervalIndicators[i]
@@ -77,18 +86,18 @@ export default class Melody {
       })
 
       // Guardar cada timer
-      this.scene.melodyState.timers.push(timer)
+      this.state.timers.push(timer)
       timeElapsed += duration * tempo
     })
   }
 
   // Detener la reproducción de la melodía
   stopMelody () {
-    this.scene.melodyState.isPlaying = false
+    this.state.isPlaying = false
 
     // Cancelar todos los delayedCalls pendientes
-    this.scene.melodyState.timers.forEach(timer => timer.remove(false))
-    this.scene.melodyState.timers = []
+    this.state.timers.forEach(timer => timer.remove(false))
+    this.state.timers = []
 
     this.scene.slot.resetIntervals()
   }
@@ -127,9 +136,9 @@ export default class Melody {
     this.scene.currentExercise.setState(exerciseState)
 
     // Encontrar el siguiente ejercicio
-    const nextExerciseIndex = this.scene.config.exercises.indexOf(this.scene.currentExercise) + 1
-    if (nextExerciseIndex < this.scene.config.exercises.length) {
-      this.scene.currentExercise = this.scene.config.exercises[nextExerciseIndex]
+    const nextExerciseIndex = this.scene.exercises.indexOf(this.scene.currentExercise) + 1
+    if (nextExerciseIndex < this.scene.exercises.length) {
+      this.scene.currentExercise = this.scene.exercises[nextExerciseIndex]
       this.scene.currentExercise.setState('playing')
       this.scene.generatedMelody = this.scene.currentExercise.melody
 
