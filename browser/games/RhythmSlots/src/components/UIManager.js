@@ -3,6 +3,7 @@ import { addInteractions } from '../../../utils/addInteractions.js'
 export default class UIManager {
   constructor (scene) {
     this.scene = scene
+    this.btnFinish = null
   }
 
   // Crear botón para regresar a la selección de niveles
@@ -86,7 +87,7 @@ export default class UIManager {
   // Mostrar los botones de acción
   drawActionButtons () {
     // Botón para repetir la melodía generada
-    const btnPlayMelody = this.scene.btnPlayMelody = this.scene.add
+    const btnPlayMelody = this.scene.melody.btnPlay = this.scene.add
       .image(this.scene.screen.width - 300, this.scene.screen.height - 130, 'uiMainMenu', 'button')
       .setScale(0.7)
       .setOrigin(0.5)
@@ -110,7 +111,7 @@ export default class UIManager {
     btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.7))
 
     // Botón para verificar la melodía compuesta
-    const btnFinish = this.scene.btnFinish = this.scene.add
+    const btnFinish = this.btnFinish = this.scene.add
       .image(this.scene.screen.width - 130, this.scene.screen.height - 130, 'uiMainMenu', 'button-pressed')
       .setScale(0.7)
       .setOrigin(0.5)
@@ -130,7 +131,7 @@ export default class UIManager {
 
   disableFinishButton (state = true) {
     const texture = state ? 'button-pressed' : 'button-hovered'
-    this.scene.btnFinish.setTexture('uiMainMenu', texture)
+    this.btnFinish.setTexture('uiMainMenu', texture)
     this.scene.filledSlots = !state
   }
 }

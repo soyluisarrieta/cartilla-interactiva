@@ -10,7 +10,6 @@ export default class GameScene extends Phaser.Scene {
     this.settings = window.gameSettings
 
     this.filledSlots = false
-    this.btnPlayMelody = null
     this.currentExercise = null
 
     this.melodyState = {
