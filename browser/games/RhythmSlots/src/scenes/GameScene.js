@@ -8,7 +8,6 @@ export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
-    this.exercises = []
 
     this.uiManager = new UIManager(this)
     this.attempts = new Attempts(this)
@@ -21,6 +20,7 @@ export default class GameScene extends Phaser.Scene {
   init (selectedLevel) {
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
+    this.exercises = []
 
     this.config = {
       slots: [],
