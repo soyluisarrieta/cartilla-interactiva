@@ -1,6 +1,7 @@
 export default class Melody {
   constructor (scene) {
     this.scene = scene
+    this.btnPlay = null
   }
 
   // Generar una melodía aleatoria
@@ -66,8 +67,8 @@ export default class Melody {
         if (i === melody.length - 1) {
           this.scene.time.delayedCall(tempo * duration, () => {
             this.scene.melodyState.isPlaying = false
-            this.scene.btnPlayMelody.setScale(0.7)
-            this.scene.btnPlayMelody.setTexture('uiMainMenu', 'button')
+            this.btnPlay.setScale(0.7)
+            this.btnPlay.setTexture('uiMainMenu', 'button')
             const lastInterval = this.scene.slot.intervalIndicators[i]
             this.scene.slot.changeIntervalStatus(lastInterval, 'normal')
               .setScale(0.2)
