@@ -4,6 +4,7 @@ export default class UIManager {
   constructor (scene) {
     this.scene = scene
     this.btnFinish = null
+    this.currentExercise = null
   }
 
   // Crear botón para regresar a la selección de niveles
@@ -68,19 +69,19 @@ export default class UIManager {
 
       const generatedMelody = this.scene.melody.generate()
 
-      this.scene.config.exercises.push({
+      this.scene.exercises.push({
         element: exerciseElement,
         state: null,
         melody: generatedMelody,
         setState: (state) => {
-          this.scene.config.exercises[i].state = state
-          exerciseElement.setTexture('uiMainMenu', this.scene.textureStates[state])
+          this.scene.exercises[i].state = state
+          exerciseElement.setTexture('uiMainMenu', this.scene.melody.textureStates[state])
         }
       })
     }
 
     // Activar el primer ejercicio
-    this.scene.currentExercise = this.scene.config.exercises[0]
+    this.scene.currentExercise = this.scene.exercises[0]
     this.scene.currentExercise.setState('playing')
   }
 
@@ -99,7 +100,7 @@ export default class UIManager {
     // Toggle button
     btnPlayMelody.on('pointerdown', () => {
       btnPlayMelody.setScale(0.66)
-      if (this.scene.melodyState.isPlaying) {
+      if (this.scene.melody.state.isPlaying) {
         this.scene.melody.stopMelody()
         btnPlayMelody.setTexture('uiMainMenu', 'button')
       } else {
