@@ -9,10 +9,6 @@ export default class GameScene extends Phaser.Scene {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
 
-    this.uiManager = new UIManager(this)
-    this.attempts = new Attempts(this)
-    this.slot = new Slot(this)
-    this.melody = new Melody(this)
     this.alert = new Alert(this)
   }
 
@@ -26,6 +22,11 @@ export default class GameScene extends Phaser.Scene {
       slots: [],
       ...this.settings.levels[selectedLevel - 1]
     }
+
+    this.uiManager = new UIManager(this)
+    this.attempts = new Attempts(this)
+    this.slot = new Slot(this)
+    this.melody = new Melody(this)
 
     // Generar la melodía aleatoria aquí
     this.generatedMelody = this.melody.generate()
