@@ -1,15 +1,15 @@
 import { addInteractions } from '../../../utils/addInteractions.js'
 
 export default class UIManager {
-  constructor (scene) {
-    this.scene = scene
+  constructor (gameScene) {
+    this.game = gameScene
     this.btnFinish = null
     this.currentExercise = null
   }
 
   // Crear botón para regresar a la selección de niveles
   drawBackButton () {
-    const backButton = this.scene.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
+    const backButton = this.game.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
       .setScale(1.5)
       .setOrigin(0.5)
       .setInteractive()
@@ -21,34 +21,34 @@ export default class UIManager {
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
-        this.scene.scene.start('LevelSelectionScene')
+        this.game.scene.start('LevelSelectionScene')
       }
     })
   }
 
   // Mostrar la información del nivel actual
   drawLevelInfo () {
-    this.scene.add.bitmapText(this.scene.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.scene.selectedLevel}`)
+    this.game.add.bitmapText(this.game.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.game.selectedLevel}`)
       .setOrigin(0.5, 0)
   }
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
     const layout = { gap: 10, marginTop: 700, marginRight: 150 }
-    const { figures } = this.scene.config
+    const { figures } = this.game.config
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
-    const startX = (this.scene.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
+    const startX = (this.game.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     figures.forEach((figure, index) => {
-      const btnNote = this.scene.add.image(position.x, position.y, figure.name)
+      const btnNote = this.game.add.image(position.x, position.y, figure.name)
         .setScale(0.56)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
-      btnNote.on('pointerdown', () => this.scene.slot.handleNoteSelection(btnNote, figure.name, index))
+      btnNote.on('pointerdown', () => this.game.slot.handleNoteSelection(btnNote, figure.name, index))
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
     })
@@ -58,51 +58,51 @@ export default class UIManager {
   drawExercises (numExercises) {
     for (let i = 0; i <= numExercises; i++) {
       const layout = { marginTop: 150, gap: 80 }
-      const positionX = this.scene.screen.width - 100
+      const positionX = this.game.screen.width - 100
       const positionY = layout.marginTop + (layout.gap * (i + 1))
-      const exerciseElement = this.scene.add.image(positionX, positionY, 'uiMainMenu', 'button-pressed')
+      const exerciseElement = this.game.add.image(positionX, positionY, 'uiMainMenu', 'button-pressed')
         .setScale(0.5)
         .setOrigin(0.5)
         .setInteractive()
 
-      const generatedMelody = this.scene.melody.generate()
+      const generatedMelody = this.game.melody.generate()
 
-      this.scene.exercises.push({
+      this.game.exercises.push({
         element: exerciseElement,
         state: null,
         melody: generatedMelody,
         setState: (state) => {
-          this.scene.exercises[i].state = state
-          exerciseElement.setTexture('uiMainMenu', this.scene.melody.textureStates[state])
+          this.game.exercises[i].state = state
+          exerciseElement.setTexture('uiMainMenu', this.game.melody.textureStates[state])
         }
       })
     }
 
     // Activar el primer ejercicio
-    this.scene.currentExercise = this.scene.exercises[0]
-    this.scene.currentExercise.setState('playing')
+    this.game.currentExercise = this.game.exercises[0]
+    this.game.currentExercise.setState('playing')
   }
 
   // Mostrar los botones de acción
   drawActionButtons () {
     // Botón para repetir la melodía generada
-    const btnPlayMelody = this.scene.melody.btnPlay = this.scene.add
-      .image(this.scene.screen.width - 300, this.scene.screen.height - 130, 'uiMainMenu', 'button')
+    const btnPlayMelody = this.game.melody.btnPlay = this.game.add
+      .image(this.game.screen.width - 300, this.game.screen.height - 130, 'uiMainMenu', 'button')
       .setScale(0.7)
       .setOrigin(0.5)
       .setInteractive()
 
-    this.scene.add.bitmapText(this.scene.screen.width - 300, this.scene.screen.height - 70, 'primaryFont', 'Melodía', 24)
+    this.game.add.bitmapText(this.game.screen.width - 300, this.game.screen.height - 70, 'primaryFont', 'Melodía', 24)
       .setOrigin(0.5, 0)
 
     // Toggle button
     btnPlayMelody.on('pointerdown', () => {
       btnPlayMelody.setScale(0.66)
-      if (this.scene.melody.state.isPlaying) {
-        this.scene.melody.stopMelody()
+      if (this.game.melody.state.isPlaying) {
+        this.game.melody.stopMelody()
         btnPlayMelody.setTexture('uiMainMenu', 'button')
       } else {
-        this.scene.melody.playMelody(this.scene.currentExercise.melody)
+        this.game.melody.playMelody(this.game.currentExercise.melody)
         btnPlayMelody.setTexture('uiMainMenu', 'button-pressed')
       }
     })
@@ -110,27 +110,27 @@ export default class UIManager {
     btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.7))
 
     // Botón para verificar la melodía compuesta
-    const btnFinish = this.btnFinish = this.scene.add
-      .image(this.scene.screen.width - 130, this.scene.screen.height - 130, 'uiMainMenu', 'button-pressed')
+    const btnFinish = this.btnFinish = this.game.add
+      .image(this.game.screen.width - 130, this.game.screen.height - 130, 'uiMainMenu', 'button-pressed')
       .setScale(0.7)
       .setOrigin(0.5)
       .setInteractive()
 
-    this.scene.add.bitmapText(this.scene.screen.width - 130, this.scene.screen.height - 70, 'primaryFont', 'Confirmar', 24)
+    this.game.add.bitmapText(this.game.screen.width - 130, this.game.screen.height - 70, 'primaryFont', 'Confirmar', 24)
       .setOrigin(0.5, 0)
 
     btnFinish.on('pointerdown', () => {
-      if (!this.scene.filledSlots) { return null }
+      if (!this.game.filledSlots) { return null }
       btnFinish.setScale(0.66)
-      this.scene.melody.checkMelody() // Llamada para comprobar la melodía
+      this.game.melody.checkMelody() // Llamada para comprobar la melodía
     })
-    btnFinish.on('pointerup', () => this.scene.filledSlots && btnFinish.setScale(0.7))
-    btnFinish.on('pointerout', () => this.scene.filledSlots && btnFinish.setScale(0.7))
+    btnFinish.on('pointerup', () => this.game.filledSlots && btnFinish.setScale(0.7))
+    btnFinish.on('pointerout', () => this.game.filledSlots && btnFinish.setScale(0.7))
   }
 
   disableFinishButton (state = true) {
     const texture = state ? 'button-pressed' : 'button-hovered'
     this.btnFinish.setTexture('uiMainMenu', texture)
-    this.scene.filledSlots = !state
+    this.game.filledSlots = !state
   }
 }

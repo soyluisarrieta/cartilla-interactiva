@@ -1,6 +1,6 @@
 export default class Slot {
-  constructor (scene) {
-    this.scene = scene
+  constructor (gameScene) {
+    this.game = gameScene
     this.filledSlots = false
     this.intervalIndicators = []
     this.invervalTextures = {
@@ -17,7 +17,7 @@ export default class Slot {
       config,
       config: { maxSlots },
       screen
-    } = this.scene
+    } = this.game
     const layout = { gap: 30, marginTop: 400, marginRight: 150 }
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
@@ -69,7 +69,7 @@ export default class Slot {
 
   // Seleccionar un slot especifico
   selectSlot (slotToSelect) {
-    this.scene.config.slots.forEach(slot => {
+    this.game.config.slots.forEach(slot => {
       slot.element.setScale(0.66)
       slot.isSelected = false
     })
@@ -80,7 +80,7 @@ export default class Slot {
 
   // Manejador para la selección de casillas
   handleNoteSelection (btnNote, noteType) {
-    const { config } = this.scene
+    const { config } = this.game
     btnNote.setScale(0.51)
 
     const indexSelectedSlot = config.slots.findIndex(slot => slot.isSelected)
@@ -99,11 +99,11 @@ export default class Slot {
     this.selectSlot(nextEmptySlot)
 
     // Mostrar botón de confirmar
-    if (!this.scene.filledSlots) {
+    if (!this.game.filledSlots) {
       const isComplete = config.slots.every(slot => slot.note !== null)
       const hasMistakes = this.intervalIndicators.find((interv) => interv.frame.name === this.invervalTextures.failed)
       if (isComplete && !hasMistakes) {
-        this.scene.uiManager.disableFinishButton(false)
+        this.game.uiManager.disableFinishButton(false)
       }
     }
   }
