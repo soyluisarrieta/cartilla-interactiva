@@ -127,4 +127,10 @@ export default class UIManager {
     btnFinish.on('pointerup', () => this.scene.filledSlots && btnFinish.setScale(0.7))
     btnFinish.on('pointerout', () => this.scene.filledSlots && btnFinish.setScale(0.7))
   }
+
+  disableFinishButton (state = true) {
+    const texture = state ? 'button-pressed' : 'button-hovered'
+    this.scene.btnFinish.setTexture('uiMainMenu', texture)
+    this.scene.filledSlots = !state
+  }
 }

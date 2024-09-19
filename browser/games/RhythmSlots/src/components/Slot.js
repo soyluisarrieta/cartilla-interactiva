@@ -1,13 +1,18 @@
 export default class Slot {
   constructor (scene) {
     this.scene = scene
+    this.intervalIndicators = []
+    this.invervalTextures = {
+      normal: 'button',
+      actived: 'button-hovered',
+      failed: 'button-pressed'
+    }
   }
 
   // Mostrar las casillas para las notas
   drawSlots () {
     const {
       add: scene,
-      intervalIndicators,
       config,
       config: { maxSlots },
       screen
@@ -27,7 +32,7 @@ export default class Slot {
         .setScale(0.2)
         .setOrigin(0.5)
 
-      intervalIndicators.push(intervalIndicator)
+      this.intervalIndicators.push(intervalIndicator)
 
       // Separar por compaces de 4
       const isOnTheBeat = (i + 1) % 4
@@ -47,6 +52,20 @@ export default class Slot {
     }
   }
 
+  // Cambiar estado del intervalo
+  changeIntervalStatus (interval, state) {
+    return interval
+      .setTexture('uiMainMenu', this.invervalTextures[state])
+      .setScale(0.2)
+  }
+
+  // Reiniciar texturas
+  resetIntervals () {
+    this.intervalIndicators.forEach(interval => {
+      this.changeIntervalStatus(interval, 'normal')
+    })
+  }
+
   // Seleccionar un slot especifico
   selectSlot (slotToSelect) {
     this.scene.config.slots.forEach(slot => {
@@ -63,8 +82,14 @@ export default class Slot {
     const { config } = this.scene
     btnNote.setScale(0.51)
 
-    const selectedSlot = config.slots.find(slot => slot.isSelected)
+    const indexSelectedSlot = config.slots.findIndex(slot => slot.isSelected)
+    const selectedSlot = config.slots[indexSelectedSlot]
     if (!selectedSlot || selectedSlot.note === noteType) return
+
+    // Reiniciar textura del intervalo
+    const interval = this.intervalIndicators[indexSelectedSlot]
+    this.changeIntervalStatus(interval, 'normal')
+      .setScale(0.2)
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)
@@ -75,11 +100,9 @@ export default class Slot {
     // Mostrar botón de confirmar
     if (!this.scene.filledSlots) {
       const isComplete = config.slots.every(slot => slot.note !== null)
-
-      if (isComplete) {
-        this.scene.btnFinish.setTexture('uiMainMenu', 'button-hovered')
-        this.scene.filledSlots = true
-        return null
+      const hasMistakes = this.intervalIndicators.find((interv) => interv.frame.name === this.invervalTextures.failed)
+      if (isComplete && !hasMistakes) {
+        this.scene.uiManager.disableFinishButton(false)
       }
     }
   }
