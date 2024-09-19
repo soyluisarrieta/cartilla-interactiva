@@ -30,9 +30,7 @@ export default class InstructionsScene extends Phaser.Scene {
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
-        this.scene.start('LevelSelectionScene', {
-          levels: this.settings.levels
-        })
+        this.scene.start('LevelSelectionScene')
       }
     })
   }

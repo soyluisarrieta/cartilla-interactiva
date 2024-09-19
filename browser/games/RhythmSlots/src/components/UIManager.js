@@ -21,9 +21,7 @@ export default class UIManager {
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
-        this.scene.scene.start('LevelSelectionScene', {
-          levels: this.scene.settings.levels
-        })
+        this.scene.scene.start('LevelSelectionScene')
       }
     })
   }
