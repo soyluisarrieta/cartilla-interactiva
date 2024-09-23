@@ -129,14 +129,26 @@ export default class Melody {
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
+      this.game.attempts.update(-1)
+      this.game.uiManager.disableFinishButton(true)
+
+      const countAttempts = this.game.attempts.total
+      const firstPartMsg = mistakes.length > 1
+        ? 'Algunas de las notas son incorrectas. Corrigelas'
+        : 'Una de las notas es incorrecta. Corrigela'
+      this.game.alert.showAlert('¡Nota incorrecta!', {
+        type: 'error',
+        duration: 0,
+        image: 'gameLogo',
+        message: `${firstPartMsg} para continuar. ¡Te quedan ${countAttempts} vidas!`,
+        btnAccept: true
+      })
+
       mistakes.forEach(({ slot }) => {
         const notesFailed = this.game.config.slots[slot]
         notesFailed.element.setTexture('slot')
         notesFailed.isFixed = false
       })
-
-      this.game.attempts.update(-1)
-      this.game.uiManager.disableFinishButton(true)
 
       // Seleccionar nota incorrecta
       const firstNoteFailed = this.game.config.slots[mistakes[0].slot]
