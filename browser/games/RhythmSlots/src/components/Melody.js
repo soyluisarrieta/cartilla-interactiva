@@ -230,6 +230,11 @@ export default class Melody {
           }
         ]
       })
+
+      // Chequear nivel
+      const selectedLevel = this.game.selectedLevel
+      const currentLevel = this.game.settings.levels[selectedLevel - 1]
+      currentLevel.isCompleted = true
     }
   }
 }
