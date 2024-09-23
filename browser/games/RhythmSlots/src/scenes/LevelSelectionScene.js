@@ -32,12 +32,16 @@ export default class LevelSelectionScene extends Phaser.Scene {
     const position = { x: startX, y: 400 }
 
     for (let i = 0; i < numLevels; i++) {
-      const levelButton = this.add.image(position.x, position.y, 'uiLvlSelection', 'btn-arrow')
-        .setScale(2)
+      const level = levels[i]
+      const texture = level.isCompleted
+        ? 'btn-arrow-hovered'
+        : 'btn-arrow'
+      const levelButton = this.add.image(position.x, position.y, 'uiLvlSelection', texture)
+        .setScale(level.isCompleted ? 2 : 1.5)
         .setOrigin(0.5, 0.5)
         .setInteractive()
 
-      this.add.bitmapText(position.x, position.y + 120, 'primaryFont', levels[i].title)
+      this.add.bitmapText(position.x, position.y + 120, 'primaryFont', level.title)
         .setOrigin(0.5, 0.5)
         .setScale(0.5)
 
