@@ -42,7 +42,8 @@ export default class Slot {
       const slotIndex = config.slots.push({
         element: slot,
         note: null,
-        isSelected: false
+        isSelected: false,
+        isFixed: true
       }) - 1
 
       slot.on('pointerdown', () => {
@@ -94,15 +95,16 @@ export default class Slot {
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)
+    selectedSlot.isFixed = true
 
-    const nextEmptySlot = config.slots.find(slot => slot.note === null) || selectedSlot
-    this.selectSlot(nextEmptySlot)
+    const nextEmptySlot = config.slots.find(slot => slot.note === null || !slot.isFixed)
+    this.selectSlot(nextEmptySlot || selectedSlot)
+    console.log(nextEmptySlot)
 
     // Mostrar botón de confirmar
     if (!this.filledSlots) {
-      const isComplete = config.slots.every(slot => slot.note !== null)
-      const hasMistakes = this.intervalIndicators.find((interv) => interv.frame.name === this.invervalTextures.failed)
-      if (isComplete && !hasMistakes) {
+      const isComplete = config.slots.every(slot => slot.note !== null && slot.isFixed === true)
+      if (isComplete) {
         this.filledSlots = true
         this.game.uiManager.disableFinishButton(false)
       }

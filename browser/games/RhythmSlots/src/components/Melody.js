@@ -129,11 +129,18 @@ export default class Melody {
     // Melodía incorrecta
     if (mistakes.length > 0) {
       mistakes.forEach(({ slot }) => {
-        const intervalFailed = this.game.slot.intervalIndicators[slot]
-        this.game.slot.changeIntervalStatus(intervalFailed, 'failed')
+        const notesFailed = this.game.config.slots[slot]
+        notesFailed.element.setTexture('slot')
+        notesFailed.isFixed = false
       })
+
       this.game.attempts.update(-1)
       this.game.uiManager.disableFinishButton(true)
+      this.game.slot.filledSlots = false
+
+      // Seleccionar nota incorrecta
+      const firstNoteFailed = this.game.config.slots[mistakes[0].slot]
+      this.game.slot.selectSlot(firstNoteFailed)
       return null
     }
 
