@@ -11,7 +11,8 @@ export default class Alert {
     dismissible = true,
     image = null,
     message = '',
-    buttons = []
+    buttons = [],
+    btnAccept = false
   } = {}) {
     const alertContainer = this.game.add.container(this.game.scale.width / 2, this.game.scale.height / 2)
 
@@ -63,6 +64,19 @@ export default class Alert {
       buttonText.on('pointerdown', onClick)
       alertContainer.add(buttonText)
     })
+
+    // Botón de aceptar
+    if (btnAccept) {
+      const buttonAccept = this.game.add.text(0, height / 2 - 30, 'Aceptar', {
+        fontSize: '20px',
+        fill: '#ffffff'
+      })
+        .setOrigin(0.5)
+        .setInteractive()
+
+      buttonAccept.on('pointerdown', () => this.dismissAlert(alertContainer))
+      alertContainer.add(buttonAccept)
+    }
 
     // Botón de cierre si es descartable
     if (dismissible) {
