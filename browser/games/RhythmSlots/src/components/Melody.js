@@ -81,6 +81,11 @@ export default class Melody {
             const lastInterval = this.game.slot.intervalIndicators[i]
             this.game.slot.changeIntervalStatus(lastInterval, 'normal')
               .setScale(0.2)
+
+            // Habilitar botón de confirmar
+            if (this.game.slot.filledSlots) {
+              this.game.uiManager.disableFinishButton(false)
+            }
           })
         }
       })
@@ -100,6 +105,11 @@ export default class Melody {
     this.state.timers = []
 
     this.game.slot.resetIntervals()
+
+    // Habilitar botón de confirmar
+    if (this.game.slot.filledSlots) {
+      this.game.uiManager.disableFinishButton(false)
+    }
   }
 
   // Verificar si la melodía compuesta es correcta
