@@ -133,15 +133,46 @@ export default class Melody {
       this.game.uiManager.disableFinishButton(true)
 
       const countAttempts = this.game.attempts.total
+      const isGameOver = countAttempts === 0
       const firstPartMsg = mistakes.length > 1
-        ? 'Algunas de las notas son incorrectas. Corrigelas'
-        : 'Una de las notas es incorrecta. Corrigela'
-      this.game.alert.showAlert('¡Nota incorrecta!', {
+        ? 'Algunas de las notas son incorrectas. Debes corregirlas'
+        : 'Una de las notas es incorrecta. Debes corregirla'
+      const alert = {
+        title: '¡Nota incorrecta!',
         type: 'error',
-        duration: 0,
         image: 'gameLogo',
-        message: `${firstPartMsg} para continuar. ¡Te quedan ${countAttempts} vidas!`,
-        btnAccept: true
+        message: `${firstPartMsg} para continuar. ¡Te quedan ${countAttempts} vidas!`
+      }
+
+      if (isGameOver) {
+        alert.title = '¡Fin del juego'
+        alert.type = 'default'
+        alert.image = 'gameLogo'
+        alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+      }
+      const buttons = [
+        {
+          text: 'Volver a jugar',
+          onClick: () => {
+            this.game.scene.start('GameScene', this.game.selectedLevel)
+          }
+        },
+        {
+          text: 'Niveles',
+          onClick: () => {
+            this.game.scene.start('LevelSelectionScene')
+          }
+        }
+      ]
+
+      this.game.alert.showAlert(alert.title, {
+        type: alert.type,
+        duration: 0,
+        image: alert.image,
+        message: alert.message,
+        btnAccept: !isGameOver,
+        buttons: isGameOver ? buttons : [],
+        dismissible: !isGameOver
       })
 
       mistakes.forEach(({ slot }) => {
