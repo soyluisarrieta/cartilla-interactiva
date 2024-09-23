@@ -99,7 +99,6 @@ export default class Slot {
 
     const nextEmptySlot = config.slots.find(slot => slot.note === null || !slot.isFixed)
     this.selectSlot(nextEmptySlot || selectedSlot)
-    console.log(nextEmptySlot)
 
     // Mostrar botón de confirmar
     if (!this.filledSlots) {
