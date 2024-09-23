@@ -99,10 +99,11 @@ export default class Slot {
     this.selectSlot(nextEmptySlot)
 
     // Mostrar botón de confirmar
-    if (!this.game.filledSlots) {
+    if (!this.filledSlots) {
       const isComplete = config.slots.every(slot => slot.note !== null)
       const hasMistakes = this.intervalIndicators.find((interv) => interv.frame.name === this.invervalTextures.failed)
       if (isComplete && !hasMistakes) {
+        this.filledSlots = true
         this.game.uiManager.disableFinishButton(false)
       }
     }
