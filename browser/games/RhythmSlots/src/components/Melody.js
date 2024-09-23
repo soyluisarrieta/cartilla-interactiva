@@ -125,6 +125,7 @@ export default class Melody {
     })
 
     this.game.slot.resetIntervals()
+    this.game.slot.filledSlots = false
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
@@ -136,7 +137,6 @@ export default class Melody {
 
       this.game.attempts.update(-1)
       this.game.uiManager.disableFinishButton(true)
-      this.game.slot.filledSlots = false
 
       // Seleccionar nota incorrecta
       const firstNoteFailed = this.game.config.slots[mistakes[0].slot]
@@ -146,6 +146,7 @@ export default class Melody {
 
     // Melodía correcta
     this.advanceToNextExercise('completed')
+    this.game.uiManager.disableFinishButton(true)
   }
 
   // Avanzar al siguiente ejercicio
