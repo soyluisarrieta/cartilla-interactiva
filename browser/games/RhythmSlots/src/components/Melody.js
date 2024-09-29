@@ -239,9 +239,8 @@ export default class Melody {
       const selectedLevel = this.game.selectedLevel
       const currentLevel = this.game.settings.levels[selectedLevel - 1]
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
+      this.game.socket.sendLevelData(currentLevel)
       currentLevel.isCompleted = true
-      console.log('level:', this.game.settings.levels)
     }
-    console.log('exercise:', this.game.exercises)
   }
 }
