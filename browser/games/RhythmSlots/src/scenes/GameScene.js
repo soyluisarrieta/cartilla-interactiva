@@ -3,6 +3,7 @@ import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
 import Alert from '../components/Alert.js'
+import Socket from '../../../Socket.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -12,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
     this.levelStartTime = null
 
     this.alert = new Alert(this)
+    this.socket = new Socket(this)
   }
 
   // Método inicial
