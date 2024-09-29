@@ -56,6 +56,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
       })
 
       position.x += 200 + 100
+
+      // Definir id de cada nivel
+      if (level.id === undefined) {
+        level.id = i
+      }
     }
 
     // Botón de inicio
