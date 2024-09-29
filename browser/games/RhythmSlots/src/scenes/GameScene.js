@@ -8,6 +8,8 @@ export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
     this.settings = window.gameSettings
+    this.exerciseStartTime = null
+    this.levelStartTime = null
 
     this.alert = new Alert(this)
   }
@@ -30,6 +32,10 @@ export default class GameScene extends Phaser.Scene {
 
     // Generar la melodía aleatoria aquí
     this.generatedMelody = this.melody.generate()
+
+    // Iniciar cronometro
+    this.exerciseStartTime = Date.now()
+    this.levelStartTime = Date.now()
   }
 
   // Método principal
@@ -42,5 +48,12 @@ export default class GameScene extends Phaser.Scene {
     this.attempts.draw(3)
     this.slot.drawSlots()
     this.slot.selectSlot(this.config.slots[0])
+  }
+
+  // Parar cronometro
+  calculateElapsedTime (startTime) {
+    const endTime = Date.now()
+    const elapsedTimeInSeconds = (endTime - startTime) / 1000 // Tiempo en segundos
+    return parseFloat(elapsedTimeInSeconds.toFixed(2))
   }
 }
