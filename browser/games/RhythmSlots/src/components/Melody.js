@@ -196,6 +196,10 @@ export default class Melody {
   advanceToNextExercise (exerciseState) {
     this.game.currentExercise.setState(exerciseState)
 
+    // Duración del ejercicio actual
+    this.game.currentExercise.timer = this.game.calculateElapsedTime(this.game.exerciseStartTime)
+    this.game.exerciseStartTime = Date.now()
+
     // Encontrar el siguiente ejercicio
     const nextExerciseIndex = this.game.exercises.indexOf(this.game.currentExercise) + 1
     if (nextExerciseIndex < this.game.exercises.length) {
@@ -234,7 +238,10 @@ export default class Melody {
       // Chequear nivel
       const selectedLevel = this.game.selectedLevel
       const currentLevel = this.game.settings.levels[selectedLevel - 1]
+      currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
       currentLevel.isCompleted = true
+      console.log('level:', this.game.settings.levels)
     }
+    console.log('exercise:', this.game.exercises)
   }
 }
