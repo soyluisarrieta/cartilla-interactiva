@@ -56,7 +56,7 @@ export default class UIManager {
 
   // Mostrar los ejercicios
   drawExercises (numExercises) {
-    for (let i = 0; i <= numExercises; i++) {
+    for (let i = 0; i <= numExercises - 1; i++) {
       const layout = { marginTop: 150, gap: 80 }
       const positionX = this.game.screen.width - 100
       const positionY = layout.marginTop + (layout.gap * (i + 1))
