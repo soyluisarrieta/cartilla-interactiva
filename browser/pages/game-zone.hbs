@@ -10,6 +10,13 @@
   <a class="back-btn" href="/">
     <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
   </a>
+
+  <div class="profile" title="Nombre de usuario">
+    <button class="button">
+      <img src="/assets/images/profile/boy.png" alt="Imagen de perfil">
+      <span>Sin registrar</span>
+    </button>
+  </div>
   
   <div id="game-zone-title" class="static-content">
     <img src="/assets/images/pages/game-zone-title.png" alt="Videos de calentamiento" />
@@ -362,6 +369,54 @@
       font-size: 2vw;
       font-weight: bold;
       text-align: center;
+    }
+
+    /* Profile */
+    .profile {
+      position: absolute;
+      top: 1vw;
+      right: 1vw;
+
+      > button {
+        background-color: white;
+        box-shadow: 0 0 1vw rgba(0,0,0,0.3);
+        padding: 0.3vw;
+        border-radius: 999999999px;
+        transition: 150ms;
+        animation: pulse 2s infinite;
+
+        img {
+          width: 4vw;
+          height: 4vw;
+          border-radius: 100%;
+          filter: grayscale(1);
+          opacity: 0.8;
+        }
+
+        span {
+          font-size: 1.5vw;
+          margin-left: 1vw;
+          padding-right: 2vw;
+          opacity: 0.4;
+        }
+      }
+    }
+
+    @keyframes pulse {
+      0%, 50% {
+          transform: scale(1) rotate(0deg);
+      }
+      10%, 30% {
+          transform: scale(1.03) rotate(3deg);
+      }
+      20%, 40% {
+          transform: scale(1.03) rotate(-3deg);
+      }
+    }
+
+    .profile > button:hover {
+      animation-play-state: paused;
+      transform: scale(1) rotate(0deg) !important;
     }
   </style>
 {{/section}}
