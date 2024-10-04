@@ -1,0 +1,62 @@
+<div class="profile">
+  <button class="open-container hidden" title="Nombre de usuario">
+    <img src="/assets/images/avatars/boy1.png" alt="Imagen de perfil">
+    <span>Sin registrar</span>
+  </button>
+  
+  <div class="profile-container hidden">
+    <button class="backdrop"></button>
+    <div class="profile-content">
+      <form id="form-new-profile">
+        <h2>Crea un nuevo perfil</h2>
+        <input class="username" name="username" placeholder="Nombre y Apellido">
+        
+        <p>Selecciona un avatar</p>
+        <div class="avatars">
+          <label for="avatar1">
+            <input type="radio" id="avatar1" name="avatar" value="boy1">
+            <img src="/assets/images/avatars/boy1.png" alt="Avatar 1">
+          </label>
+          <label for="avatar2">
+            <input type="radio" id="avatar2" name="avatar" value="boy2">
+            <img src="/assets/images/avatars/boy2.png" alt="Avatar 2">
+          </label>
+          <label for="avatar3">
+            <input type="radio" id="avatar3" name="avatar" value="boy3">
+            <img src="/assets/images/avatars/boy3.png" alt="Avatar 3">
+          </label>
+          <label for="avatar4">
+            <input type="radio" id="avatar4" name="avatar" value="girl1">
+            <img src="/assets/images/avatars/girl1.png" alt="Avatar 4">
+          </label>
+          <label for="avatar5">
+            <input type="radio" id="avatar5" name="avatar" value="girl2">
+            <img src="/assets/images/avatars/girl2.png" alt="Avatar 5">
+          </label>
+          <label for="avatar6">
+            <input type="radio" id="avatar6" name="avatar" value="girl3">
+            <img src="/assets/images/avatars/girl3.png" alt="Avatar 6">
+          </label>
+        </div>
+
+        <button class="btn-submit" type="submit">Guardar</button>
+      </form>
+
+      <div class="profiles-loaded">
+        <span>ó carga tu perfil</span>
+        <div class="profile-cards">
+          <template>
+            <button class="profile-card">
+              <img src="/assets/images/avatars/boy1.png" alt="Imagen de perfil">
+              <span class="name" title="Jessica Pistala chalaca y no sé que más">
+                Jessica Pistala chalaca y no sé que más
+              </span>
+              <p class="last-time">Última vez: <time>15/07/2024 - 07:45pm</time></p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+            </button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
