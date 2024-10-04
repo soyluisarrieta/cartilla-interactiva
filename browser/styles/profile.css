@@ -31,6 +31,8 @@
     span {
       font-size: 1.5vw;
       opacity: 0.4;
+      margin-left: 1vw;
+      padding-right: 2vw;
       white-space: nowrap;
     }
   }
@@ -267,4 +269,27 @@
 .profile .open-container:hover {
   animation-play-state: paused;
   transform: scale(1) rotate(0deg) !important;
+}
+
+/* Profile reducido */
+.profile.reduced {
+  top: initial;
+  bottom: 1vw;
+}
+
+.profile.reduced .open-container span {
+  max-width: 0px;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  transition: 300ms all;
+}
+
+.profile.reduced .open-container:hover span {
+  max-width: 20vw;
+  margin-left: 1vw;
+  padding-right: 2vw;
+  opacity: 1;
 }
