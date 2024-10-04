@@ -57,6 +57,24 @@ function saveProfile (e) {
   const avatar = Array.from(avatarInputs).find(input => input.checked)?.value
   const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
 
+  // Nombre de usuario vacío
+  if (currentProfiles.some(profile => profile.username === username)) {
+    alert('El nombre de usuario es requerido')
+    return
+  }
+
+  // Nombre de usuario existente
+  if (currentProfiles.some(profile => profile.username.toLowerCase() === username.toLowerCase())) {
+    alert('El nombre de usuario ya existe')
+    return
+  }
+
+  // Avatar sin seleccionar
+  if (!avatar) {
+    alert('Selecciona un avatar')
+    return
+  }
+
   const newProfile = {
     username,
     avatar: `${avatar}.png`,
