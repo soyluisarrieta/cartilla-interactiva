@@ -4,6 +4,8 @@
   }}
   
   <link rel="stylesheet" href="/assets/lib/swiper/swiper-bundle.min.css">
+
+  <script src="/scripts/main.js" type="module"></script>
 {{/section}}
 
 <main>
@@ -12,12 +14,12 @@
   </a>
 
   <div class="profile">
-    <button class="open-container" title="Nombre de usuario">
+    <button class="open-container hidden" title="Nombre de usuario">
       <img src="/assets/images/avatars/boy1.png" alt="Imagen de perfil">
       <span>Sin registrar</span>
     </button>
     
-    <div class="profile-container">
+    <div class="profile-container hidden">
       <button class="backdrop"></button>
       <div class="profile-content">
         <form id="form-new-profile">
@@ -58,6 +60,7 @@
         <div class="profiles-loaded">
           <span>ó carga tu perfil</span>
           <div class="profile-cards">
+            <template>
               <button class="profile-card">
                 <img src="/assets/images/avatars/boy1.png" alt="Imagen de perfil">
                 <span class="name" title="Jessica Pistala chalaca y no sé que más">
@@ -66,6 +69,7 @@
                 <p class="last-time">Última vez: <time>15/07/2024 - 07:45pm</time></p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
               </button>
+            </template>
           </div>
         </div>
       </div>
