@@ -43,7 +43,7 @@ function loadProfiles () {
       currentProfileActived && toggleClassName(currentProfileActived, 'profile-actived')
 
       loadProfile(profile)
-      toggleClassName(profileCard, 'profile-actived')
+      window.location.reload()
     })
     profileCardsContainer.appendChild(profileNode)
   })
@@ -91,6 +91,7 @@ function saveProfile (e) {
 
 // Cargar el perfil seleccionado y actualizar la interfaz
 function loadProfile (selectedProfile) {
+  openContainerButton.title = selectedProfile.username
   openContainerButton.querySelector('img').src = `${FOLDER_AVATARS}/${selectedProfile.avatar}`
   openContainerButton.querySelector('span').innerText = selectedProfile.username
 
