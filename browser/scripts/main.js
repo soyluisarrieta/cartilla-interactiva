@@ -21,16 +21,11 @@ function toggleClassName (e, className) {
 function loadProfiles () {
   const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
 
-  // Si no hay perfiles, ocultamos la sección de perfiles
-  if (profiles.length === 0) {
-    profilesContainer.style.display = 'none'
-    return
-  }
+  profilesContainer.style.display = profiles.length === 0 ? 'none' : 'block'
+  if (profiles.length === 0) return
 
-  profilesContainer.style.display = 'block'
   profileCardsContainer.innerHTML = ''
 
-  // Generar los perfiles
   profiles.forEach(profile => {
     const profileNode = document.importNode(profileTemplate.content, true)
     const profileCard = profileNode.querySelector('.profile-card')
@@ -57,19 +52,10 @@ function saveProfile (e) {
   const avatar = Array.from(avatarInputs).find(input => input.checked)?.value
   const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
 
-  // Nombre de usuario vacío
-  if (currentProfiles.some(profile => profile.username === username)) {
-    alert('El nombre de usuario es requerido')
+  if (!username || currentProfiles.some(profile => profile.username.toLowerCase() === username.toLowerCase())) {
+    alert(username ? 'El nombre de usuario ya existe' : 'El nombre de usuario es requerido')
     return
   }
-
-  // Nombre de usuario existente
-  if (currentProfiles.some(profile => profile.username.toLowerCase() === username.toLowerCase())) {
-    alert('El nombre de usuario ya existe')
-    return
-  }
-
-  // Avatar sin seleccionar
   if (!avatar) {
     alert('Selecciona un avatar')
     return
@@ -84,55 +70,50 @@ function saveProfile (e) {
   currentProfiles.push(newProfile)
   window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
   loadProfiles()
-
   formNewProfile.reset()
   loadProfile(newProfile)
+  window.location.reload()
 }
 
 // Cargar el perfil seleccionado y actualizar la interfaz
-function loadProfile (selectedProfile) {
-  openContainerButton.title = selectedProfile.username
-  openContainerButton.querySelector('img').src = `${FOLDER_AVATARS}/${selectedProfile.avatar}`
-  openContainerButton.querySelector('span').innerText = selectedProfile.username
+function loadProfile (profile) {
+  openContainerButton.title = profile.username
+  openContainerButton.querySelector('img').src = `${FOLDER_AVATARS}/${profile.avatar}`
+  openContainerButton.querySelector('span').innerText = profile.username
 
-  // Añadir la clase de perfil seleccionado
   openContainerButton.classList.add('profile-selected')
-
-  window.localStorage.setItem('selectedProfile', JSON.stringify(selectedProfile))
+  window.localStorage.setItem('profile', JSON.stringify(profile))
   toggleClassName(profileContainer, 'hidden')
 }
 
 // Inicializar el perfil seleccionado al cargar la página
-function initializeSelectedProfile () {
-  const selectedProfile = JSON.parse(window.localStorage.getItem('selectedProfile'))
-  if (selectedProfile) {
-    loadProfile(selectedProfile)
+function initializeprofile () {
+  const profile = JSON.parse(window.localStorage.getItem('profile'))
+  if (profile) {
+    loadProfile(profile)
     toggleClassName(profileContainer, 'hidden')
   }
   openContainerButton.classList.remove('hidden')
 }
 
+// Deshabilitar botones de jugar
+function disablePlayButtons () {
+  document.querySelectorAll('.swiper-slide a.btn').forEach(playButton => {
+    playButton.removeAttribute('href')
+    playButton.style.pointerEvents = 'auto'
+    playButton.style.opacity = '0.5'
+  })
+}
+
 // Asignar eventos a los botones
 openContainerButton.addEventListener('click', () => toggleClassName(profileContainer, 'hidden'))
 backdropButton.addEventListener('click', () => toggleClassName(profileContainer, 'hidden'))
-formNewProfile.addEventListener('submit', (e) => saveProfile(e))
+formNewProfile.addEventListener('submit', saveProfile)
 
 // Ejecutar funciones al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   loadProfiles()
-  initializeSelectedProfile()
-})
+  initializeprofile()
 
-// Deshabilitar botón de jugar si aún no ha seleccionado el perfil
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.localStorage.getItem('selectedProfile')) {
-    return null
-  }
-
-  document.querySelectorAll('.swiper-slide a.btn')
-    .forEach((playButton) => {
-      playButton.removeAttribute('href')
-      playButton.style.pointerEvents = 'auto'
-      playButton.style.opacity = '0.5'
-    })
+  !window.localStorage.getItem('profile') && disablePlayButtons()
 })
