@@ -122,3 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProfiles()
   initializeSelectedProfile()
 })
+
+// Deshabilitar botón de jugar si aún no ha seleccionado el perfil
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.localStorage.getItem('selectedProfile')) {
+    return null
+  }
+
+  document.querySelectorAll('.swiper-slide a.btn')
+    .forEach((playButton) => {
+      playButton.removeAttribute('href')
+      playButton.style.pointerEvents = 'auto'
+      playButton.style.opacity = '0.5'
+    })
+})
