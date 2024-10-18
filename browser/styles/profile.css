@@ -95,6 +95,19 @@
         outline: none;
       }
 
+      .error-message {
+        width: 80%;
+        margin: .4vw auto 1vw;
+        color: #7a3f3f;
+        background-color: #ffe6e6;
+        border: 1px solid #ffa59f;
+        border-radius: .3vw;
+        padding: .7vw;
+        display: none;
+        font-size: .7vw;
+        font-weight: 700;
+      }
+
       form>p {
         opacity: 0.8;
         font-size: 1vw;

@@ -11,6 +11,26 @@ function Profile () {
   const avatarInputs = document.querySelectorAll('input[name="avatar"]')
   const profileTemplate = document.querySelector('.profile-cards template')
 
+  const errorState = {
+    username: false,
+    avatar: false
+  }
+
+  // Manejador de errores
+  function errorMssg ({ message, hide = false, type = '' }) {
+    const errMssg = document.querySelector('.error-message')
+
+    if (hide) {
+      errMssg.textContent = ''
+      errMssg.style.display = 'none'
+      errorState[type] = false
+    } else {
+      errMssg.textContent = `* ${message}`
+      errMssg.style.display = 'block'
+      errorState[type] = true
+    }
+  }
+
   // Mostrar u ocultar elemento con la clase hidden
   function toggleClassName (e, className) {
     e.classList.toggle(className)
@@ -52,11 +72,19 @@ function Profile () {
     const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
 
     if (!username || currentProfiles.some(profile => profile.username.toLowerCase() === username.toLowerCase())) {
-      alert(username ? 'El nombre de usuario ya existe' : 'El nombre de usuario es requerido')
+      errorMssg({
+        message: username
+          ? 'Este nombre de usuario ya ha sido registrado.'
+          : 'El campo de nombre de usuario no puede estar vacío.',
+        type: 'username'
+      })
       return
     }
     if (!avatar) {
-      alert('Selecciona un avatar')
+      errorMssg({
+        message: 'Seleccione una imagen de avatar para su perfil.',
+        type: 'avatar'
+      })
       return
     }
 
@@ -108,6 +136,19 @@ function Profile () {
   openContainerButton.addEventListener('click', () => toggleClassName(profileContainer, 'hidden'))
   backdropButton.addEventListener('click', () => toggleClassName(profileContainer, 'hidden'))
   formNewProfile.addEventListener('submit', saveProfile)
+
+  // Limpiar errores específicos
+  usernameInput.addEventListener('input', () => {
+    if (errorState.username) {
+      errorMssg({ hide: true, type: 'username' })
+    }
+  })
+
+  avatarInputs.forEach(input => input.addEventListener('change', () => {
+    if (errorState.avatar) {
+      errorMssg({ hide: true, type: 'avatar' })
+    }
+  }))
 
   // Ejecutar funciones al cargar la página
   document.addEventListener('DOMContentLoaded', () => {
