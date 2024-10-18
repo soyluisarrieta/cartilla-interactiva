@@ -106,6 +106,7 @@
   {{{_sections.style}}}
 
   <script src="/scripts/main.js" type="module"></script>
+  <script src="/scripts/Profile.js" type="module"></script>
 </head>
 <body>
   <div id="pattern-bg"></div>
@@ -126,12 +127,11 @@
 
   {{> profile reduced=true }}
 
-  <div id="game-container">
-    {{!-- CANVAS --}}
-  </div>
-  <script src="/assets/lib/phaser/phaser.min.js"></script>
+  <div id="game-container"></div>
+
   {{{body}}}
 
+  <script src="/assets/lib/phaser/phaser.min.js"></script>
   <script type="module">
     import { fullscreen } from '/scripts/fullscreen.js'
     const btnFullScreen = document.querySelector('#action-buttons .btn-fullscreen')
