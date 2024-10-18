@@ -1,0 +1,460 @@
+{
+  "textures": [
+    {
+      "image": "levels",
+      "format": "RGBA8888",
+      "size": {
+        "w": 1945,
+        "h": 1939
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "level-easy",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 1108,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 831,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-locked",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 276
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 276
+          },
+          "frame": {
+            "x": 831,
+            "y": 277,
+            "w": 277,
+            "h": 276
+          }
+        },
+        {
+          "filename": "level-easy-completed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-completed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 1668,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 554,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-failed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 277,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-completed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 1112,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-completed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 831,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 1390,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 1662,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-locked",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 554,
+            "y": 277,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 1385,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-failed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 1108,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 834,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 556,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-locked",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 554,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-completed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 1385,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-completed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 278,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 277,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-failed-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 1662,
+            "w": 277,
+            "h": 277
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
+}

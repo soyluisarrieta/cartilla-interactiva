@@ -1,0 +1,82 @@
+{
+  "textures": [
+    {
+      "image": "exercise-states",
+      "format": "RGBA8888",
+      "size": {
+        "w": 935,
+        "h": 114
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "exercise-pending",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 311,
+            "h": 114
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 311,
+            "h": 114
+          },
+          "frame": {
+            "x": 624,
+            "y": 0,
+            "w": 311,
+            "h": 114
+          }
+        },
+        {
+          "filename": "exercise-completed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 312,
+            "h": 114
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 312,
+            "h": 114
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 312,
+            "h": 114
+          }
+        },
+        {
+          "filename": "exercise-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 312,
+            "h": 114
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 312,
+            "h": 114
+          },
+          "frame": {
+            "x": 312,
+            "y": 0,
+            "w": 312,
+            "h": 114
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
+}

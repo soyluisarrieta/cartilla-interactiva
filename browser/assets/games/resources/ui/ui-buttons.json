@@ -1,0 +1,145 @@
+{
+  "textures": [
+    {
+      "image": "ui-game-buttons",
+      "format": "RGBA8888",
+      "size": {
+        "w": 882,
+        "h": 142
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "arrow-right",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        },
+        {
+          "filename": "arrow-left",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 147,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        },
+        {
+          "filename": "home",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 294,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        },
+        {
+          "filename": "listen-melody",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 441,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        },
+        {
+          "filename": "play",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 588,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        },
+        {
+          "filename": "repeat",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 147,
+            "h": 142
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          },
+          "frame": {
+            "x": 735,
+            "y": 0,
+            "w": 147,
+            "h": 142
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
+}
