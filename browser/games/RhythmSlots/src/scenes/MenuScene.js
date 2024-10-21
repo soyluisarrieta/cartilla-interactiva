@@ -18,8 +18,8 @@ export default class MenuScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
       .setScale(1.1)
 
-    // Texturas e interacciónes del botón
-    const playButton = this.add.image(widthScreen / 2, heightScreen - 230, 'btnStart', 'start-btn')
+    // Texturas e interacciónes del botón de empezar
+    const playButton = this.add.image(widthScreen / 2.6, heightScreen - 270, 'btnStart', 'start-btn')
       .setScale(0.9)
       .setInteractive()
 
@@ -29,6 +29,20 @@ export default class MenuScene extends Phaser.Scene {
       frame: 'start-btn',
       onClick: () => {
         this.scene.start('LevelSelectionScene')
+      }
+    })
+
+    // Texturas e interacciónes del botón de instrucciones
+    const howToPlayButton = this.add.image(widthScreen / 1.64, heightScreen - 270, 'btnHowToPlay', 'how-to-play-btn')
+      .setScale(0.9)
+      .setInteractive()
+
+    addInteractions({
+      button: howToPlayButton,
+      key: 'btnHowToPlay',
+      frame: 'how-to-play-btn',
+      onClick: () => {
+        this.scene.start('HowToPlayScene')
       }
     })
   }
