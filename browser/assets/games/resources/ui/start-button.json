@@ -1,0 +1,82 @@
+{
+  "textures": [
+    {
+      "image": "start-button",
+      "format": "RGBA8888",
+      "size": {
+        "w": 1262,
+        "h": 158
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "start-btn",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 430,
+            "h": 140
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 430,
+            "h": 140
+          },
+          "frame": {
+            "x": 490,
+            "y": 0,
+            "w": 430,
+            "h": 140
+          }
+        },
+        {
+          "filename": "start-btn-hovered",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 490,
+            "h": 158
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 490,
+            "h": 158
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 490,
+            "h": 158
+          }
+        },
+        {
+          "filename": "start-btn-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 342,
+            "h": 114
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 342,
+            "h": 114
+          },
+          "frame": {
+            "x": 920,
+            "y": 0,
+            "w": 342,
+            "h": 114
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
+}

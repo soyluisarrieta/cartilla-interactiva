@@ -1,75 +1,75 @@
 {
   "textures": [
     {
-      "image": "btn-play",
+      "image": "instructions-button",
       "format": "RGBA8888",
       "size": {
-        "w": 218,
-        "h": 560
+        "w": 1262,
+        "h": 159
       },
       "scale": 1,
       "frames": [
         {
-          "filename": "button",
+          "filename": "instructions-btn",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
-            "w": 186,
-            "h": 186
+            "w": 430,
+            "h": 140
           },
           "spriteSourceSize": {
             "x": 0,
             "y": 0,
-            "w": 186,
-            "h": 186
+            "w": 430,
+            "h": 140
           },
           "frame": {
-            "x": 0,
-            "y": 219,
-            "w": 186,
-            "h": 186
+            "x": 490,
+            "y": 0,
+            "w": 430,
+            "h": 140
           }
         },
         {
-          "filename": "button-hovered",
+          "filename": "instructions-btn-hovered",
           "rotated": false,
-          "trimmed": true,
+          "trimmed": false,
           "sourceSize": {
-            "w": 220,
-            "h": 219
+            "w": 490,
+            "h": 159
           },
           "spriteSourceSize": {
-            "x": 1,
+            "x": 0,
             "y": 0,
-            "w": 218,
-            "h": 219
+            "w": 490,
+            "h": 159
           },
           "frame": {
             "x": 0,
             "y": 0,
-            "w": 218,
-            "h": 219
+            "w": 490,
+            "h": 159
           }
         },
         {
-          "filename": "button-pressed",
+          "filename": "instructions-btn-pressed",
           "rotated": false,
-          "trimmed": true,
+          "trimmed": false,
           "sourceSize": {
-            "w": 155,
-            "h": 156
+            "w": 342,
+            "h": 113
           },
           "spriteSourceSize": {
             "x": 0,
-            "y": 1,
-            "w": 155,
-            "h": 155
+            "y": 0,
+            "w": 342,
+            "h": 113
           },
           "frame": {
-            "x": 0,
-            "y": 405,
-            "w": 155,
-            "h": 155
+            "x": 920,
+            "y": 0,
+            "w": 342,
+            "h": 113
           }
         }
       ]
