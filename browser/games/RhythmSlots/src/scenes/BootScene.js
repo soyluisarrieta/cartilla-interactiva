@@ -14,6 +14,14 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.atlas('btnStart', '/resources/ui/start-button.png', '/resources/ui/start-button.json')
     this.load.atlas('btnHowToPlay', '/resources/ui/how-to-play-button.png', '/resources/ui/how-to-play-button.json')
+    this.load.atlas('uiButtons', '/resources/ui/ui-buttons.png', '/resources/ui/ui-buttons.json')
+
+    // Cargar how-to-play
+    this.load.setPath('/games/RhythmSlots/assets/how-to-play')
+    const TOTAL_STEPS = 8
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      this.load.image(`step${i}`, `/step${i}.png`)
+    }
 
     // Cargar los recursos gráficos
     this.load.setPath('/games/RhythmSlots/assets/images')
