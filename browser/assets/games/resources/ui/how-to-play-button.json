@@ -1,7 +1,7 @@
 {
   "textures": [
     {
-      "image": "instructions-button",
+      "image": "how-to-play-button",
       "format": "RGBA8888",
       "size": {
         "w": 1262,
@@ -10,7 +10,7 @@
       "scale": 1,
       "frames": [
         {
-          "filename": "instructions-btn",
+          "filename": "how-to-play-btn",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -31,7 +31,7 @@
           }
         },
         {
-          "filename": "instructions-btn-hovered",
+          "filename": "how-to-play-btn-hovered",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -52,7 +52,7 @@
           }
         },
         {
-          "filename": "instructions-btn-pressed",
+          "filename": "how-to-play-btn-pressed",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
