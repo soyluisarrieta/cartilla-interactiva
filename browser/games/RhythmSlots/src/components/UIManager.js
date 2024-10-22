@@ -37,7 +37,7 @@ export default class UIManager {
       key: 'back-btn',
       frame: 'btnBack',
       scene,
-      position: { x: 120, y: 120 }
+      position: { x: 150, y: 120 }
     })
   }
 
