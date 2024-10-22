@@ -45,7 +45,7 @@ export default class HowToPlayScene extends Phaser.Scene {
   createNavigationButtons () {
     const { width: screenWidth, height: screenHeight } = this.cameras.main
 
-    this.add.image(screenWidth / 1.8, screenHeight - 100, 'uiButtons', 'arrow-right')
+    this.add.image(screenWidth / 1.85, screenHeight - 100, 'uiButtons', 'arrow-right')
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
@@ -55,7 +55,7 @@ export default class HowToPlayScene extends Phaser.Scene {
         }
       })
 
-    this.add.image(screenWidth / 2.2, screenHeight - 100, 'uiButtons', 'arrow-left')
+    this.add.image(screenWidth / 2.25, screenHeight - 100, 'uiButtons', 'arrow-left')
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
@@ -69,21 +69,24 @@ export default class HowToPlayScene extends Phaser.Scene {
   // Mostrar las instrucciones del juego
   displayInstructions () {
     const { width: screenWidth } = this.cameras.main
-    this.title = this.add.bitmapText(screenWidth / 2, 100, 'primaryFont', '¡Cómo jugar!')
-      .setOrigin(0.5, 0)
 
-    this.gif = this.add.image(screenWidth / 2, 230, `step${this.currentStep + 1}`)
+    this.step = this.add.image(screenWidth / 2, 190, `step${this.currentStep + 1}`)
       .setOrigin(0.5, 0)
 
     this.message = this.add.bitmapText(screenWidth / 2, 700, 'primaryFont', this.steps[this.currentStep], 48)
       .setOrigin(0.5, 0)
       .setMaxWidth(screenWidth - 400)
       .setCenterAlign()
+
+    // Marco decorativo
+    this.add.image(screenWidth / 2, 50, 'decorativeFrame')
+      .setOrigin(0.5, 0)
+      .setScale(0.77)
   }
 
   // Actualizar las instrucciones mostradas
   updateInstructions () {
-    this.gif.setTexture(`step${this.currentStep + 1}`)
+    this.step.setTexture(`step${this.currentStep + 1}`)
     this.message.setText(this.steps[this.currentStep])
   }
 }
