@@ -15,6 +15,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.atlas('btnStart', '/resources/ui/start-button.png', '/resources/ui/start-button.json')
     this.load.atlas('btnHowToPlay', '/resources/ui/how-to-play-button.png', '/resources/ui/how-to-play-button.json')
     this.load.atlas('uiButtons', '/resources/ui/ui-buttons.png', '/resources/ui/ui-buttons.json')
+    this.load.atlas('levels', '/resources/ui/levels.png', '/resources/ui/levels.json')
 
     this.load.image('decorativeFrame', '/resources/ui/decorative-frame.png')
 
