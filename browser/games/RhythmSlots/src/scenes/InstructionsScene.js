@@ -11,12 +11,39 @@ export default class InstructionsScene extends Phaser.Scene {
 
   create () {
     const { width: screenWidth, height: screenHeight } = this.cameras.main
-    const selectedLevel = this.settings.selectedLevel
+    const { selectedLevel, levels } = this.settings
+    const prevLevel = this.getPreviousLevel(selectedLevel, levels)
+    const currentLevel = levels[selectedLevel - 1]
+    const newFigures = this.getNewFigures(currentLevel, prevLevel)
 
+    this.drawUI(screenWidth, screenHeight, currentLevel.title, currentLevel.description, newFigures)
+    this.createPlayButton(screenWidth, screenHeight, selectedLevel)
+  }
+
+  getPreviousLevel (selectedLevel, levels) {
+    return selectedLevel === 1 ? { figures: [] } : levels[selectedLevel - 2]
+  }
+
+  getNewFigures (currentLevel, prevLevel) {
+    return currentLevel.figures.filter(
+      (figure) => !prevLevel.figures.includes(figure)
+    ).reverse()
+  }
+
+  drawUI (screenWidth, screenHeight, title, description, newFigures) {
     this.uiManager.drawBackButton('LevelSelectionScene')
 
-    this.createPlayButton(screenWidth, screenHeight, selectedLevel)
-    this.displayInstructions(screenWidth, selectedLevel)
+    this.add.bitmapText(screenWidth / 2, 70, 'primaryFont', title.toUpperCase(), 70)
+      .setOrigin(0.45, 0)
+
+    this.add.bitmapText(screenWidth - 600, 450, 'primaryFont', description, 40)
+      .setOrigin(0.5)
+      .setMaxWidth(650)
+
+    newFigures.forEach((newFigure, i) => {
+      this.add.image(800 - (230 * i), 450, newFigure.name)
+        .setOrigin(0.5)
+    })
   }
 
   // Crear botón para empezar a jugar
@@ -34,11 +61,5 @@ export default class InstructionsScene extends Phaser.Scene {
         this.scene.start('GameScene', selectedLevel)
       }
     })
-  }
-
-  // Mostrar las instrucciones del juego
-  displayInstructions (screenWidth, selectedLevel) {
-    this.add.bitmapText(screenWidth / 2, 100, 'primaryFont', `Instrucciones del juego #${selectedLevel}`)
-      .setOrigin(0.5, 0)
   }
 }
