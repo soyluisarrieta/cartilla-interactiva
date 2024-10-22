@@ -169,6 +169,11 @@ export function Profile () {
   })
 }
 
+// Obtener todo los perfiles
+export function getAllProfiles () {
+  return JSON.parse(window.localStorage.getItem('profiles')) || []
+}
+
 // Obtener información del perfil seleccionado
 export function getProfile () {
   const profileId = window.localStorage.getItem('profile-id')
