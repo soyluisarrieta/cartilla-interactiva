@@ -1,6 +1,6 @@
 import { uuidv4 } from '../games/utils/generateId.js'
 
-function Profile () {
+export function Profile () {
   const FOLDER_AVATARS = '/assets/images/avatars'
 
   const openContainerButton = document.querySelector('.open-container')
@@ -169,4 +169,25 @@ function Profile () {
   })
 }
 
-Profile()
+// Obtener información del perfil seleccionado
+export function getProfile () {
+  const profileId = window.localStorage.getItem('profile-id')
+  if (!profileId) return null
+
+  const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
+  return profiles.find(p => p.id === profileId) || null
+}
+
+// Actualizar información del perfil seleccionado
+export function setProfile (updates) {
+  const profileId = window.localStorage.getItem('profile-id')
+  if (!profileId) return
+
+  const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
+  const profileIndex = profiles.findIndex(p => p.id === profileId)
+  if (profileIndex === -1) return
+
+  const updatedProfile = { ...profiles[profileIndex], ...updates }
+  profiles[profileIndex] = updatedProfile
+  window.localStorage.setItem('profiles', JSON.stringify(profiles))
+}

@@ -106,8 +106,13 @@
   {{{_sections.style}}}
 
   <script src="/scripts/main.js" type="module"></script>
-  <script src="/scripts/Profile.js" type="module"></script>
-  <script> if (!window.localStorage.getItem('profile')) window.location.href = '/zona-de-juegos' </script>
+  <script type="module">
+    import { Profile, getProfile } from '/scripts/profile.js'
+    Profile()
+
+    // Comprobar si hay un perfil activo
+    if (!getProfile()) { window.location.href = '/zona-de-juegos' }
+  </script>
 </head>
 <body>
   <div id="pattern-bg"></div>
