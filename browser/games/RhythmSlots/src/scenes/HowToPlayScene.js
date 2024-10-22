@@ -1,4 +1,4 @@
-import { addInteractions } from '../../../utils/addInteractions.js'
+import UIManager from '../components/UIManager.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
@@ -15,30 +15,15 @@ export default class HowToPlayScene extends Phaser.Scene {
       'Es necesario corregir las notas incorrectas para poder avanzar al siguiente ejercicio.',
       'Completa los 7 ejercicios y sus melodías para superar cada nivel. ¡Buena suerte y diviértete aprendiendo!'
     ]
+
+    this.uiManager = new UIManager(this)
   }
 
   create () {
-    this.createBackButton()
+    this.uiManager.drawBackButton('MenuScene')
+
     this.createNavigationButtons()
     this.displayInstructions()
-  }
-
-  // Crear botón para regresar a la selección de niveles
-  createBackButton () {
-    const { height: screenHeight } = this.cameras.main
-    const homeButton = this.add.image(100, screenHeight - 100, 'uiLvlSelection', 'btn-home')
-      .setScale(1.5)
-      .setOrigin(0.5)
-      .setInteractive()
-
-    addInteractions({
-      button: homeButton,
-      key: 'uiLvlSelection',
-      frame: 'btn-home',
-      onClick: () => {
-        this.scene.start('MenuScene')
-      }
-    })
   }
 
   // Crear botones de navegación
