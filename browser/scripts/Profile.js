@@ -1,3 +1,5 @@
+import { uuidv4 } from '../games/utils/generateId.js'
+
 function Profile () {
   const FOLDER_AVATARS = '/assets/images/avatars'
 
@@ -89,6 +91,7 @@ function Profile () {
     }
 
     const newProfile = {
+      id: uuidv4(),
       username,
       avatar: `${avatar}.png`,
       lastTime: new Date().toLocaleString()
