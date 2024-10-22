@@ -1,3 +1,4 @@
+import { getProfile } from '../../../../scripts/Profile.js'
 import { addInteractions } from '../../../utils/addInteractions.js'
 import UIManager from '../components/UIManager.js'
 
@@ -12,7 +13,12 @@ export default class LevelSelectionScene extends Phaser.Scene {
   create () {
     const { width: widthScreen, height: heightScreen } = this.cameras.main
 
-    const levels = this.settings.levels
+    // Cargar el progreso del juego desde el perfil
+    const profile = getProfile()
+    const currentGame = this.settings
+    const gameProgress = profile?.games?.[currentGame.id] ?? null
+
+    const levels = gameProgress ? gameProgress.levels : this.settings.levels
     const numLevels = levels.length
 
     // Imagen de fondo

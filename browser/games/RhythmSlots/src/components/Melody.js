@@ -1,3 +1,5 @@
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+
 export default class Melody {
   constructor (gameScene) {
     this.game = gameScene
@@ -241,6 +243,13 @@ export default class Melody {
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
       this.game.socket.sendLevelData(currentLevel)
       currentLevel.isCompleted = true
+
+      // Guardar progreso en el perfil
+      const profile = getProfile()
+      const currentGame = this.game.settings
+      if (!profile.games) { profile.games = {} }
+      profile.games[currentGame.id] = currentGame
+      setProfile(profile)
     }
   }
 }
