@@ -58,7 +58,7 @@ function Profile () {
         const currentProfileActived = profileCardsContainer.querySelector('.profile-actived')
         currentProfileActived && toggleClassName(currentProfileActived, 'profile-actived')
 
-        loadProfile(profile)
+        loadProfile(profile.id)
         window.location.reload()
       })
       profileCardsContainer.appendChild(profileNode)
@@ -101,26 +101,33 @@ function Profile () {
     window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
     loadProfiles()
     formNewProfile.reset()
-    loadProfile(newProfile)
+    loadProfile(newProfile.id)
     window.location.reload()
   }
 
   // Cargar el perfil seleccionado y actualizar la interfaz
-  function loadProfile (profile) {
+  function loadProfile (profileOrId) {
+    const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
+    const profile = typeof profileOrId === 'string'
+      ? profiles.find(p => p.id === profileOrId)
+      : profileOrId
+
+    if (!profile) return
+
     openContainerButton.title = profile.username
     openContainerButton.querySelector('img').src = `${FOLDER_AVATARS}/${profile.avatar}`
     openContainerButton.querySelector('span').innerText = profile.username
 
     openContainerButton.classList.add('profile-selected')
-    window.localStorage.setItem('profile', JSON.stringify(profile))
+    window.localStorage.setItem('profile-id', profile.id)
     toggleClassName(profileContainer, 'hidden')
   }
 
   // Inicializar el perfil seleccionado al cargar la página
   function initializeprofile () {
-    const profile = JSON.parse(window.localStorage.getItem('profile'))
-    if (profile) {
-      loadProfile(profile)
+    const profileId = window.localStorage.getItem('profile-id')
+    if (profileId) {
+      loadProfile(profileId)
       toggleClassName(profileContainer, 'hidden')
     }
     openContainerButton.classList.remove('hidden')
@@ -158,7 +165,7 @@ function Profile () {
     loadProfiles()
     initializeprofile()
 
-    !window.localStorage.getItem('profile') && disablePlayButtons()
+    !window.localStorage.getItem('profile-id') && disablePlayButtons()
   })
 }
 
