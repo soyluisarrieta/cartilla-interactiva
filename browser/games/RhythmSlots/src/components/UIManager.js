@@ -7,22 +7,48 @@ export default class UIManager {
     this.currentExercise = null
   }
 
-  // Crear botón para regresar a la selección de niveles
-  drawBackButton () {
-    const backButton = this.game.add.image(100, 100, 'uiLvlSelection', 'btn-arrow')
-      .setScale(1.5)
+  // Dibujar botón
+  drawButton ({ key, frame, scene, position: { x, y }, withInteractions = true }) {
+    const button = this.game.add.image(x, y, frame, key)
       .setOrigin(0.5)
       .setInteractive()
 
-    backButton.flipX = true
+    const navigate = () => {
+      this.game.scene.start(scene)
+    }
 
-    addInteractions({
-      button: backButton,
-      key: 'uiLvlSelection',
-      frame: 'btn-arrow',
-      onClick: () => {
-        this.game.scene.start('LevelSelectionScene')
-      }
+    if (withInteractions) {
+      addInteractions({
+        button,
+        key: frame,
+        frame: key,
+        onClick: navigate
+      })
+    } else {
+      button.on('pointerup', navigate)
+    }
+
+    return button
+  }
+
+  // Botón para ir atrás
+  drawBackButton (scene = 'MenuScene') {
+    return this.drawButton({
+      key: 'back-btn',
+      frame: 'btnBack',
+      scene,
+      position: { x: 120, y: 120 }
+    })
+  }
+
+  // Crear botón para regresar a la selección de niveles
+  drawHomeButton (scene = 'MenuScene') {
+    return this.drawButton({
+      key: 'home',
+      frame: 'uiButtons',
+      scene,
+      position: { x: 120, y: 120 },
+      withInteractions: false
     })
   }
 
