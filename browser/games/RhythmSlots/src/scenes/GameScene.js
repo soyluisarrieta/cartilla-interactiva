@@ -42,7 +42,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Método principal
   create () {
-    this.uiManager.drawBackButton()
+    this.uiManager.drawHomeButton().setScale(0.9)
     this.uiManager.drawLevelInfo()
     this.uiManager.drawNoteButtons()
     this.uiManager.drawExercises(7)

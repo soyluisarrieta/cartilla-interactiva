@@ -1,9 +1,12 @@
 import { addInteractions } from '../../../utils/addInteractions.js'
+import UIManager from '../components/UIManager.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
     super({ key: 'LevelSelectionScene' })
     this.settings = window.gameSettings
+
+    this.uiManager = new UIManager(this)
   }
 
   create () {
@@ -16,6 +19,9 @@ export default class LevelSelectionScene extends Phaser.Scene {
     this.add.image(0, 0, 'background')
       .setOrigin(0)
       .setDisplaySize(widthScreen, heightScreen)
+
+    // Botón ir atrás
+    this.uiManager.drawBackButton('MenuScene')
 
     // Título
     this.add.image(widthScreen / 2, 50, 'uiLvlSelection', 'bg-title')
@@ -57,20 +63,5 @@ export default class LevelSelectionScene extends Phaser.Scene {
         level.id = i
       }
     }
-
-    // Botón de inicio
-    const btnHome = this.add.image(widthScreen / 2, heightScreen - 220, 'uiLvlSelection', 'btn-home')
-      .setScale(1.5)
-      .setOrigin(0.5)
-      .setInteractive()
-
-    addInteractions({
-      button: btnHome,
-      key: 'uiLvlSelection',
-      frame: 'btn-home',
-      onClick: () => {
-        this.scene.start('MenuScene')
-      }
-    })
   }
 }
