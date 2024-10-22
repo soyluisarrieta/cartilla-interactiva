@@ -33,22 +33,17 @@ export default class LevelSelectionScene extends Phaser.Scene {
 
     for (let i = 0; i < numLevels; i++) {
       const level = levels[i]
-      const texture = level.isCompleted
-        ? 'btn-arrow-hovered'
-        : 'btn-arrow'
-      const levelButton = this.add.image(position.x, position.y, 'uiLvlSelection', texture)
-        .setScale(level.isCompleted ? 2 : 1.5)
+      const isLevelLocked = Boolean(i !== 0 && !levels[i - 1].isCompleted)
+      const levelStatus = level.isCompleted ? '-completed' : isLevelLocked ? '-locked' : ''
+      const texture = `level-${level.name + levelStatus}`
+      const levelButton = this.add.image(position.x, position.y, 'levels', texture)
         .setOrigin(0.5, 0.5)
         .setInteractive()
 
-      this.add.bitmapText(position.x, position.y + 120, 'primaryFont', level.title)
-        .setOrigin(0.5, 0.5)
-        .setScale(0.5)
-
-      addInteractions({
+      !isLevelLocked && addInteractions({
         button: levelButton,
-        key: 'uiLvlSelection',
-        frame: 'btn-arrow',
+        key: 'levels',
+        frame: `level-${level.name + levelStatus}`,
         onClick: () => {
           window.gameSettings.selectedLevel = i + 1
           this.scene.start('InstructionsScene')
