@@ -238,15 +238,32 @@ export default class Melody {
       })
 
       // Chequear nivel
+      const profile = getProfile()
+      const currentGame = this.game.settings
       const selectedLevel = this.game.selectedLevel
       const currentLevel = this.game.settings.levels[selectedLevel - 1]
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
-      this.game.socket.sendLevelData(currentLevel)
+
+      const data = {
+        game: {
+          id: currentGame.id,
+          name: currentGame.game,
+          level: {
+            name: currentLevel.name,
+            timer: currentLevel.timer
+          }
+        },
+        profile: {
+          id: profile.id,
+          username: profile.username,
+          avatar: profile.avatar
+        }
+      }
+
+      this.game.socket.sendLevelData(data)
       currentLevel.isCompleted = true
 
       // Guardar progreso en el perfil
-      const profile = getProfile()
-      const currentGame = this.game.settings
       if (!profile.games) { profile.games = {} }
       profile.games[currentGame.id] = currentGame
       setProfile(profile)
