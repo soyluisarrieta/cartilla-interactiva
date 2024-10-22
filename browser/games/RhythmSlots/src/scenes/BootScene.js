@@ -16,6 +16,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.atlas('btnHowToPlay', '/resources/ui/how-to-play-button.png', '/resources/ui/how-to-play-button.json')
     this.load.atlas('uiButtons', '/resources/ui/ui-buttons.png', '/resources/ui/ui-buttons.json')
 
+    this.load.image('decorativeFrame', '/resources/ui/decorative-frame.png')
+
     // Cargar how-to-play
     this.load.setPath('/games/RhythmSlots/assets/how-to-play')
     const TOTAL_STEPS = 8
