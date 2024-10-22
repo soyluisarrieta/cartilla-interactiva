@@ -31,6 +31,27 @@
           }
         },
         {
+          "filename": "level-easy-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 1108,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
           "filename": "level-easy-hovered",
           "rotated": false,
           "trimmed": false,
@@ -115,7 +136,49 @@
           }
         },
         {
+          "filename": "level-easy-completed-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
           "filename": "level-easy-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 554,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-easy-failed-pressed",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -178,6 +241,27 @@
           }
         },
         {
+          "filename": "level-medium-completed-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 1112,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
           "filename": "level-medium-completed-hovered",
           "rotated": false,
           "trimmed": false,
@@ -200,6 +284,27 @@
         },
         {
           "filename": "level-medium",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 1390,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-medium-pressed",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -283,6 +388,27 @@
           }
         },
         {
+          "filename": "level-medium-failed-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 1385,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
           "filename": "level-medium-failed-hovered",
           "rotated": false,
           "trimmed": false,
@@ -305,6 +431,27 @@
         },
         {
           "filename": "level-hard",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 278,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          },
+          "frame": {
+            "x": 834,
+            "y": 0,
+            "w": 278,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-pressed",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -388,6 +535,27 @@
           }
         },
         {
+          "filename": "level-hard-completed-pressed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 0,
+            "y": 1385,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
           "filename": "level-hard-completed-hovered",
           "rotated": false,
           "trimmed": false,
@@ -410,6 +578,27 @@
         },
         {
           "filename": "level-hard-failed",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 277,
+            "h": 277
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 277,
+            "h": 277
+          },
+          "frame": {
+            "x": 277,
+            "y": 277,
+            "w": 277,
+            "h": 277
+          }
+        },
+        {
+          "filename": "level-hard-failed-pressed",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
