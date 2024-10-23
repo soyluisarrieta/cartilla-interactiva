@@ -251,23 +251,17 @@ export default class Melody {
       const currentLevel = currentGame.levels[selectedLevel - 1]
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
 
+      const dataExercises = this.game.exercises.map(({ timer, melody }) => ({ melody }))
+
       const data = {
-        game: {
-          id: currentGame.id,
-          name: currentGame.game,
-          level: {
-            name: currentLevel.name,
-            timer: currentLevel.timer
-          }
+        level: {
+          name: currentLevel.name,
+          totalTimer: currentLevel.timer
         },
-        profile: {
-          id: profile.id,
-          username: profile.username,
-          avatar: profile.avatar
-        }
+        exercises: dataExercises
       }
 
-      this.game.socket.sendLevelData(data)
+      this.game.socket.levelCompleted(data)
       currentLevel.isCompleted = true
 
       // Guardar progreso en el perfil
