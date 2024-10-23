@@ -136,14 +136,12 @@ export default class Melody {
 
       const countAttempts = this.game.attempts.total
       const isGameOver = countAttempts === 0
-      const firstPartMsg = mistakes.length > 1
-        ? 'Algunas de las notas son incorrectas. Debes corregirlas'
-        : 'Una de las notas es incorrecta. Debes corregirla'
+      const isPlural = mistakes.length > 1 ? 's' : ''
       const alert = {
         title: '¡Nota incorrecta!',
         type: 'error',
         image: 'gameLogo',
-        message: `${firstPartMsg} para continuar. ¡Te quedan ${countAttempts} vidas!`
+        message: `Debes corregirla${isPlural}. ¡Te quedan ${countAttempts} vidas!`
       }
 
       if (isGameOver) {
@@ -208,6 +206,15 @@ export default class Melody {
       this.game.currentExercise = this.game.exercises[nextExerciseIndex]
       this.game.currentExercise.setState('playing')
       this.game.generatedMelody = this.game.currentExercise.melody
+
+      // Mostrar alerta
+      this.game.alert.showAlert('¡Perfecto!', {
+        type: 'success',
+        duration: 0,
+        image: 'gameLogo',
+        message: 'Has avanzado al siguiente ejercicio.',
+        btnAccept: true
+      })
 
       // Limpiar las notas en las casillas
       this.game.config.slots.forEach(slot => {
