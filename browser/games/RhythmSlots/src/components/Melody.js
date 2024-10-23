@@ -239,9 +239,9 @@ export default class Melody {
 
       // Chequear nivel
       const profile = getProfile()
-      const currentGame = this.game.settings
+      const currentGame = profile.games[window.gameSettings.id]
       const selectedLevel = this.game.selectedLevel
-      const currentLevel = this.game.settings.levels[selectedLevel - 1]
+      const currentLevel = currentGame.levels[selectedLevel - 1]
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
 
       const data = {
@@ -264,8 +264,7 @@ export default class Melody {
       currentLevel.isCompleted = true
 
       // Guardar progreso en el perfil
-      if (!profile.games) { profile.games = {} }
-      profile.games[currentGame.id] = currentGame
+      profile.games[window.gameSettings.id] = currentGame
       setProfile(profile)
     }
   }

@@ -1,3 +1,4 @@
+import { getProfile } from '../../../../scripts/Profile.js'
 import UIManager from '../components/UIManager.js'
 import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
@@ -8,7 +9,7 @@ import Socket from '../../../Socket.js'
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: 'GameScene' })
-    this.settings = window.gameSettings
+
     this.exerciseStartTime = null
     this.levelStartTime = null
 
@@ -21,6 +22,9 @@ export default class GameScene extends Phaser.Scene {
     this.selectedLevel = selectedLevel ?? 1
     this.screen = this.cameras.main
     this.exercises = []
+
+    const profile = getProfile()
+    this.settings = profile.games[window.gameSettings.id]
 
     this.config = {
       slots: [],
