@@ -1,4 +1,5 @@
 import { uuidv4 } from '../games/utils/generateId.js'
+import { mergeObjects } from '../games/utils/mergeObjects.js'
 
 export function Profile () {
   const FOLDER_AVATARS = '/assets/images/avatars'
@@ -94,7 +95,8 @@ export function Profile () {
       id: uuidv4(),
       username,
       avatar: `${avatar}.png`,
-      lastTime: new Date().toLocaleString()
+      lastTime: new Date().toLocaleString(),
+      games: {}
     }
 
     currentProfiles.push(newProfile)
@@ -119,13 +121,13 @@ export function Profile () {
     openContainerButton.querySelector('span').innerText = profile.username
 
     openContainerButton.classList.add('profile-selected')
-    window.localStorage.setItem('profile-id', profile.id)
+    window.sessionStorage.setItem('profile-id', profile.id)
     toggleClassName(profileContainer, 'hidden')
   }
 
   // Inicializar el perfil seleccionado al cargar la página
   function initializeprofile () {
-    const profileId = window.localStorage.getItem('profile-id')
+    const profileId = window.sessionStorage.getItem('profile-id')
     if (profileId) {
       loadProfile(profileId)
       toggleClassName(profileContainer, 'hidden')
@@ -165,7 +167,7 @@ export function Profile () {
     loadProfiles()
     initializeprofile()
 
-    !window.localStorage.getItem('profile-id') && disablePlayButtons()
+    !window.sessionStorage.getItem('profile-id') && disablePlayButtons()
   })
 }
 
@@ -176,23 +178,22 @@ export function getAllProfiles () {
 
 // Obtener información del perfil seleccionado
 export function getProfile () {
-  const profileId = window.localStorage.getItem('profile-id')
+  const profileId = window.sessionStorage.getItem('profile-id')
   if (!profileId) return null
 
-  const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
+  const profiles = getAllProfiles()
   return profiles.find(p => p.id === profileId) || null
 }
 
 // Actualizar información del perfil seleccionado
 export function setProfile (updates) {
-  const profileId = window.localStorage.getItem('profile-id')
-  if (!profileId) return
+  const profile = getProfile()
+  const profiles = getAllProfiles()
 
-  const profiles = JSON.parse(window.localStorage.getItem('profiles')) || []
-  const profileIndex = profiles.findIndex(p => p.id === profileId)
+  const profileIndex = profiles.findIndex(p => p.id === profile.id)
   if (profileIndex === -1) return
 
-  const updatedProfile = { ...profiles[profileIndex], ...updates }
+  const updatedProfile = mergeObjects(profiles[profileIndex], updates)
   profiles[profileIndex] = updatedProfile
   window.localStorage.setItem('profiles', JSON.stringify(profiles))
 }
