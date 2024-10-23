@@ -1,22 +1,26 @@
+import { getProfile } from '../../../../scripts/Profile.js'
 import { addInteractions } from '../../../utils/addInteractions.js'
 import UIManager from '../components/UIManager.js'
 
 export default class InstructionsScene extends Phaser.Scene {
   constructor () {
     super({ key: 'InstructionsScene' })
-    this.settings = window.gameSettings
 
     this.uiManager = new UIManager(this)
   }
 
   create () {
     const { width: screenWidth, height: screenHeight } = this.cameras.main
-    const { selectedLevel, levels } = this.settings
+
+    const profile = getProfile()
+    const { selectedLevel } = profile
+    const { levels } = profile.games[window.gameSettings.id]
+
     const prevLevel = this.getPreviousLevel(selectedLevel, levels)
     const currentLevel = levels[selectedLevel - 1]
     const newFigures = this.getNewFigures(currentLevel, prevLevel)
 
-    this.drawUI(screenWidth, screenHeight, currentLevel.title, currentLevel.description, newFigures)
+    this.drawUI(screenWidth, currentLevel.title, currentLevel.description, newFigures)
     this.createPlayButton(screenWidth, screenHeight, selectedLevel)
   }
 
@@ -26,11 +30,11 @@ export default class InstructionsScene extends Phaser.Scene {
 
   getNewFigures (currentLevel, prevLevel) {
     return currentLevel.figures.filter(
-      (figure) => !prevLevel.figures.includes(figure)
+      (figure) => !prevLevel.figures.some(prevFigure => prevFigure.name === figure.name)
     ).reverse()
   }
 
-  drawUI (screenWidth, screenHeight, title, description, newFigures) {
+  drawUI (screenWidth, title, description, newFigures) {
     this.uiManager.drawBackButton('LevelSelectionScene')
 
     this.add.bitmapText(screenWidth / 2, 70, 'primaryFont', title.toUpperCase(), 70)

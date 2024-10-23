@@ -3,7 +3,6 @@ import { addInteractions } from '../../../utils/addInteractions.js'
 export default class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: 'MenuScene' })
-    this.settings = window.gameSettings
   }
 
   create () {

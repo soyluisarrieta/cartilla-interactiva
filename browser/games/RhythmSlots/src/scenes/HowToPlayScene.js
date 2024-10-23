@@ -3,7 +3,7 @@ import UIManager from '../components/UIManager.js'
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
     super({ key: 'HowToPlayScene' })
-    this.settings = window.gameSettings
+
     this.currentStep = 0
     this.steps = [
       '¡Bienvenido! En este juego aprenderás a identificar las figuras musicales usando tu oído. ¡Disfruta la experiencia!',

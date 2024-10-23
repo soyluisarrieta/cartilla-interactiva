@@ -1,11 +1,18 @@
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+
 export default class BootScene extends Phaser.Scene {
   constructor () {
     super({ key: 'BootScene' })
-    this.settings = window.gameSettings
   }
 
   preload () {
-    const { id } = this.settings
+    const { id } = window.gameSettings
+    const profile = getProfile()
+
+    if (!profile.games[id]) {
+      profile.games[id] = window.gameSettings
+      setProfile(profile)
+    }
 
     // Cargar assets
     this.load.setPath('/assets/games')

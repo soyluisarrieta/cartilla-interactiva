@@ -38,6 +38,5 @@ export default class Socket {
   // Enviar información del nivel
   sendLevelData (levelData) {
     this.socket.emit('levelComplete', levelData)
-    console.log('Datos del nivel enviados:', levelData)
   }
 }
