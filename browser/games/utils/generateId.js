@@ -7,10 +7,10 @@ export const uuidv4 = () => {
 
 // Generador de id de sesiones
 export const getSessionId = () => {
-  let sessionId = window.localStorage.getItem('sessionId')
+  let sessionId = window.sessionStorage.getItem('sessionId')
   if (!sessionId) {
     sessionId = `session_${Math.random().toString(36).substr(2, 9)}`
-    window.localStorage.setItem('sessionId', sessionId)
+    window.sessionStorage.setItem('sessionId', sessionId)
   }
   return sessionId
 }
