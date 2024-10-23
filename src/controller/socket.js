@@ -16,8 +16,9 @@ export class SocketController {
 
   // Manejar conexión por navegador
   handleConnection (socket) {
-    const { sessionId, game } = socket.handshake.query
-    this.game = JSON.parse(game)
+    const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
+    const game = JSON.parse(rawGame)
+    const profile = JSON.parse(rawProfile)
 
     // Si el sessionId ya existe, incrementar el contador de conexiones
     if (this.connectedUsers[sessionId]) {
@@ -31,7 +32,7 @@ export class SocketController {
     }
 
     // Rutas
-    socketRoutes(socket, this.game)
+    socketRoutes(socket, { game, profile })
 
     // Manejar la desconexión
     socket.on('disconnect', () => this.handleDisconnect(socket, sessionId))

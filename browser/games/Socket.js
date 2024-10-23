@@ -1,24 +1,31 @@
 import { io } from '/assets/lib/socketio/socket.io.esm.min.js'
 import { getSessionId } from './utils/generateId.js'
+import { getProfile } from '../scripts/Profile.js'
 
 export default class Socket {
   constructor (gameScene) {
     this.game = gameScene
-    this.settings = window.gameSettings
 
     // Verificar si ya existe una conexión compartida
     if (window.sharedSocket) {
       this.socket = window.sharedSocket
     } else {
       const sessionId = getSessionId()
-
-      // Reconectar
-      this.socket = io({
+      const profile = getProfile()
+      const payload = {
         query: {
           sessionId,
-          game: JSON.stringify(this.settings)
+          profile: JSON.stringify({
+            id: profile.id,
+            username: profile.username,
+            avatar: profile.avatar
+          }),
+          game: JSON.stringify(profile.games[window.gameSettings.id])
         }
-      })
+      }
+
+      // Reconectar
+      this.socket = io(payload)
 
       // Guardar la conexión
       window.sharedSocket = this.socket
@@ -35,8 +42,8 @@ export default class Socket {
     }
   }
 
-  // Enviar información del nivel
-  sendLevelData (levelData) {
-    this.socket.emit('levelComplete', levelData)
+  // Enviar info del nivel completado
+  levelCompleted (payload) {
+    this.socket.emit('levelCompleted', payload)
   }
 }
