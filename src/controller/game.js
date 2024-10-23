@@ -1,3 +1,4 @@
+import logger from '../lib/winston/logger.js'
 import { GameModel } from '../models/game.js'
 
 export class GameController {
@@ -14,7 +15,8 @@ export class GameController {
       }
       await this.gameModel.saveLevel(levelData)
     } catch (error) {
-      console.error('Error en  el nivel:', error)
+      logger.error('Error en el nivel:', error)
+      logger.error('Error en  el nivel:', error)
       throw error
     }
   }

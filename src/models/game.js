@@ -1,4 +1,5 @@
 import DBLocal from 'db-local'
+import logger from '../lib/winston/logger.js'
 
 export class GameModel {
   constructor ({ profile, game }) {
@@ -24,7 +25,7 @@ export class GameModel {
       const levelCompleted = await this.Game.create(data)
       await levelCompleted.save()
     } catch (error) {
-      console.error('Error al guardar el nivel:', error)
+      logger.error('Error al guardar el nivel:', error)
     }
   }
 }
