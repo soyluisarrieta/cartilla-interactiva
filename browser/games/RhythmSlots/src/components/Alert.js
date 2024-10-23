@@ -46,14 +46,17 @@ export default class Alert {
 
     // Título del modal
     if (title) {
-      const modalTitle = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 325 : (message ? 50 : 60)), 'primaryFont', title, 30).setOrigin(0.5, 0)
+      const modalTitle = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 325 : (message ? 50 : 60)), 'primaryFont', title, 40)
+        .setOrigin(0.5, 0)
       alertContainer.add(modalTitle)
     }
 
     // Texto opcional
     if (message) {
-      const modalText = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 375 : 90), 'primaryFont', message, 16).setOrigin(0.5, 0)
-      modalText.setMaxWidth(width - 20)
+      const modalText = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 380 : 100), 'primaryFont', message, 24)
+        .setOrigin(0.5, 0)
+        .setMaxWidth(width - 50)
+        .setCenterAlign()
       alertContainer.add(modalText)
     }
 
