@@ -29,6 +29,13 @@ export default class BootScene extends Phaser.Scene {
 
     this.load.image('decorativeFrame', '/resources/ui/decorative-frame.png')
 
+    // Cargar los efectos de sonido
+    this.load.audio('levelComplete', '/audios/level-complete.mp3')
+    this.load.audio('gameOver', '/audios/game-over.mp3')
+    this.load.audio('timerTic', '/audios/timer-tic.mp3')
+    this.load.audio('perfectMelody', '/audios/perfect-melody.mp3')
+    this.load.audio('incorrectMelody', '/audios/incorrect-melody.mp3')
+
     // Cargar how-to-play
     this.load.setPath('/games/RhythmSlots/assets/how-to-play')
     const TOTAL_STEPS = 8
