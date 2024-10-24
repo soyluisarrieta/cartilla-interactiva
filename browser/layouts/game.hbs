@@ -100,6 +100,16 @@
 
     // Comprobar si hay un perfil activo
     if (!getProfile()) { window.location.href = '/zona-de-juegos' }
+    
+    // Audio de introducción
+    document.addEventListener("DOMContentLoaded", function() {
+        const audio=new Audio()
+        audio.src= '/assets/games/audios/sound-opening.mp3'
+        audio.load()
+        audio.muted=true;
+        audio.autoplay=true;
+        audio.play();
+    });
   </script>
 </head>
 <body>
