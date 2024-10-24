@@ -114,12 +114,12 @@ export default class UIManager {
   drawActionButtons () {
     // Botón para repetir la melodía generada
     const btnPlayMelody = this.game.melody.btnPlay = this.game.add
-      .image(this.game.screen.width - 300, this.game.screen.height - 130, 'uiMainMenu', 'button')
-      .setScale(0.7)
+      .image(this.game.screen.width - 280, this.game.screen.height - 140, 'uiButtons', 'listen-melody')
+      .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
-    this.game.add.bitmapText(this.game.screen.width - 300, this.game.screen.height - 70, 'primaryFont', 'Melodía', 24)
+    this.game.add.bitmapText(this.game.screen.width - 280, this.game.screen.height - 70, 'primaryFont', 'Melodía', 24)
       .setOrigin(0.5, 0)
 
     // Toggle button
@@ -127,19 +127,19 @@ export default class UIManager {
       btnPlayMelody.setScale(0.66)
       if (this.game.melody.state.isPlaying) {
         this.game.melody.stopMelody()
-        btnPlayMelody.setTexture('uiMainMenu', 'button')
+        btnPlayMelody.setTexture('uiButtons', 'listen-melody')
       } else {
         this.game.melody.playMelody(this.game.currentExercise.melody)
-        btnPlayMelody.setTexture('uiMainMenu', 'button-pressed')
+        btnPlayMelody.setTexture('uiButtons', 'repeat')
       }
     })
-    btnPlayMelody.on('pointerup', () => btnPlayMelody.setScale(0.7))
-    btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.7))
+    btnPlayMelody.on('pointerup', () => btnPlayMelody.setScale(0.8))
+    btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.8))
 
     // Botón para verificar la melodía compuesta
     const btnFinish = this.btnFinish = this.game.add
-      .image(this.game.screen.width - 130, this.game.screen.height - 130, 'uiMainMenu', 'button-pressed')
-      .setScale(0.7)
+      .image(this.game.screen.width - 130, this.game.screen.height - 140, 'uiButtons', 'home')
+      .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
@@ -148,16 +148,13 @@ export default class UIManager {
 
     btnFinish.on('pointerdown', () => {
       if (!this.game.filledSlots) { return null }
-      btnFinish.setScale(0.66)
       this.game.melody.checkMelody() // Llamada para comprobar la melodía
     })
-    btnFinish.on('pointerup', () => this.game.filledSlots && btnFinish.setScale(0.7))
-    btnFinish.on('pointerout', () => this.game.filledSlots && btnFinish.setScale(0.7))
   }
 
   disableFinishButton (state = true) {
-    const texture = state ? 'button-pressed' : 'button-hovered'
-    this.btnFinish.setTexture('uiMainMenu', texture)
+    const texture = state ? 'home' : 'play'
+    this.btnFinish.setTexture('uiButtons', texture)
     this.game.filledSlots = !state
   }
 }
