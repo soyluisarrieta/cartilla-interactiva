@@ -14,6 +14,7 @@ export default class UIManager {
       .setInteractive()
 
     const navigate = () => {
+      this.game.sound.play('soundPress')
       this.game.scene.start(scene)
     }
 

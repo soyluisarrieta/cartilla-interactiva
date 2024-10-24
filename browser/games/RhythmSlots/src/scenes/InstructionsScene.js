@@ -62,6 +62,7 @@ export default class InstructionsScene extends Phaser.Scene {
       key: 'uiLvlSelection',
       frame: 'btn-arrow',
       onClick: () => {
+        this.sound.play('soundPress')
         this.scene.start('GameScene', selectedLevel)
       }
     })

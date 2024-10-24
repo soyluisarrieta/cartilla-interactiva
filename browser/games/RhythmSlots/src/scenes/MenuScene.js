@@ -27,6 +27,7 @@ export default class MenuScene extends Phaser.Scene {
       key: 'btnStart',
       frame: 'start-btn',
       onClick: () => {
+        this.sound.play('soundPress')
         this.scene.start('LevelSelectionScene')
       }
     })
@@ -41,6 +42,7 @@ export default class MenuScene extends Phaser.Scene {
       key: 'btnHowToPlay',
       frame: 'how-to-play-btn',
       onClick: () => {
+        this.game.sound.play('soundPress')
         this.scene.start('HowToPlayScene')
       }
     })
