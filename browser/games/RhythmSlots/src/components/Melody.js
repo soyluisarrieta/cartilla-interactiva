@@ -95,7 +95,7 @@ export default class Melody {
           this.game.time.delayedCall(tempo * duration, () => {
             this.state.isPlaying = false
             this.btnPlay.setScale(0.7)
-            this.btnPlay.setTexture('uiMainMenu', 'button')
+            this.btnPlay.setTexture('uiButtons', 'listen-melody')
             const lastInterval = this.game.slot.intervalIndicators[i]
             this.game.slot.changeIntervalStatus(lastInterval, 'normal')
               .setScale(0.2)
