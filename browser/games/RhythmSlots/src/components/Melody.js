@@ -50,6 +50,20 @@ export default class Melody {
 
     this.game.uiManager.disableFinishButton(true)
 
+    // Reproducir el primer tic inmediatamente
+    this.game.sound.play('timerTic')
+
+    // Temporizador del tic-tac
+    const ticTimer = this.game.time.addEvent({
+      delay: tempo,
+      callback: () => {
+        this.game.sound.play('timerTic')
+      },
+      loop: true
+    })
+
+    this.state.timers.push(ticTimer)
+
     melody.forEach((figure, i) => {
       const { duration, beats } = figure
       const timer = this.game.time.delayedCall(timeElapsed, () => {
@@ -60,7 +74,7 @@ export default class Melody {
             .setScale(0.2)
         }
 
-        // Activar invervalo que está sonando
+        // Activar intervalo que está sonando
         const intervalActived = this.game.slot.intervalIndicators[i]
         this.game.slot.changeIntervalStatus(intervalActived, 'actived')
           .setScale(0.3)
@@ -76,6 +90,8 @@ export default class Melody {
 
         // Reiniciar texturas solo si es la última figura
         if (i === melody.length - 1) {
+          ticTimer.remove(false)
+
           this.game.time.delayedCall(tempo * duration, () => {
             this.state.isPlaying = false
             this.btnPlay.setScale(0.7)
