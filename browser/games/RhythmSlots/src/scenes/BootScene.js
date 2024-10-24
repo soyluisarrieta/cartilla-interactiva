@@ -30,6 +30,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('decorativeFrame', '/resources/ui/decorative-frame.png')
 
     // Cargar los efectos de sonido
+    this.load.audio('soundPress', '/audios/sound-press.mp3')
     this.load.audio('levelComplete', '/audios/level-complete.mp3')
     this.load.audio('gameOver', '/audios/game-over.mp3')
     this.load.audio('timerTic', '/audios/timer-tic.mp3')
