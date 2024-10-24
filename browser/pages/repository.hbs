@@ -1,0 +1,85 @@
+{{#section "head"}}
+{{> page-info
+  title="Cartilla interactiva | SENNOVA"
+}}
+{{/section}}
+
+<main>
+  <a class="back-btn" href="/">
+    <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
+  </a>
+  
+  <div id="repository-title" class="static-content">
+    <img src="/assets/images/pages/booklet-title.png" alt="Repositorio" />
+  </div>
+
+  <div id="repository-files">
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+    <a href="#">icon</a>
+  </div>
+</main>
+
+{{> footer}}
+
+{{#section "style"}}
+<style>
+  main {
+    width: 100%;
+    background-image: url('/assets/images/pages/main-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 7vw 3vw;
+  }
+
+  #repository-title {
+    width: 50vw;
+    padding: 0 5vw;
+    margin: 4vw auto 0;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  #repository-files {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1vw;
+    padding: 2vw;
+
+    > a {
+      width: 100%;
+      max-width: 20vw;
+      aspect-ratio: 1;
+      background-color: gray;
+      cursor: pointer;
+      border-radius: 0.5vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: 200ms;
+    }
+
+    > a:hover {
+      transform: scale(1.03) translateY(-0.5vw);
+      box-shadow: 0 7px 12px rgba(0,0,0,0.4);
+    }
+
+  }
+</style>
+{{/section}}
