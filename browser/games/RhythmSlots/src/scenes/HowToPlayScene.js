@@ -30,7 +30,7 @@ export default class HowToPlayScene extends Phaser.Scene {
   createNavigationButtons () {
     const { width: screenWidth, height: screenHeight } = this.cameras.main
 
-    this.add.image(screenWidth / 1.85, screenHeight - 100, 'uiButtons', 'arrow-right')
+    this.nextButton = this.add.image(screenWidth / 1.85, screenHeight - 100, 'uiButtons', 'arrow-right')
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
@@ -41,7 +41,7 @@ export default class HowToPlayScene extends Phaser.Scene {
         }
       })
 
-    this.add.image(screenWidth / 2.25, screenHeight - 100, 'uiButtons', 'arrow-left')
+    this.prevButton = this.add.image(screenWidth / 2.25, screenHeight - 100, 'uiButtons', 'arrow-left')
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
@@ -51,6 +51,8 @@ export default class HowToPlayScene extends Phaser.Scene {
           this.updateInstructions()
         }
       })
+
+    this.updateNavigationButtons()
   }
 
   // Mostrar las instrucciones del juego
@@ -75,5 +77,12 @@ export default class HowToPlayScene extends Phaser.Scene {
   updateInstructions () {
     this.step.setTexture(`step${this.currentStep + 1}`)
     this.message.setText(this.steps[this.currentStep])
+    this.updateNavigationButtons()
+  }
+
+  // Mostrar u ocultar botones de navegación
+  updateNavigationButtons () {
+    this.prevButton.setVisible(this.currentStep > 0)
+    this.nextButton.setVisible(this.currentStep < this.steps.length - 1)
   }
 }
