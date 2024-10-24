@@ -1,23 +1,34 @@
 export default class Attempts {
   constructor (gameScene) {
     this.game = gameScene
-    this.total = 3
-    this.element = null
+    this.total = null
+    this.elements = []
   }
 
-  // Inicializar la barra de vida
-  draw () {
-    const { width } = this.game.screen
-    this.element = this.game.add.image(width - 50, 50, 'healthBar', `health-bar-${this.total}`)
-      .setScale(0.7)
-      .setOrigin(1, 0)
+  // Mostrar los intentos o vidas
+  draw (attempts) {
+    const layout = { marginTop: 100, gap: 95 }
+    const position = { x: this.game.screen.width - 90, y: layout.marginTop }
+
+    this.total = attempts
+
+    for (let i = 0; i < attempts; i++) {
+      const attempt = this.game.add.image(position.x - (i * layout.gap), position.y, 'health-on')
+        .setScale(0.5)
+        .setOrigin(0.5)
+
+      this.elements.push(attempt)
+    }
   }
 
-  // Actualizar la barra de vida
+  // Actualizar vida
   update (number) {
     const newTotal = number + this.total
     this.total = newTotal > 0 ? newTotal : 0
-    this.element.setTexture('healthBar', `health-bar-${newTotal}`)
+
+    if (newTotal < 0) { return 0 }
+    const attemptsIndex = this.elements.length - newTotal - 1
+    this.elements[attemptsIndex].setTexture('health-off')
     return newTotal
   }
 }
