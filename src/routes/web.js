@@ -6,6 +6,7 @@ export default function webRouter () {
 
   // Páginas extras
   router.get('/', (req, res) => res.render('home'))
+  router.get('/repositorio', (req, res) => res.render('repository'))
   router.get('/calentamiento', (req, res) => res.render('warm-up'))
 
   // Cartilla
