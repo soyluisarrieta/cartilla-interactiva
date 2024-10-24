@@ -131,6 +131,7 @@ export default class Melody {
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
+      this.game.sound.play('incorrectMelody')
       this.game.attempts.update(-1)
       this.game.uiManager.disableFinishButton(true)
 
@@ -149,7 +150,12 @@ export default class Melody {
         alert.type = 'default'
         alert.image = 'gameLogo'
         alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+
+        this.stopMelody()
+        this.game.sound.stopAll()
+        this.game.sound.play('gameOver')
       }
+
       const buttons = [
         {
           text: 'Volver a jugar',
@@ -188,6 +194,7 @@ export default class Melody {
     }
 
     // Melodía correcta
+    this.game.sound.play('perfectMelody')
     this.advanceToNextExercise('completed')
     this.game.uiManager.disableFinishButton(true)
   }
@@ -223,6 +230,9 @@ export default class Melody {
       })
       this.game.slot.selectSlot(this.game.config.slots[0])
     } else {
+      this.stopMelody()
+      this.game.sound.stopAll()
+      this.game.sound.play('levelComplete')
       this.game.alert.showAlert('¡Nivel finalizado!', {
         type: 'success',
         duration: 0,
