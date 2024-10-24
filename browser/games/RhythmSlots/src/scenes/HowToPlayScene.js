@@ -34,6 +34,7 @@ export default class HowToPlayScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
+        this.game.sound.play('soundPress')
         if (this.currentStep < this.steps.length - 1) {
           this.currentStep++
           this.updateInstructions()
@@ -44,6 +45,7 @@ export default class HowToPlayScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
+        this.game.sound.play('soundPress')
         if (this.currentStep > 0) {
           this.currentStep--
           this.updateInstructions()

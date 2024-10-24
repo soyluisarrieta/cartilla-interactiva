@@ -56,6 +56,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
         onClick: () => {
           profile.selectedLevel = i + 1
           setProfile(profile)
+          this.sound.play('soundPress')
           this.scene.start('InstructionsScene')
         }
       })
