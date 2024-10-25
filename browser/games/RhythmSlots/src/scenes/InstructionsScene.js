@@ -1,5 +1,4 @@
 import { getProfile } from '../../../../scripts/Profile.js'
-import { addInteractions } from '../../../utils/addInteractions.js'
 import UIManager from '../components/UIManager.js'
 
 export default class InstructionsScene extends Phaser.Scene {
@@ -52,19 +51,13 @@ export default class InstructionsScene extends Phaser.Scene {
 
   // Crear botón para empezar a jugar
   createPlayButton (screenWidth, screenHeight, selectedLevel) {
-    const playButton = this.add.image(screenWidth / 2 + 100, screenHeight - 100, 'uiLvlSelection', 'btn-arrow')
-      .setScale(1.5)
+    const playButton = this.add.image(screenWidth - 120, screenHeight - 120, 'uiButtons', 'arrow-right')
+      .setScale(1)
       .setOrigin(0.5)
       .setInteractive()
-
-    addInteractions({
-      button: playButton,
-      key: 'uiLvlSelection',
-      frame: 'btn-arrow',
-      onClick: () => {
+      .on('pointerdown', () => {
         this.sound.play('soundPress')
         this.scene.start('GameScene', selectedLevel)
-      }
-    })
+      })
   }
 }
