@@ -2,28 +2,28 @@ export default {
   // Figures
   semibreve: {
     name: 'semibreve',
-    duration: 4,
-    beats: 1
+    duration: 4
   },
   minim: {
     name: 'minim',
-    duration: 2,
-    beats: 1
+    duration: 2
   },
   crotchet: {
     name: 'crotchet',
-    duration: 1,
-    beats: 1
+    duration: 1
   },
   quaver: {
     name: 'quaver',
+    duration: 1
+  },
+  quaverDuo: {
+    name: 'quaver-duo',
     duration: 1,
     beats: 2
   },
   semiquaver: {
     name: 'semiquaver',
-    duration: 1,
-    beats: 4
+    duration: 1
   },
 
   // Rest figures

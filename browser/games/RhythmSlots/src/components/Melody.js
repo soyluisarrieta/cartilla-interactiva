@@ -65,7 +65,7 @@ export default class Melody {
     this.state.timers.push(ticTimer)
 
     melody.forEach((figure, i) => {
-      const { duration, beats } = figure
+      const { duration, beats = 1 } = figure
       const timer = this.game.time.delayedCall(timeElapsed, () => {
         // Reiniciar anterior intervalo
         if (i !== 0) {
