@@ -194,7 +194,7 @@ export default class Melody {
         message: alert.message,
         btnAccept: !isGameOver,
         buttons: isGameOver ? buttons : [],
-        dismissible: !isGameOver
+        dismissible: false
       })
 
       mistakes.forEach(({ slot }) => {
@@ -254,6 +254,7 @@ export default class Melody {
         duration: 0,
         image: 'gameLogo',
         message: 'Puedes seguir practicando este nivel o cambiar a otra dificultad.',
+        dismissible: false,
         buttons: [
           {
             text: 'Volver a jugar',
