@@ -1,0 +1,29 @@
+{{#section "head"}}
+{{> page-info
+  title="Cartilla interactiva | SENNOVA"
+}}
+{{/section}}
+
+<script type="module">
+  import FIGURES from '/scripts/figures.js'
+  import StartGame from '/games/🚩/index.js'
+
+  const { 
+    // 🚩
+  } = FIGURES
+
+  window.gameSettings = {
+    id: 'g6-play-with-the-rhythm',
+    game: '🚩'
+  }
+
+  StartGame()
+</script>
+
+{{#section "style"}}
+<style>
+    body {
+      background-image: url(/assets/games/thumbnails/🚩.jpg);
+    }
+</style>
+{{/section}}
