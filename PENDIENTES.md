@@ -25,8 +25,12 @@
 
 ### Escena "Jugando"
 
+- [ ] Diseño completo de la escena.
 - [ ] Imagen o textura del fondo.
 - [ ] Diseñar estados de cada figura:
   - **Como botón:** Son los que presiona el jugador para asignar una figura. (Estados: Normal/Resaltado/Presionado)
   - **Espacio vacía:** Son las espacios donde se ubicarán las figuras. (Estados: Normal/Seleccionado)
   - **Figuras musicales:** Cada figura musical. (Estados: Normal/Seleccionado/Incorrecta)
+- [ ] Diseño de alertas:
+  - Iconos (Melodía correcta/incorrecta, Nivel completado/fallido)
+  - Botones (Aceptar/Niveles/Volver a jugar)
