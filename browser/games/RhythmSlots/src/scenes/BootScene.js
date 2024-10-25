@@ -1,5 +1,6 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import Assets from '../../../core/assets.js'
+import Opening from '../../../core/Opening.js'
 import AssetLoader from '../../../utils/AssetLoader.js'
 
 export default class BootScene extends Phaser.Scene {
@@ -51,35 +52,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
   }
 
-  // Mostrar los logos con la animación de fade-in y fade-out
   create () {
-    const { centerX, centerY } = this.cameras.main
-    const logo = this.add.image(centerX, centerY, 'openingLogos')
-
-    this.tweens.add({
-      targets: logo,
-      alpha: { from: 0, to: 1 },
-      scale: { from: 0.9, to: 1 },
-      duration: 1000,
-      ease: 'Power2',
-      onComplete: () => {
-        this.time.delayedCall(1500, () => {
-          this.fadeOutLogo(logo)
-        })
-      }
-    })
-  }
-
-  // Animación de fade-out de los logo
-  fadeOutLogo (logo) {
-    this.tweens.add({
-      targets: logo,
-      alpha: 0,
-      duration: 300,
-      ease: 'Power2',
-      onComplete: () => {
-        this.scene.start('MenuScene')
-      }
-    })
+    // Introducción de logos
+    const opening = new Opening(this)
+    opening.start({ scene: 'MenuScene' })
   }
 }
