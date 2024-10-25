@@ -15,7 +15,7 @@ export default class BootScene extends Phaser.Scene {
     }
 
     // Cargar assets
-    this.load.setPath('/assets/games')
+    this.load.setPath('/games/assets')
     this.load.image('openingLogos', '/resources/opening-logos.png')
     this.load.image('gameLogo', `/logos/${id}.png`)
 
@@ -67,7 +67,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.audio('noteSound', 'note-sound.mp3')
 
     // Cargar fuentes
-    this.load.setPath('/assets/games/resources/fonts')
+    this.load.setPath('/games/assets/resources/fonts')
     this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
   }
 
