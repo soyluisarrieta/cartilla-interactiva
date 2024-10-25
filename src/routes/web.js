@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { BookletController } from '../controller/booklet.js'
+import { GAMES } from '../constants.js'
 
 export default function webRouter () {
   const router = Router()
@@ -16,7 +17,9 @@ export default function webRouter () {
 
   // Zona de juegos
   router.get('/zona-de-juegos', (req, res) => res.render('game-zone'))
-  router.get('/zona-de-juegos/las-figuras-y-sus-silencios', (req, res) => res.render('games/g1-the-figures-and-their-silences', { layout: 'game' }))
+  GAMES.forEach(({ id, slug }) => {
+    router.get(`/zona-de-juegos/${slug}`, (req, res) => res.render(`games/${id}`, { layout: 'game' }))
+  })
 
   // Middleware: para manejar errores 404
   router.use((req, res, next) => {
