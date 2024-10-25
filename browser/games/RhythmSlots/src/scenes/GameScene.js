@@ -51,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
     this.uiManager.drawNoteButtons()
     this.uiManager.drawExercises(7)
     this.uiManager.drawActionButtons()
-    this.attempts.draw(3)
+    this.attempts.draw(window.gameSettings.attempts)
     this.slot.drawSlots()
     this.slot.selectSlot(this.config.slots[0])
   }
