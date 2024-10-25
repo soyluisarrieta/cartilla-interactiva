@@ -53,4 +53,15 @@ export default class Assets {
       }
     }
   }
+
+  figures (figures) {
+    return {
+      setPath: this.setPath,
+      assets: {
+        images: figures.map((figure) => ({
+          key: figure, path: `/figures/${figure}.png`
+        }))
+      }
+    }
+  }
 }
