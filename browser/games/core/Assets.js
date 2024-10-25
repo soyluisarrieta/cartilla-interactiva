@@ -1,9 +1,11 @@
 export default class Assets {
   constructor ({ gameid, gameName }) {
     this.setPath = '/games/assets'
+
     this.game = {
       id: gameid,
-      name: gameName
+      name: gameName,
+      number: gameid.charAt(1)
     }
   }
 
@@ -15,7 +17,7 @@ export default class Assets {
           { key: 'openingLogos', path: '/resources/opening-logos.png' },
           { key: 'decorativeFrame', path: '/resources/ui/decorative-frame.png' },
           { key: 'bannerTitle', path: '/resources/ui/banner-title.png' },
-          { key: 'gameLogo', path: `/logos/${this.game.id}.png` },
+          { key: 'gameLogo', path: `/logos/game-${this.game.number}.png` },
           { key: 'health-on', path: '/resources/ui/health-on.png' },
           { key: 'health-off', path: '/resources/ui/health-off.png' }
         ],
