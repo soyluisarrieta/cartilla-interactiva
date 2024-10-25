@@ -43,7 +43,7 @@ export default class Melody {
 
   // Reproducir la melodía generada
   playMelody (melody) {
-    const { tempo } = this.game.settings
+    const { tempo } = window.gameSettings
     this.state.isPlaying = true
     this.state.timers = []
     let timeElapsed = 0
