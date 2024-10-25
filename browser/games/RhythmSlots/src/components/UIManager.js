@@ -84,12 +84,13 @@ export default class UIManager {
   // Mostrar los ejercicios
   drawExercises (numExercises) {
     for (let i = 0; i <= numExercises - 1; i++) {
-      const layout = { marginTop: 150, gap: 80 }
-      const positionX = this.game.screen.width - 100
+      const layout = { marginTop: 140, gap: 95 }
+      const positionX = this.game.screen.width - 50
       const positionY = layout.marginTop + (layout.gap * (i + 1))
-      const exerciseElement = this.game.add.image(positionX, positionY, 'uiMainMenu', 'button-pressed')
-        .setScale(0.5)
-        .setOrigin(0.5)
+      const exerciseTextures = this.game.melody.textureStates
+      const exerciseElement = this.game.add.image(positionX, positionY, 'exercise', exerciseTextures.pending)
+        .setScale(0.7)
+        .setOrigin(1, 0.5)
         .setInteractive()
 
       const generatedMelody = this.game.melody.generate()
@@ -100,7 +101,9 @@ export default class UIManager {
         melody: generatedMelody,
         setState: (state) => {
           this.game.exercises[i].state = state
-          exerciseElement.setTexture('uiMainMenu', this.game.melody.textureStates[state])
+          exerciseElement
+            .setTexture('exercise', exerciseTextures[state])
+            .setScale(0.8)
         }
       })
     }

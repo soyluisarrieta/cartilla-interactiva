@@ -4,9 +4,8 @@ export default class Slot {
     this.filledSlots = false
     this.intervalIndicators = []
     this.invervalTextures = {
-      normal: 'button',
-      actived: 'button-hovered',
-      failed: 'button-pressed'
+      normal: 'home',
+      actived: 'listen-melody'
     }
   }
 
@@ -29,8 +28,8 @@ export default class Slot {
         .setOrigin(0.5)
         .setInteractive()
 
-      const intervalIndicator = scene.image(position.x, position.y + 150, 'uiMainMenu', 'button')
-        .setScale(0.2)
+      const intervalIndicator = scene.image(position.x, position.y + 160, 'uiButtons', this.invervalTextures.normal)
+        .setScale(0.4)
         .setOrigin(0.5)
 
       this.intervalIndicators.push(intervalIndicator)
@@ -57,14 +56,14 @@ export default class Slot {
   // Cambiar estado del intervalo
   changeIntervalStatus (interval, state) {
     return interval
-      .setTexture('uiMainMenu', this.invervalTextures[state])
-      .setScale(0.2)
+      .setTexture('uiButtons', state)
+      .setScale(0.4)
   }
 
   // Reiniciar texturas
   resetIntervals () {
     this.intervalIndicators.forEach(interval => {
-      this.changeIntervalStatus(interval, 'normal')
+      this.changeIntervalStatus(interval, this.invervalTextures.normal)
     })
   }
 
@@ -90,8 +89,7 @@ export default class Slot {
 
     // Reiniciar textura del intervalo
     const interval = this.intervalIndicators[indexSelectedSlot]
-    this.changeIntervalStatus(interval, 'normal')
-      .setScale(0.2)
+    this.changeIntervalStatus(interval, this.invervalTextures.normal)
 
     selectedSlot.note = noteType
     selectedSlot.element.setTexture(noteType)

@@ -9,9 +9,9 @@ export default class Melody {
       timers: []
     }
     this.textureStates = {
-      playing: 'button',
-      failed: 'button-pressed',
-      completed: 'button-hovered'
+      pending: 'exercise-pending',
+      playing: 'exercise-playing',
+      completed: 'exercise-completed'
     }
   }
 
@@ -70,14 +70,14 @@ export default class Melody {
         // Reiniciar anterior intervalo
         if (i !== 0) {
           const prevInterval = this.game.slot.intervalIndicators[i - 1]
-          this.game.slot.changeIntervalStatus(prevInterval, 'normal')
-            .setScale(0.2)
+          this.game.slot.changeIntervalStatus(prevInterval, this.game.slot.invervalTextures.normal)
+            .setScale(0.4)
         }
 
         // Activar intervalo que está sonando
         const intervalActived = this.game.slot.intervalIndicators[i]
-        this.game.slot.changeIntervalStatus(intervalActived, 'actived')
-          .setScale(0.3)
+        this.game.slot.changeIntervalStatus(intervalActived, this.game.slot.invervalTextures.actived)
+          .setScale(0.5)
 
         if (!figure.name.endsWith('rest')) {
           this.game.sound.play('noteSound')
@@ -97,8 +97,8 @@ export default class Melody {
             this.btnPlay.setScale(0.7)
             this.btnPlay.setTexture('uiButtons', 'listen-melody')
             const lastInterval = this.game.slot.intervalIndicators[i]
-            this.game.slot.changeIntervalStatus(lastInterval, 'normal')
-              .setScale(0.2)
+            this.game.slot.changeIntervalStatus(lastInterval, this.game.slot.invervalTextures.normal)
+              .setScale(0.4)
 
             // Habilitar botón de confirmar
             if (this.game.slot.filledSlots) {
