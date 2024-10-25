@@ -27,12 +27,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
     this.uiManager.drawBackButton('MenuScene')
 
     // Título
-    this.add.image(widthScreen / 2, 50, 'uiLvlSelection', 'bg-title')
-      .setScale(1.5)
-      .setOrigin(0.5, 0)
+    this.add.image(widthScreen / 2, 120, 'bannerTitle')
+      .setOrigin(0.5)
 
-    this.add.bitmapText(widthScreen / 2, 65, 'primaryFont', 'Selecciona un nivel')
-      .setOrigin(0.5, 0)
+    this.add.bitmapText(widthScreen / 2, 120, 'primaryFont', 'Selecciona un nivel')
+      .setOrigin(0.5)
 
     // Niveles
     const totalWidth = numLevels * 200 + (numLevels - 1) * 100
