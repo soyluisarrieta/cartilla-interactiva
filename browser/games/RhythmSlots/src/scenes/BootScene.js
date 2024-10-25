@@ -1,4 +1,6 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+import Assets from '../../../core/assets.js'
+import AssetLoader from '../../../utils/AssetLoader.js'
 
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -6,7 +8,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { id } = window.gameSettings
+    const { id, game } = window.gameSettings
     const profile = getProfile()
 
     if (!profile.games[id]) {
@@ -14,57 +16,35 @@ export default class BootScene extends Phaser.Scene {
       setProfile(profile)
     }
 
-    // Cargar assets
-    this.load.setPath('/games/assets')
-    this.load.image('openingLogos', '/resources/opening-logos.png')
-    this.load.image('gameLogo', `/logos/${id}.png`)
-
-    this.load.atlas('btnStart', '/resources/ui/start-button.png', '/resources/ui/start-button.json')
-    this.load.atlas('btnHowToPlay', '/resources/ui/how-to-play-button.png', '/resources/ui/how-to-play-button.json')
-    this.load.atlas('btnBack', '/resources/ui/back-button.png', '/resources/ui/back-button.json')
-    this.load.atlas('uiButtons', '/resources/ui/ui-buttons.png', '/resources/ui/ui-buttons.json')
-    this.load.atlas('levels', '/resources/ui/levels.png', '/resources/ui/levels.json')
-    this.load.image('health-on', '/resources/ui/health-on.png')
-    this.load.image('health-off', '/resources/ui/health-off.png')
-
-    this.load.image('decorativeFrame', '/resources/ui/decorative-frame.png')
-
-    // Cargar los efectos de sonido
-    this.load.audio('soundPress', '/audios/sound-press.mp3')
-    this.load.audio('levelComplete', '/audios/level-complete.mp3')
-    this.load.audio('gameOver', '/audios/game-over.mp3')
-    this.load.audio('timerTic', '/audios/timer-tic.mp3')
-    this.load.audio('perfectMelody', '/audios/perfect-melody.mp3')
-    this.load.audio('incorrectMelody', '/audios/incorrect-melody.mp3')
-
-    // Cargar how-to-play
-    this.load.setPath('/games/RhythmSlots/assets/how-to-play')
-    const TOTAL_STEPS = 8
-    for (let i = 1; i <= TOTAL_STEPS; i++) {
-      this.load.image(`step${i}`, `/step${i}.png`)
+    // Assets del juego
+    const rhythmSlotsAssets = {
+      setPath: `/games/${game}/assets`,
+      assets: {
+        images: [
+          { key: 'background', path: '/images/bg-menu.jpg' },
+          { key: 'slot', path: '/images/slot.png' },
+          { key: 'semibreve', path: '/images/btn-semibreve.png' },
+          { key: 'semibreve-rest', path: '/images/btn-semibreve-rest.png' },
+          { key: 'minim', path: '/images/btn-minim.png' },
+          { key: 'minim-rest', path: '/images/btn-minim-rest.png' },
+          { key: 'crotchet', path: '/images/btn-crotchet.png' },
+          { key: 'crotchet-rest', path: '/images/btn-crotchet-rest.png' }
+        ]
+      }
     }
 
-    // Cargar los recursos gráficos
-    this.load.setPath('/games/RhythmSlots/assets/images')
-    this.load.image('background', '/bg-menu.jpg')
-    this.load.image('slot', '/slot.png')
+    // Assets globales
+    const coreAssets = new Assets({ gameid: id, gameName: game })
+    const setupAssets = coreAssets.setup()
+    const howToPlayAssets = coreAssets.howToPlay(8)
 
-    // Cargar figuras musicales
-    this.load.image('semibreve', '/btn-semibreve.png')
-    this.load.image('semibreve-rest', '/btn-semibreve-rest.png')
-    this.load.image('minim', '/btn-minim.png')
-    this.load.image('minim-rest', '/btn-minim-rest.png')
-    this.load.image('crotchet', '/btn-crotchet.png')
-    this.load.image('crotchet-rest', '/btn-crotchet-rest.png')
-
-    // Cargar interfaz de usuario (UI)
-    this.load.setPath('/games/RhythmSlots/assets/ui')
-    this.load.atlas('uiMainMenu', '/main-menu.png', '/main-menu.json')
-    this.load.atlas('uiLvlSelection', '/level-selection.png', '/level-selection.json')
-
-    // Cargar sonidos
-    this.load.setPath('/games/RhythmSlots/assets/sounds')
-    this.load.audio('noteSound', 'note-sound.mp3')
+    // Cargar los assets
+    const assetLoader = new AssetLoader(this)
+    assetLoader.load([
+      setupAssets,
+      howToPlayAssets,
+      rhythmSlotsAssets
+    ])
 
     // Cargar fuentes
     this.load.setPath('/games/assets/resources/fonts')
