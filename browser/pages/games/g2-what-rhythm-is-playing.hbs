@@ -6,15 +6,31 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import StartGame from '/games/RhythmBlocks/index.js'
 
   const { 
-    // 🚩
+    crotchet,
+    crotchetRest,
+    quaverDuo,
+    quaverRest,
+    minim,
+    minimRest,
   } = FIGURES
 
   window.gameSettings = {
     id: 'g2-what-rhythm-is-playing',
-    game: '🚩'
+    game: 'RhythmBlocks',
+    attempts: 2,
+    levels: [
+      {
+        name: 'level1',
+        figures: [crotchet, crotchetRest, quaverDuo]
+      },
+      {
+        name: 'level2',
+        figures: [crotchet, crotchetRest, quaverDuo, quaverRest, minim, minimRest]
+      },
+    ]
   }
 
   StartGame()
@@ -23,7 +39,7 @@
 {{#section "style"}}
 <style>
     body {
-      background-image: url(/games/assets/thumbnails/🚩.jpg);
+      background-image: url(/games/assets/thumbnails/game-2.jpg);
     }
 </style>
 {{/section}}
