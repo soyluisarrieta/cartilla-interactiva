@@ -197,3 +197,12 @@ export function setProfile (updates) {
   profiles[profileIndex] = updatedProfile
   window.localStorage.setItem('profiles', JSON.stringify(profiles))
 }
+
+export function InitProfile (gameId, gameSettings) {
+  const profile = getProfile()
+
+  if (!profile.games[gameId]) {
+    profile.games[gameId] = gameSettings
+    setProfile(profile)
+  }
+}

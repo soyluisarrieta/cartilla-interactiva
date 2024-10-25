@@ -1,7 +1,7 @@
-import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import Assets from '../../../core/assets.js'
 import Opening from '../../../core/Opening.js'
 import AssetLoader from '../../../utils/AssetLoader.js'
+import { InitProfile } from '../../../../scripts/Profile.js'
 
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -9,17 +9,12 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { id, game } = window.gameSettings
-    const profile = getProfile()
-
-    if (!profile.games[id]) {
-      profile.games[id] = window.gameSettings
-      setProfile(profile)
-    }
+    const { id: gameid, game: gameName } = window.gameSettings
+    InitProfile(gameid, window.gameSettings)
 
     // Assets del juego
-    const rhythmSlotsAssets = {
-      setPath: `/games/${game}/assets`,
+    const gameAssets = {
+      setPath: `/games/${gameName}/assets`,
       assets: {
         images: [
           { key: 'background', path: '/images/bg-menu.jpg' },
@@ -35,7 +30,7 @@ export default class BootScene extends Phaser.Scene {
     }
 
     // Assets globales
-    const coreAssets = new Assets({ gameid: id, gameName: game })
+    const coreAssets = new Assets({ gameid, gameName })
     const setupAssets = coreAssets.setup()
     const howToPlayAssets = coreAssets.howToPlay(8)
 
@@ -44,7 +39,7 @@ export default class BootScene extends Phaser.Scene {
     assetLoader.load([
       setupAssets,
       howToPlayAssets,
-      rhythmSlotsAssets
+      gameAssets
     ])
 
     // Cargar fuentes
