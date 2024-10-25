@@ -79,7 +79,7 @@ export default class Melody {
         this.game.slot.changeIntervalStatus(intervalActived, 'actived')
           .setScale(0.3)
 
-        if (beats && figure !== 'crotchetRest') {
+        if (!figure.name.endsWith('rest')) {
           this.game.sound.play('noteSound')
           for (let beat = 1; beat < beats; beat++) {
             this.game.time.delayedCall(tempo / beats * beat, () => {
