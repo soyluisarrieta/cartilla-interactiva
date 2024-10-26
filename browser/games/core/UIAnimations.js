@@ -9,31 +9,33 @@ export default class UIAnimations {
   }
 
   // Fade in animation
-  fadeIn ({ targets, duration = 400, delay = 100, endAlpha = 1 }) {
+  fadeIn ({ targets, duration = 400, delay = 100, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0 })
     this.phaser.tweens.add({
       targets: elements,
       alpha: { from: 0, to: endAlpha },
       duration,
-      delay
+      delay,
+      ...props
     })
   }
 
   // Fade out animation
-  fadeOut ({ targets, duration = 400, delay = 100 }) {
+  fadeOut ({ targets, duration = 400, delay = 100, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0 })
     this.phaser.tweens.add({
       targets: elements,
       alpha: { from: 1, to: 0 },
       duration,
-      delay
+      delay,
+      ...props
     })
   }
 
   // Slide in from left
-  slideInFromLeft ({ targets, duration = 400, delay = 100, endAlpha = 1 }) {
+  slideInFromLeft ({ targets, duration = 400, delay = 100, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.x -= 300 })
     this.phaser.tweens.add({
@@ -42,12 +44,13 @@ export default class UIAnimations {
       alpha: { from: 0, to: endAlpha },
       duration,
       delay,
-      ease: 'Power2'
+      ease: 'Power2',
+      ...props
     })
   }
 
   // Slide in from right
-  slideInFromRight ({ targets, duration = 400, delay = 100, endAlpha = 1 }) {
+  slideInFromRight ({ targets, duration = 400, delay = 100, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.x += 300 })
     this.phaser.tweens.add({
@@ -56,12 +59,13 @@ export default class UIAnimations {
       alpha: { from: 0, to: endAlpha },
       duration,
       delay,
-      ease: 'Power2'
+      ease: 'Power2',
+      ...props
     })
   }
 
   // Slide in from top
-  slideInFromTop ({ targets, duration = 400, delay = 100, endAlpha = 1 }) {
+  slideInFromTop ({ targets, duration = 400, delay = 100, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.y -= 300 })
     this.phaser.tweens.add({
@@ -70,12 +74,13 @@ export default class UIAnimations {
       alpha: { from: 0, to: endAlpha },
       duration,
       delay,
-      ease: 'Power2'
+      ease: 'Power2',
+      ...props
     })
   }
 
   // Slide in from bottom
-  slideInFromBottom ({ targets, duration = 400, delay = 100, endAlpha = 1 }) {
+  slideInFromBottom ({ targets, duration = 400, delay = 100, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.y += 300 })
     this.phaser.tweens.add({
@@ -84,12 +89,13 @@ export default class UIAnimations {
       alpha: { from: 0, to: endAlpha },
       duration,
       delay,
-      ease: 'Power2'
+      ease: 'Power2',
+      ...props
     })
   }
 
   // Scale up animation
-  scaleUp ({ targets, duration = 400, delay = 100, endScale = 1, endAlpha = 1 }) {
+  scaleUp ({ targets, duration = 400, delay = 100, endScale = 1, endAlpha = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => element.setScale(0))
     this.phaser.tweens.add({
@@ -99,12 +105,13 @@ export default class UIAnimations {
       alpha: { from: 0, to: endAlpha },
       duration,
       delay,
-      ease: 'Back.easeOut'
+      ease: 'Back.easeOut',
+      ...props
     })
   }
 
   // Scale down animation
-  scaleDown ({ targets, duration = 400, delay = 100, startScale = 1 }) {
+  scaleDown ({ targets, duration = 400, delay = 100, startScale = 1, ...props }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => element.setScale(startScale))
     this.phaser.tweens.add({
@@ -114,7 +121,8 @@ export default class UIAnimations {
       alpha: { from: startScale, to: 0 },
       duration,
       delay,
-      ease: 'Back.easeIn'
+      ease: 'Back.easeIn',
+      ...props
     })
   }
 }
