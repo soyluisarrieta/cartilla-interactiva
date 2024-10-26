@@ -104,14 +104,14 @@ export default class UIAnimations {
   }
 
   // Scale down animation
-  scaleDown ({ targets, duration = 400, delay = 100, startScale = 0 }) {
+  scaleDown ({ targets, duration = 400, delay = 100, startScale = 1 }) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => element.setScale(startScale))
     this.phaser.tweens.add({
       targets: elements,
       scaleX: 0,
       scaleY: 0,
-      alpha: { from: 0, to: 1 },
+      alpha: { from: startScale, to: 0 },
       duration,
       delay,
       ease: 'Back.easeIn'
