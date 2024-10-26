@@ -19,7 +19,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
     const numLevels = levels.length
 
     // Imagen de fondo
-    this.add.image(0, 0, 'background')
+    this.add.image(0, 0, 'bgMenu')
       .setOrigin(0)
       .setDisplaySize(widthScreen, heightScreen)
 
