@@ -3,7 +3,7 @@ import { addInteractions } from '../../../assets/utils/addInteractions.js'
 export default class UIManager {
   constructor (gameScene) {
     this.game = gameScene
-    this.btnFinish = null
+    this.btnFinish = {}
     this.currentExercise = null
   }
 
@@ -153,8 +153,8 @@ export default class UIManager {
     btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.8))
 
     // Botón para verificar la melodía compuesta
-    const btnFinish = this.btnFinish = this.game.add
-      .image(this.game.screen.width / 1.99, this.game.screen.height - 140, 'uiButtons', 'home')
+    const btnFinish = this.game.add
+      .image(this.game.screen.width / 1.99, this.game.screen.height - 140, 'uiButtons', 'play')
       .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
@@ -174,22 +174,23 @@ export default class UIManager {
       this.game.melody.checkMelody() // Llamada para comprobar la melodía
     })
 
+    this.btnFinish = {
+      button: btnFinish,
+      label: btnFinishLabel
+    }
+
     // Animations
     const baseDelay = 400
-    this.game.animations.slideInFromBottom([
-      btnPlayMelody,
-      btnFinish
-    ], 700, baseDelay + 100)
+    this.game.animations.slideInFromBottom(btnPlayMelody, 700, baseDelay + 100)
+    this.game.animations.slideInFromBottom(btnFinish, 700, baseDelay + 100, 0.4)
 
-    this.game.animations.fadeIn([
-      btnPlayMelodyLabel,
-      btnFinishLabel
-    ], 350, baseDelay + 700)
+    this.game.animations.fadeIn(btnPlayMelodyLabel, 350, baseDelay + 700)
+    this.game.animations.fadeIn(btnFinishLabel, 350, baseDelay + 700, 0.4)
   }
 
   disableFinishButton (state = true) {
-    const texture = state ? 'home' : 'play'
-    this.btnFinish.setTexture('uiButtons', texture)
+    this.btnFinish.button.alpha = state ? 0.4 : 1
+    this.btnFinish.label.alpha = state ? 0.4 : 1
     this.game.filledSlots = !state
   }
 }
