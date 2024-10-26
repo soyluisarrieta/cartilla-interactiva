@@ -1,7 +1,6 @@
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, IMAGES } from '../../../core/constants/assets.js'
+import { SCENES, BUTTONS, IMAGES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
-import { SCENES } from '../constants.js'
 
 export default class MenuScene extends Phaser.Scene {
   constructor () {

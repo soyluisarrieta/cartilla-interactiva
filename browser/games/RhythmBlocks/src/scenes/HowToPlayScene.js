@@ -1,8 +1,7 @@
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, FONTS, IMAGES } from '../../../core/constants/assets.js'
+import { SCENES, BUTTONS, FONTS, IMAGES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import { STEPS } from '../../assets/how-to-play/intructions.js'
-import { SCENES } from '../constants.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {

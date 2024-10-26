@@ -1,6 +1,5 @@
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, FONTS } from '../../../core/constants/assets.js'
-import { SCENES } from '../constants.js'
+import { SCENES, BUTTONS, FONTS } from '../../../core/constants.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {

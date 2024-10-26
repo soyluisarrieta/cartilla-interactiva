@@ -1,4 +1,4 @@
-import { SCENES } from '../constants.js'
+import { SCENES } from '../../../core/constants.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
