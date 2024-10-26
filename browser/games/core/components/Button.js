@@ -14,49 +14,59 @@ export default class Button {
       soundKey = Button.soundKey,
       onClick = null
     }) => {
-      const { centerX, centerY } = phaser.cameras.main
-      const [x = centerX, y = centerY] = position
-      const button = phaser.add.image(x, y, key, frame)
-        .setOrigin(0.5, 0.5)
-        .setInteractive()
+      const button = Button.createButton(phaser, key, frame, position)
+      button.setDisabled = Button.setDisabled
+      button.setDisabled(disabled)
+      button.handleOnClick = Button.createHandleOnClick(phaser, scene, soundKey, onClick, button)
 
-      button.disabled = disabled
-
-      // Manejar el evento onClick
-      const handleOnClick = () => {
-        if (button.disabled) { return }
-        phaser.sound.play(soundKey)
-        if (scene) {
-          phaser.scene.start(scene)
-        }
-
-        if (typeof onClick === 'function') {
-          onClick()
-        }
-      }
-
-      // Manejar texturas
-      if (withInteractions) {
-        addInteractions({
-          button,
-          key,
-          frame,
-          onClick: handleOnClick
-        })
-      } else {
-        button.on('pointerup', handleOnClick)
-      }
-
-      // Método para deshabilitar el botón
-      button.setDisabled = function (disabled = true) {
-        button.disabled = disabled
-        disabled
-          ? this.removeInteractive()
-          : this.setInteractive()
-        this.setAlpha(disabled ? 0.5 : 1)
-      }
+      Button.configureInteractions(button, withInteractions, key, frame)
 
       return button
+    }
+  }
+
+  static createButton (phaser, key, frame, position) {
+    const { centerX, centerY } = phaser.cameras.main
+    const [x = centerX, y = centerY] = position
+    return phaser.add.image(x, y, key, frame)
+      .setOrigin(0.5, 0.5)
+      .setInteractive()
+  }
+
+  static setDisabled (disabled = true) {
+    this.disabled = disabled
+    disabled ? this.removeInteractive() : this.setInteractive()
+    this.setAlpha(disabled ? 0.5 : 1)
+  }
+
+  static createHandleOnClick (phaser, scene, soundKey, onClick, button) {
+    return () => {
+      if (button.disabled) {
+        return
+      }
+      phaser.sound.play(soundKey)
+      if (scene) {
+        phaser.scene.start(scene)
+      }
+
+      if (typeof onClick === 'function') {
+        onClick()
+      }
+    }
+  }
+
+  static configureInteractions (button, withInteractions, key, frame) {
+    const onClickHandler = button.handleOnClick
+
+    if (withInteractions) {
+      addInteractions({
+        button,
+        key,
+        frame,
+        onClick: onClickHandler
+      })
+    } else {
+      button.on('pointerup', onClickHandler)
     }
   }
 }
