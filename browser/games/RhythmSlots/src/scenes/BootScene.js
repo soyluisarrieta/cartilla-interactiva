@@ -12,6 +12,9 @@ export default class BootScene extends Phaser.Scene {
     const { id: gameid, game: gameName } = window.gameSettings
     InitProfile(gameid, window.gameSettings)
 
+    const coreAssets = new Assets(window.gameSettings)
+    coreAssets.setup(this)
+
     // Assets del juego
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
@@ -28,22 +31,8 @@ export default class BootScene extends Phaser.Scene {
       }
     }
 
-    // Assets globales
-    const coreAssets = new Assets(window.gameSettings)
-    const setupAssets = coreAssets.setup()
-    const howToPlayAssets = coreAssets.howToPlay(8)
-
-    // Cargar los assets
     const assetLoader = new AssetLoader(this)
-    assetLoader.load([
-      setupAssets,
-      howToPlayAssets,
-      gameAssets
-    ])
-
-    // Cargar fuentes
-    this.load.setPath('/games/assets/resources/fonts')
-    this.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
+    assetLoader.load([gameAssets])
   }
 
   create () {
