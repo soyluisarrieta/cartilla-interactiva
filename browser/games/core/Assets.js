@@ -38,7 +38,8 @@ export default class Assets {
           { key: 'timerTic', path: '/audios/timer-tic.mp3' },
           { key: 'perfectMelody', path: '/audios/perfect-melody.mp3' },
           { key: 'incorrectMelody', path: '/audios/incorrect-melody.mp3' },
-          { key: 'noteSound', path: '/audios/note-sound.mp3' }
+          { key: 'noteSound', path: '/audios/note-sound.mp3' },
+          { key: 'startGame', path: '/audios/start-game.mp3' }
         ]
       }
     }

@@ -54,6 +54,9 @@ export default class GameScene extends Phaser.Scene {
     this.attempts.draw(window.gameSettings.attempts)
     this.slot.drawSlots()
     this.slot.selectSlot(this.config.slots[0])
+
+    this.sound.stopAll()
+    this.sound.play('startGame')
   }
 
   // Parar cronometro
