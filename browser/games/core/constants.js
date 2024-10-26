@@ -16,3 +16,11 @@ export const FONTS = {
   PRIMARY: 'primaryFont',
   SECONDARY: 'primaryFont'
 }
+
+export const SCENES = {
+  BOOT: 'BootScene',
+  MENU: 'MenuScene',
+  GAME: 'GameScene',
+  LEVEL_SELECTION: 'LevelSelectionScene',
+  HOW_TO_PLAY: 'HowToPlayScene'
+}
