@@ -1,7 +1,7 @@
 export default class Assets {
-  constructor ({ id, game, module }) {
-    this.setPath = '/games/assets'
+  static path = '/games/assets'
 
+  constructor ({ id, game, module }) {
     this.game = {
       id,
       module,
@@ -12,11 +12,11 @@ export default class Assets {
 
   setup () {
     return {
-      setPath: this.setPath,
+      setPath: Assets.path,
       assets: {
         images: [
-          { key: 'gameLogo', path: `/logos/game-${this.game.number}.png` },
-          { key: 'bgMenu', path: `/backgrounds/mod${this.game.module}-menu.jpg` },
+          { key: 'gameLogo', path: `/images/logos/game-${this.game.number}.png` },
+          { key: 'bgMenu', path: `/images/backgrounds/mod${this.game.module}-menu.jpg` },
           { key: 'openingLogos', path: '/resources/opening-logos.png' },
           { key: 'decorativeFrame', path: '/resources/ui/decorative-frame.png' },
           { key: 'bannerTitle', path: '/resources/ui/banner-title.png' },
@@ -58,7 +58,7 @@ export default class Assets {
 
   figures (figures) {
     return {
-      setPath: this.setPath,
+      setPath: Assets.path,
       assets: {
         images: figures.map((figure) => ({
           key: figure, path: `/figures/${figure}.png`

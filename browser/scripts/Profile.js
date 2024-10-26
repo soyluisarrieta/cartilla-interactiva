@@ -1,5 +1,5 @@
-import { uuidv4 } from '../games/utils/generateId.js'
-import { mergeObjects } from '../games/utils/mergeObjects.js'
+import { uuidv4 } from '../games/assets/utils/generateId.js'
+import { mergeObjects } from '../games/assets/utils/mergeObjects.js'
 
 export function Profile () {
   const FOLDER_AVATARS = '/assets/images/avatars'

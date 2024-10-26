@@ -1,4 +1,4 @@
-import phaserConfig from '../phaserConfig.js'
+import phaserConfig from '../core/phaserConfig.js'
 import BootScene from './src/scenes/BootScene.js'
 import MenuScene from './src/scenes/MenuScene.js'
 import HowToPlayScene from './src/scenes/HowToPlayScene.js'

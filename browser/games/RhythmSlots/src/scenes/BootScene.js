@@ -1,6 +1,6 @@
 import Assets from '../../../core/assets.js'
 import Opening from '../../../core/Opening.js'
-import AssetLoader from '../../../utils/AssetLoader.js'
+import AssetLoader from '../../../assets/utils/AssetLoader.js'
 import { InitProfile } from '../../../../scripts/Profile.js'
 
 export default class BootScene extends Phaser.Scene {

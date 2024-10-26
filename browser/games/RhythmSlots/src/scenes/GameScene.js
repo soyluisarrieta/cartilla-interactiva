@@ -4,7 +4,7 @@ import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
 import Alert from '../components/Alert.js'
-import Socket from '../../../Socket.js'
+import Socket from '../../../core/Socket.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {

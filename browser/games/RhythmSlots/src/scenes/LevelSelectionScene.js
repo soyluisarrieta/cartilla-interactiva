@@ -1,5 +1,5 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
-import { addInteractions } from '../../../utils/addInteractions.js'
+import { addInteractions } from '../../../assets/utils/addInteractions.js'
 import UIManager from '../components/UIManager.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
