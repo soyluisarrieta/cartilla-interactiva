@@ -17,6 +17,9 @@ export class SocketController {
   // Manejar conexión por navegador
   handleConnection (socket) {
     const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
+
+    if (!rawGame || !rawProfile) { return }
+
     const game = JSON.parse(rawGame)
     const profile = JSON.parse(rawProfile)
 
