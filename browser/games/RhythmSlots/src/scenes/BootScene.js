@@ -1,4 +1,4 @@
-import Assets from '../../../core/assets.js'
+import Assets from '../../../core/Assets.js'
 import Opening from '../../../core/Opening.js'
 import AssetLoader from '../../../assets/utils/AssetLoader.js'
 import { InitProfile } from '../../../../scripts/Profile.js'

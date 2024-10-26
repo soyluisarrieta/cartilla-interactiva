@@ -50,6 +50,8 @@ export default class Slot {
         if (selectedSlot.isSelected) return
         this.selectSlot(selectedSlot)
       })
+
+      this.game.animations.fadeIn([slot, intervalIndicator], 200, i * 100)
     }
   }
 

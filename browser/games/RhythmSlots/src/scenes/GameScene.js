@@ -5,6 +5,7 @@ import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
 import Alert from '../components/Alert.js'
 import Socket from '../../../core/Socket.js'
+import UIAnimations from '../../../core/UIAnimations.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -15,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.alert = new Alert(this)
     this.socket = new Socket(this)
+    this.animations = new UIAnimations(this)
   }
 
   // Método inicial
@@ -46,7 +48,11 @@ export default class GameScene extends Phaser.Scene {
 
   // Método principal
   create () {
-    this.uiManager.drawHomeButton().setScale(0.9)
+    const btnHome = this.uiManager.drawHomeButton()
+      .setScale(0.9)
+
+    this.animations.fadeIn(btnHome, 300, 300)
+
     this.uiManager.drawLevelInfo()
     this.uiManager.drawNoteButtons()
     this.uiManager.drawExercises(7)

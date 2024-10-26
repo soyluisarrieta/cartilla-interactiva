@@ -78,13 +78,16 @@ export default class UIManager {
       btnNote.on('pointerdown', () => this.game.slot.handleNoteSelection(btnNote, figure.name, index))
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
+
+      const baseDelay = 200
+      this.game.animations.scaleUp(btnNote, 600, baseDelay + index * 100, 0.56)
     })
   }
 
   // Mostrar los ejercicios
   drawExercises (numExercises) {
     for (let i = 0; i <= numExercises - 1; i++) {
-      const layout = { marginTop: 140, gap: 95 }
+      const layout = { marginTop: 200, gap: 95 }
       const positionX = this.game.screen.width - 50
       const positionY = layout.marginTop + (layout.gap * (i + 1))
       const exerciseTextures = this.game.melody.textureStates
@@ -106,6 +109,9 @@ export default class UIManager {
             .setScale(0.8)
         }
       })
+
+      const baseDelay = 300
+      this.game.animations.slideInFromRight(exerciseElement, 300, baseDelay + i * 120)
     }
 
     // Activar el primer ejercicio
@@ -117,13 +123,20 @@ export default class UIManager {
   drawActionButtons () {
     // Botón para repetir la melodía generada
     const btnPlayMelody = this.game.melody.btnPlay = this.game.add
-      .image(this.game.screen.width - 280, this.game.screen.height - 140, 'uiButtons', 'listen-melody')
+      .image(this.game.screen.width / 2.35, this.game.screen.height - 140, 'uiButtons', 'listen-melody')
       .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
-    this.game.add.bitmapText(this.game.screen.width - 280, this.game.screen.height - 70, 'primaryFont', 'Melodía', 24)
-      .setOrigin(0.5, 0)
+    const btnPlayMelodyLabel = this.game.add.bitmapText(
+      this.game.screen.width / 2.35,
+      this.game.screen.height - 70,
+      'primaryFont',
+      'Melodía',
+      24
+    )
+
+    btnPlayMelodyLabel.setOrigin(0.5, 0)
 
     // Toggle button
     btnPlayMelody.on('pointerdown', () => {
@@ -141,18 +154,37 @@ export default class UIManager {
 
     // Botón para verificar la melodía compuesta
     const btnFinish = this.btnFinish = this.game.add
-      .image(this.game.screen.width - 130, this.game.screen.height - 140, 'uiButtons', 'home')
+      .image(this.game.screen.width / 1.99, this.game.screen.height - 140, 'uiButtons', 'home')
       .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
-    this.game.add.bitmapText(this.game.screen.width - 130, this.game.screen.height - 70, 'primaryFont', 'Confirmar', 24)
-      .setOrigin(0.5, 0)
+    const btnFinishLabel = this.game.add.bitmapText(
+      this.game.screen.width / 1.99,
+      this.game.screen.height - 70,
+      'primaryFont',
+      'Confirmar',
+      24
+    )
+
+    btnFinishLabel.setOrigin(0.5, 0)
 
     btnFinish.on('pointerdown', () => {
       if (!this.game.filledSlots) { return null }
       this.game.melody.checkMelody() // Llamada para comprobar la melodía
     })
+
+    // Animations
+    const baseDelay = 400
+    this.game.animations.slideInFromBottom([
+      btnPlayMelody,
+      btnFinish
+    ], 700, baseDelay + 100)
+
+    this.game.animations.fadeIn([
+      btnPlayMelodyLabel,
+      btnFinishLabel
+    ], 350, baseDelay + 700)
   }
 
   disableFinishButton (state = true) {
