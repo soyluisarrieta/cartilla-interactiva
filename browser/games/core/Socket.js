@@ -1,5 +1,5 @@
 import { io } from '/assets/lib/socketio/socket.io.esm.min.js'
-import { getSessionId } from '../assets/utils/generateId.js'
+import { getSessionId } from './utils/generateId.js'
 import { getProfile } from '../../scripts/Profile.js'
 
 export default class Socket {

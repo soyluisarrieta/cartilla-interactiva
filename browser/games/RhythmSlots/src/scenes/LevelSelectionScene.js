@@ -1,5 +1,5 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
-import { addInteractions } from '../../../assets/utils/addInteractions.js'
+import { addInteractions } from '../../../core/utils/addInteractions.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 

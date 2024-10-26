@@ -1,4 +1,4 @@
-import { addInteractions } from '../../../assets/utils/addInteractions.js'
+import { addInteractions } from '../../../core/utils/addInteractions.js'
 
 export default class UIManager {
   constructor (gameScene) {

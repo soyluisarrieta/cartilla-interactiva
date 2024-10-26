@@ -1,4 +1,4 @@
-import AssetLoader from '../assets/utils/AssetLoader.js'
+import AssetLoader from './utils/AssetLoader.js'
 
 export default class Assets {
   static path = '/games/assets'
@@ -27,19 +27,19 @@ export default class Assets {
         images: [
           { key: 'gameLogo', path: `/images/logos/game-${this.game.number}.png` },
           { key: 'bgMenu', path: `/images/backgrounds/mod${this.game.module}-menu.jpg` },
-          { key: 'openingLogos', path: '/resources/opening-logos.png' },
-          { key: 'decorativeFrame', path: '/resources/ui/decorative-frame.png' },
-          { key: 'bannerTitle', path: '/resources/ui/banner-title.png' },
-          { key: 'health-on', path: '/resources/ui/health-on.png' },
-          { key: 'health-off', path: '/resources/ui/health-off.png' }
+          { key: 'openingLogos', path: '/images/logos/opening-logos.png' },
+          { key: 'decorativeFrame', path: '/ui/decorative-frame.png' },
+          { key: 'bannerTitle', path: '/ui/banner-title.png' },
+          { key: 'health-on', path: '/ui/health-on.png' },
+          { key: 'health-off', path: '/ui/health-off.png' }
         ],
         atlas: [
-          { key: 'btnStart', dir: '/resources/ui', fileName: 'start-button' },
-          { key: 'btnHowToPlay', dir: '/resources/ui', fileName: 'how-to-play-button' },
-          { key: 'btnBack', dir: '/resources/ui', fileName: 'back-button' },
-          { key: 'uiButtons', dir: '/resources/ui', fileName: 'ui-buttons' },
-          { key: 'levels', dir: '/resources/ui', fileName: 'levels' },
-          { key: 'exercise', dir: '/resources/ui', fileName: 'exercise-states' }
+          { key: 'btnStart', dir: '/ui', fileName: 'start-button' },
+          { key: 'btnHowToPlay', dir: '/ui', fileName: 'how-to-play-button' },
+          { key: 'btnBack', dir: '/ui', fileName: 'back-button' },
+          { key: 'uiButtons', dir: '/ui', fileName: 'ui-buttons' },
+          { key: 'levels', dir: '/ui', fileName: 'levels' },
+          { key: 'exercise', dir: '/ui', fileName: 'exercise-states' }
         ],
         audio: [
           { key: 'soundPress', path: '/audios/sound-press.mp3' },

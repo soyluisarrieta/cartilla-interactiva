@@ -1,4 +1,4 @@
-import { addInteractions } from '../../../assets/utils/addInteractions.js'
+import { addInteractions } from '../../../core/utils/addInteractions.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 
 export default class MenuScene extends Phaser.Scene {
