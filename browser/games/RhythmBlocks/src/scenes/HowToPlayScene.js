@@ -1,22 +1,13 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, IMAGES } from '../../../core/constants/assets.js'
 import UIAnimations from '../../../core/UIAnimations.js'
+import { STEPS } from '../../assets/how-to-play/intructions.js'
 import { SCENES } from '../constants.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
     super({ key: SCENES.HOW_TO_PLAY })
     this.uiAnimations = new UIAnimations(this)
-    this.steps = [
-      'Paso 1',
-      'Paso 2',
-      'Paso 3',
-      'Paso 4',
-      'Paso 5',
-      'Paso 6',
-      'Paso 7',
-      'Paso 8'
-    ]
   }
 
   // Método inicial
@@ -60,7 +51,7 @@ export default class HowToPlayScene extends Phaser.Scene {
       ...BUTTONS.ARROW_RIGHT,
       position: [centerX + 100, height - 100],
       onClick: () => {
-        if (this.currentStep < this.steps.length - 1) {
+        if (this.currentStep < STEPS.length - 1) {
           this.currentStep++
           this.updateInstructions()
         }
@@ -82,7 +73,7 @@ export default class HowToPlayScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     // Mensaje de explicación
-    this.message = this.add.bitmapText(width / 2, 700, FONTS.PRIMARY, this.steps[this.currentStep], 48)
+    this.message = this.add.bitmapText(width / 2, 700, FONTS.PRIMARY, STEPS[this.currentStep], 48)
       .setOrigin(0.5, 0)
       .setMaxWidth(width - 400)
       .setCenterAlign()
@@ -96,15 +87,15 @@ export default class HowToPlayScene extends Phaser.Scene {
   // Actualizar las instrucciones mostradas
   updateInstructions () {
     this.step.setTexture(`step${this.currentStep + 1}`)
-    this.message.setText(this.steps[this.currentStep])
+    this.message.setText(STEPS[this.currentStep])
     this.uiAnimations.fadeIn({ targets: [this.step, this.message], duration: 200 })
     this.updateNavigationButtons()
   }
 
   // Mostrar u ocultar botones de navegación
   updateNavigationButtons () {
-    const { prevButton, nextButton, currentStep, steps } = this
+    const { prevButton, nextButton, currentStep } = this
     prevButton.setDisabled(currentStep === 0)
-    nextButton.setDisabled(currentStep === steps.length - 1)
+    nextButton.setDisabled(currentStep === STEPS.length - 1)
   }
 }
