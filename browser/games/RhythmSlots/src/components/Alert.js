@@ -14,46 +14,46 @@ export default class Alert {
     buttons = [],
     btnAccept = false
   } = {}) {
-    // Crear un contenedor para toda la alerta
-    const alertContainer = this.game.add.container(0, 0)
+    width += image ? 300 : 0
+    height += image ? 300 : 0
+
+    // Crear un contenedor para toda la alerta centrada
+    const alertContainer = this.game.add.container(this.game.scale.width / 2, this.game.scale.height / 2).setSize(width, height)
 
     // Crear un fondo de interacción (zone)
-    const overlayZone = this.game.add.zone(0, 0, this.game.scale.width, this.game.scale.height).setOrigin(0).setInteractive()
+    const overlayZone = this.game.add.zone(0, 0, this.game.scale.width, this.game.scale.height).setOrigin(0.5).setInteractive()
     alertContainer.add(overlayZone)
 
     // Crear el fondo de transparencia
     const overlayBackground = this.game.add.graphics()
     overlayBackground.fillStyle(0x000000, 0.5) // Color negro con 0.5 de transparencia
-    overlayBackground.fillRect(0, 0, this.game.scale.width, this.game.scale.height)
+    overlayBackground.fillRect(-this.game.scale.width / 2, -this.game.scale.height / 2, this.game.scale.width, this.game.scale.height)
 
     alertContainer.add(overlayBackground)
-
-    width += image ? 300 : 0
-    height += image ? 300 : 0
 
     // Fondo del modal con borde redondeado
     const modalBackground = this.game.add.graphics()
     modalBackground.fillStyle(this.getColor(type), 1)
-    modalBackground.fillRoundedRect(this.game.scale.width / 2 - width / 2, this.game.scale.height / 2 - height / 2, width, height, 20) // 20 es el radio del borde
+    modalBackground.fillRoundedRect(-width / 2, -height / 2, width, height, 20) // 20 es el radio del borde
 
     alertContainer.add(modalBackground)
 
     // Imagen opcional
     if (image) {
-      const modalImage = this.game.add.image(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + 170, image).setScale(0.5)
+      const modalImage = this.game.add.image(0, -height / 2 + 170, image).setScale(0.5)
       alertContainer.add(modalImage)
     }
 
     // Título del modal
     if (title) {
-      const modalTitle = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 325 : (message ? 50 : 60)), 'primaryFont', title, 40)
+      const modalTitle = this.game.add.bitmapText(0, -height / 2 + (image ? 325 : (message ? 50 : 60)), 'primaryFont', title, 40)
         .setOrigin(0.5, 0)
       alertContainer.add(modalTitle)
     }
 
     // Texto opcional
     if (message) {
-      const modalText = this.game.add.bitmapText(this.game.scale.width / 2, this.game.scale.height / 2 - height / 2 + (image ? 380 : 100), 'primaryFont', message, 24)
+      const modalText = this.game.add.bitmapText(0, -height / 2 + (image ? 380 : 100), 'primaryFont', message, 24)
         .setOrigin(0.5, 0)
         .setMaxWidth(width - 50)
         .setCenterAlign()
@@ -63,11 +63,11 @@ export default class Alert {
     // Botones opcionales
     const gapX = 100
     const totalButtonWidth = buttons.length * 100 + (buttons.length - 1) * gapX
-    const startX = this.game.scale.width / 2 - totalButtonWidth / 2 + 50
+    const startX = -totalButtonWidth / 2 + 50
 
     buttons.forEach(({ text, onClick }, index) => {
       const buttonX = startX + index * (100 + gapX)
-      const buttonY = this.game.scale.height / 2 + height / 2 - 50
+      const buttonY = height / 2 - 50
 
       const buttonText = this.game.add.text(buttonX, buttonY, text, {
         fontSize: '20px',
@@ -82,7 +82,7 @@ export default class Alert {
 
     // Botón de aceptar
     if (btnAccept) {
-      const buttonAccept = this.game.add.text(this.game.scale.width / 2, this.game.scale.height / 2 + height / 2 - 30, 'Aceptar', {
+      const buttonAccept = this.game.add.text(0, height / 2 - 30, 'Aceptar', {
         fontSize: '20px',
         fill: '#ffffff'
       })
@@ -95,7 +95,7 @@ export default class Alert {
 
     // Botón de cierre si es descartable
     if (dismissible) {
-      const closeButton = this.game.add.text(this.game.scale.width / 2 + width / 2 - 30, this.game.scale.height / 2 - height / 2 + 30, '✖', {
+      const closeButton = this.game.add.text(width / 2 - 30, -height / 2 + 30, '✖', {
         fontSize: '16px',
         color: '#ffffff',
         fontStyle: 'bold'
@@ -108,6 +108,13 @@ export default class Alert {
 
     // Añadir la alerta al contenedor
     this.game.add.existing(alertContainer)
+
+    // Añadir animación de entrada
+    this.game.animations.scaleUp({
+      targets: alertContainer,
+      duration: 200,
+      delay: 0
+    })
 
     // Descartar automáticamente después de la duración
     if (duration > 0) {
@@ -130,13 +137,19 @@ export default class Alert {
   }
 
   dismissAlert (alertContainer) {
-    this.game.tweens.add({
+    this.game.animations.scaleDown({
       targets: alertContainer,
-      alpha: 0,
-      duration: 500,
-      onComplete: () => {
+      duration: 200,
+      delay: 0
+    })
+
+    // Destruir el contenedor después de la animación
+    this.game.time.addEvent({
+      delay: 200,
+      callback: () => {
         alertContainer.destroy()
-      }
+      },
+      callbackScope: this
     })
   }
 }
