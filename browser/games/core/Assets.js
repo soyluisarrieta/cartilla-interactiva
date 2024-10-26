@@ -56,7 +56,7 @@ export default class Assets {
   }
 
   fonts (phaser) {
-    phaser.load.setPath('/games/assets/resources/fonts')
+    phaser.load.setPath('/games/assets/fonts')
     phaser.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
   }
 
