@@ -1,4 +1,5 @@
 import Button from '../../../core/components/Button.js'
+import { ASSETS } from '../../../core/constants/assets.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -13,8 +14,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Botón: Ir atrás
     Button.draw(this)({
-      key: 'btnBack',
-      frame: 'back-btn',
+      ...ASSETS.BUTTONS.BACK,
       scene: 'MenuScene',
       position: [150, 120]
     })

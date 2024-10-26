@@ -1,11 +1,11 @@
 import Button from '../../../core/components/Button.js'
+import { ASSETS } from '../../../core/constants/assets.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
     super({ key: 'HowToPlayScene' })
     this.uiAnimations = new UIAnimations(this)
-
     this.steps = [
       'Paso 1',
       'Paso 2',
@@ -27,52 +27,49 @@ export default class HowToPlayScene extends Phaser.Scene {
   create () {
     // Botón: Ir atrás
     Button.draw(this)({
-      key: 'btnBack',
-      frame: 'back-btn',
+      ...ASSETS.BUTTONS.BACK,
       scene: 'MenuScene',
       position: [150, 120]
     })
 
     // UI y funcionalidades
     this.drawNavButtons()
-    this.updateNavigationButtons()
     this.displayInstructions()
   }
 
-  // Botones de navegación
+  // Dibujar botones de navegación
   drawNavButtons () {
     const { centerX, height } = this.cameras.main
 
     // Botón: Paso anterior
     this.prevButton = Button.draw(this)({
-      key: 'uiButtons',
-      frame: 'arrow-right',
-      position: [centerX + 100, height - 100]
-    })
-
-    this.prevButton.on('pointerdown', () => {
-      if (this.currentStep > 0) {
-        this.currentStep--
-        this.updateInstructions()
+      ...ASSETS.BUTTONS.ARROW_LEFT,
+      position: [centerX - 100, height - 100],
+      disabled: true,
+      onClick: () => {
+        if (this.currentStep > 0) {
+          this.currentStep--
+          this.updateInstructions()
+        }
       }
     })
 
     // Botón: Paso siguiente
     this.nextButton = Button.draw(this)({
-      key: 'uiButtons',
-      frame: 'arrow-right',
-      position: [centerX + 100, height - 100]
-    })
-
-    this.nextButton.on('pointerdown', () => {
-      if (this.currentStep < this.steps.length - 1) {
-        this.currentStep++
-        this.updateInstructions()
+      ...ASSETS.BUTTONS.ARROW_RIGHT,
+      position: [centerX + 100, height - 100],
+      onClick: () => {
+        if (this.currentStep < this.steps.length - 1) {
+          this.currentStep++
+          this.updateInstructions()
+        }
       }
     })
 
     // Animaciones
-    this.uiAnimations.fadeIn({ targets: [this.nextButton, this.prevButton] })
+    const onComplete = () => this.updateNavigationButtons()
+    this.uiAnimations.fadeIn({ targets: this.nextButton, onComplete })
+    this.uiAnimations.fadeIn({ targets: this.prevButton, duration: 200, endAlpha: 0.5 })
   }
 
   // Mostrar las instrucciones del juego
@@ -105,7 +102,8 @@ export default class HowToPlayScene extends Phaser.Scene {
 
   // Mostrar u ocultar botones de navegación
   updateNavigationButtons () {
-    this.prevButton.setVisible(this.currentStep > 0)
-    this.nextButton.setVisible(this.currentStep < this.steps.length - 1)
+    const { prevButton, nextButton, currentStep, steps } = this
+    prevButton.setDisabled(currentStep === 0)
+    nextButton.setDisabled(currentStep === steps.length - 1)
   }
 }
