@@ -80,7 +80,12 @@ export default class UIManager {
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
 
       const baseDelay = 200
-      this.game.animations.scaleUp(btnNote, 600, baseDelay + index * 100, 0.56)
+      this.game.animations.scaleUp({
+        targets: btnNote,
+        duration: 600,
+        delay: baseDelay + index * 100,
+        endScale: 0.56
+      })
     })
   }
 
@@ -111,7 +116,11 @@ export default class UIManager {
       })
 
       const baseDelay = 300
-      this.game.animations.slideInFromRight(exerciseElement, 300, baseDelay + i * 120)
+      this.game.animations.slideInFromRight({
+        targets: exerciseElement,
+        duration: 300,
+        delay: baseDelay + i * 120
+      })
     }
 
     // Activar el primer ejercicio
@@ -181,11 +190,29 @@ export default class UIManager {
 
     // Animations
     const baseDelay = 400
-    this.game.animations.slideInFromBottom(btnPlayMelody, 700, baseDelay + 100)
-    this.game.animations.slideInFromBottom(btnFinish, 700, baseDelay + 100, 0.4)
+    this.game.animations.slideInFromBottom({
+      targets: btnPlayMelody,
+      duration: 700,
+      delay: baseDelay + 100
+    })
+    this.game.animations.slideInFromBottom({
+      targets: btnFinish,
+      duration: 700,
+      delay: baseDelay + 100,
+      endAlpha: 0.4
+    })
 
-    this.game.animations.fadeIn(btnPlayMelodyLabel, 350, baseDelay + 700)
-    this.game.animations.fadeIn(btnFinishLabel, 350, baseDelay + 700, 0.4)
+    this.game.animations.fadeIn({
+      targets: btnPlayMelodyLabel,
+      duration: 350,
+      delay: baseDelay + 700
+    })
+    this.game.animations.fadeIn({
+      targets: btnFinishLabel,
+      duration: 350,
+      delay: baseDelay + 700,
+      endAlpha: 0.4
+    })
   }
 
   disableFinishButton (state = true) {

@@ -51,7 +51,11 @@ export default class Slot {
         this.selectSlot(selectedSlot)
       })
 
-      this.game.animations.fadeIn([slot, intervalIndicator], 200, i * 100)
+      this.game.animations.fadeIn({
+        targets: [slot, intervalIndicator],
+        duration: 200,
+        delay: i * 100
+      })
     }
   }
 

@@ -1,12 +1,8 @@
-import UIAnimations from '../../../core/UIAnimations.js'
-
 export default class Attempts {
   constructor (gameScene) {
     this.game = gameScene
     this.total = null
     this.elements = []
-
-    this.animations = new UIAnimations(gameScene)
   }
 
   // Mostrar los intentos o vidas
@@ -22,7 +18,7 @@ export default class Attempts {
         .setOrigin(0.5)
 
       this.elements.push(attempt)
-      this.animations.scaleUp({
+      this.game.animations.scaleUp({
         targets: attempt,
         duration: 500,
         delay: i * 200,
