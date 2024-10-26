@@ -45,13 +45,13 @@ export default class InstructionsScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setMaxWidth(650)
 
-    this.animations.fadeIn(descr, 400, 300)
+    this.animations.fadeIn({ targets: descr, delay: 300 })
 
     newFigures.forEach((newFigure, i) => {
       const fig = this.add.image(800 - (230 * i), 450, newFigure.name)
         .setOrigin(0.5)
 
-      this.animations.scaleUp(fig, 400, i * 100)
+      this.animations.scaleUp({ targets: fig, delay: i * 100 })
     })
 
     // Animaciones
@@ -67,6 +67,6 @@ export default class InstructionsScene extends Phaser.Scene {
         this.scene.start('GameScene', selectedLevel)
       })
 
-    this.animations.scaleUp(playButton, 400, 300)
+    this.animations.scaleUp({ targets: playButton, delay: 300 })
   }
 }

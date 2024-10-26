@@ -51,7 +51,7 @@ export default class MenuScene extends Phaser.Scene {
     })
 
     // Animations
-    this.animations.scaleUp(playButton, 400, 100, 0.9)
-    this.animations.scaleUp(howToPlayButton, 400, 200, 0.9)
+    this.animations.scaleUp({ targets: playButton, endScale: 0.9 })
+    this.animations.scaleUp({ targets: howToPlayButton, endScale: 0.9, delay: 200 })
   }
 }

@@ -56,7 +56,7 @@ export default class HowToPlayScene extends Phaser.Scene {
         }
       })
 
-    this.animations.fadeIn([this.nextButton, this.prevButton])
+    this.animations.fadeIn({ targets: [this.nextButton, this.prevButton] })
     this.updateNavigationButtons()
   }
 
@@ -82,7 +82,7 @@ export default class HowToPlayScene extends Phaser.Scene {
   updateInstructions () {
     this.step.setTexture(`step${this.currentStep + 1}`)
     this.message.setText(this.steps[this.currentStep])
-    this.animations.fadeIn([this.step, this.message])
+    this.animations.fadeIn({ targets: [this.step, this.message] })
     this.updateNavigationButtons()
   }
 

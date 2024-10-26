@@ -22,7 +22,12 @@ export default class Attempts {
         .setOrigin(0.5)
 
       this.elements.push(attempt)
-      this.animations.scaleUp(attempt, 500, i * 200, 0.5)
+      this.animations.scaleUp({
+        targets: attempt,
+        duration: 500,
+        delay: i * 200,
+        endScale: 0.5
+      })
     }
   }
 

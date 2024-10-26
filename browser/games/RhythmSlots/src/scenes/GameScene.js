@@ -51,7 +51,11 @@ export default class GameScene extends Phaser.Scene {
     const btnHome = this.uiManager.drawHomeButton()
       .setScale(0.9)
 
-    this.animations.fadeIn(btnHome, 300, 300)
+    this.animations.fadeIn({
+      targets: btnHome,
+      duration: 300,
+      delay: 300
+    })
 
     this.uiManager.drawLevelInfo()
     this.uiManager.drawNoteButtons()

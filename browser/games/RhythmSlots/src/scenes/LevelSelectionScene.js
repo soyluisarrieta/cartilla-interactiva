@@ -69,7 +69,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
         level.id = i
       }
 
-      this.animations.scaleUp(levelButton, 300, i * 100)
+      this.animations.scaleUp({
+        targets: levelButton,
+        duration: 300,
+        delay: i * 100
+      })
     }
   }
 }
