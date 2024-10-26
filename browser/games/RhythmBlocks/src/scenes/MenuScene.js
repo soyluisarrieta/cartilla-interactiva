@@ -1,9 +1,11 @@
 import Button from '../../../core/components/Button.js'
+import { BUTTONS, IMAGES } from '../../../core/constants/assets.js'
 import UIAnimations from '../../../core/UIAnimations.js'
+import { SCENES } from '../constants.js'
 
 export default class MenuScene extends Phaser.Scene {
   constructor () {
-    super({ key: 'MenuScene' })
+    super({ key: SCENES.MENU })
     this.animations = new UIAnimations(this)
   }
 
@@ -11,20 +13,19 @@ export default class MenuScene extends Phaser.Scene {
     const { width, height } = this.cameras.main
 
     // Imagen de fondo
-    this.add.image(0, 0, 'bgMenu')
+    this.add.image(0, 0, IMAGES.BG_MENU)
       .setOrigin(0)
       .setDisplaySize(width, height)
 
     // Logo del juego
-    this.add.image(width / 2, 70, 'gameLogo')
+    this.add.image(width / 2, 70, IMAGES.GAME_LOGO)
       .setOrigin(0.5, 0)
       .setScale(1.1)
 
     // Botón: Iniciar juego
     const btnStart = Button.draw(this)({
-      key: 'btnStart',
-      frame: 'start-btn',
-      scene: 'GameScene',
+      ...BUTTONS.START_GAME,
+      scene: SCENES.GAME,
       position: [width / 2.6, height - 270]
     })
 
@@ -37,9 +38,8 @@ export default class MenuScene extends Phaser.Scene {
 
     // Botón: Cómo jugar
     const btnHowToPlay = Button.draw(this)({
-      key: 'btnHowToPlay',
-      frame: 'how-to-play-btn',
-      scene: 'HowToPlayScene',
+      ...BUTTONS.HOW_TO_PLAY,
+      scene: SCENES.HOW_TO_PLAY,
       position: [width / 1.64, height - 270]
     })
 

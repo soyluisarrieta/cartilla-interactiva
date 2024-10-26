@@ -1,9 +1,10 @@
 import Button from '../../../core/components/Button.js'
-import { ASSETS } from '../../../core/constants/assets.js'
+import { BUTTONS, FONTS } from '../../../core/constants/assets.js'
+import { SCENES } from '../constants.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
-    super({ key: 'GameScene' })
+    super({ key: SCENES.GAME })
   }
 
   init (selectedLevel) {
@@ -14,13 +15,13 @@ export default class GameScene extends Phaser.Scene {
 
     // Botón: Ir atrás
     Button.draw(this)({
-      ...ASSETS.BUTTONS.BACK,
-      scene: 'MenuScene',
+      ...BUTTONS.BACK,
+      scene: SCENES.MENU,
       position: [150, 120]
     })
 
     // Título
-    this.add.bitmapText(width / 2, 100, 'primaryFont', 'GAME SCENE')
+    this.add.bitmapText(width / 2, 100, FONTS.PRIMARY, 'GAME SCENE')
       .setOrigin(0.5, 0)
   }
 }

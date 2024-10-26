@@ -1,10 +1,11 @@
 import Button from '../../../core/components/Button.js'
-import { ASSETS } from '../../../core/constants/assets.js'
+import { BUTTONS, FONTS, IMAGES } from '../../../core/constants/assets.js'
 import UIAnimations from '../../../core/UIAnimations.js'
+import { SCENES } from '../constants.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
-    super({ key: 'HowToPlayScene' })
+    super({ key: SCENES.HOW_TO_PLAY })
     this.uiAnimations = new UIAnimations(this)
     this.steps = [
       'Paso 1',
@@ -27,8 +28,8 @@ export default class HowToPlayScene extends Phaser.Scene {
   create () {
     // Botón: Ir atrás
     Button.draw(this)({
-      ...ASSETS.BUTTONS.BACK,
-      scene: 'MenuScene',
+      ...BUTTONS.BACK,
+      scene: SCENES.MENU,
       position: [150, 120]
     })
 
@@ -43,7 +44,7 @@ export default class HowToPlayScene extends Phaser.Scene {
 
     // Botón: Paso anterior
     this.prevButton = Button.draw(this)({
-      ...ASSETS.BUTTONS.ARROW_LEFT,
+      ...BUTTONS.ARROW_LEFT,
       position: [centerX - 100, height - 100],
       disabled: true,
       onClick: () => {
@@ -56,7 +57,7 @@ export default class HowToPlayScene extends Phaser.Scene {
 
     // Botón: Paso siguiente
     this.nextButton = Button.draw(this)({
-      ...ASSETS.BUTTONS.ARROW_RIGHT,
+      ...BUTTONS.ARROW_RIGHT,
       position: [centerX + 100, height - 100],
       onClick: () => {
         if (this.currentStep < this.steps.length - 1) {
@@ -81,13 +82,13 @@ export default class HowToPlayScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     // Mensaje de explicación
-    this.message = this.add.bitmapText(width / 2, 700, 'primaryFont', this.steps[this.currentStep], 48)
+    this.message = this.add.bitmapText(width / 2, 700, FONTS.PRIMARY, this.steps[this.currentStep], 48)
       .setOrigin(0.5, 0)
       .setMaxWidth(width - 400)
       .setCenterAlign()
 
     // Marco decorativo
-    this.add.image(width / 2, 50, 'decorativeFrame')
+    this.add.image(width / 2, 50, IMAGES.DECORATIVE_FRAME)
       .setOrigin(0.5, 0)
       .setScale(0.77)
   }
