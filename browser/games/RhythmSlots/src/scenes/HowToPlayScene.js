@@ -1,79 +1,84 @@
+import Button from '../../../core/components/Button.js'
+import { SCENES, BUTTONS, FONTS, IMAGES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
-import UIManager from '../components/UIManager.js'
+import { STEPS } from '../../assets/how-to-play/intructions.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
-    super({ key: 'HowToPlayScene' })
-    this.steps = [
-      '¡Bienvenido! En este juego aprenderás a identificar las figuras musicales usando tu oído. ¡Disfruta la experiencia!',
-      'Primero, necesitas escuchar la melodía que tienes que componer. ¡Pulsa el botón para reproducirla!',
-      'En la parte inferior, encontrarás los botones de cada figura musical. ¡Presiónalos para colocarlos en los espacios correspondientes!',
-      '¿Necesitas modificar una figura? Solo haz clic en la nota que quieres cambiar y selecciona la nueva figura.',
-      'Escucha la melodía tantas veces como necesites. Cuando estés listo, haz clic en el botón para confirmar tu composición.',
-      'Si tu melodía es correcta, pasarás al siguiente ejercicio. Si no, perderás una vida. ¡No te preocupes, tienes 3 vidas en total!',
-      'Es necesario corregir las notas incorrectas para poder avanzar al siguiente ejercicio.',
-      'Completa los 7 ejercicios y sus melodías para superar cada nivel. ¡Buena suerte y diviértete aprendiendo!'
-    ]
-
-    this.uiManager = new UIManager(this)
-    this.animations = new UIAnimations(this)
+    super({ key: SCENES.HOW_TO_PLAY })
+    this.uiAnimations = new UIAnimations(this)
   }
 
+  // Método inicial
   init () {
     this.currentStep = 0
   }
 
+  // Método principal
   create () {
-    this.uiManager.drawBackButton('MenuScene')
+    // Botón: Ir atrás
+    Button.draw(this)({
+      ...BUTTONS.BACK,
+      scene: SCENES.MENU,
+      position: [150, 120]
+    })
 
-    this.createNavigationButtons()
+    // UI y funcionalidades
+    this.drawNavButtons()
     this.displayInstructions()
   }
 
-  // Crear botones de navegación
-  createNavigationButtons () {
-    const { width: screenWidth, height: screenHeight } = this.cameras.main
+  // Dibujar botones de navegación
+  drawNavButtons () {
+    const { centerX, height } = this.cameras.main
 
-    this.nextButton = this.add.image(screenWidth / 1.85, screenHeight - 100, 'uiButtons', 'arrow-right')
-      .setOrigin(0.5)
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.game.sound.play('soundPress')
-        if (this.currentStep < this.steps.length - 1) {
-          this.currentStep++
-          this.updateInstructions()
-        }
-      })
-
-    this.prevButton = this.add.image(screenWidth / 2.25, screenHeight - 100, 'uiButtons', 'arrow-left')
-      .setOrigin(0.5)
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.game.sound.play('soundPress')
+    // Botón: Paso anterior
+    this.prevButton = Button.draw(this)({
+      ...BUTTONS.ARROW_LEFT,
+      position: [centerX - 100, height - 100],
+      disabled: true,
+      onClick: () => {
         if (this.currentStep > 0) {
           this.currentStep--
           this.updateInstructions()
         }
-      })
+      }
+    })
 
-    this.animations.fadeIn({ targets: [this.nextButton, this.prevButton] })
-    this.updateNavigationButtons()
+    // Botón: Paso siguiente
+    this.nextButton = Button.draw(this)({
+      ...BUTTONS.ARROW_RIGHT,
+      position: [centerX + 100, height - 100],
+      onClick: () => {
+        if (this.currentStep < STEPS.length - 1) {
+          this.currentStep++
+          this.updateInstructions()
+        }
+      }
+    })
+
+    // Animaciones
+    const onComplete = () => this.updateNavigationButtons()
+    this.uiAnimations.fadeIn({ targets: this.nextButton, onComplete })
+    this.uiAnimations.fadeIn({ targets: this.prevButton, duration: 200, endAlpha: 0.5 })
   }
 
   // Mostrar las instrucciones del juego
   displayInstructions () {
-    const { width: screenWidth } = this.cameras.main
+    const { width } = this.cameras.main
 
-    this.step = this.add.image(screenWidth / 2, 190, `step${this.currentStep + 1}`)
+    // Imagen descriptiva
+    this.step = this.add.image(width / 2, 190, `step${this.currentStep + 1}`)
       .setOrigin(0.5, 0)
 
-    this.message = this.add.bitmapText(screenWidth / 2, 700, 'primaryFont', this.steps[this.currentStep], 48)
+    // Mensaje de explicación
+    this.message = this.add.bitmapText(width / 2, 700, FONTS.PRIMARY, STEPS[this.currentStep], 48)
       .setOrigin(0.5, 0)
-      .setMaxWidth(screenWidth - 400)
+      .setMaxWidth(width - 400)
       .setCenterAlign()
 
     // Marco decorativo
-    this.add.image(screenWidth / 2, 50, 'decorativeFrame')
+    this.add.image(width / 2, 50, IMAGES.DECORATIVE_FRAME)
       .setOrigin(0.5, 0)
       .setScale(0.77)
   }
@@ -81,14 +86,15 @@ export default class HowToPlayScene extends Phaser.Scene {
   // Actualizar las instrucciones mostradas
   updateInstructions () {
     this.step.setTexture(`step${this.currentStep + 1}`)
-    this.message.setText(this.steps[this.currentStep])
-    this.animations.fadeIn({ targets: [this.step, this.message] })
+    this.message.setText(STEPS[this.currentStep])
+    this.uiAnimations.fadeIn({ targets: [this.step, this.message], duration: 200 })
     this.updateNavigationButtons()
   }
 
   // Mostrar u ocultar botones de navegación
   updateNavigationButtons () {
-    this.prevButton.setVisible(this.currentStep > 0)
-    this.nextButton.setVisible(this.currentStep < this.steps.length - 1)
+    const { prevButton, nextButton, currentStep } = this
+    prevButton.setDisabled(currentStep === 0)
+    nextButton.setDisabled(currentStep === STEPS.length - 1)
   }
 }
