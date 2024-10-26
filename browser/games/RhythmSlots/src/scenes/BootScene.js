@@ -17,7 +17,6 @@ export default class BootScene extends Phaser.Scene {
       setPath: `/games/${gameName}/assets`,
       assets: {
         images: [
-          { key: 'background', path: '/images/bg-menu.jpg' },
           { key: 'slot', path: '/images/slot.png' },
           { key: 'semibreve', path: '/images/btn-semibreve.png' },
           { key: 'semibreve-rest', path: '/images/btn-semibreve-rest.png' },
@@ -30,7 +29,7 @@ export default class BootScene extends Phaser.Scene {
     }
 
     // Assets globales
-    const coreAssets = new Assets({ gameid, gameName })
+    const coreAssets = new Assets(window.gameSettings)
     const setupAssets = coreAssets.setup()
     const howToPlayAssets = coreAssets.howToPlay(8)
 

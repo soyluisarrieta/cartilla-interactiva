@@ -9,7 +9,7 @@ export default class MenuScene extends Phaser.Scene {
     const { width: widthScreen, height: heightScreen } = this.cameras.main
 
     // Imagen de fondo y Logo
-    this.add.image(0, 0, 'background')
+    this.add.image(0, 0, 'bgMenu')
       .setOrigin(0)
       .setDisplaySize(widthScreen, heightScreen)
 
