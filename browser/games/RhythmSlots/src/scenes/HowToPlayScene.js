@@ -1,10 +1,9 @@
+import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
 export default class HowToPlayScene extends Phaser.Scene {
   constructor () {
     super({ key: 'HowToPlayScene' })
-
-    this.currentStep = 0
     this.steps = [
       '¡Bienvenido! En este juego aprenderás a identificar las figuras musicales usando tu oído. ¡Disfruta la experiencia!',
       'Primero, necesitas escuchar la melodía que tienes que componer. ¡Pulsa el botón para reproducirla!',
@@ -17,6 +16,11 @@ export default class HowToPlayScene extends Phaser.Scene {
     ]
 
     this.uiManager = new UIManager(this)
+    this.animations = new UIAnimations(this)
+  }
+
+  init () {
+    this.currentStep = 0
   }
 
   create () {
@@ -52,6 +56,7 @@ export default class HowToPlayScene extends Phaser.Scene {
         }
       })
 
+    this.animations.fadeIn([this.nextButton, this.prevButton])
     this.updateNavigationButtons()
   }
 
@@ -77,6 +82,7 @@ export default class HowToPlayScene extends Phaser.Scene {
   updateInstructions () {
     this.step.setTexture(`step${this.currentStep + 1}`)
     this.message.setText(this.steps[this.currentStep])
+    this.animations.fadeIn([this.step, this.message])
     this.updateNavigationButtons()
   }
 

@@ -1,4 +1,5 @@
 import { getProfile } from '../../../../scripts/Profile.js'
+import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
 export default class InstructionsScene extends Phaser.Scene {
@@ -6,6 +7,7 @@ export default class InstructionsScene extends Phaser.Scene {
     super({ key: 'InstructionsScene' })
 
     this.uiManager = new UIManager(this)
+    this.animations = new UIAnimations(this)
   }
 
   create () {
@@ -39,25 +41,32 @@ export default class InstructionsScene extends Phaser.Scene {
     this.add.bitmapText(screenWidth / 2, 70, 'primaryFont', title.toUpperCase(), 70)
       .setOrigin(0.45, 0)
 
-    this.add.bitmapText(screenWidth - 600, 450, 'primaryFont', description, 40)
+    const descr = this.add.bitmapText(screenWidth - 600, 450, 'primaryFont', description, 40)
       .setOrigin(0.5)
       .setMaxWidth(650)
 
+    this.animations.fadeIn(descr, 400, 300)
+
     newFigures.forEach((newFigure, i) => {
-      this.add.image(800 - (230 * i), 450, newFigure.name)
+      const fig = this.add.image(800 - (230 * i), 450, newFigure.name)
         .setOrigin(0.5)
+
+      this.animations.scaleUp(fig, 400, i * 100)
     })
+
+    // Animaciones
   }
 
   // Crear botón para empezar a jugar
   createPlayButton (screenWidth, screenHeight, selectedLevel) {
     const playButton = this.add.image(screenWidth - 120, screenHeight - 120, 'uiButtons', 'arrow-right')
-      .setScale(1)
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
         this.sound.play('soundPress')
         this.scene.start('GameScene', selectedLevel)
       })
+
+    this.animations.scaleUp(playButton, 400, 300)
   }
 }

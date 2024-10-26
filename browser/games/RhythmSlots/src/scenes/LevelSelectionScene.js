@@ -1,11 +1,13 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import { addInteractions } from '../../../assets/utils/addInteractions.js'
+import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
     super({ key: 'LevelSelectionScene' })
     this.uiManager = new UIManager(this)
+    this.animations = new UIAnimations(this)
   }
 
   create () {
@@ -66,6 +68,8 @@ export default class LevelSelectionScene extends Phaser.Scene {
       if (level.id === undefined) {
         level.id = i
       }
+
+      this.animations.scaleUp(levelButton, 300, i * 100)
     }
   }
 }

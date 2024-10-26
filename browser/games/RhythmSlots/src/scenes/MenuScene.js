@@ -1,8 +1,11 @@
 import { addInteractions } from '../../../assets/utils/addInteractions.js'
+import UIAnimations from '../../../core/UIAnimations.js'
 
 export default class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: 'MenuScene' })
+
+    this.animations = new UIAnimations(this)
   }
 
   create () {
@@ -46,5 +49,9 @@ export default class MenuScene extends Phaser.Scene {
         this.scene.start('HowToPlayScene')
       }
     })
+
+    // Animations
+    this.animations.scaleUp(playButton, 400, 100, 0.9)
+    this.animations.scaleUp(howToPlayButton, 400, 200, 0.9)
   }
 }

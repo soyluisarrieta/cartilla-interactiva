@@ -13,7 +13,7 @@ export default class UIAnimations {
   }
 
   // Fade in animation
-  fadeIn (targets, duration = 1000, delay = 0, endAlpha = 1) {
+  fadeIn (targets, duration = 400, delay = 0, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0 })
     this.phaser.tweens.add({
@@ -25,7 +25,7 @@ export default class UIAnimations {
   }
 
   // Fade out animation
-  fadeOut (targets, duration = 1000, delay = 0) {
+  fadeOut (targets, duration = 400, delay = 0) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0 })
     this.phaser.tweens.add({
@@ -37,7 +37,7 @@ export default class UIAnimations {
   }
 
   // Slide in from left
-  slideInFromLeft (targets, duration = 1000, delay = 0, endAlpha = 1) {
+  slideInFromLeft (targets, duration = 400, delay = 0, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.x -= 300 })
     this.phaser.tweens.add({
@@ -51,7 +51,7 @@ export default class UIAnimations {
   }
 
   // Slide in from right
-  slideInFromRight (targets, duration = 1000, delay = 0, endAlpha = 1) {
+  slideInFromRight (targets, duration = 400, delay = 0, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.x += 300 })
     this.phaser.tweens.add({
@@ -65,7 +65,7 @@ export default class UIAnimations {
   }
 
   // Slide in from top
-  slideInFromTop (targets, duration = 1000, delay = 0, endAlpha = 1) {
+  slideInFromTop (targets, duration = 400, delay = 0, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.y -= 300 })
     this.phaser.tweens.add({
@@ -79,7 +79,7 @@ export default class UIAnimations {
   }
 
   // Slide in from bottom
-  slideInFromBottom (targets, duration = 1000, delay = 0, endAlpha = 1) {
+  slideInFromBottom (targets, duration = 400, delay = 0, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => { element.alpha = 0; element.y += 300 })
     this.phaser.tweens.add({
@@ -93,7 +93,7 @@ export default class UIAnimations {
   }
 
   // Scale up animation
-  scaleUp (targets, duration = 1000, delay = 0, endScale = 1, endAlpha = 1) {
+  scaleUp (targets, duration = 400, delay = 0, endScale = 1, endAlpha = 1) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => element.setScale(0))
     this.phaser.tweens.add({
@@ -108,7 +108,7 @@ export default class UIAnimations {
   }
 
   // Scale down animation
-  scaleDown (targets, duration = 1000, delay = 0, startScale = 0) {
+  scaleDown (targets, duration = 400, delay = 0, startScale = 0) {
     const elements = this.ensureArray(targets)
     elements.forEach(element => element.setScale(startScale))
     this.phaser.tweens.add({
