@@ -89,13 +89,17 @@ export default class GameScene extends Phaser.Scene {
 
           // Función para mover el bloque con animación
           const moveBlock = (block, x, y, onComplete = () => {}) => {
+            block.disableInteractive()
             this.tweens.add({
               targets: block,
               x,
               y,
               duration: 500,
               ease: 'Power2',
-              onComplete
+              onComplete: () => {
+                block.setInteractive()
+                onComplete()
+              }
             })
           }
 
