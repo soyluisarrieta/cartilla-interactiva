@@ -7,6 +7,9 @@ import { UI } from '../constants.js'
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: SCENES.GAME })
+
+    this.slots = []
+    this.blocks = []
   }
 
   init () {
@@ -27,7 +30,8 @@ export default class GameScene extends Phaser.Scene {
     })
 
     // Título
-    this.add.bitmapText(width / 2, 100, FONTS.PRIMARY, 'GAME SCENE')
+    this.add
+      .bitmapText(width / 2, 100, FONTS.PRIMARY, 'GAME SCENE')
       .setOrigin(0.5, 0)
 
     // UI
@@ -46,9 +50,89 @@ export default class GameScene extends Phaser.Scene {
       gap: 40,
       position: [170, 250],
       element: ({ x, y }) => {
-        this.add.image(x, y, UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(2))
+        const block = this.add
+          .image(x, y, UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(2))
           .setScale(0.6)
           .setOrigin(0)
+          .setInteractive({ draggable: true })
+
+        // Propiedades iniciales del bloque
+        block.initialX = x
+        block.initialY = y
+        block.currentSlot = null
+
+        // Evento de arrastrar
+        block.on('dragstart', () => {
+          block.setTint(0xff0000)
+          if (block.currentSlot) {
+            // Desocupar slot en el que se encontraba
+            block.currentSlot.occupied = false
+            block.currentSlot.currentBlock = null
+          }
+        })
+
+        // Evento para mover el bloque
+        block.on('drag', (pointer, dragX, dragY) => {
+          block.x = dragX
+          block.y = dragY
+        })
+
+        // Evento para soltar
+        block.on('dragend', (pointer) => {
+          block.clearTint()
+
+          const droppedInSlot = this.slots.find(slot => {
+            return Phaser.Geom.Rectangle.ContainsPoint(slot.getBounds(), pointer)
+          })
+
+          // Fue soltado en slot y si está ocupado
+          if (droppedInSlot) {
+            if (droppedInSlot.occupied) {
+              const occupyingBlock = droppedInSlot.currentBlock
+
+              // Intercambiar bloques entre slots
+              if (block.currentSlot) {
+                const previousSlot = block.currentSlot
+
+                block.currentSlot = droppedInSlot
+                occupyingBlock.currentSlot = previousSlot
+
+                previousSlot.currentBlock = occupyingBlock
+                droppedInSlot.currentBlock = block
+
+                block.x = droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2)
+                block.y = droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleY / 2) - (block.height * block.scaleY / 2)
+
+                occupyingBlock.x = previousSlot.x + (previousSlot.width * previousSlot.scaleX / 2) - (occupyingBlock.width * occupyingBlock.scaleX / 2)
+                occupyingBlock.y = previousSlot.y - (previousSlot.height * previousSlot.scaleY / 2) - (occupyingBlock.height * occupyingBlock.scaleY / 2)
+              } else {
+                // Reemplazar bloque y devolver el otro a su posición inicial
+                occupyingBlock.x = occupyingBlock.initialX
+                occupyingBlock.y = occupyingBlock.initialY
+                occupyingBlock.currentSlot = null
+
+                block.currentSlot = droppedInSlot
+                droppedInSlot.currentBlock = block
+
+                block.x = droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2)
+                block.y = droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleY / 2) - (block.height * block.scaleY / 2)
+              }
+            } else {
+              // Ubicar bloque en slot vacío
+              block.x = droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2)
+              block.y = droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleY / 2) - (block.height * block.scaleY / 2)
+              droppedInSlot.occupied = true
+              droppedInSlot.currentBlock = block
+              block.currentSlot = droppedInSlot
+            }
+          } else {
+            // Devolver bloque arrastrado a su posición inicial
+            block.x = block.initialX
+            block.y = block.initialY
+          }
+        })
+
+        this.blocks.push(block)
       }
     })
   }
@@ -65,9 +149,16 @@ export default class GameScene extends Phaser.Scene {
       gap: 40,
       position: [90, height - 50],
       element: ({ x, y }) => {
-        this.add.image(x, y, UI.BLOCKS.KEY, UI.BLOCKS.SLOT(2))
+        const slot = this.add
+          .image(x, y, UI.BLOCKS.KEY, UI.BLOCKS.SLOT(2))
           .setScale(0.7)
           .setOrigin(0, 1)
+
+        // Propiedades iniciales del slot
+        slot.occupied = false
+        slot.currentBlock = null
+
+        this.slots.push(slot)
       }
     })
   }
