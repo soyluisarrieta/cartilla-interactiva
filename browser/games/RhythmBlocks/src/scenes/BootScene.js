@@ -10,8 +10,8 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { id: gameid, game: gameName } = window.gameSettings
-    InitProfile(gameid, window.gameSettings)
+    const { game: gameName } = window.gameSettings
+    InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
     coreAssets.setup(this)
@@ -20,8 +20,8 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
       assets: {
-        images: [
-          // 🚩
+        atlas: [
+          { key: 'blocks', dir: '/ui', fileName: 'blocks' }
         ]
       }
     }
@@ -35,6 +35,6 @@ export default class BootScene extends Phaser.Scene {
 
   create () {
     const opening = new Opening(this)
-    opening.start({ scene: SCENES.MENU })
+    opening.start({ scene: SCENES.GAME })
   }
 }

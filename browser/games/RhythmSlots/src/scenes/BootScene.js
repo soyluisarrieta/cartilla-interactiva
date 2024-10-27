@@ -9,8 +9,8 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { id: gameid, game: gameName } = window.gameSettings
-    InitProfile(gameid, window.gameSettings)
+    const { game: gameName } = window.gameSettings
+    InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
     coreAssets.setup(this)
