@@ -66,8 +66,10 @@ export default class GameScene extends Phaser.Scene {
           block.setTint(0xff0000)
           if (block.currentSlot) {
             // Desocupar slot en el que se encontraba
-            block.currentSlot.occupied = false
-            block.currentSlot.currentBlock = null
+            if (block.currentSlot.occupied !== undefined && block.currentSlot.currentBlock !== undefined) {
+              block.currentSlot.occupied = false
+              block.currentSlot.currentBlock = null
+            }
           }
         })
 
@@ -102,13 +104,22 @@ export default class GameScene extends Phaser.Scene {
               const occupyingBlock = droppedInSlot.currentBlock
 
               if (block.currentSlot) {
+                // Intercambiar bloques a sus slots
                 const previousSlot = block.currentSlot
+
+                if (previousSlot.occupied !== undefined && previousSlot.currentBlock !== undefined) {
+                  previousSlot.occupied = false
+                  previousSlot.currentBlock = null
+                }
 
                 block.currentSlot = droppedInSlot
                 occupyingBlock.currentSlot = previousSlot
 
                 previousSlot.currentBlock = occupyingBlock
+                previousSlot.occupied = true
+
                 droppedInSlot.currentBlock = block
+                droppedInSlot.occupied = true
 
                 moveBlock(block, droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2),
                   droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleY / 2) - (block.height * block.scaleY / 2))
@@ -119,10 +130,14 @@ export default class GameScene extends Phaser.Scene {
                 // Reemplazar bloque y devolver el otro a su posición inicial
                 moveBlock(occupyingBlock, occupyingBlock.initialX, occupyingBlock.initialY, () => {
                   occupyingBlock.currentSlot = null
+                  if (occupyingBlock.initialSlot) {
+                    occupyingBlock.initialSlot.occupied = false
+                  }
                 })
 
                 block.currentSlot = droppedInSlot
                 droppedInSlot.currentBlock = block
+                droppedInSlot.occupied = true
 
                 moveBlock(block, droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2),
                   droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleY / 2) - (block.height * block.scaleY / 2))
@@ -130,7 +145,7 @@ export default class GameScene extends Phaser.Scene {
             } else {
               // Ubicar bloque en slot vacío
               moveBlock(block, droppedInSlot.x + (droppedInSlot.width * droppedInSlot.scaleX / 2) - (block.width * block.scaleX / 2),
-                droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleX / 2) - (block.height * block.scaleX / 2))
+                droppedInSlot.y - (droppedInSlot.height * droppedInSlot.scaleX / 2) - (block.height * block.scaleY / 2))
               droppedInSlot.occupied = true
               droppedInSlot.currentBlock = block
               block.currentSlot = droppedInSlot
