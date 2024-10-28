@@ -12,12 +12,13 @@ export default class Button {
       disabled = false,
       withInteractions = true,
       soundKey = Button.soundKey,
+      withSound = true,
       onClick = null
     }) => {
       const button = Button.createButton(phaser, key, frame, position)
       button.setDisabled = Button.setDisabled
       button.setDisabled(disabled)
-      button.handleOnClick = Button.createHandleOnClick(phaser, scene, soundKey, onClick, button)
+      button.handleOnClick = Button.createHandleOnClick(phaser, scene, soundKey, withSound, onClick, button)
 
       Button.configureInteractions(button, withInteractions, key, frame)
 
@@ -39,12 +40,12 @@ export default class Button {
     this.setAlpha(disabled ? 0.5 : 1)
   }
 
-  static createHandleOnClick (phaser, scene, soundKey, onClick, button) {
+  static createHandleOnClick (phaser, scene, soundKey, withSound, onClick, button) {
     return () => {
       if (button.disabled) {
         return
       }
-      phaser.sound.play(soundKey)
+      withSound && phaser.sound.play(soundKey)
       if (scene) {
         phaser.scene.start(scene)
       }

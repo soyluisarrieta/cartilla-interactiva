@@ -64,6 +64,7 @@ export class UIManager {
     Button.draw(this.scene)({
       ...BUTTONS.LIST_MELODY,
       position: [x, y],
+      withSound: false,
       withInteractions: false,
       onClick: async ({ button }) => {
         if (!this.melody.isPlaying) {
