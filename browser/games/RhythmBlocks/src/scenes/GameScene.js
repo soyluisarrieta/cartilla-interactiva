@@ -92,6 +92,7 @@ export default class GameScene extends Phaser.Scene {
       if (droppedInSlot) {
         this.handleBlockDrop(block, droppedInSlot)
       } else {
+        block.currentSlot = null
         this.moveBlock(block, block.initialX, block.initialY)
       }
     })
