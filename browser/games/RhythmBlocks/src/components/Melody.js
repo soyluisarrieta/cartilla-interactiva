@@ -42,6 +42,10 @@ export class Melody {
       this.scene.sound.play('timerTic')
       for (let i = 0; i < beats; i++) {
         setTimeout(() => {
+          if (!this.isPlaying) {
+            resolve()
+            return
+          }
           !isRestNote && this.scene.sound.play('noteSound', { timeElapsed })
         }, i * beatInterval)
       }
@@ -59,6 +63,9 @@ export class Melody {
 
     // Reproduce cada figura secuencialmente
     for (const figure of figures) {
+      if (!this.isPlaying) {
+        break
+      }
       await this.playNote(figure, tempo, timeElapsed)
       timeElapsed += figure.duration * tempo
     }
