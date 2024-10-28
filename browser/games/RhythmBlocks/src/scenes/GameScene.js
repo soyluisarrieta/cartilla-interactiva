@@ -76,7 +76,7 @@ export default class GameScene extends Phaser.Scene {
       element: ({ x, y }) => {
         const slot = new Slot(this)
         slot.draw({ x, y, size: 2 })
-        this.slots.push(slot.slot)
+        this.slots.push(slot)
       }
     })
   }

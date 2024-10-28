@@ -3,6 +3,7 @@ import { UI } from '../constants.js'
 export class Block {
   constructor (scene) {
     this.phaser = scene
+    this.block = null
   }
 
   draw ({ x, y, size }) {
@@ -30,7 +31,7 @@ export class Block {
     block.on('dragstart', () => {
       block.setTint(0xff0000)
       if (block.currentSlot) {
-        this.releaseSlot(block.currentSlot)
+        block.currentSlot.release()
       }
     })
 
@@ -41,7 +42,7 @@ export class Block {
 
     block.on('dragend', (pointer) => {
       block.clearTint()
-      const droppedInSlot = this.phaser.slots.find(slot =>
+      const droppedInSlot = this.phaser.slots.find((slot) =>
         Phaser.Geom.Rectangle.ContainsPoint(slot.getBounds(), pointer)
       )
       if (droppedInSlot) {
@@ -51,13 +52,6 @@ export class Block {
         this.moveBlock(block, block.initialX, block.initialY)
       }
     })
-  }
-
-  releaseSlot (slot) {
-    if (slot.occupied !== undefined && slot.currentBlock !== undefined) {
-      slot.occupied = false
-      slot.currentBlock = null
-    }
   }
 
   moveBlock (block, x, y, onComplete = () => {}) {
@@ -89,7 +83,7 @@ export class Block {
   }
 
   swapBlocks (block, occupyingBlock, previousSlot, newSlot) {
-    this.releaseSlot(previousSlot)
+    previousSlot.release()
 
     block.currentSlot = newSlot
     occupyingBlock.currentSlot = previousSlot

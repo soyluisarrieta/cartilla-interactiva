@@ -1,21 +1,21 @@
 import { UI } from '../constants.js'
 
-export class Slot {
+export class Slot extends Phaser.GameObjects.Image {
   constructor (scene) {
-    this.phaser = scene
+    super(scene)
+    this.scene = scene
+    this.scene.add.existing(this)
   }
 
   draw ({ x, y, size }) {
-    this.slot = this.phaser.add
-      .image(x, y, UI.BLOCKS.KEY, UI.BLOCKS.SLOT(size))
-      .setScale(0.7)
-      .setOrigin(0, 1)
-
-    return this.slot
+    this.setTexture(UI.BLOCKS.KEY, UI.BLOCKS.SLOT(size))
+    this.setPosition(x, y).setScale(0.7).setOrigin(0, 1)
+    this.release()
+    return this
   }
 
-  setup () {
-    this.slot.occupied = false
-    this.slot.currentBlock = null
+  release () {
+    this.occupied = false
+    this.currentBlock = null
   }
 }
