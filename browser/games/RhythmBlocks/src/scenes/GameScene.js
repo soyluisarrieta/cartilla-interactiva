@@ -47,16 +47,19 @@ export default class GameScene extends Phaser.Scene {
 
   // Implementar bloques
   drawBlocks () {
-    const totalBlocks = this.level.metrics.blocks
+    const { figures, metrics } = this.level
+    console.log(metrics)
+
     grid({
-      totalItems: totalBlocks,
+      totalItems: metrics.blocks,
       item: { width: 340, height: 200 },
       maxColumns: 3,
       gap: 40,
       position: [170, 250],
       element: ({ x, y }) => {
         const block = new Block(this)
-        block.draw({ x, y, size: 2 })
+        block.draw({ x, y, size: metrics.figures })
+        block.setFigures(figures, metrics.figures)
         this.blocks.push(block)
       }
     })
@@ -65,17 +68,17 @@ export default class GameScene extends Phaser.Scene {
   // Implementar slots
   drawSlots () {
     const { height } = this.cameras.main
-    const totalSlots = this.level.metrics.slots
+    const { metrics } = this.level
 
     grid({
-      totalItems: totalSlots,
+      totalItems: metrics.slots,
       item: { width: 400, height: 200 },
       maxColumns: 4,
       gap: 40,
       position: [90, height - 50],
       element: ({ x, y }) => {
         const slot = new Slot(this)
-        slot.draw({ x, y, size: 2 })
+        slot.draw({ x, y, size: metrics.figures })
         this.slots.push(slot)
       }
     })
