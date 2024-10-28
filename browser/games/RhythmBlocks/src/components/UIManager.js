@@ -1,6 +1,5 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
-import { Melody } from './Melody.js'
 
 export class UIManager {
   static title = 'GAME SCENE'
@@ -9,7 +8,6 @@ export class UIManager {
 
   constructor (scene) {
     this.scene = scene
-    this.melody = new Melody(scene)
   }
 
   // Implementación
@@ -26,7 +24,8 @@ export class UIManager {
     Button.draw(this.scene)({
       ...BUTTONS.BACK,
       scene: UIManager.backScene,
-      position: [150, 120]
+      position: [150, 120],
+      onClick: () => this.scene.melody.stop()
     })
   }
 
@@ -52,7 +51,7 @@ export class UIManager {
     const { tempo } = this.scene.game
     const { figures, metrics } = this.scene.level
     const numFigures = metrics.figures * metrics.slots
-    const generatedMelody = this.melody.generate(figures, numFigures)
+    const generatedMelody = this.scene.melody.generate(figures, numFigures)
 
     const x = this.scene.cameras.main.width - 410
     const y = 600
@@ -67,12 +66,12 @@ export class UIManager {
       withSound: false,
       withInteractions: false,
       onClick: async ({ button }) => {
-        if (!this.melody.isPlaying) {
+        if (!this.scene.melody.isPlaying) {
           label.setText('Parar')
           button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
-          await this.melody.play(generatedMelody, tempo)
+          await this.scene.melody.play(generatedMelody, tempo)
         }
-        this.melody.stop()
+        this.scene.melody.stop()
         label.setText('Melodía')
         button.setTexture(BUTTONS.LIST_MELODY.key, BUTTONS.LIST_MELODY.frame)
       }
