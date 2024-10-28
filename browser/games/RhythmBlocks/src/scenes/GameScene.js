@@ -8,8 +8,6 @@ import { Slot } from '../components/Slot.js'
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: SCENES.GAME })
-    this.slots = []
-    this.blocks = []
   }
 
   // Inicialización
@@ -18,6 +16,8 @@ export default class GameScene extends Phaser.Scene {
     const profile = getProfile()
     this.game = profile.playing
     this.level = profile.playing.levels[selectedLevel]
+    this.slots = []
+    this.blocks = []
   }
 
   // Principal
@@ -48,8 +48,6 @@ export default class GameScene extends Phaser.Scene {
   // Implementar bloques
   drawBlocks () {
     const { figures, metrics } = this.level
-    console.log(metrics)
-
     grid({
       totalItems: metrics.blocks,
       item: { width: 340, height: 200 },
