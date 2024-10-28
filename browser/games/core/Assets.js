@@ -39,7 +39,8 @@ export default class Assets {
           { key: 'btnBack', dir: '/ui', fileName: 'back-button' },
           { key: 'uiButtons', dir: '/ui', fileName: 'ui-buttons' },
           { key: 'levels', dir: '/ui', fileName: 'levels' },
-          { key: 'exercise', dir: '/ui', fileName: 'exercise-states' }
+          { key: 'exercise', dir: '/ui', fileName: 'exercise-states' },
+          { key: 'figures', dir: '/ui', fileName: 'figures' }
         ],
         audio: [
           { key: 'soundPress', path: '/audios/sound-press.mp3' },
