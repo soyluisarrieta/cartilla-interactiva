@@ -7,14 +7,16 @@ export class Slot extends Phaser.GameObjects.Image {
     this.scene.add.existing(this)
   }
 
+  // Implementación
   draw ({ x, y, size }) {
     this.setTexture(UI.BLOCKS.KEY, UI.BLOCKS.SLOT(size))
     this.setPosition(x, y).setScale(0.7).setOrigin(0, 1)
-    this.release()
+    this.reset()
     return this
   }
 
-  release () {
+  // Reiniciar slot
+  reset () {
     this.occupied = false
     this.currentBlock = null
   }

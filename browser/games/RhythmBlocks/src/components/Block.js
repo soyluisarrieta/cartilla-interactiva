@@ -7,13 +7,13 @@ export class Block extends Phaser.GameObjects.Container {
     this.scene.add.existing(this)
   }
 
+  // Implementación
   draw ({ x, y, size }) {
     this.blockImage = this.scene.add.image(0, 0, UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(size))
       .setScale(0.6)
       .setOrigin(0)
     this.add(this.blockImage)
 
-    // Definimos la hitbox del tamaño de la textura del bloque
     const hitbox = new Phaser.Geom.Rectangle(
       0, 0,
       this.blockImage.displayWidth,
@@ -26,6 +26,7 @@ export class Block extends Phaser.GameObjects.Container {
     return this
   }
 
+  // Configuración
   setup ({ x, y }) {
     this.initialX = x
     this.initialY = y
@@ -33,6 +34,7 @@ export class Block extends Phaser.GameObjects.Container {
     this.draggable()
   }
 
+  // Establecer las posibilidades del nivel
   setFigures (figures, max) {
     this.figures = []
     const shuffledFigures = Phaser.Utils.Array.Shuffle(figures)
@@ -52,37 +54,31 @@ export class Block extends Phaser.GameObjects.Container {
 
   // Distribuir las figuras
   updateFiguresPosition () {
-    // Calcula el ancho y alto total del bloque
     const totalWidth = this.blockImage.displayWidth
     const totalHeight = this.blockImage.displayHeight
     const figureCount = this.figures.length
 
-    if (figureCount === 0) {
-      return
-    }
-
-    // Ajusta la fórmula para calcular el gap
+    if (figureCount === 0) { return }
     const figureWidth = this.figures[0].displayWidth
     const gap = (totalWidth - (figureCount * figureWidth)) / (figureCount + 1)
 
-    // Inicializar currentX para centrar
     let currentX = gap + figureWidth / 2
 
-    // Ajusta la posición de cada figura
     for (const figure of this.figures) {
-      const centerY = totalHeight / 2 // Centro vertical del bloque
+      const centerY = totalHeight / 2
       figure.setPosition(currentX, centerY)
       currentX += figureWidth + gap
     }
   }
 
+  // Evento drag and drop
   draggable () {
     this.scene.input.setDraggable(this)
 
     this.on('dragstart', () => {
       this.blockImage.setTint(0xff0000)
       if (this.currentSlot) {
-        this.currentSlot.release()
+        this.currentSlot.reset()
       }
     })
 
@@ -104,6 +100,7 @@ export class Block extends Phaser.GameObjects.Container {
     })
   }
 
+  // Animación de desplazamiento
   move (block, x, y, onComplete = () => {}) {
     block.disableInteractive()
     this.scene.tweens.add({
@@ -119,6 +116,7 @@ export class Block extends Phaser.GameObjects.Container {
     })
   }
 
+  // Manejar el evento de soltar
   handleDrop (block, slot) {
     if (slot.occupied) {
       const occupyingBlock = slot.currentBlock
@@ -132,8 +130,9 @@ export class Block extends Phaser.GameObjects.Container {
     }
   }
 
+  // Intercambiar bloques
   swap (block, occupyingBlock, previousSlot, newSlot) {
-    previousSlot.release()
+    previousSlot.reset()
 
     block.currentSlot = newSlot
     occupyingBlock.currentSlot = previousSlot
@@ -157,6 +156,7 @@ export class Block extends Phaser.GameObjects.Container {
     )
   }
 
+  // Reemplazar bloques
   replace (block, occupyingBlock, slot) {
     this.move(occupyingBlock, occupyingBlock.initialX, occupyingBlock.initialY, () => {
       occupyingBlock.currentSlot = null
@@ -176,6 +176,7 @@ export class Block extends Phaser.GameObjects.Container {
     )
   }
 
+  // Ubicar en slot vacío
   placeInEmptySlot (block, slot) {
     this.move(
       block,
