@@ -50,7 +50,7 @@ export default class Button {
       }
 
       if (typeof onClick === 'function') {
-        onClick()
+        onClick({ button })
       }
     }
   }
