@@ -1,7 +1,7 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 
-export class UIManager {
+export default class UIManager {
   static title = 'GAME SCENE'
   static explanation = 'Escucha la melodía, mueve cada bloque de la melodía a su correspondiente casilla.'
   static backScene = SCENES.MENU

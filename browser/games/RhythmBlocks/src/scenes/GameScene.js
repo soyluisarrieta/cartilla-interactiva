@@ -1,10 +1,10 @@
+import Block from '../components/Block.js'
+import Melody from '../components/Melody.js'
+import Slot from '../components/Slot.js'
+import UIManager from '../components/UIManager.js'
 import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
-import { Block } from '../components/Block.js'
-import { Melody } from '../components/Melody.js'
-import { Slot } from '../components/Slot.js'
-import { UIManager } from '../components/UIManager.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {

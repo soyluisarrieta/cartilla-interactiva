@@ -1,6 +1,6 @@
 import { UI } from '../constants.js'
 
-export class Block extends Phaser.GameObjects.Container {
+export default class Block extends Phaser.GameObjects.Container {
   constructor (scene) {
     super(scene)
     this.scene = scene

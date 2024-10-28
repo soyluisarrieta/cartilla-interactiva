@@ -1,4 +1,4 @@
-export class Melody {
+export default class Melody {
   constructor (scene) {
     this.scene = scene
     this.current = null
