@@ -1,0 +1,250 @@
+{
+	"textures": [
+		{
+			"image": "figures",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1883,
+				"h": 2026
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "quaver-duo",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 816,
+						"h": 835
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 814,
+						"h": 835
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 814,
+						"h": 835
+					}
+				},
+				{
+					"filename": "quaver",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 507,
+						"h": 835
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 507,
+						"h": 835
+					},
+					"frame": {
+						"x": 0,
+						"y": 835,
+						"w": 507,
+						"h": 835
+					}
+				},
+				{
+					"filename": "minim-rest",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 356,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 356,
+						"h": 148
+					},
+					"frame": {
+						"x": 0,
+						"y": 1670,
+						"w": 356,
+						"h": 148
+					}
+				},
+				{
+					"filename": "semibreve-rest",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 356,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 356,
+						"h": 148
+					},
+					"frame": {
+						"x": 148,
+						"y": 1670,
+						"w": 356,
+						"h": 148
+					}
+				},
+				{
+					"filename": "quaver-rest",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 345,
+						"h": 464
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 345,
+						"h": 464
+					},
+					"frame": {
+						"x": 296,
+						"y": 1670,
+						"w": 345,
+						"h": 464
+					}
+				},
+				{
+					"filename": "semiquaver",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 507,
+						"h": 834
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 507,
+						"h": 834
+					},
+					"frame": {
+						"x": 507,
+						"y": 835,
+						"w": 507,
+						"h": 834
+					}
+				},
+				{
+					"filename": "crotchet",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 301,
+						"h": 782
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 301,
+						"h": 782
+					},
+					"frame": {
+						"x": 814,
+						"y": 0,
+						"w": 301,
+						"h": 782
+					}
+				},
+				{
+					"filename": "semibreve",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 306,
+						"h": 238
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 306,
+						"h": 238
+					},
+					"frame": {
+						"x": 760,
+						"y": 1669,
+						"w": 306,
+						"h": 238
+					}
+				},
+				{
+					"filename": "minim",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 302,
+						"h": 717
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 302,
+						"h": 717
+					},
+					"frame": {
+						"x": 998,
+						"y": 1669,
+						"w": 302,
+						"h": 717
+					}
+				},
+				{
+					"filename": "crotchet-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 464
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 464
+					},
+					"frame": {
+						"x": 1715,
+						"y": 782,
+						"w": 168,
+						"h": 464
+					}
+				},
+				{
+					"filename": "semiquaver-rest",
+					"rotated": true,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 414,
+						"h": 464
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 414,
+						"h": 464
+					},
+					"frame": {
+						"x": 1115,
+						"y": 1246,
+						"w": 414,
+						"h": 464
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
