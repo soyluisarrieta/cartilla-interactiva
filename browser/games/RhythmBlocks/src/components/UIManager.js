@@ -22,7 +22,7 @@ export default class UIManager {
   homeButton () {
     Button.draw(this.scene)({
       ...BUTTONS.HOME,
-      position: [150, 120],
+      position: [120, 120],
       onClick: () => {
         this.scene.melody.stop()
         this.scene.alert.showAlert('¿Estás seguro?', {
@@ -41,7 +41,7 @@ export default class UIManager {
           ]
         })
       }
-    })
+    }).setScale(0.9)
   }
 
   // Títular

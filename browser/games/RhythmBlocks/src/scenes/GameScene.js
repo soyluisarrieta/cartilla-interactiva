@@ -3,6 +3,7 @@ import Melody from '../components/Melody.js'
 import Slot from '../components/Slot.js'
 import UIManager from '../components/UIManager.js'
 import Alert from '../../../core/Alert.js'
+import Health from '../../../core/components/Health.js'
 import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
@@ -13,6 +14,7 @@ export default class GameScene extends Phaser.Scene {
     this.ui = new UIManager(this)
     this.alert = new Alert(this)
     this.melody = new Melody(this)
+    this.health = new Health(this)
   }
 
   // Inicialización
@@ -28,6 +30,7 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
+    this.health.draw(3)
     this.drawBlocks()
     this.drawSlots()
   }
