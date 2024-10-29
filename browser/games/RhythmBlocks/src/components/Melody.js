@@ -98,4 +98,13 @@ export default class Melody {
       return null
     }
   }
+
+  // Dividir melodía en grupos
+  divide (melody, groupSize) {
+    const groups = []
+    for (let i = 0; i < melody.length; i += groupSize) {
+      groups.push(melody.slice(i, i + groupSize))
+    }
+    return groups
+  }
 }
