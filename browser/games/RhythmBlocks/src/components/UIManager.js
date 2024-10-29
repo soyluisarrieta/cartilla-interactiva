@@ -102,7 +102,18 @@ export default class UIManager {
       ...BUTTONS.PLAY,
       position: [x, y],
       onClick: () => {
+        const groupedMelody = this.scene.slots.map(slot => (
+          slot.currentBlock.figures
+        ))
 
+        const composition = []
+        groupedMelody.forEach(([fig1, fig2]) => {
+          composition.push(fig1.getData('figure'))
+          composition.push(fig2.getData('figure'))
+        })
+
+        const hasMistakes = this.scene.melody.check(composition)
+        console.log(hasMistakes)
       }
     })
 
