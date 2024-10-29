@@ -20,6 +20,6 @@ export function grid ({
     const x = startX + col * (width + gap)
     const y = posY + row * (height + gap)
 
-    element({ x, y })
+    element({ x, y }, i)
   }
 }
