@@ -2,6 +2,7 @@ import Block from '../components/Block.js'
 import Melody from '../components/Melody.js'
 import Slot from '../components/Slot.js'
 import UIManager from '../components/UIManager.js'
+import Alert from '../../../core/Alert.js'
 import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
@@ -10,6 +11,7 @@ export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: SCENES.GAME })
     this.ui = new UIManager(this)
+    this.alert = new Alert(this)
     this.melody = new Melody(this)
   }
 

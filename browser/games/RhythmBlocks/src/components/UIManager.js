@@ -4,7 +4,6 @@ import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 export default class UIManager {
   static title = 'GAME SCENE'
   static explanation = 'Escucha la melodía, mueve cada bloque de la melodía a su correspondiente casilla.'
-  static backScene = SCENES.MENU
 
   constructor (scene) {
     this.scene = scene
@@ -12,20 +11,36 @@ export default class UIManager {
 
   // Implementación
   init () {
-    this.backButton()
+    this.homeButton()
     this.setTitle(UIManager.title)
     this.explanation(UIManager.explanation)
     this.melodyButton()
     this.confirmButton()
   }
 
-  // Botón: Ir atrás
-  backButton () {
+  // Botón: Salir de la partida
+  homeButton () {
     Button.draw(this.scene)({
-      ...BUTTONS.BACK,
-      scene: UIManager.backScene,
+      ...BUTTONS.HOME,
       position: [150, 120],
-      onClick: () => this.scene.melody.stop()
+      onClick: () => {
+        this.scene.melody.stop()
+        this.scene.alert.showAlert('¿Estás seguro?', {
+          type: 'warning',
+          image: 'gameLogo',
+          message: 'Si sales, tendrás que volver a empezar una nueva partida.',
+          buttons: [
+            {
+              text: 'Salir',
+              onClick: () => {
+                this.scene.melody.stop()
+                this.scene.scene.start(SCENES.MENU)
+              }
+            },
+            { text: 'Cancelar' }
+          ]
+        })
+      }
     })
   }
 
