@@ -37,12 +37,9 @@ export default class Block extends Phaser.GameObjects.Container {
   // Establecer las posibilidades del nivel
   setFigures (figures, max) {
     this.figures = []
-    const shuffledFigures = Phaser.Utils.Array.Shuffle(figures)
-    const selectedFigures = shuffledFigures.slice(0, max)
-
-    selectedFigures.forEach(({ name, duration, beats }) => {
+    figures.forEach(({ name, duration, beats }) => {
       const figure = this.scene.add.image(0, 0, 'figures', name)
-        .setData({ name, duration, beats })
+        .setData('figure', { name, duration, beats })
         .setScale(0.15)
         .setOrigin(0.5)
       this.figures.push(figure)
