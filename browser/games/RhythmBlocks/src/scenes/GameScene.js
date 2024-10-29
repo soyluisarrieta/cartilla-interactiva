@@ -35,6 +35,28 @@ export default class GameScene extends Phaser.Scene {
   // Implementar bloques
   async drawBlocks () {
     const { figures, metrics } = this.level
+    const melody = this.melody.current
+    const groupedMelody = this.melody.divide(melody, metrics.figures)
+
+    // Generar grupos de figuras faltantes
+    while (groupedMelody.length !== metrics.blocks) {
+      let randomizedFigures = []
+      let existingGroup = false
+
+      // Hasta crear un grupo sea único
+      do {
+        randomizedFigures = Phaser.Utils.Array
+          .Shuffle(figures)
+          .slice(0, metrics.figures)
+
+        existingGroup = groupedMelody.some(
+          group => JSON.stringify(group) === JSON.stringify(randomizedFigures)
+        )
+      } while (existingGroup)
+
+      groupedMelody.push(randomizedFigures)
+    }
+    const shuffledFigures = Phaser.Utils.Array.Shuffle(groupedMelody)
 
     grid({
       totalItems: metrics.blocks,
@@ -42,10 +64,10 @@ export default class GameScene extends Phaser.Scene {
       maxColumns: 3,
       gap: 40,
       position: [170, 250],
-      element: ({ x, y }) => {
+      element: ({ x, y }, i) => {
         const block = new Block(this)
         block.draw({ x, y, size: metrics.figures })
-        block.setFigures(figures, metrics.figures)
+        block.setFigures(shuffledFigures[i], metrics.figures)
         this.blocks.push(block)
       }
     })
