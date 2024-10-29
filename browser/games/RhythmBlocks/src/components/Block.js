@@ -97,6 +97,9 @@ export default class Block extends Phaser.GameObjects.Container {
         this.currentSlot = null
         this.move(this, this.initialX, this.initialY)
       }
+
+      const isCompositionReady = this.scene.slots.every(slot => slot.occupied)
+      this.scene.confirmButton.setDisabled(!isCompositionReady)
     })
   }
 

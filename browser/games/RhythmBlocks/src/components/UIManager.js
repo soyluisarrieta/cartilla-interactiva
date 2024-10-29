@@ -98,13 +98,24 @@ export default class UIManager {
     const x = this.scene.cameras.main.width - 210
     const y = 600
 
-    Button.draw(this.scene)({
+    const button = Button.draw(this.scene)({
       ...BUTTONS.PLAY,
-      position: [x, y]
+      position: [x, y],
+      onClick: () => {
+
+      }
     })
 
-    this.scene.add
+    const label = this.scene.add
       .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
       .setOrigin(0.5)
+
+    const setDisabled = (disable) => {
+      button.setDisabled(disable)
+      label.setAlpha(disable ? 0.5 : 1)
+    }
+
+    setDisabled(true)
+    this.scene.confirmButton = { setDisabled }
   }
 }
