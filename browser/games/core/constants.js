@@ -10,6 +10,11 @@ export const BUTTONS = {
   HOW_TO_PLAY: { key: 'btnHowToPlay', frame: 'how-to-play-btn' }
 }
 
+export const HEALTH = {
+  OFF: 'health-off',
+  ON: 'health-on'
+}
+
 export const IMAGES = {
   BG_MENU: 'bgMenu',
   GAME_LOGO: 'gameLogo',
