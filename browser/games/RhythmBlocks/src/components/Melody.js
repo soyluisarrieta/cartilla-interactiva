@@ -79,8 +79,8 @@ export default class Melody {
     this.isPlaying = false
   }
 
-  // Comparar melodías
-  compare (composition) {
+  // Comprobar si la melodía es correcta
+  check (composition) {
     const mistakes = []
     const melody = this.current
     composition.forEach((note, i) => {
@@ -103,7 +103,7 @@ export default class Melody {
   divide (melody, groupSize) {
     const groups = []
     for (let i = 0; i < melody.length; i += groupSize) {
-      groups.push(melody.slice(i, i + groupSize))
+      groups.push(melody.slice(i, i + groupSize).reverse())
     }
     return groups
   }
