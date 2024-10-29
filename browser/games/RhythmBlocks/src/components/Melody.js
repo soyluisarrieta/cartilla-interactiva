@@ -83,9 +83,9 @@ export default class Melody {
   check (composition) {
     const mistakes = []
     const melody = this.current
-    composition.forEach((note, i) => {
-      if (note !== melody[i].name) {
-        mistakes.push({ slot: i, expected: melody[i].name, got: note })
+    composition.forEach((figure, i) => {
+      if (figure.name !== melody[i].name) {
+        mistakes.push({ index: i, expected: melody[i].name, got: figure.name })
       }
     })
 
@@ -103,7 +103,7 @@ export default class Melody {
   divide (melody, groupSize) {
     const groups = []
     for (let i = 0; i < melody.length; i += groupSize) {
-      groups.push(melody.slice(i, i + groupSize).reverse())
+      groups.push(melody.slice(i, i + groupSize))
     }
     return groups
   }
