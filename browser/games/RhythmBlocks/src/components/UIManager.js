@@ -107,13 +107,70 @@ export default class UIManager {
         ))
 
         const composition = []
-        groupedMelody.forEach(([fig1, fig2]) => {
-          composition.push(fig1.getData('figure'))
-          composition.push(fig2.getData('figure'))
+        groupedMelody.forEach((figuras) => {
+          composition.push(figuras[0].getData('figure'))
+          composition.push(figuras[1].getData('figure'))
         })
 
-        const hasMistakes = this.scene.melody.check(composition)
-        console.log(hasMistakes)
+        const mistakes = this.scene.melody.check(composition)
+
+        // Composición incorrecta
+        if (mistakes) {
+          const totalHealth = this.scene.health.miss()
+          const isGameOver = totalHealth === 0
+          const isPlural = mistakes.length > 1 ? 's' : ''
+          const alert = {
+            title: '¡Composición incorrecta!',
+            type: 'error',
+            image: 'gameLogo',
+            message: `Debes corregir la${isPlural} nota${isPlural}. ¡Te quedan ${totalHealth} vidas!`
+          }
+
+          if (isGameOver) {
+            alert.title = '¡Fin del juego'
+            alert.type = 'default'
+            alert.image = 'gameLogo'
+            alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+
+            this.scene.melody.stop()
+            this.scene.sound.stopAll()
+            this.scene.sound.play('gameOver')
+          }
+
+          const buttons = [
+            {
+              text: 'Volver a jugar',
+              onClick: () => {
+                this.scene.scene.start(SCENES.GAME, this.scene.selectedLevel)
+              }
+            },
+            {
+              text: 'Niveles',
+              onClick: () => {
+                // this.scene.scene.start(SCENES.LEVEL_SELECTION)
+              }
+            }
+          ]
+
+          this.scene.alert.showAlert(alert.title, {
+            type: alert.type,
+            image: alert.image,
+            message: alert.message,
+            btnAccept: !isGameOver,
+            buttons: isGameOver ? buttons : [],
+            dismissible: false
+          })
+
+          return
+        }
+
+        // Composición correcta
+        this.scene.alert.showAlert('¡Perfecto!', {
+          type: 'success',
+          image: 'gameLogo',
+          message: 'Has avanzado al siguiente ejercicio.',
+          btnAccept: true
+        })
       }
     })
 

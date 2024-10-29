@@ -22,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
     const selectedLevel = 0
     const profile = getProfile()
     this.game = profile.playing
+    this.selectedLevel = selectedLevel
     this.level = profile.playing.levels[selectedLevel]
     this.slots = []
     this.blocks = []
