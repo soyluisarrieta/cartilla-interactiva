@@ -27,9 +27,10 @@ export default class Block extends Phaser.GameObjects.Container {
   }
 
   // Configuración
-  setup ({ x, y }) {
+  setup ({ x, y, size }) {
     this.initialX = x
     this.initialY = y
+    this.size = size
     this.currentSlot = null
     this.draggable()
   }
@@ -74,6 +75,7 @@ export default class Block extends Phaser.GameObjects.Container {
     this.scene.input.setDraggable(this)
 
     this.on('dragstart', () => {
+      this.resetTexture()
       this.blockImage.setTint(0xff0000)
       if (this.currentSlot) {
         this.currentSlot.reset()
@@ -134,6 +136,7 @@ export default class Block extends Phaser.GameObjects.Container {
   // Intercambiar bloques
   swap (block, occupyingBlock, previousSlot, newSlot) {
     previousSlot.reset()
+    occupyingBlock.resetTexture()
 
     block.currentSlot = newSlot
     occupyingBlock.currentSlot = previousSlot
@@ -159,6 +162,8 @@ export default class Block extends Phaser.GameObjects.Container {
 
   // Reemplazar bloques
   replace (block, occupyingBlock, slot) {
+    occupyingBlock.resetTexture()
+
     this.move(occupyingBlock, occupyingBlock.initialX, occupyingBlock.initialY, () => {
       occupyingBlock.currentSlot = null
       if (occupyingBlock.initialSlot) {
@@ -187,5 +192,10 @@ export default class Block extends Phaser.GameObjects.Container {
     slot.occupied = true
     slot.currentBlock = block
     block.currentSlot = slot
+  }
+
+  // Reiniciar textura de un bloque
+  resetTexture () {
+    this.blockImage.setTexture(UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(this.size))
   }
 }
