@@ -72,7 +72,7 @@ export default class GameScene extends Phaser.Scene {
       totalItems: metrics.blocks,
       item: blockDimensions,
       scale: Block.scale,
-      maxColumns: 3,
+      maxColumns: metrics.figures === 2 ? 3 : (metrics.figures === 3 ? 2 : 1),
       gap: 40,
       position: [170, 250],
       element: ({ x, y }, i) => {
