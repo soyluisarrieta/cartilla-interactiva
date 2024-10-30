@@ -20,7 +20,7 @@ export default class Socket {
             username: profile.username,
             avatar: profile.avatar
           }),
-          game: JSON.stringify(profile.playing)
+          game: JSON.stringify(profile.playing ?? {})
         }
       }
 
