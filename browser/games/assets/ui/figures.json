@@ -4,8 +4,8 @@
 			"image": "figures",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1883,
-				"h": 2026
+				"w": 2042,
+				"h": 1966
 			},
 			"scale": 1,
 			"frames": [
@@ -52,8 +52,29 @@
 					}
 				},
 				{
+					"filename": "semibreve",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 306,
+						"h": 238
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 306,
+						"h": 238
+					},
+					"frame": {
+						"x": 0,
+						"y": 1670,
+						"w": 306,
+						"h": 238
+					}
+				},
+				{
 					"filename": "minim-rest",
-					"rotated": true,
+					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
 						"w": 356,
@@ -66,52 +87,10 @@
 						"h": 148
 					},
 					"frame": {
-						"x": 0,
+						"x": 306,
 						"y": 1670,
 						"w": 356,
 						"h": 148
-					}
-				},
-				{
-					"filename": "semibreve-rest",
-					"rotated": true,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 356,
-						"h": 148
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 356,
-						"h": 148
-					},
-					"frame": {
-						"x": 148,
-						"y": 1670,
-						"w": 356,
-						"h": 148
-					}
-				},
-				{
-					"filename": "quaver-rest",
-					"rotated": true,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 345,
-						"h": 464
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 345,
-						"h": 464
-					},
-					"frame": {
-						"x": 296,
-						"y": 1670,
-						"w": 345,
-						"h": 464
 					}
 				},
 				{
@@ -157,45 +136,66 @@
 					}
 				},
 				{
-					"filename": "semibreve",
-					"rotated": true,
+					"filename": "semibreve-rest",
+					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 306,
-						"h": 238
+						"w": 356,
+						"h": 148
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 306,
-						"h": 238
+						"w": 356,
+						"h": 148
 					},
 					"frame": {
-						"x": 760,
-						"y": 1669,
-						"w": 306,
-						"h": 238
+						"x": 306,
+						"y": 1818,
+						"w": 356,
+						"h": 148
 					}
 				},
 				{
-					"filename": "minim",
-					"rotated": true,
+					"filename": "semiquaver-rest",
+					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 302,
-						"h": 717
+						"w": 414,
+						"h": 464
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 302,
-						"h": 717
+						"w": 414,
+						"h": 464
 					},
 					"frame": {
-						"x": 998,
-						"y": 1669,
-						"w": 302,
-						"h": 717
+						"x": 1115,
+						"y": 0,
+						"w": 414,
+						"h": 464
+					}
+				},
+				{
+					"filename": "quaver-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 345,
+						"h": 464
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 345,
+						"h": 464
+					},
+					"frame": {
+						"x": 1529,
+						"y": 0,
+						"w": 345,
+						"h": 464
 					}
 				},
 				{
@@ -213,31 +213,31 @@
 						"h": 464
 					},
 					"frame": {
-						"x": 1715,
-						"y": 782,
+						"x": 1874,
+						"y": 0,
 						"w": 168,
 						"h": 464
 					}
 				},
 				{
-					"filename": "semiquaver-rest",
-					"rotated": true,
+					"filename": "minim",
+					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 414,
-						"h": 464
+						"w": 302,
+						"h": 717
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 414,
-						"h": 464
+						"w": 302,
+						"h": 717
 					},
 					"frame": {
-						"x": 1115,
-						"y": 1246,
-						"w": 414,
-						"h": 464
+						"x": 1014,
+						"y": 782,
+						"w": 302,
+						"h": 717
 					}
 				}
 			]
