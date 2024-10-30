@@ -1,6 +1,7 @@
 import { UI } from '../constants.js'
 
 export default class Block extends Phaser.GameObjects.Container {
+  static scale = 0.6
   constructor (scene) {
     super(scene)
     this.scene = scene
@@ -10,7 +11,7 @@ export default class Block extends Phaser.GameObjects.Container {
   // Implementación
   draw ({ x, y, size }) {
     this.blockImage = this.scene.add.image(0, 0, UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(size))
-      .setScale(0.6)
+      .setScale(Block.scale)
       .setOrigin(0)
     this.add(this.blockImage)
 

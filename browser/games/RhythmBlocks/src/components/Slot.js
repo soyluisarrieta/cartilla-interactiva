@@ -1,6 +1,8 @@
 import { UI } from '../constants.js'
 
 export default class Slot extends Phaser.GameObjects.Image {
+  static scale = 0.7
+
   constructor (scene) {
     super(scene)
     this.scene = scene
@@ -10,7 +12,7 @@ export default class Slot extends Phaser.GameObjects.Image {
   // Implementación
   draw ({ x, y, size }) {
     this.setTexture(UI.BLOCKS.KEY, UI.BLOCKS.SLOT(size))
-    this.setPosition(x, y).setScale(0.7).setOrigin(0, 1)
+    this.setPosition(x, y).setScale(Slot.scale).setOrigin(0, 1)
     this.reset()
     return this
   }

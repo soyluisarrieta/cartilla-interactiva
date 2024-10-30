@@ -7,6 +7,7 @@ import Health from '../../../core/components/Health.js'
 import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
+import { UI } from '../constants.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -62,9 +63,15 @@ export default class GameScene extends Phaser.Scene {
     }
     const shuffledFigures = Phaser.Utils.Array.Shuffle(groupedMelody)
 
+    // Obtener las dimensiones del bloque
+    const blockDimensions = this.textures
+      .get(UI.BLOCKS.KEY)
+      .get(UI.BLOCKS.BLOCK(metrics.figures))
+
     grid({
       totalItems: metrics.blocks,
-      item: { width: 340, height: 200 },
+      item: blockDimensions,
+      scale: Block.scale,
       maxColumns: 3,
       gap: 40,
       position: [170, 250],
@@ -82,9 +89,15 @@ export default class GameScene extends Phaser.Scene {
     const { height } = this.cameras.main
     const { metrics } = this.level
 
+    // Obtener las dimensiones del slot
+    const slotDimensions = this.textures
+      .get(UI.BLOCKS.KEY)
+      .get(UI.BLOCKS.SLOT(metrics.figures))
+
     grid({
       totalItems: metrics.slots,
-      item: { width: 400, height: 200 },
+      item: slotDimensions,
+      scale: Slot.scale,
       maxColumns: 4,
       gap: 40,
       position: [90, height - 50],
