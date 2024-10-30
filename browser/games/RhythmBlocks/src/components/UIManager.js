@@ -1,5 +1,6 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
+import { UI } from '../constants.js'
 
 export default class UIManager {
   static title = 'GAME SCENE'
@@ -107,9 +108,9 @@ export default class UIManager {
         ))
 
         const composition = []
-        groupedMelody.forEach((figuras) => {
-          composition.push(figuras[0].getData('figure'))
-          composition.push(figuras[1].getData('figure'))
+        groupedMelody.forEach((figuras, blockIndex) => {
+          composition.push({ ...figuras[0].getData('figure'), blockIndex })
+          composition.push({ ...figuras[1].getData('figure'), blockIndex })
         })
 
         const mistakes = this.scene.melody.check(composition)
@@ -161,6 +162,14 @@ export default class UIManager {
             dismissible: false
           })
 
+          // Mostar las notas incorrectas
+          const totalFigures = this.scene.level.metrics.figures
+          const mistateBlocksByFigures = mistakes.map((mistake) => Math.floor(mistake.index / totalFigures))
+          const mistakeBlocks = [...new Set(mistateBlocksByFigures)]
+          mistakeBlocks.forEach((indexBlock) => {
+            this.scene.slots[indexBlock].currentBlock.blockImage
+              .setTexture(UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(`${totalFigures}-bad`))
+          })
           return
         }
 
