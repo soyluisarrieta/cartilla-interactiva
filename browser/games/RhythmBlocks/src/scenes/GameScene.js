@@ -71,7 +71,7 @@ export default class GameScene extends Phaser.Scene {
       element: ({ x, y }, i) => {
         const block = new Block(this)
         block.draw({ x, y, size: metrics.figures })
-        block.setFigures(shuffledFigures[i], metrics.figures)
+        block.setFigures(shuffledFigures[i])
         this.blocks.push(block)
       }
     })

@@ -20,12 +20,12 @@ export default class Melody {
 
     // Seleccionar la primera figura que no sea una "rest"
     const firstFigure = weightedFigures.find((figure) => !figure.name.includes('rest'))
-    melody.push(firstFigure)
+    melody.push({ ...firstFigure, index: 0 })
 
     // Generar el resto de la melodía
     for (let i = 1; i < totalNotes; i++) {
       const randomFigure = weightedFigures[Math.floor(Math.random() * weightedFigures.length)]
-      melody.push(randomFigure)
+      melody.push({ ...randomFigure, index: i })
     }
 
     this.current = melody
