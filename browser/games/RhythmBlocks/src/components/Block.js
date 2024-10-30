@@ -37,13 +37,14 @@ export default class Block extends Phaser.GameObjects.Container {
   // Establecer las posibilidades del nivel
   setFigures (figures) {
     this.figures = []
-    figures.forEach(({ name, duration, beats }) => {
-      const figure = this.scene.add.image(0, 0, 'figures', name)
-        .setData('figure', { name, duration, beats })
+    figures.forEach((figure) => {
+      const figureInstante = this.scene.add
+        .image(0, 0, 'figures', figure.name)
+        .setData('figure', figure)
         .setScale(0.15)
         .setOrigin(0.5)
-      this.figures.push(figure)
-      this.add(figure)
+      this.figures.push(figureInstante)
+      this.add(figureInstante)
     })
 
     this.updateFiguresPosition()
