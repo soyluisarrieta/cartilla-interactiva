@@ -1,7 +1,7 @@
 import { UI } from '../constants.js'
 
 export default class Slot extends Phaser.GameObjects.Image {
-  static scale = 0.7
+  static scale = 0.51
 
   constructor (scene) {
     super(scene)

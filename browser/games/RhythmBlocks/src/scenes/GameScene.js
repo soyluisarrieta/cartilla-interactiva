@@ -38,7 +38,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Implementar bloques
-  async drawBlocks () {
+  drawBlocks () {
     const { figures, metrics } = this.level
     const melody = this.melody.current
     const groupedMelody = this.melody.divide(melody, metrics.figures)
