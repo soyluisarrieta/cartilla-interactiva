@@ -46,20 +46,12 @@ export default class Exercises {
     return this.current
   }
 
-  // Obtener datos de un siguiente ejercicio
-  next (index) {
-    const nextIndex = index ?? this.current.index + 1
-    this.current = this.all[nextIndex]
-    return this.current
-  }
-
   // Completar y avanzar al siguiente ejercicio
   complete () {
     this.current.playing = false
     this.current.setTexture(EXERCISE.COMPLETED)
-    const nextExercise = this.next()
-    nextExercise.playing = true
-    nextExercise.setTexture(EXERCISE.PLAYING)
+    const nextIndex = this.current.index + 1
+    const nextExercise = this.play(nextIndex)
     return nextExercise
   }
 }
