@@ -26,6 +26,13 @@ export const FONTS = {
   SECONDARY: 'primaryFont'
 }
 
+export const EXERCISE = {
+  KEY: 'exercise',
+  PLAYING: 'exercise-playing',
+  PENDING: 'exercise-pending',
+  COMPLETED: 'exercise-completed'
+}
+
 export const SCENES = {
   BOOT: 'BootScene',
   MENU: 'MenuScene',
