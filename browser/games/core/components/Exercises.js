@@ -51,6 +51,13 @@ export default class Exercises {
     this.current.playing = false
     this.current.setTexture(EXERCISE.COMPLETED)
     const nextIndex = this.current.index + 1
+
+    // Sin ejercicios
+    if (!this.all[nextIndex]) {
+      return null
+    }
+
+    // Siguiente ejercicio
     const nextExercise = this.play(nextIndex)
     return nextExercise
   }
