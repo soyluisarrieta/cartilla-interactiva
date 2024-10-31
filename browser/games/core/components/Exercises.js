@@ -1,4 +1,5 @@
 import { EXERCISE } from '../constants.js'
+import UIAnimations from '../UIAnimations.js'
 
 export default class Exercises {
   static gap = 85
@@ -6,6 +7,7 @@ export default class Exercises {
 
   constructor (scene) {
     this.scene = scene
+    this.uiAnimations = new UIAnimations(scene)
   }
 
   // Implementación
@@ -33,6 +35,13 @@ export default class Exercises {
             .setTexture(EXERCISE.KEY, frame)
             .setScale(0.8)
         }
+      })
+
+      const baseDelay = 300
+      this.uiAnimations.slideInFromRight({
+        targets: exerciseElement,
+        duration: 300,
+        delay: baseDelay + index * 120
       })
     }
   }
