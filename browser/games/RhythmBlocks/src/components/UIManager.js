@@ -174,6 +174,37 @@ export default class UIManager {
         }
 
         // Composición correcta
+        const nextExercise = this.scene.exercises.complete()
+
+        // Nivel completado
+        if (!nextExercise) {
+          this.scene.sound.stopAll()
+          this.scene.sound.play('levelComplete')
+          this.scene.alert.showAlert('¡Nivel finalizado!', {
+            type: 'success',
+            image: 'gameLogo',
+            message: 'Puedes seguir practicando este nivel o cambiar a otra dificultad.',
+            dismissible: false,
+            buttons: [
+              {
+                text: 'Volver a jugar',
+                onClick: () => {
+                  this.scene.scene.restart()
+                }
+              },
+              {
+                text: 'Niveles',
+                onClick: () => {
+                  this.scene.scene.start(SCENES.LEVEL_SELECTION)
+                }
+              }
+            ]
+          })
+
+          return
+        }
+
+        // Siguiente ejercicio
         this.scene.alert.showAlert('¡Perfecto!', {
           type: 'success',
           image: 'gameLogo',
@@ -181,7 +212,6 @@ export default class UIManager {
           btnAccept: true
         })
 
-        const nextExercise = this.scene.exercises.complete()
         this.scene.exercises.play(nextExercise.index)
         this.scene.start()
       }

@@ -13,6 +13,7 @@ import Exercises from '../../../core/components/Exercises.js'
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: SCENES.GAME })
+
     this.ui = new UIManager(this)
     this.alert = new Alert(this)
     this.melody = new Melody(this)
@@ -23,8 +24,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Inicialización
-  init () {
-    const selectedLevel = 0
+  init ({ selectedLevel = 0 }) {
     const profile = getProfile()
     this.game = profile.playing
     this.selectedLevel = selectedLevel

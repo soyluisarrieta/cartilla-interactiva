@@ -6,14 +6,15 @@ export default class Exercises {
 
   constructor (scene) {
     this.scene = scene
-    this.all = []
-    this.current = null
   }
 
   // Implementación
   create (totalExercises) {
     const { width } = this.scene.cameras.main
     const [x, y] = Exercises.position
+
+    this.all = []
+    this.current = null
 
     for (let index = 0; index < totalExercises; index++) {
       const positionX = width - x
