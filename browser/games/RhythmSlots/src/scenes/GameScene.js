@@ -3,7 +3,7 @@ import UIManager from '../components/UIManager.js'
 import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
-import Alert from '../components/Alert.js'
+import Alert from '../../../core/components/Alert.js'
 import Socket from '../../../core/Socket.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 
@@ -37,6 +37,7 @@ export default class GameScene extends Phaser.Scene {
     this.attempts = new Attempts(this)
     this.slot = new Slot(this)
     this.melody = new Melody(this)
+    this.alert = new Alert(this)
 
     // Generar la melodía aleatoria aquí
     this.generatedMelody = this.melody.generate()
@@ -48,15 +49,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Método principal
   create () {
-    const btnHome = this.uiManager.drawHomeButton()
-      .setScale(0.9)
-
-    this.animations.fadeIn({
-      targets: btnHome,
-      duration: 300,
-      delay: 300
-    })
-
+    this.uiManager.drawExitButton()
     this.uiManager.drawLevelInfo()
     this.uiManager.drawNoteButtons()
     this.uiManager.drawExercises(7)

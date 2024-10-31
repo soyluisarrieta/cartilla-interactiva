@@ -1,3 +1,5 @@
+import Button from '../../../core/components/Button.js'
+import { BUTTONS, SCENES } from '../../../core/constants.js'
 import { addInteractions } from '../../../core/utils/addInteractions.js'
 
 export default class UIManager {
@@ -50,6 +52,38 @@ export default class UIManager {
       scene,
       position: { x: 120, y: 120 },
       withInteractions: false
+    })
+  }
+
+  // Botón: Salir de la partida
+  drawExitButton () {
+    const button = Button.draw(this.game)({
+      ...BUTTONS.HOME,
+      position: [120, 120],
+      onClick: () => {
+        this.game.melody.btnPlay.setTexture('uiButtons', 'listen-melody')
+        this.game.melody.stopMelody()
+        this.game.alert.showAlert('¿Estás seguro?', {
+          type: 'warning',
+          image: 'gameLogo',
+          message: 'Si sales, tendrás que volver a empezar una nueva partida.',
+          buttons: [
+            {
+              text: 'Salir',
+              onClick: () => {
+                this.game.scene.start(SCENES.MENU)
+              }
+            },
+            { text: 'Cancelar' }
+          ]
+        })
+      }
+    }).setScale(0.9)
+
+    this.game.animations.fadeIn({
+      targets: button,
+      duration: 300,
+      delay: 300
     })
   }
 
