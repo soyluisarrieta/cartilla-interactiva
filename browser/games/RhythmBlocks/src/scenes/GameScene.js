@@ -8,6 +8,7 @@ import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { UI } from '../constants.js'
+import Exercises from '../../../core/components/Exercises.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -16,6 +17,9 @@ export default class GameScene extends Phaser.Scene {
     this.alert = new Alert(this)
     this.melody = new Melody(this)
     this.health = new Health(this)
+    this.exercises = new Exercises(this)
+
+    Exercises.position = [50, 150]
   }
 
   // Inicialización
@@ -33,6 +37,23 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.health.draw(3)
+    this.exercises.create(7)
+    this.start()
+    this.exercises.play(0)
+  }
+
+  // Iniciar ejercicio
+  start () {
+    this.blocks?.forEach(block => block.destroy())
+    this.slots?.forEach(slot => slot.destroy())
+
+    this.blocks = []
+    this.slots = []
+
+    const { figures, metrics } = this.level
+    const numFigures = metrics.figures * metrics.slots
+    this.melody.generate(figures, numFigures)
+
     this.drawBlocks()
     this.drawSlots()
   }

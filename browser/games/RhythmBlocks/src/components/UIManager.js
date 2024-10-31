@@ -55,22 +55,20 @@ export default class UIManager {
 
   // Explicación corta
   explanation (text) {
-    const { width } = this.scene.cameras.main
-    this.scene.add
-      .bitmapText(width - 70, 450, FONTS.SECONDARY, text, 38)
-      .setOrigin(1)
-      .setMaxWidth(500)
+    // const { width, height } = this.scene.cameras.main
+    // this.scene.add
+    //   .bitmapText(width - 70, height - 250, FONTS.SECONDARY, text, 38)
+    //   .setOrigin(1)
+    //   .setMaxWidth(500)
   }
 
   // Botón: Reproducir melodía
   melodyButton () {
     const { tempo } = this.scene.game
-    const { figures, metrics } = this.scene.level
-    const numFigures = metrics.figures * metrics.slots
-    const generatedMelody = this.scene.melody.generate(figures, numFigures)
+    const { width, height } = this.scene.cameras.main
 
-    const x = this.scene.cameras.main.width - 410
-    const y = 600
+    const x = width - 360
+    const y = height - 170
 
     const label = this.scene.add
       .bitmapText(x, y + 110, FONTS.PRIMARY, 'Melodía', 32)
@@ -85,7 +83,8 @@ export default class UIManager {
         if (!this.scene.melody.isPlaying) {
           label.setText('Parar')
           button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
-          await this.scene.melody.play(generatedMelody, tempo)
+          const melody = this.scene.melody.current
+          await this.scene.melody.play(melody, tempo)
         }
         this.scene.melody.stop()
         label.setText('Melodía')
@@ -96,8 +95,9 @@ export default class UIManager {
 
   // Botón: Confirmar melodía
   confirmButton () {
-    const x = this.scene.cameras.main.width - 210
-    const y = 600
+    const { width, height } = this.scene.cameras.main
+    const x = width - 150
+    const y = height - 170
 
     const button = Button.draw(this.scene)({
       ...BUTTONS.PLAY,
@@ -180,6 +180,10 @@ export default class UIManager {
           message: 'Has avanzado al siguiente ejercicio.',
           btnAccept: true
         })
+
+        const nextExercise = this.scene.exercises.complete()
+        this.scene.exercises.play(nextExercise.index)
+        this.scene.start()
       }
     })
 
