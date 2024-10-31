@@ -25,6 +25,7 @@ export default class Alert {
     const alertContainer = this.scene.add
       .container(this.scene.scale.width / 2, this.scene.scale.height / 2)
       .setSize(width, height)
+      .setDepth(1000)
 
     // Crear un fondo de interacción (zone)
     const overlayZone = this.scene.add
