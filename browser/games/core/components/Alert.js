@@ -1,5 +1,5 @@
-import UIAnimations from './UIAnimations.js'
-import { FONTS } from './constants.js'
+import UIAnimations from '../UIAnimations.js'
+import { FONTS } from '../constants.js'
 
 export default class Alert {
   constructor (scene) {
