@@ -3,6 +3,7 @@ export default class Melody {
     this.scene = scene
     this.current = null
     this.isPlaying = false
+    this.timerTicInterval = null
   }
 
   // Generar una melodía aleatoria
@@ -32,6 +33,21 @@ export default class Melody {
     return melody
   }
 
+  // Iniciar temporizador
+  startTimerTic (tempo) {
+    this.scene.sound.play('timerTic')
+    this.timerTicInterval = setInterval(() => {
+      if (this.isPlaying) {
+        this.scene.sound.play('timerTic')
+      }
+    }, tempo)
+  }
+
+  // Detener temporizador
+  stopTimerTic () {
+    clearInterval(this.timerTicInterval)
+  }
+
   // Reproduce cada nota individualmente y devuelve una promesa
   playNote (figure, tempo, timeElapsed) {
     return new Promise(resolve => {
@@ -39,7 +55,6 @@ export default class Melody {
       const beatInterval = duration * tempo / beats
       const isRestNote = name.includes('rest')
 
-      this.scene.sound.play('timerTic')
       for (let i = 0; i < beats; i++) {
         setTimeout(() => {
           if (!this.isPlaying) {
@@ -60,6 +75,7 @@ export default class Melody {
   async play (figures, tempo) {
     this.isPlaying = true
     let timeElapsed = 0
+    this.startTimerTic(tempo)
 
     // Reproduce cada figura secuencialmente
     for (const figure of figures) {
@@ -77,6 +93,7 @@ export default class Melody {
   // Detener reproducción
   stop () {
     this.isPlaying = false
+    this.stopTimerTic()
   }
 
   // Comprobar si la melodía es correcta
