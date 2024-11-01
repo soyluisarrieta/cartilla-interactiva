@@ -20,6 +20,10 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
       assets: {
+        images: [
+          { key: 'metric2/4', path: '/metrics/metric-2x4.png' },
+          { key: 'metric3/4', path: '/metrics/metric-3x4.png' }
+        ],
         atlas: [
           { key: 'blocks', dir: '/ui', fileName: 'blocks' }
         ]
@@ -35,6 +39,6 @@ export default class BootScene extends Phaser.Scene {
 
   create () {
     const opening = new Opening(this)
-    opening.start({ scene: SCENES.GAME })
+    opening.start({ scene: SCENES.MENU })
   }
 }
