@@ -108,9 +108,10 @@ export default class UIManager {
         ))
 
         const composition = []
-        groupedMelody.forEach((figuras, blockIndex) => {
-          composition.push({ ...figuras[0].getData('figure'), blockIndex })
-          composition.push({ ...figuras[1].getData('figure'), blockIndex })
+        groupedMelody.forEach((figures, blockIndex) => {
+          figures.forEach((figure) => {
+            composition.push({ ...figure.getData('figure'), blockIndex })
+          })
         })
 
         const mistakes = this.scene.melody.check(composition)
