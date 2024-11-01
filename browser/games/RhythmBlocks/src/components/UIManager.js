@@ -64,7 +64,7 @@ export default class UIManager {
 
   // Botón: Reproducir melodía
   melodyButton () {
-    const { tempo } = this.scene.game
+    const { tempo } = window.gameSettings
     const { width, height } = this.scene.cameras.main
 
     const x = width - 360
@@ -143,7 +143,7 @@ export default class UIManager {
             {
               text: 'Volver a jugar',
               onClick: () => {
-                this.scene.scene.start(SCENES.GAME, this.scene.selectedLevel)
+                this.scene.scene.start(SCENES.GAME, this.scene.level)
               }
             },
             {

@@ -4,7 +4,6 @@ import Slot from '../components/Slot.js'
 import UIManager from '../components/UIManager.js'
 import Alert from '../../../core/components/Alert.js'
 import Health from '../../../core/components/Health.js'
-import { getProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { UI } from '../constants.js'
@@ -24,11 +23,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Inicialización
-  init ({ selectedLevel = 0 }) {
-    const profile = getProfile()
-    this.game = profile.playing
-    this.selectedLevel = selectedLevel
-    this.level = profile.playing.levels[selectedLevel]
+  init (level) {
+    this.level = level
     this.slots = []
     this.blocks = []
   }
