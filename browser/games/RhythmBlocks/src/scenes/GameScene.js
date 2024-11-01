@@ -1,5 +1,5 @@
 import Block from '../components/Block.js'
-import Melody from '../components/Melody.js'
+import Melody from '../../../core/Melody.js'
 import Slot from '../components/Slot.js'
 import UIManager from '../components/UIManager.js'
 import Alert from '../../../core/components/Alert.js'
