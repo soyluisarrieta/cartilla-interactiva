@@ -6,5 +6,5 @@ export const STEPS = [
   'Escucha la melodía tantas veces como necesites. Cuando estés listo, haz clic en el botón para confirmar tu composición.',
   'Si tu melodía es correcta, pasarás al siguiente ejercicio. Si no, perderás una vida. ¡No te preocupes, tienes 3 vidas en total!',
   'Es necesario corregir las notas incorrectas para poder avanzar al siguiente ejercicio.',
-  'Completa los 7 ejercicios y sus melodías para superar cada nivel. ¡Buena suerte y diviértete aprendiendo!'
+  'Completa todos los ejercicios y sus melodías para superar cada nivel. ¡Buena suerte y diviértete aprendiendo!'
 ]
