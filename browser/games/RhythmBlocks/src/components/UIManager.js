@@ -139,7 +139,7 @@ export default class UIManager {
             {
               text: 'Niveles',
               onClick: () => {
-                // this.scene.scene.start(SCENES.LEVEL_SELECTION)
+                this.scene.scene.start(SCENES.LEVEL_SELECTION)
               }
             }
           ]
