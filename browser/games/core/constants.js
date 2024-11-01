@@ -38,5 +38,6 @@ export const SCENES = {
   MENU: 'MenuScene',
   GAME: 'GameScene',
   LEVEL_SELECTION: 'LevelSelectionScene',
-  HOW_TO_PLAY: 'HowToPlayScene'
+  HOW_TO_PLAY: 'HowToPlayScene',
+  INSTRUCTIONS: 'InstructionsScene'
 }
