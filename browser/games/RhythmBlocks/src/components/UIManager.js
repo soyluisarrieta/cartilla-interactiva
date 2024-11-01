@@ -14,7 +14,6 @@ export default class UIManager {
   init () {
     this.homeButton()
     this.setTitle(UIManager.title)
-    this.explanation(UIManager.explanation)
     this.melodyButton()
     this.confirmButton()
   }
@@ -51,15 +50,6 @@ export default class UIManager {
     return this.scene.add
       .bitmapText(width / 2, 100, FONTS.PRIMARY, text)
       .setOrigin(0.5, 0)
-  }
-
-  // Explicación corta
-  explanation (text) {
-    // const { width, height } = this.scene.cameras.main
-    // this.scene.add
-    //   .bitmapText(width - 70, height - 250, FONTS.SECONDARY, text, 38)
-    //   .setOrigin(1)
-    //   .setMaxWidth(500)
   }
 
   // Botón: Reproducir melodía
