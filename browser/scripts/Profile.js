@@ -201,10 +201,12 @@ export function setProfile (updates) {
 export function InitProfile (gameSettings) {
   const { id: gameId } = gameSettings
   const profile = getProfile()
-  profile.playing = gameSettings
+  profile.playing = gameSettings.id
 
   if (!profile.games[gameId]) {
-    profile.games[gameId] = gameSettings
+    profile.games[gameId] = {
+      levels: gameSettings.levels.map(({ name }, i) => ({ name }))
+    }
   }
 
   setProfile(profile)

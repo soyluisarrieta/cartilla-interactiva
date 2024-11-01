@@ -24,6 +24,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
+    this.game = window.gameSettings
     this.level = level
     this.slots = []
     this.blocks = []

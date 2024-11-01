@@ -1,3 +1,4 @@
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { UI } from '../constants.js'
@@ -92,7 +93,7 @@ export default class UIManager {
     const button = Button.draw(this.scene)({
       ...BUTTONS.PLAY,
       position: [x, y],
-      onClick: () => {
+      onClick: ({ button }) => {
         const groupedMelody = this.scene.slots.map(slot => (
           slot.currentBlock.figures
         ))
@@ -171,6 +172,7 @@ export default class UIManager {
         if (!nextExercise) {
           this.scene.sound.stopAll()
           this.scene.sound.play('levelComplete')
+
           this.scene.alert.showAlert('¡Nivel finalizado!', {
             type: 'success',
             image: 'gameLogo',
@@ -192,7 +194,23 @@ export default class UIManager {
             ]
           })
 
-          return
+          // Guardar progreso
+          const payload = {
+            level: {
+              name: this.scene.level.name
+            },
+            exercises: this.scene.exercises.all.map(({ melody }) => ({ melody }))
+          }
+
+          // this.scene.socket.levelCompleted(payload)
+
+          const currentLevel = this.scene.level
+          const profile = getProfile()
+          const profileLevel = profile.games[profile.playing].levels[currentLevel.index]
+          profileLevel.completed = true
+          setProfile(profile)
+
+          return null
         }
 
         // Siguiente ejercicio
@@ -205,6 +223,7 @@ export default class UIManager {
 
         this.scene.exercises.play(nextExercise.index)
         this.scene.start()
+        button.setDisabled(true)
       }
     })
 
