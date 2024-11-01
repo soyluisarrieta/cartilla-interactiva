@@ -4,10 +4,11 @@ import Slot from '../components/Slot.js'
 import UIManager from '../components/UIManager.js'
 import Alert from '../../../core/components/Alert.js'
 import Health from '../../../core/components/Health.js'
+import Exercises from '../../../core/components/Exercises.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { UI } from '../constants.js'
-import Exercises from '../../../core/components/Exercises.js'
+import Socket from '../../../core/Socket.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -18,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
     this.melody = new Melody(this)
     this.health = new Health(this)
     this.exercises = new Exercises(this)
+    this.socket = new Socket(this)
 
     Exercises.position = [50, 150]
   }

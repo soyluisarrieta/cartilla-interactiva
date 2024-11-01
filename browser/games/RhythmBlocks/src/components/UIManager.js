@@ -198,16 +198,13 @@ export default class UIManager {
 
           // Guardar progreso
           const exercises = this.scene.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
-          const payload = {
+          this.scene.socket.levelCompleted({
             level: {
               name: this.scene.level.name,
               totalTimer: calculateElapsedTime(this.scene.levelStartTimer)
             },
             exercises
-          }
-
-          // this.scene.socket.levelCompleted(payload)
-          console.log('socket:', payload, this.scene.exercise)
+          })
 
           const currentLevel = this.scene.level
           const profile = getProfile()

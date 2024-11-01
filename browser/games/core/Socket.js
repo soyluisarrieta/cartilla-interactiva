@@ -3,13 +3,12 @@ import { getSessionId } from './utils/generateId.js'
 import { getProfile } from '../../scripts/Profile.js'
 
 export default class Socket {
-  constructor (gameScene) {
-    this.game = gameScene
-
+  constructor () {
     // Verificar si ya existe una conexión compartida
     if (window.sharedSocket) {
       this.socket = window.sharedSocket
     } else {
+      const game = window.gameSettings
       const sessionId = getSessionId()
       const profile = getProfile()
       const payload = {
@@ -20,7 +19,7 @@ export default class Socket {
             username: profile.username,
             avatar: profile.avatar
           }),
-          game: JSON.stringify(profile.playing ?? {})
+          game: JSON.stringify(game)
         }
       }
 
