@@ -1,5 +1,6 @@
 import { EXERCISE } from '../constants.js'
 import UIAnimations from '../UIAnimations.js'
+import { calculateElapsedTime } from '../utils/calculateElapsedTime.js'
 
 export default class Exercises {
   static gap = 85
@@ -8,6 +9,14 @@ export default class Exercises {
   constructor (scene) {
     this.scene = scene
     this.uiAnimations = new UIAnimations(scene)
+    this.init()
+  }
+
+  // Inicial
+  init () {
+    this.timer = Date.now()
+    this.current = null
+    this.all = []
   }
 
   // Implementación
@@ -15,8 +24,7 @@ export default class Exercises {
     const { width } = this.scene.cameras.main
     const [x, y] = Exercises.position
 
-    this.all = []
-    this.current = null
+    this.init()
 
     for (let index = 0; index < totalExercises; index++) {
       const positionX = width - x
@@ -60,6 +68,8 @@ export default class Exercises {
   complete () {
     this.current.playing = false
     this.current.setTexture(EXERCISE.COMPLETED)
+    this.current.timer = calculateElapsedTime(this.timer)
+
     const nextIndex = this.current.index + 1
 
     // Sin ejercicios
@@ -69,6 +79,7 @@ export default class Exercises {
 
     // Siguiente ejercicio
     const nextExercise = this.play(nextIndex)
+    this.timer = Date.now()
     return nextExercise
   }
 }

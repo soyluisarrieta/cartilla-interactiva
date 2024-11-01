@@ -1,6 +1,7 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
+import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 import { UI } from '../constants.js'
 
 export default class UIManager {
@@ -105,9 +106,9 @@ export default class UIManager {
           })
         })
 
+        // Verificar si la composición es incorrecta
         const mistakes = this.scene.melody.check(composition)
 
-        // Composición incorrecta
         if (mistakes) {
           const totalHealth = this.scene.health.miss()
           const isGameOver = totalHealth === 0
@@ -162,7 +163,8 @@ export default class UIManager {
             this.scene.slots[indexBlock].currentBlock.blockImage
               .setTexture(UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(`${totalFigures}-bad`))
           })
-          return
+
+          return null
         }
 
         // Composición correcta
@@ -195,14 +197,17 @@ export default class UIManager {
           })
 
           // Guardar progreso
+          const exercises = this.scene.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
           const payload = {
             level: {
-              name: this.scene.level.name
+              name: this.scene.level.name,
+              totalTimer: calculateElapsedTime(this.scene.levelStartTimer)
             },
-            exercises: this.scene.exercises.all.map(({ melody }) => ({ melody }))
+            exercises
           }
 
           // this.scene.socket.levelCompleted(payload)
+          console.log('socket:', payload, this.scene.exercise)
 
           const currentLevel = this.scene.level
           const profile = getProfile()
@@ -221,6 +226,7 @@ export default class UIManager {
           btnAccept: true
         })
 
+        // Ejecutar siguiente ejercicio
         this.scene.exercises.play(nextExercise.index)
         this.scene.start()
         button.setDisabled(true)

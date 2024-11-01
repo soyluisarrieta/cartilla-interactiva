@@ -37,6 +37,9 @@ export default class GameScene extends Phaser.Scene {
     this.exercises.create(7)
     this.start()
     this.exercises.play(0)
+
+    // Iniciar cronometro
+    this.levelStartTimer = Date.now()
   }
 
   // Iniciar ejercicio
@@ -49,10 +52,20 @@ export default class GameScene extends Phaser.Scene {
 
     const { figures, metrics } = this.level
     const numFigures = metrics.figures * metrics.slots
-    this.melody.generate(figures, numFigures)
+    const generatedMelody = this.melody.generate(figures, numFigures)
 
     this.drawBlocks()
     this.drawSlots()
+
+    // Iniciar primer ejercicio
+    if (!this.exercises.current) {
+      this.exercises.play(0)
+    }
+
+    // Almacenar melodía y duración en el ejercicio actual
+    const indexExercise = this.exercises.current.index
+    const currentExercise = this.exercises.all[indexExercise]
+    currentExercise.melody = generatedMelody
   }
 
   // Implementar bloques
