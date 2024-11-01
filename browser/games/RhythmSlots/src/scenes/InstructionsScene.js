@@ -15,7 +15,7 @@ export default class InstructionsScene extends Phaser.Scene {
 
     const profile = getProfile()
     const { selectedLevel } = profile
-    const { levels } = profile.games[window.gameSettings.id]
+    const { levels } = window.gameSettings
 
     const prevLevel = this.getPreviousLevel(selectedLevel, levels)
     const currentLevel = levels[selectedLevel - 1]

@@ -1,4 +1,3 @@
-import { getProfile } from '../../../../scripts/Profile.js'
 import UIManager from '../components/UIManager.js'
 import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
@@ -25,8 +24,7 @@ export default class GameScene extends Phaser.Scene {
     this.screen = this.cameras.main
     this.exercises = []
 
-    const profile = getProfile()
-    this.settings = profile.games[window.gameSettings.id]
+    this.settings = window.gameSettings
 
     this.config = {
       slots: [],
