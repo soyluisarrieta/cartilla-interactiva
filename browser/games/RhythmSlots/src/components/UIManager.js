@@ -1,12 +1,22 @@
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, SCENES } from '../../../core/constants.js'
+import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { addInteractions } from '../../../core/utils/addInteractions.js'
+import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 
 export default class UIManager {
   constructor (scene) {
     this.scene = scene
-    this.btnFinish = {}
+    this.confirmButton = {}
     this.currentExercise = null
+  }
+
+  init () {
+    this.melodyButton()
+    this.drawExitButton()
+    this.drawLevelInfo()
+    this.drawNoteButtons()
+    this.drawConfirmButton()
   }
 
   // Dibujar botón
@@ -109,7 +119,7 @@ export default class UIManager {
 
       position.x += layout.gap + 100
 
-      btnNote.on('pointerdown', () => this.scene.slot.handleNoteSelection(btnNote, figure.name, index))
+      btnNote.on('pointerdown', () => this.scene.slot.handleNoteSelection(btnNote, figure, index))
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
 
@@ -123,126 +133,154 @@ export default class UIManager {
     })
   }
 
-  // Mostrar los ejercicios
-  drawExercises (numExercises) {
-    for (let i = 0; i <= numExercises - 1; i++) {
-      const layout = { marginTop: 200, gap: 95 }
-      const positionX = this.scene.screen.width - 50
-      const positionY = layout.marginTop + (layout.gap * (i + 1))
-      const exerciseTextures = this.scene.melody.textureStates
-      const exerciseElement = this.scene.add.image(positionX, positionY, 'exercise', exerciseTextures.pending)
-        .setScale(0.7)
-        .setOrigin(1, 0.5)
-        .setInteractive()
+  // Botón: Reproducir melodía
+  melodyButton () {
+    const { tempo } = window.gameSettings
+    const { width, height } = this.scene.cameras.main
 
-      const generatedMelody = this.scene.melody.generate()
+    const x = width / 2.5
+    const y = height - 170
 
-      this.scene.exercises.push({
-        element: exerciseElement,
-        state: null,
-        melody: generatedMelody,
-        setState: (state) => {
-          this.scene.exercises[i].state = state
-          exerciseElement
-            .setTexture('exercise', exerciseTextures[state])
-            .setScale(0.8)
+    const label = this.scene.add
+      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Melodía', 32)
+      .setOrigin(0.5)
+
+    const button = Button.draw(this.scene)({
+      ...BUTTONS.LIST_MELODY,
+      position: [x, y],
+      withSound: false,
+      withInteractions: false,
+      onClick: async ({ button }) => {
+        if (!this.scene.melody.playing) {
+          label.setText('Parar')
+          button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+          const melody = this.scene.melody.current
+          const onSound = this.onInterval.bind(this)
+          await this.scene.melody.play(melody, tempo, onSound)
         }
-      })
 
-      const baseDelay = 300
-      this.scene.animations.slideInFromRight({
-        targets: exerciseElement,
-        duration: 300,
-        delay: baseDelay + i * 120
-      })
-    }
+        this.scene.slot.resetIntervals()
+        this.scene.melody.stop()
+        label.setText('Melodía')
+        button.setTexture(BUTTONS.LIST_MELODY.key, BUTTONS.LIST_MELODY.frame)
+      }
+    })
 
-    // Activar el primer ejercicio
-    this.scene.currentExercise = this.scene.exercises[0]
-    this.scene.currentExercise.setState('playing')
+    const baseDelay = 400
+    this.scene.animations.slideInFromBottom({
+      targets: button,
+      duration: 700,
+      delay: baseDelay + 100
+    })
+    this.scene.animations.fadeIn({
+      targets: label,
+      duration: 350,
+      delay: baseDelay + 700
+    })
   }
 
   // Mostrar los botones de acción
-  drawActionButtons () {
-    // Botón para repetir la melodía generada
-    const btnPlayMelody = this.scene.melody.btnPlay = this.scene.add
-      .image(this.scene.screen.width / 2.35, this.scene.screen.height - 140, 'uiButtons', 'listen-melody')
-      .setScale(0.8)
+  drawConfirmButton () {
+    const { width, height } = this.scene.cameras.main
+
+    const x = width / 1.8
+    const y = height - 170
+
+    const label = this.scene.add
+      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
       .setOrigin(0.5)
-      .setInteractive()
 
-    const btnPlayMelodyLabel = this.scene.add.bitmapText(
-      this.scene.screen.width / 2.35,
-      this.scene.screen.height - 70,
-      'primaryFont',
-      'Melodía',
-      24
-    )
+    const button = Button.draw(this.scene)({
+      ...BUTTONS.LIST_MELODY,
+      position: [x, y],
+      disabled: true,
+      withSound: false,
+      withInteractions: false,
+      onClick: async ({ button }) => {
+        this.disableFinishButton(true)
 
-    btnPlayMelodyLabel.setOrigin(0.5, 0)
+        // Verificar si la composición es incorrecta
+        const composition = this.scene.slots.map(({ figure }) => figure)
+        const mistakes = this.scene.melody.check(composition)
 
-    // Toggle button
-    btnPlayMelody.on('pointerdown', () => {
-      btnPlayMelody.setScale(0.66)
-      if (this.scene.melody.state.isPlaying) {
-        this.scene.melody.stopMelody()
-        btnPlayMelody.setTexture('uiButtons', 'listen-melody')
-      } else {
-        this.scene.melody.playMelody(this.scene.currentExercise.melody)
-        btnPlayMelody.setTexture('uiButtons', 'repeat')
+        if (mistakes) {
+          const totalHealth = this.scene.health.miss()
+          const isGameOver = totalHealth === 0
+          const isPlural = mistakes.length > 1 ? 's' : ''
+          const alert = {
+            title: '¡Composición incorrecta!',
+            type: 'error',
+            image: 'gameLogo',
+            message: `Debes corregir la${isPlural} nota${isPlural}. ¡Te quedan ${totalHealth} vidas!`
+          }
+
+          if (isGameOver) {
+            alert.title = '¡Fin del juego'
+            alert.type = 'default'
+            alert.image = 'gameLogo'
+            alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+
+            this.scene.melody.stop()
+            this.scene.sound.stopAll()
+            this.scene.sound.play('gameOver')
+          }
+
+          const buttons = [
+            {
+              text: 'Volver a jugar',
+              onClick: () => {
+                this.scene.scene.start(SCENES.GAME, this.scene.level)
+              }
+            },
+            {
+              text: 'Niveles',
+              onClick: () => {
+                this.scene.scene.start(SCENES.LEVEL_SELECTION)
+              }
+            }
+          ]
+
+          this.scene.alert.showAlert(alert.title, {
+            type: alert.type,
+            image: alert.image,
+            message: alert.message,
+            btnAccept: !isGameOver,
+            buttons: isGameOver ? buttons : [],
+            dismissible: false
+          })
+
+          // Mostrar las notas incorrectas
+          mistakes.forEach(({ index }) => {
+            const notesFailed = this.scene.slots[index]
+            notesFailed.element.setTexture('slot')
+            notesFailed.isFixed = false
+          })
+
+          // Seleccionar nota incorrecta
+          const firstNoteFailed = this.scene.slots[mistakes[0].index]
+          this.scene.slot.selectSlot(firstNoteFailed)
+
+          return null
+        }
+
+        // Melodía correcta
+        this.scene.sound.play('perfectMelody')
+        this.advanceToNextExercise()
       }
     })
-    btnPlayMelody.on('pointerup', () => btnPlayMelody.setScale(0.8))
-    btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.8))
 
-    // Botón para verificar la melodía compuesta
-    const btnFinish = this.scene.add
-      .image(this.scene.screen.width / 1.99, this.scene.screen.height - 140, 'uiButtons', 'play')
-      .setScale(0.8)
-      .setOrigin(0.5)
-      .setInteractive()
-
-    const btnFinishLabel = this.scene.add.bitmapText(
-      this.scene.screen.width / 1.99,
-      this.scene.screen.height - 70,
-      'primaryFont',
-      'Confirmar',
-      24
-    )
-
-    btnFinishLabel.setOrigin(0.5, 0)
-
-    btnFinish.on('pointerdown', () => {
-      if (!this.scene.filledSlots) { return null }
-      this.scene.melody.checkMelody() // Llamada para comprobar la melodía
-    })
-
-    this.btnFinish = {
-      button: btnFinish,
-      label: btnFinishLabel
-    }
+    this.confirmButton = { button, label }
 
     // Animations
     const baseDelay = 400
     this.scene.animations.slideInFromBottom({
-      targets: btnPlayMelody,
-      duration: 700,
-      delay: baseDelay + 100
-    })
-    this.scene.animations.slideInFromBottom({
-      targets: btnFinish,
+      targets: button,
       duration: 700,
       delay: baseDelay + 100,
       endAlpha: 0.4
     })
-
     this.scene.animations.fadeIn({
-      targets: btnPlayMelodyLabel,
-      duration: 350,
-      delay: baseDelay + 700
-    })
-    this.scene.animations.fadeIn({
-      targets: btnFinishLabel,
+      targets: label,
       duration: 350,
       delay: baseDelay + 700,
       endAlpha: 0.4
@@ -250,8 +288,92 @@ export default class UIManager {
   }
 
   disableFinishButton (state = true) {
-    this.btnFinish.button.alpha = state ? 0.4 : 1
-    this.btnFinish.label.alpha = state ? 0.4 : 1
-    this.scene.filledSlots = !state
+    this.confirmButton.label.alpha = state ? 0.4 : 1
+    this.confirmButton.button.setDisabled(state)
+    this.scene.slot.filledSlots = !state
+  }
+
+  onInterval ({ index }) {
+    const { slot } = this.scene
+
+    // Reiniciar anterior intervalo
+    if (index !== 0) {
+      const prevInterval = slot.intervalIndicators[index - 1]
+      slot.changeIntervalStatus(prevInterval, slot.invervalTextures.normal)
+        .setScale(0.4)
+    }
+
+    // Activar intervalo que está sonando
+    const intervalActived = slot.intervalIndicators[index]
+    slot.changeIntervalStatus(intervalActived, slot.invervalTextures.actived)
+      .setScale(0.5)
+  }
+
+  // Avanzar al siguiente ejercicio
+  advanceToNextExercise () {
+    const nextExercise = this.scene.exercises.complete()
+
+    // Nivel completado
+    if (!nextExercise) {
+      this.scene.sound.stopAll()
+      this.scene.sound.play('levelComplete')
+
+      this.scene.alert.showAlert('¡Nivel finalizado!', {
+        type: 'success',
+        image: 'gameLogo',
+        message: 'Puedes seguir practicando este nivel o cambiar a otra dificultad.',
+        dismissible: false,
+        buttons: [
+          {
+            text: 'Volver a jugar',
+            onClick: () => {
+              this.scene.scene.restart()
+            }
+          },
+          {
+            text: 'Niveles',
+            onClick: () => {
+              this.scene.scene.start(SCENES.LEVEL_SELECTION)
+            }
+          }
+        ]
+      })
+
+      // Guardar progreso
+      const exercises = this.scene.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
+      this.scene.socket.levelCompleted({
+        level: {
+          name: this.scene.level.name,
+          totalTimer: calculateElapsedTime(this.scene.levelStartTimer)
+        },
+        exercises
+      })
+
+      const currentLevel = this.scene.level
+      const profile = getProfile()
+      const profileLevel = profile.games[profile.playing].levels[currentLevel.index]
+      profileLevel.completed = true
+      setProfile(profile)
+
+      return null
+    }
+
+    // Siguiente ejercicio
+    this.scene.alert.showAlert('¡Perfecto!', {
+      type: 'success',
+      image: 'gameLogo',
+      message: 'Has avanzado al siguiente ejercicio.',
+      btnAccept: true
+    })
+
+    // Ejecutar siguiente ejercicio
+    this.scene.exercises.play(nextExercise.index)
+    this.disableFinishButton(true)
+    this.scene.slots.forEach(slot => {
+      slot.figure = null
+      slot.note = null
+      slot.element.setTexture('slot')
+    })
+    this.scene.slot.selectSlot(this.scene.slots[0])
   }
 }

@@ -13,7 +13,7 @@ export default class Slot {
   drawSlots () {
     const {
       add: scene,
-      config,
+      slots,
       screen
     } = this.scene
     const { maxSlots } = this.scene.level
@@ -39,7 +39,7 @@ export default class Slot {
       const isOnTheBeat = (i + 1) % 4
       position.x += layout.gap + (isOnTheBeat ? 100 : 150)
 
-      const slotIndex = config.slots.push({
+      const slotIndex = slots.push({
         element: slot,
         note: null,
         isSelected: false,
@@ -47,7 +47,7 @@ export default class Slot {
       }) - 1
 
       slot.on('pointerdown', () => {
-        const selectedSlot = config.slots[slotIndex]
+        const selectedSlot = slots[slotIndex]
         if (selectedSlot.isSelected) return
         this.selectSlot(selectedSlot)
       })
@@ -76,7 +76,7 @@ export default class Slot {
 
   // Seleccionar un slot especifico
   selectSlot (slotToSelect) {
-    this.scene.config.slots.forEach(slot => {
+    this.scene.slots.forEach(slot => {
       slot.element.setScale(0.66)
       slot.isSelected = false
     })
@@ -86,31 +86,32 @@ export default class Slot {
   }
 
   // Manejador para la selección de casillas
-  handleNoteSelection (btnNote, noteType) {
-    const { config } = this.scene
+  handleNoteSelection (btnNote, figure) {
+    const slots = this.scene.slots
     btnNote.setScale(0.51)
 
-    const indexSelectedSlot = config.slots.findIndex(slot => slot.isSelected)
-    const selectedSlot = config.slots[indexSelectedSlot]
-    if (!selectedSlot || selectedSlot.note === noteType) return
+    const indexSelectedSlot = slots.findIndex(slot => slot.isSelected)
+    const selectedSlot = slots[indexSelectedSlot]
+    if (!selectedSlot || selectedSlot.note === figure.name) return
 
     // Reiniciar textura del intervalo
     const interval = this.intervalIndicators[indexSelectedSlot]
     this.changeIntervalStatus(interval, this.invervalTextures.normal)
 
-    selectedSlot.note = noteType
-    selectedSlot.element.setTexture(noteType)
+    selectedSlot.figure = figure
+    selectedSlot.note = figure.name
+    selectedSlot.element.setTexture(figure.name)
     selectedSlot.isFixed = true
 
-    const nextEmptySlot = config.slots.find(slot => slot.note === null || !slot.isFixed)
+    const nextEmptySlot = slots.find(slot => slot.note === null || !slot.isFixed)
     this.selectSlot(nextEmptySlot || selectedSlot)
 
     // Mostrar botón de confirmar
     if (!this.filledSlots) {
-      const isComplete = config.slots.every(slot => slot.note !== null && slot.isFixed === true)
+      const isComplete = slots.every(slot => slot.note !== null && slot.isFixed === true)
       if (isComplete) {
         this.filledSlots = true
-        this.scene.uiManager.disableFinishButton(false)
+        this.scene.ui.disableFinishButton(false)
       }
     }
   }
