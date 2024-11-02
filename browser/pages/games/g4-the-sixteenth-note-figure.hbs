@@ -6,16 +6,39 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import StartGame from '/games/RhythmSlots/index.js'
 
   const { 
-    // 🚩
+    crotchet,
+    crotchetRest,
+    minim,
+    minimRest,
+    quaverDuo,
+    semiquaverQuad     
   } = FIGURES
 
   window.gameSettings = {
     id: 'g4-the-sixteenth-note-figure',
-    game: '🚩',
+    game: 'RhythmSlots',
     module: 1,
+    tempo: 700,
+    levels: [
+      { 
+        title: 'Las figuras semicorchea',
+        description: 'La duración de estas notas es de un tiempo completo. La corchea doble suena dos veces y la semicorchea cuatro veces.',
+        name: 'easy',
+        compass: 2,
+        maxSlots: 8,
+        figures: [crotchet, crotchetRest, quaverDuo, semiquaverQuad]
+      },{ 
+        title: 'Las figuras semicorchea',
+        description: 'La duración de estas notas es de dos tiempos completos, a excepción de la corchea doble dura un tiempo pero suena dos veces y la semicorchea también dura un tiempo pero suena cuatro veces.',
+        name: 'hard',
+        compass: 4,
+        maxSlots: 8,
+        figures: [crotchet, crotchetRest, minim, minimRest, quaverDuo, semiquaverQuad]
+      }
+    ],
   }
 
   StartGame()
