@@ -152,7 +152,7 @@ export default class UIManager {
       withInteractions: false,
       onClick: async ({ button }) => {
         if (!this.scene.melody.playing) {
-          label.setText('Parar')
+          label.setText('Detener')
           button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
           const melody = this.scene.melody.current
           const onSound = this.onInterval.bind(this)
