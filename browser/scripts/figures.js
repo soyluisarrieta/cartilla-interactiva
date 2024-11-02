@@ -22,15 +22,21 @@ export default {
   },
   quaverDuo: {
     name: 'quaver-duo',
-    duration: 1,
     title: 'Corchea Doble',
+    duration: 1,
     beats: 2
   },
   quaverTriplet: {
     name: 'quaver-triplet',
-    duration: 1,
     title: 'Tresillos de Corcheas',
+    duration: 1,
     beats: 3
+  },
+  quaverQuad: {
+    name: 'quaver-quad',
+    title: 'Cuatro Corcheas',
+    duration: 2,
+    beats: 4
   },
   semiquaver: {
     name: 'semiquaver',
@@ -39,8 +45,8 @@ export default {
   },
   semiquaverQuad: {
     name: 'semiquaver-quad',
-    duration: 1,
     title: 'Cuatro Semicorcheas',
+    duration: 1,
     beats: 4
   },
 
