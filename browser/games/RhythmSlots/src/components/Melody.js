@@ -148,17 +148,16 @@ export default class Melody {
     // Melodía incorrecta
     if (mistakes.length > 0) {
       this.game.sound.play('incorrectMelody')
-      this.game.attempts.update(-1)
+      const updatepHealth = this.game.health.miss()
       this.game.uiManager.disableFinishButton(true)
 
-      const countAttempts = this.game.attempts.total
-      const isGameOver = countAttempts === 0
+      const isGameOver = updatepHealth === 0
       const isPlural = mistakes.length > 1 ? 's' : ''
       const alert = {
         title: '¡Nota incorrecta!',
         type: 'error',
         image: 'gameLogo',
-        message: `Debes corregirla${isPlural}. ¡Te quedan ${countAttempts} vidas!`
+        message: `Debes corregirla${isPlural}. ¡Te quedan ${updatepHealth} vidas!`
       }
 
       if (isGameOver) {

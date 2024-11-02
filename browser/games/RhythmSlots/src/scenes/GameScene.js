@@ -1,10 +1,10 @@
 import UIManager from '../components/UIManager.js'
-import Attempts from '../components/Attempts.js'
 import Slot from '../components/Slot.js'
 import Melody from '../components/Melody.js'
 import Alert from '../../../core/components/Alert.js'
 import Socket from '../../../core/Socket.js'
 import UIAnimations from '../../../core/UIAnimations.js'
+import Health from '../../../core/components/Health.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -15,6 +15,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.alert = new Alert(this)
     this.socket = new Socket(this)
+    this.health = new Health(this)
     this.animations = new UIAnimations(this)
   }
 
@@ -32,7 +33,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.uiManager = new UIManager(this)
-    this.attempts = new Attempts(this)
     this.slot = new Slot(this)
     this.melody = new Melody(this)
     this.alert = new Alert(this)
@@ -52,7 +52,7 @@ export default class GameScene extends Phaser.Scene {
     this.uiManager.drawNoteButtons()
     this.uiManager.drawExercises(7)
     this.uiManager.drawActionButtons()
-    this.attempts.draw(window.gameSettings.attempts)
+    this.health.draw(3)
     this.slot.drawSlots()
     this.slot.selectSlot(this.config.slots[0])
 
