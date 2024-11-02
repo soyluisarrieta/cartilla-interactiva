@@ -1,5 +1,5 @@
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, SCENES } from '../../../core/constants.js'
+import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
@@ -38,7 +38,7 @@ export default class InstructionsScene extends Phaser.Scene {
     const { metrics, title, description } = this.level
 
     this.add
-      .bitmapText(width / 2, 70, 'primaryFont', title.toUpperCase(), 70)
+      .bitmapText(width / 2, 70, FONTS.PRIMARY, title.toUpperCase(), 70)
       .setOrigin(0.45, 0)
 
     const uiImage = this.add
@@ -46,7 +46,7 @@ export default class InstructionsScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     const uiDescription = this.add
-      .bitmapText(width / 2, height - 300, 'primaryFont', description, 40)
+      .bitmapText(width / 2, height - 300, FONTS.SECONDARY, description, 40)
       .setOrigin(0.5, 0)
       .setMaxWidth(700)
 
