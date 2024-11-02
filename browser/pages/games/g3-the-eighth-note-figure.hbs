@@ -6,16 +6,38 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import StartGame from '/games/RhythmSlots/index.js'
 
   const { 
-    // 🚩
+    crotchet,
+    crotchetRest,
+    quaver,
+    minim,
+    minimRest,
+    semibreve,
+    semibreveRest 
   } = FIGURES
 
   window.gameSettings = {
     id: 'g3-the-eighth-note-figure',
-    game: '🚩',
+    game: 'RhythmSlots',
     module: 1,
+    tempo: 700,
+    levels: [
+      { 
+        title: 'Las figuras corchea, negra y su silencio',
+        description: 'La duración de estas notas es de un tiempo completo a excepción de la corchea, ésta dura medio tiempo.',
+        name: 'easy',
+        maxSlots: 8,
+        figures: [crotchet, crotchetRest, quaver]
+      },{ 
+        title: 'Las figuras corchea, negras, blancas y sus silencios',
+        description: 'La duración de estas notas es de dos tiempos completos a excepción de la corchea, ésta dura medio tiempo.',
+        name: 'hard',
+        maxSlots: 8,
+        figures: [crotchet, crotchetRest, minim, minimRest, quaver]
+      }
+    ],
   }
 
   StartGame()
