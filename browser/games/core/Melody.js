@@ -2,7 +2,7 @@ export default class Melody {
   constructor (scene) {
     this.scene = scene
     this.current = null
-    this.isPlaying = false
+    this.playing = false
     this.timerTicInterval = null
   }
 
@@ -37,7 +37,7 @@ export default class Melody {
   startTimerTic (tempo) {
     this.scene.sound.play('timerTic')
     this.timerTicInterval = setInterval(() => {
-      if (this.isPlaying) {
+      if (this.playing) {
         this.scene.sound.play('timerTic')
       }
     }, tempo)
@@ -57,7 +57,7 @@ export default class Melody {
 
       for (let i = 0; i < beats; i++) {
         setTimeout(() => {
-          if (!this.isPlaying) {
+          if (!this.playing) {
             resolve()
             return
           }
@@ -73,13 +73,13 @@ export default class Melody {
 
   // Reproducir ritmo usando asincronía
   async play (figures, tempo) {
-    this.isPlaying = true
+    this.playing = true
     let timeElapsed = 0
     this.startTimerTic(tempo)
 
     // Reproduce cada figura secuencialmente
     for (const figure of figures) {
-      if (!this.isPlaying) {
+      if (!this.playing) {
         break
       }
       await this.playNote(figure, tempo, timeElapsed)
@@ -92,7 +92,7 @@ export default class Melody {
 
   // Detener reproducción
   stop () {
-    this.isPlaying = false
+    this.playing = false
     this.stopTimerTic()
   }
 
