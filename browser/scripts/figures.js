@@ -54,14 +54,17 @@ export default {
   },
 
   // Combined figures
-  quaverRest_quaver: [
-    {
-      name: 'quaver-rest',
-      duration: 0.5
-    },
-    {
-      name: 'quaver',
-      duration: 0.5
-    }
-  ]
+  quaverRest_quaver: {
+    name: 'quaver-rest_quaver',
+    figures: [
+      {
+        name: 'quaver-rest',
+        duration: 0.5
+      },
+      {
+        name: 'quaver',
+        duration: 0.5
+      }
+    ]
+  }
 }
