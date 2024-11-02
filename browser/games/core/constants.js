@@ -2,7 +2,7 @@ export const BUTTONS = {
   BACK: { key: 'btnBack', frame: 'back-btn' },
   ARROW_RIGHT: { key: 'uiButtons', frame: 'arrow-right' },
   ARROW_LEFT: { key: 'uiButtons', frame: 'arrow-left' },
-  LIST_MELODY: { key: 'uiButtons', frame: 'listen-melody' },
+  LISTEN_MELODY: { key: 'uiButtons', frame: 'listen-melody' },
   REPEAT: { key: 'uiButtons', frame: 'repeat' },
   PLAY: { key: 'uiButtons', frame: 'play' },
   HOME: { key: 'uiButtons', frame: 'home' },

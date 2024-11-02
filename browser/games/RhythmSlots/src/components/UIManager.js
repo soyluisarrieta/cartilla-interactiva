@@ -146,7 +146,7 @@ export default class UIManager {
       .setOrigin(0.5)
 
     const button = Button.draw(this.scene)({
-      ...BUTTONS.LIST_MELODY,
+      ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
       withSound: false,
       withInteractions: false,
@@ -162,7 +162,7 @@ export default class UIManager {
         this.scene.slot.resetIntervals()
         this.scene.melody.stop()
         label.setText('Melodía')
-        button.setTexture(BUTTONS.LIST_MELODY.key, BUTTONS.LIST_MELODY.frame)
+        button.setTexture(BUTTONS.LISTEN_MELODY.key, BUTTONS.LISTEN_MELODY.frame)
       }
     })
 
@@ -191,7 +191,7 @@ export default class UIManager {
       .setOrigin(0.5)
 
     const button = Button.draw(this.scene)({
-      ...BUTTONS.LIST_MELODY,
+      ...BUTTONS.PLAY,
       position: [x, y],
       disabled: true,
       withSound: false,
