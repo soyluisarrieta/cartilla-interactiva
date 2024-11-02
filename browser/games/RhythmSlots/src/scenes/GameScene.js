@@ -19,7 +19,7 @@ export default class GameScene extends Phaser.Scene {
     this.exercises = new Exercises(this)
     this.melody = new Melody(this)
     this.socket = new Socket(this)
-    this.animations = new UIAnimations(this)
+    this.uiAnimations = new UIAnimations(this)
   }
 
   // Método inicial

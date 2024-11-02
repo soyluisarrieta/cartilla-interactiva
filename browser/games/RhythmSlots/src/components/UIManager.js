@@ -71,8 +71,7 @@ export default class UIManager {
       ...BUTTONS.HOME,
       position: [120, 120],
       onClick: () => {
-        this.scene.melody.btnPlay.setTexture('uiButtons', 'listen-melody')
-        this.scene.melody.stopMelody()
+        this.scene.melody.stop()
         this.scene.alert.showAlert('¿Estás seguro?', {
           type: 'warning',
           image: 'gameLogo',
@@ -81,6 +80,7 @@ export default class UIManager {
             {
               text: 'Salir',
               onClick: () => {
+                this.scene.melody.stop()
                 this.scene.scene.start(SCENES.MENU)
               }
             },
@@ -90,7 +90,7 @@ export default class UIManager {
       }
     }).setScale(0.9)
 
-    this.scene.animations.fadeIn({
+    this.scene.uiAnimations.fadeIn({
       targets: button,
       duration: 300,
       delay: 300
@@ -124,7 +124,7 @@ export default class UIManager {
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
 
       const baseDelay = 200
-      this.scene.animations.scaleUp({
+      this.scene.uiAnimations.scaleUp({
         targets: btnNote,
         duration: 600,
         delay: baseDelay + index * 100,
@@ -167,12 +167,12 @@ export default class UIManager {
     })
 
     const baseDelay = 400
-    this.scene.animations.slideInFromBottom({
+    this.scene.uiAnimations.slideInFromBottom({
       targets: button,
       duration: 700,
       delay: baseDelay + 100
     })
-    this.scene.animations.fadeIn({
+    this.scene.uiAnimations.fadeIn({
       targets: label,
       duration: 350,
       delay: baseDelay + 700
@@ -273,13 +273,13 @@ export default class UIManager {
 
     // Animations
     const baseDelay = 400
-    this.scene.animations.slideInFromBottom({
+    this.scene.uiAnimations.slideInFromBottom({
       targets: button,
       duration: 700,
       delay: baseDelay + 100,
       endAlpha: 0.4
     })
-    this.scene.animations.fadeIn({
+    this.scene.uiAnimations.fadeIn({
       targets: label,
       duration: 350,
       delay: baseDelay + 700,
