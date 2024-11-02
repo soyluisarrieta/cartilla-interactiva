@@ -14,7 +14,7 @@ export default {
   },
   quaver: {
     name: 'quaver',
-    duration: 1
+    duration: 0.5
   },
   quaverDuo: {
     name: 'quaver-duo',
