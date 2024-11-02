@@ -138,7 +138,7 @@ export default class UIManager {
     const { tempo } = window.gameSettings
     const { width, height } = this.scene.cameras.main
 
-    const x = width / 2.5
+    const x = width / 2.42
     const y = height - 170
 
     const label = this.scene.add
@@ -183,7 +183,7 @@ export default class UIManager {
   drawConfirmButton () {
     const { width, height } = this.scene.cameras.main
 
-    const x = width / 1.8
+    const x = width / 1.95
     const y = height - 170
 
     const label = this.scene.add
@@ -342,14 +342,6 @@ export default class UIManager {
 
       // Guardar progreso
       const exercises = this.scene.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
-      console.log({
-        level: {
-          name: this.scene.level.name,
-          totalTimer: calculateElapsedTime(this.scene.levelStartTimer)
-        },
-        exercises
-      })
-
       this.scene.socket.levelCompleted({
         level: {
           name: this.scene.level.name,
