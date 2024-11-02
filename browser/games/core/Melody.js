@@ -49,7 +49,7 @@ export default class Melody {
   }
 
   // Reproduce cada nota individualmente y devuelve una promesa
-  playNote (figure, tempo, timeElapsed) {
+  playNote (figure, tempo, timeElapsed, onSound) {
     return new Promise(resolve => {
       const { name, duration, beats = 1 } = figure
       const beatInterval = duration * tempo / beats
@@ -61,10 +61,17 @@ export default class Melody {
             resolve()
             return
           }
-          !isRestNote && this.scene.sound.play('noteSound', { timeElapsed })
+
+          if (!isRestNote) {
+            this.scene.sound.play('noteSound', { timeElapsed })
+          }
+
+          // Llamar callback
+          onSound()
         }, i * beatInterval)
       }
 
+      // Resuelve la promesa después del tiempo total
       setTimeout(() => {
         resolve()
       }, duration * tempo)
@@ -72,9 +79,10 @@ export default class Melody {
   }
 
   // Reproducir ritmo usando asincronía
-  async play (figures, tempo) {
+  async play (figures, tempo, onSound = () => {}) {
     this.playing = true
     let timeElapsed = 0
+    let index = 0
     this.startTimerTic(tempo)
 
     // Reproduce cada figura secuencialmente
@@ -82,8 +90,9 @@ export default class Melody {
       if (!this.playing) {
         break
       }
-      await this.playNote(figure, tempo, timeElapsed)
+      await this.playNote(figure, tempo, timeElapsed, () => onSound({ figure, index }))
       timeElapsed += figure.duration * tempo
+      index++
     }
 
     // Finaliza la reproducción
