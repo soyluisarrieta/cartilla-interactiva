@@ -3,21 +3,21 @@ import { BUTTONS, SCENES } from '../../../core/constants.js'
 import { addInteractions } from '../../../core/utils/addInteractions.js'
 
 export default class UIManager {
-  constructor (gameScene) {
-    this.game = gameScene
+  constructor (scene) {
+    this.scene = scene
     this.btnFinish = {}
     this.currentExercise = null
   }
 
   // Dibujar botón
   drawButton ({ key, frame, scene, position: { x, y }, withInteractions = true }) {
-    const button = this.game.add.image(x, y, frame, key)
+    const button = this.scene.add.image(x, y, frame, key)
       .setOrigin(0.5)
       .setInteractive()
 
     const navigate = () => {
-      this.game.sound.play('soundPress')
-      this.game.scene.start(scene)
+      this.scene.sound.play('soundPress')
+      this.scene.scene.start(scene)
     }
 
     if (withInteractions) {
@@ -57,13 +57,13 @@ export default class UIManager {
 
   // Botón: Salir de la partida
   drawExitButton () {
-    const button = Button.draw(this.game)({
+    const button = Button.draw(this.scene)({
       ...BUTTONS.HOME,
       position: [120, 120],
       onClick: () => {
-        this.game.melody.btnPlay.setTexture('uiButtons', 'listen-melody')
-        this.game.melody.stopMelody()
-        this.game.alert.showAlert('¿Estás seguro?', {
+        this.scene.melody.btnPlay.setTexture('uiButtons', 'listen-melody')
+        this.scene.melody.stopMelody()
+        this.scene.alert.showAlert('¿Estás seguro?', {
           type: 'warning',
           image: 'gameLogo',
           message: 'Si sales, tendrás que volver a empezar una nueva partida.',
@@ -71,7 +71,7 @@ export default class UIManager {
             {
               text: 'Salir',
               onClick: () => {
-                this.game.scene.start(SCENES.MENU)
+                this.scene.scene.start(SCENES.MENU)
               }
             },
             { text: 'Cancelar' }
@@ -80,7 +80,7 @@ export default class UIManager {
       }
     }).setScale(0.9)
 
-    this.game.animations.fadeIn({
+    this.scene.animations.fadeIn({
       targets: button,
       duration: 300,
       delay: 300
@@ -89,32 +89,32 @@ export default class UIManager {
 
   // Mostrar la información del nivel actual
   drawLevelInfo () {
-    this.game.add.bitmapText(this.game.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.game.level.index}`)
+    this.scene.add.bitmapText(this.scene.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.scene.level.index}`)
       .setOrigin(0.5, 0)
   }
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
     const layout = { gap: 10, marginTop: 700, marginRight: 150 }
-    const { figures } = this.game.level
+    const { figures } = this.scene.level
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
-    const startX = (this.game.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
+    const startX = (this.scene.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     figures.forEach((figure, index) => {
-      const btnNote = this.game.add.image(position.x, position.y, figure.name)
+      const btnNote = this.scene.add.image(position.x, position.y, figure.name)
         .setScale(0.56)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
-      btnNote.on('pointerdown', () => this.game.slot.handleNoteSelection(btnNote, figure.name, index))
+      btnNote.on('pointerdown', () => this.scene.slot.handleNoteSelection(btnNote, figure.name, index))
       btnNote.on('pointerup', () => btnNote.setScale(0.56))
       btnNote.on('pointerout', () => btnNote.setScale(0.56))
 
       const baseDelay = 200
-      this.game.animations.scaleUp({
+      this.scene.animations.scaleUp({
         targets: btnNote,
         duration: 600,
         delay: baseDelay + index * 100,
@@ -127,22 +127,22 @@ export default class UIManager {
   drawExercises (numExercises) {
     for (let i = 0; i <= numExercises - 1; i++) {
       const layout = { marginTop: 200, gap: 95 }
-      const positionX = this.game.screen.width - 50
+      const positionX = this.scene.screen.width - 50
       const positionY = layout.marginTop + (layout.gap * (i + 1))
-      const exerciseTextures = this.game.melody.textureStates
-      const exerciseElement = this.game.add.image(positionX, positionY, 'exercise', exerciseTextures.pending)
+      const exerciseTextures = this.scene.melody.textureStates
+      const exerciseElement = this.scene.add.image(positionX, positionY, 'exercise', exerciseTextures.pending)
         .setScale(0.7)
         .setOrigin(1, 0.5)
         .setInteractive()
 
-      const generatedMelody = this.game.melody.generate()
+      const generatedMelody = this.scene.melody.generate()
 
-      this.game.exercises.push({
+      this.scene.exercises.push({
         element: exerciseElement,
         state: null,
         melody: generatedMelody,
         setState: (state) => {
-          this.game.exercises[i].state = state
+          this.scene.exercises[i].state = state
           exerciseElement
             .setTexture('exercise', exerciseTextures[state])
             .setScale(0.8)
@@ -150,7 +150,7 @@ export default class UIManager {
       })
 
       const baseDelay = 300
-      this.game.animations.slideInFromRight({
+      this.scene.animations.slideInFromRight({
         targets: exerciseElement,
         duration: 300,
         delay: baseDelay + i * 120
@@ -158,22 +158,22 @@ export default class UIManager {
     }
 
     // Activar el primer ejercicio
-    this.game.currentExercise = this.game.exercises[0]
-    this.game.currentExercise.setState('playing')
+    this.scene.currentExercise = this.scene.exercises[0]
+    this.scene.currentExercise.setState('playing')
   }
 
   // Mostrar los botones de acción
   drawActionButtons () {
     // Botón para repetir la melodía generada
-    const btnPlayMelody = this.game.melody.btnPlay = this.game.add
-      .image(this.game.screen.width / 2.35, this.game.screen.height - 140, 'uiButtons', 'listen-melody')
+    const btnPlayMelody = this.scene.melody.btnPlay = this.scene.add
+      .image(this.scene.screen.width / 2.35, this.scene.screen.height - 140, 'uiButtons', 'listen-melody')
       .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
-    const btnPlayMelodyLabel = this.game.add.bitmapText(
-      this.game.screen.width / 2.35,
-      this.game.screen.height - 70,
+    const btnPlayMelodyLabel = this.scene.add.bitmapText(
+      this.scene.screen.width / 2.35,
+      this.scene.screen.height - 70,
       'primaryFont',
       'Melodía',
       24
@@ -184,11 +184,11 @@ export default class UIManager {
     // Toggle button
     btnPlayMelody.on('pointerdown', () => {
       btnPlayMelody.setScale(0.66)
-      if (this.game.melody.state.isPlaying) {
-        this.game.melody.stopMelody()
+      if (this.scene.melody.state.isPlaying) {
+        this.scene.melody.stopMelody()
         btnPlayMelody.setTexture('uiButtons', 'listen-melody')
       } else {
-        this.game.melody.playMelody(this.game.currentExercise.melody)
+        this.scene.melody.playMelody(this.scene.currentExercise.melody)
         btnPlayMelody.setTexture('uiButtons', 'repeat')
       }
     })
@@ -196,15 +196,15 @@ export default class UIManager {
     btnPlayMelody.on('pointerout', () => btnPlayMelody.setScale(0.8))
 
     // Botón para verificar la melodía compuesta
-    const btnFinish = this.game.add
-      .image(this.game.screen.width / 1.99, this.game.screen.height - 140, 'uiButtons', 'play')
+    const btnFinish = this.scene.add
+      .image(this.scene.screen.width / 1.99, this.scene.screen.height - 140, 'uiButtons', 'play')
       .setScale(0.8)
       .setOrigin(0.5)
       .setInteractive()
 
-    const btnFinishLabel = this.game.add.bitmapText(
-      this.game.screen.width / 1.99,
-      this.game.screen.height - 70,
+    const btnFinishLabel = this.scene.add.bitmapText(
+      this.scene.screen.width / 1.99,
+      this.scene.screen.height - 70,
       'primaryFont',
       'Confirmar',
       24
@@ -213,8 +213,8 @@ export default class UIManager {
     btnFinishLabel.setOrigin(0.5, 0)
 
     btnFinish.on('pointerdown', () => {
-      if (!this.game.filledSlots) { return null }
-      this.game.melody.checkMelody() // Llamada para comprobar la melodía
+      if (!this.scene.filledSlots) { return null }
+      this.scene.melody.checkMelody() // Llamada para comprobar la melodía
     })
 
     this.btnFinish = {
@@ -224,24 +224,24 @@ export default class UIManager {
 
     // Animations
     const baseDelay = 400
-    this.game.animations.slideInFromBottom({
+    this.scene.animations.slideInFromBottom({
       targets: btnPlayMelody,
       duration: 700,
       delay: baseDelay + 100
     })
-    this.game.animations.slideInFromBottom({
+    this.scene.animations.slideInFromBottom({
       targets: btnFinish,
       duration: 700,
       delay: baseDelay + 100,
       endAlpha: 0.4
     })
 
-    this.game.animations.fadeIn({
+    this.scene.animations.fadeIn({
       targets: btnPlayMelodyLabel,
       duration: 350,
       delay: baseDelay + 700
     })
-    this.game.animations.fadeIn({
+    this.scene.animations.fadeIn({
       targets: btnFinishLabel,
       duration: 350,
       delay: baseDelay + 700,
@@ -252,6 +252,6 @@ export default class UIManager {
   disableFinishButton (state = true) {
     this.btnFinish.button.alpha = state ? 0.4 : 1
     this.btnFinish.label.alpha = state ? 0.4 : 1
-    this.game.filledSlots = !state
+    this.scene.filledSlots = !state
   }
 }

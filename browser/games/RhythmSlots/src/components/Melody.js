@@ -1,8 +1,8 @@
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 
 export default class Melody {
-  constructor (gameScene) {
-    this.game = gameScene
+  constructor (scene) {
+    this.scene = scene
     this.btnPlay = null
     this.state = {
       isPlaying: false,
@@ -17,7 +17,7 @@ export default class Melody {
 
   // Generar una melodía aleatoria
   generate () {
-    const { maxSlots, figures } = this.game.level
+    const { maxSlots, figures } = this.scene.level
     const melody = []
     const weightedFigures = []
 
@@ -48,16 +48,16 @@ export default class Melody {
     this.state.timers = []
     let timeElapsed = 0
 
-    this.game.uiManager.disableFinishButton(true)
+    this.scene.uiManager.disableFinishButton(true)
 
     // Reproducir el primer tic inmediatamente
-    this.game.sound.play('timerTic')
+    this.scene.sound.play('timerTic')
 
     // Temporizador del tic-tac
-    const ticTimer = this.game.time.addEvent({
+    const ticTimer = this.scene.time.addEvent({
       delay: tempo,
       callback: () => {
-        this.game.sound.play('timerTic')
+        this.scene.sound.play('timerTic')
       },
       loop: true
     })
@@ -66,24 +66,24 @@ export default class Melody {
 
     melody.forEach((figure, i) => {
       const { duration, beats = 1 } = figure
-      const timer = this.game.time.delayedCall(timeElapsed, () => {
+      const timer = this.scene.time.delayedCall(timeElapsed, () => {
         // Reiniciar anterior intervalo
         if (i !== 0) {
-          const prevInterval = this.game.slot.intervalIndicators[i - 1]
-          this.game.slot.changeIntervalStatus(prevInterval, this.game.slot.invervalTextures.normal)
+          const prevInterval = this.scene.slot.intervalIndicators[i - 1]
+          this.scene.slot.changeIntervalStatus(prevInterval, this.scene.slot.invervalTextures.normal)
             .setScale(0.4)
         }
 
         // Activar intervalo que está sonando
-        const intervalActived = this.game.slot.intervalIndicators[i]
-        this.game.slot.changeIntervalStatus(intervalActived, this.game.slot.invervalTextures.actived)
+        const intervalActived = this.scene.slot.intervalIndicators[i]
+        this.scene.slot.changeIntervalStatus(intervalActived, this.scene.slot.invervalTextures.actived)
           .setScale(0.5)
 
         if (!figure.name.endsWith('rest')) {
-          this.game.sound.play('noteSound')
+          this.scene.sound.play('noteSound')
           for (let beat = 1; beat < beats; beat++) {
-            this.game.time.delayedCall(tempo / beats * beat, () => {
-              this.game.sound.play('noteSound')
+            this.scene.time.delayedCall(tempo / beats * beat, () => {
+              this.scene.sound.play('noteSound')
             })
           }
         }
@@ -92,17 +92,17 @@ export default class Melody {
         if (i === melody.length - 1) {
           ticTimer.remove(false)
 
-          this.game.time.delayedCall(tempo * duration, () => {
+          this.scene.time.delayedCall(tempo * duration, () => {
             this.state.isPlaying = false
             this.btnPlay.setScale(0.7)
             this.btnPlay.setTexture('uiButtons', 'listen-melody')
-            const lastInterval = this.game.slot.intervalIndicators[i]
-            this.game.slot.changeIntervalStatus(lastInterval, this.game.slot.invervalTextures.normal)
+            const lastInterval = this.scene.slot.intervalIndicators[i]
+            this.scene.slot.changeIntervalStatus(lastInterval, this.scene.slot.invervalTextures.normal)
               .setScale(0.4)
 
             // Habilitar botón de confirmar
-            if (this.game.slot.filledSlots) {
-              this.game.uiManager.disableFinishButton(false)
+            if (this.scene.slot.filledSlots) {
+              this.scene.uiManager.disableFinishButton(false)
             }
           })
         }
@@ -122,34 +122,34 @@ export default class Melody {
     this.state.timers.forEach(timer => timer.remove(false))
     this.state.timers = []
 
-    this.game.slot.resetIntervals()
+    this.scene.slot.resetIntervals()
 
     // Habilitar botón de confirmar
-    if (this.game.slot.filledSlots) {
-      this.game.uiManager.disableFinishButton(false)
+    if (this.scene.slot.filledSlots) {
+      this.scene.uiManager.disableFinishButton(false)
     }
   }
 
   // Verificar si la melodía compuesta es correcta
   checkMelody () {
-    const userMelody = this.game.config.slots.map(slot => slot.note)
+    const userMelody = this.scene.config.slots.map(slot => slot.note)
 
     // Comprobar melodía
     const mistakes = []
     userMelody.forEach((note, i) => {
-      if (note !== this.game.currentExercise.melody[i].name) {
-        mistakes.push({ slot: i, expected: this.game.currentExercise.melody[i].name, got: note })
+      if (note !== this.scene.currentExercise.melody[i].name) {
+        mistakes.push({ slot: i, expected: this.scene.currentExercise.melody[i].name, got: note })
       }
     })
 
-    this.game.slot.resetIntervals()
-    this.game.slot.filledSlots = false
+    this.scene.slot.resetIntervals()
+    this.scene.slot.filledSlots = false
 
     // Melodía incorrecta
     if (mistakes.length > 0) {
-      this.game.sound.play('incorrectMelody')
-      const updatepHealth = this.game.health.miss()
-      this.game.uiManager.disableFinishButton(true)
+      this.scene.sound.play('incorrectMelody')
+      const updatepHealth = this.scene.health.miss()
+      this.scene.uiManager.disableFinishButton(true)
 
       const isGameOver = updatepHealth === 0
       const isPlural = mistakes.length > 1 ? 's' : ''
@@ -167,26 +167,26 @@ export default class Melody {
         alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
 
         this.stopMelody()
-        this.game.sound.stopAll()
-        this.game.sound.play('gameOver')
+        this.scene.sound.stopAll()
+        this.scene.sound.play('gameOver')
       }
 
       const buttons = [
         {
           text: 'Volver a jugar',
           onClick: () => {
-            this.game.scene.start('GameScene', this.game.level)
+            this.scene.scene.start('GameScene', this.scene.level)
           }
         },
         {
           text: 'Niveles',
           onClick: () => {
-            this.game.scene.start('LevelSelectionScene')
+            this.scene.scene.start('LevelSelectionScene')
           }
         }
       ]
 
-      this.game.alert.showAlert(alert.title, {
+      this.scene.alert.showAlert(alert.title, {
         type: alert.type,
         duration: 0,
         image: alert.image,
@@ -197,40 +197,40 @@ export default class Melody {
       })
 
       mistakes.forEach(({ slot }) => {
-        const notesFailed = this.game.config.slots[slot]
+        const notesFailed = this.scene.config.slots[slot]
         notesFailed.element.setTexture('slot')
         notesFailed.isFixed = false
       })
 
       // Seleccionar nota incorrecta
-      const firstNoteFailed = this.game.config.slots[mistakes[0].slot]
-      this.game.slot.selectSlot(firstNoteFailed)
+      const firstNoteFailed = this.scene.config.slots[mistakes[0].slot]
+      this.scene.slot.selectSlot(firstNoteFailed)
       return null
     }
 
     // Melodía correcta
-    this.game.sound.play('perfectMelody')
+    this.scene.sound.play('perfectMelody')
     this.advanceToNextExercise('completed')
-    this.game.uiManager.disableFinishButton(true)
+    this.scene.uiManager.disableFinishButton(true)
   }
 
   // Avanzar al siguiente ejercicio
   advanceToNextExercise (exerciseState) {
-    this.game.currentExercise.setState(exerciseState)
+    this.scene.currentExercise.setState(exerciseState)
 
     // Duración del ejercicio actual
-    this.game.currentExercise.timer = this.game.calculateElapsedTime(this.game.exerciseStartTime)
-    this.game.exerciseStartTime = Date.now()
+    this.scene.currentExercise.timer = this.scene.calculateElapsedTime(this.scene.exerciseStartTime)
+    this.scene.exerciseStartTime = Date.now()
 
     // Encontrar el siguiente ejercicio
-    const nextExerciseIndex = this.game.exercises.indexOf(this.game.currentExercise) + 1
-    if (nextExerciseIndex < this.game.exercises.length) {
-      this.game.currentExercise = this.game.exercises[nextExerciseIndex]
-      this.game.currentExercise.setState('playing')
-      this.game.generatedMelody = this.game.currentExercise.melody
+    const nextExerciseIndex = this.scene.exercises.indexOf(this.scene.currentExercise) + 1
+    if (nextExerciseIndex < this.scene.exercises.length) {
+      this.scene.currentExercise = this.scene.exercises[nextExerciseIndex]
+      this.scene.currentExercise.setState('playing')
+      this.scene.generatedMelody = this.scene.currentExercise.melody
 
       // Mostrar alerta
-      this.game.alert.showAlert('¡Perfecto!', {
+      this.scene.alert.showAlert('¡Perfecto!', {
         type: 'success',
         duration: 0,
         image: 'gameLogo',
@@ -239,16 +239,16 @@ export default class Melody {
       })
 
       // Limpiar las notas en las casillas
-      this.game.config.slots.forEach(slot => {
+      this.scene.config.slots.forEach(slot => {
         slot.note = null
         slot.element.setTexture('slot')
       })
-      this.game.slot.selectSlot(this.game.config.slots[0])
+      this.scene.slot.selectSlot(this.scene.config.slots[0])
     } else {
       this.stopMelody()
-      this.game.sound.stopAll()
-      this.game.sound.play('levelComplete')
-      this.game.alert.showAlert('¡Nivel finalizado!', {
+      this.scene.sound.stopAll()
+      this.scene.sound.play('levelComplete')
+      this.scene.alert.showAlert('¡Nivel finalizado!', {
         type: 'success',
         duration: 0,
         image: 'gameLogo',
@@ -258,13 +258,13 @@ export default class Melody {
           {
             text: 'Volver a jugar',
             onClick: () => {
-              this.game.scene.start('GameScene', this.game.level)
+              this.scene.scene.start('GameScene', this.scene.level)
             }
           },
           {
             text: 'Niveles',
             onClick: () => {
-              this.game.scene.start('LevelSelectionScene')
+              this.scene.scene.start('LevelSelectionScene')
             }
           }
         ]
@@ -273,10 +273,10 @@ export default class Melody {
       // Chequear nivel
       const profile = getProfile()
       const currentGame = profile.games[window.gameSettings.id]
-      const currentLevel = this.game.level
-      currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
+      const currentLevel = this.scene.level
+      currentLevel.timer = this.scene.calculateElapsedTime(this.scene.levelStartTime)
 
-      const dataExercises = this.game.exercises.map(({ timer, melody }) => ({ melody }))
+      const dataExercises = this.scene.exercises.map(({ timer, melody }) => ({ melody }))
 
       const data = {
         level: {
@@ -286,7 +286,7 @@ export default class Melody {
         exercises: dataExercises
       }
 
-      this.game.socket.levelCompleted(data)
+      this.scene.socket.levelCompleted(data)
       currentLevel.isCompleted = true
 
       // Guardar progreso en el perfil
