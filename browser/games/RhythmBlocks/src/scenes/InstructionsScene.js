@@ -27,7 +27,7 @@ export default class InstructionsScene extends Phaser.Scene {
   drawBackButton () {
     Button.draw(this)({
       ...BUTTONS.BACK,
-      scene: SCENES.MENU,
+      scene: SCENES.LEVEL_SELECTION,
       position: [150, 120]
     })
   }
