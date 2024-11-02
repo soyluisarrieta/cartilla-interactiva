@@ -23,7 +23,12 @@ export default {
   },
   semiquaver: {
     name: 'semiquaver',
-    duration: 1
+    duration: 0.25
+  },
+  semiquaverQuad: {
+    name: 'semiquaver-quad',
+    duration: 1,
+    beats: 4
   },
 
   // Rest figures
