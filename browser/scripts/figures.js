@@ -51,5 +51,17 @@ export default {
   semiquaverRest: {
     name: 'semiquaver-rest',
     duration: 0.25
-  }
+  },
+
+  // Combined figures
+  quaverRest_quaver: [
+    {
+      name: 'quaver-rest',
+      duration: 0.5
+    },
+    {
+      name: 'quaver',
+      duration: 0.5
+    }
+  ]
 }
