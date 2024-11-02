@@ -41,8 +41,8 @@ export default class GameScene extends Phaser.Scene {
   // Método principal
   create () {
     this.ui.init()
-    this.exercises.create(2)
-    this.health.draw(7)
+    this.health.draw(3)
+    this.exercises.create(7)
     this.slot.drawSlots()
     this.slot.selectSlot(this.slots[0])
 
