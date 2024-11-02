@@ -26,7 +26,8 @@ export default class BootScene extends Phaser.Scene {
           { key: 'minim', path: '/images/btn-minim.png' },
           { key: 'minim-rest', path: '/images/btn-minim-rest.png' },
           { key: 'crotchet', path: '/images/btn-crotchet.png' },
-          { key: 'crotchet-rest', path: '/images/btn-crotchet-rest.png' }
+          { key: 'crotchet-rest', path: '/images/btn-crotchet-rest.png' },
+          { key: 'quaver', path: '/images/btn-quaver.png' }
         ]
       }
     }
