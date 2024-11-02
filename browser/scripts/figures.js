@@ -21,6 +21,11 @@ export default {
     duration: 1,
     beats: 2
   },
+  quaverTriplet: {
+    name: 'quaver-triplet',
+    duration: 1,
+    beats: 3
+  },
   semiquaver: {
     name: 'semiquaver',
     duration: 0.25
