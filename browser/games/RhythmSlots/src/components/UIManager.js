@@ -89,14 +89,14 @@ export default class UIManager {
 
   // Mostrar la información del nivel actual
   drawLevelInfo () {
-    this.game.add.bitmapText(this.game.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.game.selectedLevel}`)
+    this.game.add.bitmapText(this.game.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.game.level.index}`)
       .setOrigin(0.5, 0)
   }
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
     const layout = { gap: 10, marginTop: 700, marginRight: 150 }
-    const { figures } = this.game.config
+    const { figures } = this.game.level
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
     const startX = (this.game.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }

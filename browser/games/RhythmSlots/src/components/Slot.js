@@ -14,9 +14,10 @@ export default class Slot {
     const {
       add: scene,
       config,
-      config: { maxSlots },
       screen
     } = this.game
+    const { maxSlots } = this.game.level
+
     const layout = { gap: 30, marginTop: 400, marginRight: 150 }
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)

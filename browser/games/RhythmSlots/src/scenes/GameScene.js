@@ -20,16 +20,15 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Método inicial
-  init (selectedLevel) {
-    this.selectedLevel = selectedLevel ?? 1
+  init (level) {
+    this.level = level
     this.screen = this.cameras.main
     this.exercises = []
 
     this.settings = window.gameSettings
 
     this.config = {
-      slots: [],
-      ...this.settings.levels[selectedLevel - 1]
+      slots: []
     }
 
     this.uiManager = new UIManager(this)

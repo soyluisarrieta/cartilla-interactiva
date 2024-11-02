@@ -17,7 +17,7 @@ export default class Melody {
 
   // Generar una melodía aleatoria
   generate () {
-    const { maxSlots, figures } = this.game.config
+    const { maxSlots, figures } = this.game.level
     const melody = []
     const weightedFigures = []
 
@@ -175,7 +175,7 @@ export default class Melody {
         {
           text: 'Volver a jugar',
           onClick: () => {
-            this.game.scene.start('GameScene', this.game.selectedLevel)
+            this.game.scene.start('GameScene', this.game.level)
           }
         },
         {
@@ -258,7 +258,7 @@ export default class Melody {
           {
             text: 'Volver a jugar',
             onClick: () => {
-              this.game.scene.start('GameScene', this.game.selectedLevel)
+              this.game.scene.start('GameScene', this.game.level)
             }
           },
           {
@@ -273,8 +273,7 @@ export default class Melody {
       // Chequear nivel
       const profile = getProfile()
       const currentGame = profile.games[window.gameSettings.id]
-      const selectedLevel = this.game.selectedLevel
-      const currentLevel = currentGame.levels[selectedLevel - 1]
+      const currentLevel = this.game.level
       currentLevel.timer = this.game.calculateElapsedTime(this.game.levelStartTime)
 
       const dataExercises = this.game.exercises.map(({ timer, melody }) => ({ melody }))
