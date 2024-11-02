@@ -6,16 +6,30 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import StartGame from '/games/RhythmSlots/index.js'
 
   const { 
-    // 🚩
+    crotchet,
+    crotchetRest,
+    quaverDuo,
+    quaverRest_quaver 
   } = FIGURES
 
   window.gameSettings = {
     id: 'g5-the-eighth-rest-figure',
-    game: '🚩',
+    game: 'RhythmSlots',
     module: 1,
+    tempo: 700,
+    levels: [
+      { 
+        title: 'Silencio de corchea',
+        description: 'La duración de estas notas es de un tiempo completo, lo que significa que ocupan un pulso en la música.',
+        name: 'medium',
+        compass: 2,
+        maxSlots: 8,
+        figures: [crotchet, crotchetRest, quaverDuo, quaverRest_quaver]
+      }
+    ],
   }
 
   StartGame()
