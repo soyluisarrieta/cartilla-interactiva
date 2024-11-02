@@ -34,9 +34,6 @@ export default class GameScene extends Phaser.Scene {
     this.slot = new Slot(this)
     this.alert = new Alert(this)
 
-    // Generar una melodía aleatoria
-    this.melody.generate(level.figures, level.maxSlots)
-
     // Iniciar cronometro
     this.levelStartTimer = Date.now()
   }
@@ -52,6 +49,8 @@ export default class GameScene extends Phaser.Scene {
     this.sound.stopAll()
     this.sound.play('startGame')
 
+    // Generar una melodía aleatoria
+    this.melody.generate(this.level.figures, this.level.maxSlots)
     this.exercises.play(0)
   }
 }

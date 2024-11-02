@@ -367,6 +367,8 @@ export default class UIManager {
     })
 
     // Ejecutar siguiente ejercicio
+    const { figures, maxSlots } = this.scene.level
+    this.scene.melody.generate(figures, maxSlots)
     this.scene.exercises.play(nextExercise.index)
     this.disableFinishButton(true)
     this.scene.slots.forEach(slot => {
