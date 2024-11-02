@@ -38,13 +38,13 @@ export default class GameScene extends Phaser.Scene {
     this.melody.generate(level.figures, level.maxSlots)
 
     // Iniciar cronometro
-    this.levelStartTime = Date.now()
+    this.levelStartTimer = Date.now()
   }
 
   // Método principal
   create () {
     this.ui.init()
-    this.exercises.create(7)
+    this.exercises.create(2)
     this.health.draw(3)
     this.slot.drawSlots()
     this.slot.selectSlot(this.slots[0])
