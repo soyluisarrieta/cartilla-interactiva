@@ -1,4 +1,5 @@
-import { getProfile } from '../../../../scripts/Profile.js'
+import Button from '../../../core/components/Button.js'
+import { BUTTONS, SCENES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
@@ -7,54 +8,62 @@ export default class InstructionsScene extends Phaser.Scene {
     super({ key: 'InstructionsScene' })
 
     this.uiManager = new UIManager(this)
-    this.animations = new UIAnimations(this)
+    this.uiAnimations = new UIAnimations(this)
   }
 
-  create () {
-    const { width: screenWidth, height: screenHeight } = this.cameras.main
+  // Inicial
+  init (level) {
+    this.level = level
+  }
 
-    const profile = getProfile()
-    const { selectedLevel } = profile
+  // Principal
+  create () {
+    this.drawBackButton()
+    this.drawInstructions()
+    this.drawStartButton()
+  }
+
+  // Botón: Ir atrás
+  drawBackButton () {
+    Button.draw(this)({
+      ...BUTTONS.BACK,
+      scene: SCENES.LEVEL_SELECTION,
+      position: [150, 120]
+    })
+  }
+
+  // Título y descripción
+  drawInstructions () {
+    const { width } = this.cameras.main
+    const { title, description, index: levelIndex } = this.level
     const { levels } = window.gameSettings
 
-    const prevLevel = this.getPreviousLevel(selectedLevel, levels)
-    const currentLevel = levels[selectedLevel - 1]
-    const newFigures = this.getNewFigures(currentLevel, prevLevel)
-
-    this.drawUI(screenWidth, currentLevel.title, currentLevel.description, newFigures)
-    this.createPlayButton(screenWidth, screenHeight, selectedLevel)
-  }
-
-  getPreviousLevel (selectedLevel, levels) {
-    return selectedLevel === 1 ? { figures: [] } : levels[selectedLevel - 2]
-  }
-
-  getNewFigures (currentLevel, prevLevel) {
-    return currentLevel.figures.filter(
-      (figure) => !prevLevel.figures.some(prevFigure => prevFigure.name === figure.name)
-    ).reverse()
-  }
-
-  drawUI (screenWidth, title, description, newFigures) {
-    this.uiManager.drawBackButton('LevelSelectionScene')
-
-    this.add.bitmapText(screenWidth / 2, 70, 'primaryFont', title.toUpperCase(), 70)
+    this.add
+      .bitmapText(width / 2, 70, 'primaryFont', title.toUpperCase(), 70)
       .setOrigin(0.45, 0)
 
-    const descr = this.add.bitmapText(screenWidth - 600, 450, 'primaryFont', description, 40)
-      .setOrigin(0.5)
-      .setMaxWidth(650)
+    const uiDescription = this.add
+      .bitmapText(1000, 350, 'primaryFont', description, 40)
+      .setOrigin(0)
+      .setMaxWidth(700)
 
-    this.animations.fadeIn({ targets: descr, delay: 300 })
+    this.uiAnimations.fadeIn({ targets: uiDescription, delay: 300 })
 
+    // Obtener figuras musicales nuevas
+    const prevLevel = levelIndex === 0 ? { figures: [] } : levels[levelIndex - 1]
+    const newFigures = this.level.figures.filter(
+      (figure) => !prevLevel.figures.some(
+        ({ name }) => name === figure.name
+      )
+    ).reverse()
+
+    // Mostrar las figuras musicales
     newFigures.forEach((newFigure, i) => {
       const fig = this.add.image(800 - (230 * i), 450, newFigure.name)
         .setOrigin(0.5)
 
-      this.animations.scaleUp({ targets: fig, delay: i * 100 })
+      this.uiAnimations.scaleUp({ targets: fig, delay: i * 100 })
     })
-
-    // Animaciones
   }
 
   // Crear botón para empezar a jugar
@@ -67,6 +76,22 @@ export default class InstructionsScene extends Phaser.Scene {
         this.scene.start('GameScene', selectedLevel)
       })
 
-    this.animations.scaleUp({ targets: playButton, delay: 300 })
+    this.uiAnimations.scaleUp({ targets: playButton, delay: 300 })
+  }
+
+  // Botón: Empezar juego
+  drawStartButton () {
+    const { width, height } = this.cameras.main
+    const x = width - 120
+    const y = height - 120
+
+    Button.draw(this)({
+      ...BUTTONS.ARROW_RIGHT,
+      position: [x, y],
+      onClick: () => {
+        this.sound.play('soundPress')
+        this.scene.start(SCENES.GAME, this.level)
+      }
+    })
   }
 }
