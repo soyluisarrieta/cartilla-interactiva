@@ -53,7 +53,7 @@ export default class InstructionsScene extends Phaser.Scene {
     const prevLevel = levelIndex === 0 ? { figures: [] } : levels[levelIndex - 1]
     const newFigures = this.level.figures.filter(
       (figure) => !prevLevel.figures.some(
-        ({ name }) => name === figure.name
+        ({ name }) => figure.exception === true ? false : name === figure.name
       )
     ).reverse()
 

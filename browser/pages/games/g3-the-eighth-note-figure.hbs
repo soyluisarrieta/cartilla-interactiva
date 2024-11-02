@@ -35,7 +35,7 @@
         description: 'La duración de estas notas es de dos tiempos completos a excepción de la corchea, ésta dura medio tiempo.',
         name: 'hard',
         maxSlots: 8,
-        figures: [crotchet, crotchetRest, minim, minimRest, quaver]
+        figures: [crotchet, crotchetRest, minim, minimRest, {...quaver, exception: true}]
       }
     ],
   }
