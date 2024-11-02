@@ -16,7 +16,7 @@ export default class Slot {
       slots,
       screen
     } = this.scene
-    const { maxSlots } = this.scene.level
+    const { maxSlots, compass } = this.scene.level
 
     const layout = { gap: 30, marginTop: 400, marginRight: 150 }
     const totalBeats = maxSlots / 4 - 1
@@ -35,8 +35,8 @@ export default class Slot {
 
       this.intervalIndicators.push(intervalIndicator)
 
-      // Separar por compaces de 4
-      const isOnTheBeat = (i + 1) % 4
+      // Separar por compaces
+      const isOnTheBeat = (i + 1) % compass
       position.x += layout.gap + (isOnTheBeat ? 100 : 150)
 
       const slotIndex = slots.push({
