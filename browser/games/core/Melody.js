@@ -48,34 +48,46 @@ export default class Melody {
     clearInterval(this.timerTicInterval)
   }
 
-  // Reproduce cada nota individualmente y devuelve una promesa
+  // Reproduce una figura musical o combinadas
   playNote (figure, tempo, timeElapsed, onSound) {
-    return new Promise(resolve => {
-      const { name, duration, beats = 1 } = figure
-      const beatInterval = duration * tempo / beats
-      const isRestNote = name.includes('rest')
+    if (figure.figures) {
+      return this.playSubfigures(figure.figures, tempo, timeElapsed, onSound)
+    } else {
+      return new Promise(resolve => {
+        const { name, duration, beats = 1 } = figure
+        const beatInterval = duration * tempo / beats
+        const isRestNote = name.includes('rest')
 
-      for (let i = 0; i < beats; i++) {
+        for (let i = 0; i < beats; i++) {
+          setTimeout(() => {
+            if (!this.playing) {
+              resolve()
+              return
+            }
+
+            if (!isRestNote) {
+              this.scene.sound.play('noteSound', { timeElapsed })
+            }
+
+            // Llamar callback
+            onSound()
+          }, i * beatInterval)
+        }
+
+        // Resuelve la promesa después del tiempo total
         setTimeout(() => {
-          if (!this.playing) {
-            resolve()
-            return
-          }
+          resolve()
+        }, duration * tempo)
+      })
+    }
+  }
 
-          if (!isRestNote) {
-            this.scene.sound.play('noteSound', { timeElapsed })
-          }
-
-          // Llamar callback
-          onSound()
-        }, i * beatInterval)
-      }
-
-      // Resuelve la promesa después del tiempo total
-      setTimeout(() => {
-        resolve()
-      }, duration * tempo)
-    })
+  // Reproducir subfiguras secuencialmente
+  async playSubfigures (subfigures, tempo, timeElapsed, onSound) {
+    for (const subfigure of subfigures) {
+      await this.playNote(subfigure, tempo, timeElapsed, onSound)
+      timeElapsed += subfigure.duration * tempo
+    }
   }
 
   // Reproducir ritmo usando asincronía
