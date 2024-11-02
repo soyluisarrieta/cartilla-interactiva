@@ -198,6 +198,7 @@ export default class UIManager {
       withInteractions: false,
       onClick: async ({ button }) => {
         this.disableFinishButton(true)
+        this.scene.melody.stop()
 
         // Verificar si la composición es incorrecta
         const composition = this.scene.slots.map(({ figure }) => figure)
