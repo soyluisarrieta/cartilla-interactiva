@@ -6,16 +6,69 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import StartGame from '/games/RhythmGenerator/index.js'
 
   const { 
-    // 🚩
+    crotchet,
+    crotchetRest,
+    minim,
+    minimRest,
+    semibreve,
+    semibreveRest,
+    quaverDuo,
+    quaverTriplet,
+    quaverRest_quaver,
+    semiquaverQuad,
   } = FIGURES
 
   window.gameSettings = {
     id: 'g6-play-with-the-rhythm',
-    game: '🚩',
+    game: 'RhythmGenerator',
     module: 1,
+    levels: [
+      {
+        title: 'La Negra y Silencio de Negra',
+        description: 'Descripción del nivel 1',
+        metrics: { compass: 5, figures: 4 },
+        figures: [crotchet, crotchetRest]
+      },
+      {
+        title: 'La Blanca y Silencio de Blanca',
+        description: 'Descripción del nivel 2',
+        metrics: { compass: 5, figures: 4 },
+        figures: [minim, minimRest]
+      },
+      {
+        title: 'La Redonda y Silencio de Redonda',
+        description: 'Descripción del nivel 3',
+        metrics: { compass: 5, figures: 4 },
+        figures: [semibreve, semibreveRest]
+      },
+      {
+        title: 'La Corchea y Silencio de Corchea',
+        description: 'Descripción del nivel 4',
+        metrics: { compass: 5, figures: 4 },
+        figures: [quaverDuo, quaverRest_quaver]
+      },
+      {
+        title: 'La Semicorchea',
+        description: 'Descripción del nivel 5',
+        metrics: { compass: 4, figures: 4 },
+        figures: [semiquaverQuad, quaverDuo, crotchet, crotchetRest]
+      },
+      {
+        title: 'El Tresillo',
+        description: 'Descripción del nivel 6',
+        metrics: { compass: 4, figures: 4 },
+        figures: [quaverTriplet, crotchetRest]
+      },
+      {
+        title: 'Todas las figuras musicales',
+        description: 'Descripción del nivel 7',
+        metrics: { compass: 4, figures: 4 },
+        figures: [crotchet, crotchetRest]
+      },
+    ]
   }
 
   StartGame()
