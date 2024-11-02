@@ -72,7 +72,7 @@ export default class UIManager {
       withSound: false,
       withInteractions: false,
       onClick: async ({ button }) => {
-        if (!this.scene.melody.isPlaying) {
+        if (!this.scene.melody.playing) {
           label.setText('Parar')
           button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
           const melody = this.scene.melody.current
@@ -99,6 +99,7 @@ export default class UIManager {
           slot.currentBlock.figures
         ))
 
+        // Verificar si la composición es incorrecta
         const composition = []
         groupedMelody.forEach((figures, blockIndex) => {
           figures.forEach((figure) => {
@@ -106,7 +107,6 @@ export default class UIManager {
           })
         })
 
-        // Verificar si la composición es incorrecta
         const mistakes = this.scene.melody.check(composition)
 
         if (mistakes) {
