@@ -59,7 +59,7 @@ export default class InstructionsScene extends Phaser.Scene {
 
     // Mostrar las figuras musicales
     newFigures.forEach((newFigure, i) => {
-      const fig = this.add.image(800 - (230 * i), 450, newFigure.name)
+      const fig = this.add.image(800 - (200 * i), 450, newFigure.name)
         .setOrigin(0.5)
 
       this.uiAnimations.scaleUp({ targets: fig, delay: i * 100 })
