@@ -311,6 +311,7 @@ export default class UIManager {
 
   // Avanzar al siguiente ejercicio
   advanceToNextExercise () {
+    this.scene.exercises.current.melody = this.scene.melody.current
     const nextExercise = this.scene.exercises.complete()
 
     // Nivel completado
@@ -341,6 +342,14 @@ export default class UIManager {
 
       // Guardar progreso
       const exercises = this.scene.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
+      console.log({
+        level: {
+          name: this.scene.level.name,
+          totalTimer: calculateElapsedTime(this.scene.levelStartTimer)
+        },
+        exercises
+      })
+
       this.scene.socket.levelCompleted({
         level: {
           name: this.scene.level.name,
