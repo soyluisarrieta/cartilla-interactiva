@@ -14,7 +14,6 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.game = window.gameSettings
     this.level = this.game.levels[0]
-    console.log(this.level)
 
     this.generatedMelody = null
 
@@ -23,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Principal
   create () {
+    this.ui.init()
     this.start()
 
     // Sonido de inicio de partida
@@ -35,6 +35,5 @@ export default class GameScene extends Phaser.Scene {
     const { figures, metrics } = this.level
     const maxFigures = metrics.compass * metrics.figures
     this.generatedMelody = this.melody.generate(figures, maxFigures)
-    console.log(this.generatedMelody)
   }
 }
