@@ -12,7 +12,7 @@ export default {
   },
   crotchet: {
     name: 'crotchet',
-    title: 'Begra',
+    title: 'Negra',
     duration: 1
   },
   quaver: {
