@@ -21,6 +21,7 @@ export default class Intervals {
 
     interval.actived = false
     this.all.push(interval)
+    return interval
   }
 
   // Seleccionar un intervalo

@@ -20,10 +20,7 @@ export default class GameScene extends Phaser.Scene {
     this.game = window.gameSettings
     this.level = this.game.levels[0]
     this.intervals.init()
-    this.composition = {
-      figures: this.add.group(),
-      intervals: []
-    }
+    this.composition = this.add.group()
 
     UIManager.title = this.level.title
   }
@@ -43,7 +40,7 @@ export default class GameScene extends Phaser.Scene {
     const { figures, metrics } = this.level
     const maxFigures = metrics.compass * metrics.figures
 
-    this.composition.figures.clear(true, true)
+    this.composition.clear(true, true)
     this.intervals.resetAll()
 
     const generatedMelody = this.melody.generate(figures, maxFigures)
@@ -54,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
   drawMelody (melody) {
     const { width } = this.cameras.main
     const { metrics: { compass, figures: notesPerColumn } } = this.level
-    const numberOfCompasses = Math.ceil(melody.length / (compass * notesPerColumn))
+    const totalFigures = compass * notesPerColumn
     const figureWidth = 55
     const gapPerNotes = 20
 
@@ -82,14 +79,15 @@ export default class GameScene extends Phaser.Scene {
           const fixedHeight = figureWidth * aspectRatio
           image.setDisplaySize(figureWidth, fixedHeight)
 
-          const posInterval = [posX + 25, y + 200]
-          const intervalIndicator = this.intervals.draw(posInterval)
+          if (this.intervals.all.length !== totalFigures) {
+            const posInterval = [posX + 25, y + 200]
+            this.intervals.draw(posInterval)
+          }
 
-          this.composition.figures.add(image)
-          this.composition.intervals.push(intervalIndicator)
+          this.composition.add(image)
         }
       },
-      totalItems: numberOfCompasses * compass,
+      totalItems: compass,
       item: { width: (figureWidth + gapPerNotes) * notesPerColumn },
       maxColumns: compass,
       gap: figureWidth,
