@@ -57,12 +57,12 @@ export default class UIManager {
       {
         label: 'Reproducir',
         texture: BUTTONS.PLAY,
-        handleEvent: this.playButton.bind(this)
+        handleEvent: this.handlePlay.bind(this)
       },
       {
         label: 'Detener',
         texture: BUTTONS.REPEAT,
-        handleEvent: () => this.scene.melody.stop()
+        handleEvent: this.handleStop.bind(this)
       },
       {
         label: 'Generar',
@@ -104,22 +104,27 @@ export default class UIManager {
   }
 
   // Reproducir melodía
-  async playButton ({ label, button }) {
+  async handlePlay ({ label, button }) {
     const { tempo } = this.scene.game
-    if (!this.scene.melody.playing) {
+    const melody = this.scene.melody
+    const intervals = this.scene.intervals
+
+    if (!melody.playing) {
       label.setText('Detener')
       button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
-      const melody = this.scene.melody.current
-      await this.scene.melody.play(melody, tempo)
+      const onSound = ({ index }) => intervals.select(index).setActived(true)
+      await melody.play(melody.current, tempo, onSound)
     }
-    this.scene.melody.stop()
+
+    intervals.resetAll()
+    melody.stop()
     label.setText('Reproducir')
     button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
   }
 
-  // Generar meloadía aleatoria
-  generateButton () {
-    console.log('generar melodía')
+  handleStop () {
+    this.scene.intervals.resetAll()
+    this.scene.melody.stop()
   }
 
   // Acelerar/Desacelerar
