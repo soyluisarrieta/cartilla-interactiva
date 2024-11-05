@@ -1,6 +1,6 @@
 import Melody from '../../../core/Melody.js'
 import UIManager from '../components/UIManager.js'
-import { SCENES } from '../../../core/constants.js'
+import { BUTTONS, SCENES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import { grid } from '../../../core/utils/grid.js'
 
@@ -17,7 +17,10 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.game = window.gameSettings
     this.level = this.game.levels[0]
-    this.composition = this.add.group()
+    this.composition = {
+      figures: this.add.group(),
+      intervals: []
+    }
     UIManager.title = this.level.title
   }
 
@@ -36,7 +39,7 @@ export default class GameScene extends Phaser.Scene {
     const { figures, metrics } = this.level
     const maxFigures = metrics.compass * metrics.figures
 
-    this.composition.clear(true, true)
+    this.composition.figures.clear(true, true)
     const generatedMelody = this.melody.generate(figures, maxFigures)
     this.drawMelody(generatedMelody)
   }
@@ -73,7 +76,13 @@ export default class GameScene extends Phaser.Scene {
           const fixedHeight = figureWidth * aspectRatio
           image.setDisplaySize(figureWidth, fixedHeight)
 
-          this.composition.add(image)
+          const intervalIndicator = this.add
+            .image(posX + 7, y + 180, BUTTONS.HOME.key, BUTTONS.HOME.frame)
+            .setScale(0.3)
+            .setOrigin(0)
+
+          this.composition.figures.add(image)
+          this.composition.intervals.push(intervalIndicator)
         }
       },
       totalItems: numberOfCompasses * compass,
