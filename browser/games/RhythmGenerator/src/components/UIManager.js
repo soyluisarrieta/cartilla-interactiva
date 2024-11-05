@@ -67,7 +67,7 @@ export default class UIManager {
       {
         label: 'Generar',
         texture: BUTTONS.LISTEN_MELODY,
-        handleEvent: this.generateButton.bind(this)
+        handleEvent: this.scene.start.bind(this.scene)
       },
       {
         label: 'Acelerar',
