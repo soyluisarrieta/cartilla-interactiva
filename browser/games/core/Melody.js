@@ -102,6 +102,13 @@ export default class Melody {
       if (!this.playing) {
         break
       }
+
+      // Detener temporizador si es la última figura
+      if (figure.index === figures.length - 1) {
+        this.stopTimerTic()
+      }
+
+      // Reproducir nota
       await this.playNote(figure, tempo, timeElapsed, () => onSound({ figure, index }))
       timeElapsed += figure.duration * tempo
       index++
