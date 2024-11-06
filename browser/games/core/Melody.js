@@ -1,6 +1,7 @@
 export default class Melody {
   constructor (scene) {
     this.scene = scene
+    this.tempo = null
     this.current = null
     this.playing = false
     this.paused = false
@@ -35,13 +36,13 @@ export default class Melody {
   }
 
   // Iniciar temporizador
-  startTimerTic (tempo) {
+  startTimerTic () {
     this.scene.sound.play('timerTic')
     this.timerTicInterval = setInterval(() => {
       if (this.playing) {
         this.scene.sound.play('timerTic')
       }
-    }, tempo)
+    }, this.tempo)
   }
 
   // Detener temporizador
@@ -50,13 +51,13 @@ export default class Melody {
   }
 
   // Reproduce una figura musical o combinadas
-  playNote (figure, tempo, timeElapsed, onSound) {
+  playNote (figure, timeElapsed, onSound) {
     if (figure.figures) {
-      return this.playSubfigures(figure.figures, tempo, timeElapsed, onSound)
+      return this.playSubfigures(figure.figures, timeElapsed, onSound)
     } else {
       return new Promise(resolve => {
         const { name, duration, beats = 1 } = figure
-        const beatInterval = duration * tempo / beats
+        const beatInterval = duration * this.tempo / beats
         const isRestNote = name.includes('rest')
 
         for (let i = 0; i < beats; i++) {
@@ -78,16 +79,16 @@ export default class Melody {
         // Resuelve la promesa después del tiempo total
         setTimeout(() => {
           resolve()
-        }, duration * tempo)
+        }, duration * this.tempo)
       })
     }
   }
 
   // Reproducir subfiguras secuencialmente
-  async playSubfigures (subfigures, tempo, timeElapsed, onSound) {
+  async playSubfigures (subfigures, timeElapsed, onSound) {
     for (const subfigure of subfigures) {
-      await this.playNote(subfigure, tempo, timeElapsed, onSound)
-      timeElapsed += subfigure.duration * tempo
+      await this.playNote(subfigure, timeElapsed, onSound)
+      timeElapsed += subfigure.duration * this.tempo
     }
   }
 
@@ -96,7 +97,8 @@ export default class Melody {
     this.playing = true
     let timeElapsed = 0
     let index = 0
-    this.startTimerTic(tempo)
+    this.tempo = tempo
+    this.startTimerTic()
 
     // Reproduce cada figura secuencialmente
     for (const figure of figures) {
@@ -113,8 +115,8 @@ export default class Melody {
       }
 
       // Reproducir nota
-      await this.playNote(figure, tempo, timeElapsed, () => onSound({ figure, index }))
-      timeElapsed += figure.duration * tempo
+      await this.playNote(figure, timeElapsed, () => onSound({ figure, index }))
+      timeElapsed += figure.duration * this.tempo
       index++
     }
 
@@ -125,11 +127,15 @@ export default class Melody {
   // Pausar reproducción
   pause () {
     this.paused = true
+    this.stopTimerTic()
   }
 
   // Reanudar reproducción
   resume () {
     this.paused = false
+    if (this.playing) {
+      this.startTimerTic(this.tempo)
+    }
   }
 
   // Detener reproducción
