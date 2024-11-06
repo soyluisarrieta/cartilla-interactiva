@@ -3,6 +3,7 @@ export default class Melody {
     this.scene = scene
     this.current = null
     this.playing = false
+    this.paused = false
     this.timerTicInterval = null
   }
 
@@ -60,7 +61,7 @@ export default class Melody {
 
         for (let i = 0; i < beats; i++) {
           setTimeout(() => {
-            if (!this.playing) {
+            if (!this.playing || this.paused) {
               resolve()
               return
             }
@@ -99,6 +100,9 @@ export default class Melody {
 
     // Reproduce cada figura secuencialmente
     for (const figure of figures) {
+      while (this.paused) {
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
       if (!this.playing) {
         break
       }
@@ -116,6 +120,16 @@ export default class Melody {
 
     // Finaliza la reproducción
     this.stop()
+  }
+
+  // Pausar reproducción
+  pause () {
+    this.paused = true
+  }
+
+  // Reanudar reproducción
+  resume () {
+    this.paused = false
   }
 
   // Detener reproducción
