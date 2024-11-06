@@ -112,6 +112,14 @@ export default class UIManager {
     const intervals = this.scene.intervals
 
     if (!melody.playing) {
+      const generateButton = this.buttons[2].elements
+      const accelerateButton = this.buttons[3].elements
+      const decelerateButton = this.buttons[4].elements
+
+      generateButton.button.setDisabled(true)
+      accelerateButton.button.setDisabled(true)
+      decelerateButton.button.setDisabled(true)
+
       label.setText('Pausar')
       button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
       const onSound = ({ index }) => intervals.select(index).setActived(true)
@@ -121,6 +129,10 @@ export default class UIManager {
       melody.stop()
       label.setText('Reproducir')
       button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
+
+      generateButton.button.setDisabled(false)
+      accelerateButton.button.setDisabled(false)
+      decelerateButton.button.setDisabled(false)
     } else if (melody.paused) {
       label.setText('Pausar')
       button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
@@ -135,9 +147,18 @@ export default class UIManager {
   handleStop () {
     this.scene.intervals.resetAll()
     this.scene.melody.stop()
+
     const playButton = this.buttons[0].elements
+    const generateButton = this.buttons[2].elements
+    const accelerateButton = this.buttons[3].elements
+    const decelerateButton = this.buttons[4].elements
+
     playButton.label.setText('Reproducir')
     playButton.button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
+
+    generateButton.button.setDisabled(false)
+    accelerateButton.button.setDisabled(false)
+    decelerateButton.button.setDisabled(false)
   }
 
   // Acelerar/Desacelerar
