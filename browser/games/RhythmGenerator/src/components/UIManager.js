@@ -93,12 +93,14 @@ export default class UIManager {
           .bitmapText(x, y + 110, FONTS.PRIMARY, labelText, 32)
           .setOrigin(0.5)
 
-        Button.draw(this.scene)({
+        const button = Button.draw(this.scene)({
           ...texture,
           position: [x, y],
           withInteractions: false,
           onClick: ({ button }) => handleEvent({ label, button })
         })
+
+        this.buttons[i].elements = { label, button }
       }
     })
   }
@@ -110,21 +112,32 @@ export default class UIManager {
     const intervals = this.scene.intervals
 
     if (!melody.playing) {
-      label.setText('Detener')
+      label.setText('Pausar')
       button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
       const onSound = ({ index }) => intervals.select(index).setActived(true)
       await melody.play(melody.current, tempo, onSound)
-    }
 
-    intervals.resetAll()
-    melody.stop()
-    label.setText('Reproducir')
-    button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
+      intervals.resetAll()
+      melody.stop()
+      label.setText('Reproducir')
+      button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
+    } else if (melody.paused) {
+      label.setText('Pausar')
+      button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+      melody.resume()
+    } else if (!melody.paused) {
+      label.setText('Reanudar')
+      button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+      melody.pause()
+    }
   }
 
   handleStop () {
     this.scene.intervals.resetAll()
     this.scene.melody.stop()
+    const playButton = this.buttons[0].elements
+    playButton.label.setText('Reproducir')
+    playButton.button.setTexture(BUTTONS.PLAY.key, BUTTONS.PLAY.frame)
   }
 
   // Acelerar/Desacelerar
