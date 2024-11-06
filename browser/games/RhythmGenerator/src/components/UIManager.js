@@ -13,6 +13,7 @@ export default class UIManager {
   init () {
     this.homeButton()
     this.setTitle(UIManager.title)
+    this.drawTempo()
     this.drawActionButtons()
   }
 
@@ -50,6 +51,22 @@ export default class UIManager {
       .setOrigin(0.5, 0)
   }
 
+  // Indicador de Tempo en segundos
+  drawTempo () {
+    const { width } = this.scene.cameras.main
+    const tempo = this.scene.game.tempo
+    this.tempoIndicator = this.scene.add
+      .bitmapText(width - 50, 50, FONTS.PRIMARY, `Tempo: ${tempo} BPM`, 32
+      ).setOrigin(1, 0)
+
+    this.updateTempo(tempo)
+  }
+
+  // Método para actualizar el indicador de tempo
+  updateTempo (newTempo) {
+    this.tempoIndicator.setText(`Tempo: ${newTempo} BPM`)
+  }
+
   // Botones de acción
   drawActionButtons () {
     const buttonDimensions = { width: 300, height: 300 }
@@ -72,12 +89,12 @@ export default class UIManager {
       {
         label: 'Acelerar',
         texture: BUTTONS.ARROW_RIGHT,
-        handleEvent: () => this.speedMelodyButton.bind(this)(+1)
+        handleEvent: () => this.speedMelodyButton.bind(this)(-1)
       },
       {
         label: 'Desacelerar',
         texture: BUTTONS.ARROW_LEFT,
-        handleEvent: () => this.speedMelodyButton.bind(this)(-1)
+        handleEvent: () => this.speedMelodyButton.bind(this)(1)
       }
     ]
 
@@ -163,6 +180,10 @@ export default class UIManager {
 
   // Acelerar/Desacelerar
   speedMelodyButton (speed) {
-    console.log(speed === 1 ? 'Acelerar' : 'Desacelerar')
+    const game = this.scene.game
+    const tempoIncrement = 100
+    game.tempo += speed * tempoIncrement
+    game.tempo = Math.max(400, Math.min(game.tempo, 4000))
+    this.updateTempo(game.tempo)
   }
 }
