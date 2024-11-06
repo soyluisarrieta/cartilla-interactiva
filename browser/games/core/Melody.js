@@ -135,6 +135,7 @@ export default class Melody {
   // Detener reproducción
   stop () {
     this.playing = false
+    this.paused = false
     this.stopTimerTic()
   }
 
