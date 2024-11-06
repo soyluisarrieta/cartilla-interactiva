@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
   // Inicialización
   init (level) {
     this.game = window.gameSettings
-    this.level = this.game.levels[0]
+    this.level = level
     this.intervals.init()
     this.composition = this.add.group()
 

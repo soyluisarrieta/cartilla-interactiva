@@ -1,5 +1,6 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
+import { grid } from '../../../core/utils/grid.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
@@ -8,6 +9,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
 
   create () {
     const { width, height } = this.cameras.main
+    this.game = window.gameSettings
 
     // Imagen de fondo
     this.add.image(0, 0, 'bgMenu')
@@ -29,5 +31,29 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .setOrigin(0.5)
 
     // Crear niveles
+    const levels = this.game.levels
+    console.log(levels)
+
+    grid({
+      totalItems: levels.length,
+      item: { width: 500, height: 100 },
+      gap: 0,
+      position: [500, 300],
+      element: ({ x, y }, i) => {
+        const onClick = () => this.scene.start(SCENES.GAME, levels[i])
+
+        Button.draw(this)({
+          ...BUTTONS.ARROW_RIGHT,
+          position: [x, y],
+          onClick
+        }).setScale(0.4)
+
+        this.add
+          .bitmapText(x + 50, y, FONTS.PRIMARY, levels[i].title, 50)
+          .setOrigin(0, 0.5)
+          .setInteractive()
+          .on('pointerup', onClick)
+      }
+    })
   }
 }
