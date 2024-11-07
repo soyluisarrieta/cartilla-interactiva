@@ -16,8 +16,6 @@ export default class GameScene extends Phaser.Scene {
     this.exercises = new Exercises(this)
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
-    this.originalToneRate = 1.4
-    this.alteredToneRate = 1.3
   }
 
   // Inicialización
@@ -32,9 +30,9 @@ export default class GameScene extends Phaser.Scene {
     this.ui.init()
     this.health.draw(3)
     this.exercises.create(7)
+    this.start()
     this.playToneButton()
     this.toneChangeButtons()
-    this.start()
     this.exercises.play(0)
 
     // Sonido de inicio de partida
@@ -44,13 +42,43 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
+    const minRate = 0.95
+    const maxRate = 1.05
+    const minDifference = 0.1
+    const maxDifference = 1.0
 
+    this.originalToneRate = this.alteredToneRate ?? Phaser.Math
+      .FloatBetween(minRate, maxRate)
+      .toFixed(2)
+
+    let adjustedRange
+    const originalRate = parseFloat(this.originalToneRate)
+
+    // Calcular el rango ajustado basado en la diferencia mínima y máxima
+    const isIncreased = Phaser.Math.Between(0, 1) === 0
+
+    // Asegurar que el nuevo rango esté dentro de los límites y sea diferente
+    if (isIncreased) {
+      const lowerBound = Math.max(originalRate + minDifference, maxRate)
+      const upperBound = Math.min(originalRate + maxDifference, maxRate)
+      do {
+        adjustedRange = Phaser.Math.FloatBetween(lowerBound, upperBound).toFixed(2)
+      } while (adjustedRange === this.originalToneRate)
+    } else {
+      const lowerBound = Math.max(minRate, originalRate - maxDifference)
+      const upperBound = Math.min(originalRate - minDifference, minRate)
+      do {
+        adjustedRange = Phaser.Math.FloatBetween(lowerBound, upperBound).toFixed(2)
+      } while (adjustedRange === this.originalToneRate)
+    }
+
+    // Ajustar el valor alterado del tono
+    this.alteredToneRate = adjustedRange
   }
 
   // Botón: Reproducir tonos
   playToneButton () {
     const { height } = this.cameras.main
-    const alteration = [this.originalToneRate, this.alteredToneRate]
     const [x, y] = [400, height / 2 + 50]
 
     const button = Button.draw(this)({
@@ -58,13 +86,15 @@ export default class GameScene extends Phaser.Scene {
       position: [x, y],
       withInteractions: true,
       onClick: ({ button }) => {
+        console.log(this.originalToneRate, this.alteredToneRate, (this.alteredToneRate - this.originalToneRate).toFixed(2))
+
         // Reproducir el sonido con el tono original
-        this.tone.setRate(alteration[0])
+        this.tone.setRate(this.originalToneRate)
         this.tone.play()
 
         // Reproducir el sonido con tono aumentado después de un retraso
         this.time.delayedCall(this.tone.duration * 700, () => {
-          this.tone.setRate(alteration[1])
+          this.tone.setRate(this.alteredToneRate)
           this.tone.play()
         })
       }
@@ -122,11 +152,13 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Correcto
-    this.exercises.complete()
     if (toneDirection === INCREASED) {
       console.log('¡Correcto! El tono aumentó.')
     } else {
       console.log('¡Correcto! El tono disminuyó.')
     }
+
+    this.exercises.complete()
+    this.start()
   }
 }
