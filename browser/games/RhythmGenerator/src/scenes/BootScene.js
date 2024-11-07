@@ -26,7 +26,7 @@ export default class BootScene extends Phaser.Scene {
 
     const assetLoader = new AssetLoader(this)
     assetLoader.load([
-      coreAssets.howToPlay(8), // steps
+      coreAssets.howToPlay(9), // steps
       gameAssets
     ])
   }
