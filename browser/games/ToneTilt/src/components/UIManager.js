@@ -2,7 +2,7 @@ import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 
 export default class UIManager {
-  static title = 'Generador de ritmos'
+  static title = '¿El segundo tono sube o baja?'
 
   constructor (scene) {
     this.scene = scene
