@@ -32,8 +32,6 @@ export default class LevelSelectionScene extends Phaser.Scene {
 
     // Crear niveles
     const levels = this.game.levels
-    console.log(levels)
-
     grid({
       totalItems: levels.length,
       item: { width: 500, height: 100 },
