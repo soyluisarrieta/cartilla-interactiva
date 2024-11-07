@@ -20,7 +20,7 @@ export default class UIManager {
 
   // Botón: Salir de la partida
   homeButton () {
-    Button.draw(this.scene)({
+    const button = Button.draw(this.scene)({
       ...BUTTONS.HOME,
       position: [120, 120],
       onClick: () => {
@@ -42,6 +42,8 @@ export default class UIManager {
         })
       }
     }).setScale(0.9)
+
+    this.scene.uiAnimations.slideInFromLeft({ targets: button })
   }
 
   // Títular
@@ -74,17 +76,27 @@ export default class UIManager {
         const fixedHeight = figureWidth * aspectRatio
         image.setDisplaySize(figureWidth, fixedHeight)
 
-        this.scene.add
+        const label = this.scene.add
           .bitmapText(x + figureWidth / 2, y + 20, FONTS.PRIMARY, figures[i].title, 19)
           .setOrigin(0.5, 0)
           .setCenterAlign()
           .setMaxWidth(figureWidth * 4)
+
+        this.scene.uiAnimations.slideInFromTop({
+          targets: [image, label],
+          delay: 600
+        })
       }
     })
 
-    this.scene.add
+    const subTitle = this.scene.add
       .bitmapText(width / 2, 430, FONTS.PRIMARY, 'Figuras involucradas', 28)
       .setOrigin(0.5)
+
+    this.scene.uiAnimations.fadeIn({
+      targets: subTitle,
+      delay: 600
+    })
   }
 
   // Indicador de Tempo en segundos
@@ -96,6 +108,8 @@ export default class UIManager {
       ).setOrigin(1, 0)
 
     this.updateTempo(tempo)
+
+    this.scene.uiAnimations.slideInFromRight({ targets: this.tempoIndicator })
   }
 
   // Método para actualizar el indicador de tempo
@@ -154,6 +168,11 @@ export default class UIManager {
         })
 
         this.buttons[i].elements = { label, button }
+
+        this.scene.uiAnimations.slideInFromBottom({
+          targets: [label, button],
+          delay: 600
+        })
       }
     })
   }

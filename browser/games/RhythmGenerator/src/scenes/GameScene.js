@@ -59,6 +59,12 @@ export default class GameScene extends Phaser.Scene {
 
     // Distribuir figuras por compás
     grid({
+      totalItems: compass,
+      item: { width: (figureWidth + gapPerNotes) * notesPerColumn },
+      maxColumns: compass,
+      gap: figureWidth,
+      position: [width / 2, 500],
+      alignCenter: true,
       element: ({ x, y }, i) => {
         const compassIndex = Math.floor(i / compass)
         const figureIndexInCompass = i % compass
@@ -87,14 +93,20 @@ export default class GameScene extends Phaser.Scene {
           }
 
           this.composition.add(image)
+
+          // Animation
+          this.uiAnimations.slideInFromLeft({
+            targets: image,
+            duration: 200,
+            delay: note.index * 50
+          })
+          this.uiAnimations.fadeIn({
+            targets: this.intervals.all[note.index],
+            duration: 300,
+            delay: note.index * 55
+          })
         }
-      },
-      totalItems: compass,
-      item: { width: (figureWidth + gapPerNotes) * notesPerColumn },
-      maxColumns: compass,
-      gap: figureWidth,
-      position: [width / 2, 500],
-      alignCenter: true
+      }
     })
   }
 }
