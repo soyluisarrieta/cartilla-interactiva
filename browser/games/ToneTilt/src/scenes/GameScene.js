@@ -1,4 +1,5 @@
 import Health from '../../../core/components/Health.js'
+import Exercises from '../../../core/components/Exercises.js'
 import Alert from '../../../core/components/Alert.js'
 import UIManager from '../components/UIManager.js'
 import UIAnimations from '../../../core/UIAnimations.js'
@@ -12,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.ui = new UIManager(this)
     this.health = new Health(this)
+    this.exercises = new Exercises(this)
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
     this.originalToneRate = 1.4
@@ -29,9 +31,11 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.health.draw(3)
+    this.exercises.create(7)
     this.playToneButton()
     this.toneChangeButtons()
     this.start()
+    this.exercises.play(0)
 
     // Sonido de inicio de partida
     this.sound.stopAll()
@@ -118,6 +122,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Correcto
+    this.exercises.complete()
     if (toneDirection === INCREASED) {
       console.log('¡Correcto! El tono aumentó.')
     } else {
