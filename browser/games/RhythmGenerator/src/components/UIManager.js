@@ -14,6 +14,7 @@ export default class UIManager {
     this.homeButton()
     this.setTitle(UIManager.title)
     this.drawTempo()
+    this.drawFiguresInvolved()
     this.drawActionButtons()
   }
 
@@ -27,13 +28,13 @@ export default class UIManager {
         this.scene.alert.showAlert('¿Estás seguro?', {
           type: 'warning',
           image: 'gameLogo',
-          message: 'Si sales, tendrás que volver a empezar una nueva partida.',
+          message: 'Si sales, probablemente no se genere el mismo ritmo.',
           buttons: [
             {
               text: 'Salir',
               onClick: () => {
                 this.scene.melody.stop()
-                this.scene.scene.start(SCENES.MENU)
+                this.scene.scene.start(SCENES.LEVEL_SELECTION)
               }
             },
             { text: 'Cancelar' }
@@ -49,6 +50,41 @@ export default class UIManager {
     return this.scene.add
       .bitmapText(width / 2, 100, FONTS.PRIMARY, text)
       .setOrigin(0.5, 0)
+  }
+
+  // Figuras involucradas
+  drawFiguresInvolved () {
+    const { width } = this.scene.cameras.main
+    const { figures } = this.scene.level
+    const figureWidth = 40
+
+    grid({
+      totalItems: figures.length,
+      item: { width: figureWidth },
+      maxColumns: figures.length,
+      gap: figureWidth * 3,
+      position: [width / 2, 330],
+      alignCenter: true,
+      element: ({ x, y }, i) => {
+        const image = this.scene.add
+          .image(x, y, 'figures', figures[i].name)
+          .setOrigin(0, 1)
+
+        const aspectRatio = image.height / image.width
+        const fixedHeight = figureWidth * aspectRatio
+        image.setDisplaySize(figureWidth, fixedHeight)
+
+        this.scene.add
+          .bitmapText(x + figureWidth / 2, y + 20, FONTS.PRIMARY, figures[i].title, 19)
+          .setOrigin(0.5, 0)
+          .setCenterAlign()
+          .setMaxWidth(figureWidth * 4)
+      }
+    })
+
+    this.scene.add
+      .bitmapText(width / 2, 430, FONTS.PRIMARY, 'Figuras involucradas', 28)
+      .setOrigin(0.5)
   }
 
   // Indicador de Tempo en segundos
