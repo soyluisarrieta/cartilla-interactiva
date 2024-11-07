@@ -20,17 +20,15 @@ export default class UIManager {
       ...BUTTONS.HOME,
       position: [120, 120],
       onClick: () => {
-        this.scene.melody.stop()
         this.scene.alert.showAlert('¿Estás seguro?', {
           type: 'warning',
           image: 'gameLogo',
-          message: 'Si sales, probablemente no se genere el mismo ritmo.',
+          message: 'Si sales, tendrás que volver a empezar una nueva partida.',
           buttons: [
             {
               text: 'Salir',
               onClick: () => {
-                this.scene.melody.stop()
-                this.scene.scene.start(SCENES.LEVEL_SELECTION)
+                this.scene.scene.start(SCENES.MENU)
               }
             },
             { text: 'Cancelar' }
