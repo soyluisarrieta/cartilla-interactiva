@@ -1,3 +1,4 @@
+import Health from '../../../core/components/Health.js'
 import Alert from '../../../core/components/Alert.js'
 import UIManager from '../components/UIManager.js'
 import UIAnimations from '../../../core/UIAnimations.js'
@@ -10,6 +11,7 @@ export default class GameScene extends Phaser.Scene {
     super({ key: SCENES.GAME })
 
     this.ui = new UIManager(this)
+    this.health = new Health(this)
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
     this.originalToneRate = 1.4
@@ -26,6 +28,7 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
+    this.health.draw(3)
     this.playToneButton()
     this.toneChangeButtons()
     this.start()
@@ -109,6 +112,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Incorrecto
     if (userChoice !== toneDirection) {
+      this.health.miss()
       console.log('¡Incorrecto! Inténtalo de nuevo.')
       return null
     }
