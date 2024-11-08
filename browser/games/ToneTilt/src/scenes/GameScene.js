@@ -116,11 +116,19 @@ export default class GameScene extends Phaser.Scene {
     const { height } = this.cameras.main
     const [x, y] = [400, height / 2 + 50]
 
+    const label = this.add
+      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
+      .setOrigin(0.5)
+
     const button = Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
-      withInteractions: true,
+      withInteractions: false,
       onClick: ({ button }) => {
+        label.setAlpha(0.5)
+        button.setDisabled(true)
+        button.setScale(0.9)
+
         // Reproducir el sonido con el tono original
         this.tone.setRate(this.originalToneRate)
         this.tone.play()
@@ -129,13 +137,14 @@ export default class GameScene extends Phaser.Scene {
         this.time.delayedCall(this.tone.duration * 700, () => {
           this.tone.setRate(this.alteredToneRate)
           this.tone.play()
+          this.time.delayedCall(this.tone.duration * 500, () => {
+            label.setAlpha(1)
+            button.setDisabled(false)
+            button.setScale(1)
+          })
         })
       }
     })
-
-    const label = this.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
-      .setOrigin(0.5)
   }
 
   // Botón: Comparar tono incrementado/disminuido
