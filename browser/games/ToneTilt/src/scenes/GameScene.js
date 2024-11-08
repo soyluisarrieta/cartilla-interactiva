@@ -147,17 +147,63 @@ export default class GameScene extends Phaser.Scene {
     // Incorrecto
     if (userChoice !== toneDirection) {
       this.health.miss()
-      console.log('¡Incorrecto! Inténtalo de nuevo.')
+      const alert = {
+        title: '¡Opción incorrecta!',
+        type: 'error',
+        image: 'gameLogo',
+        message: 'Has perdido una de tus vidas, vuelve a intentarlo.',
+        sound: 'incorrectMelody'
+      }
+
+      const totalHealth = this.health.total
+      const isGameOver = totalHealth === 0
+      if (isGameOver) {
+        alert.title = '¡Fin del juego'
+        alert.type = 'default'
+        alert.image = 'gameLogo'
+        alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a jugar!'
+        alert.sound = 'gameOver'
+      }
+
+      const buttons = [
+        {
+          text: 'Volver a jugar',
+          onClick: () => {
+            this.scene.restart()
+          }
+        },
+        {
+          text: 'Salir',
+          onClick: () => {
+            this.scene.start(SCENES.MENU)
+          }
+        }
+      ]
+
+      this.alert.showAlert(alert.title, {
+        type: alert.type,
+        image: alert.image,
+        message: alert.message,
+        btnAccept: !isGameOver,
+        buttons: isGameOver ? buttons : [],
+        dismissible: false
+      })
+
+      this.sound.stopAll()
+      this.sound.play(alert.sound)
       return null
     }
 
     // Correcto
-    if (toneDirection === INCREASED) {
-      console.log('¡Correcto! El tono aumentó.')
-    } else {
-      console.log('¡Correcto! El tono disminuyó.')
-    }
+    this.alert.showAlert('¡Perfecto!', {
+      type: 'success',
+      image: 'gameLogo',
+      message: `Has identificado correctamente que el tono ${INCREASED ? 'aumenta' : 'disminuye'}.`,
+      btnAccept: true
+    })
 
+    this.sound.stopAll()
+    this.sound.play('perfectMelody')
     this.exercises.complete()
     this.start()
   }
