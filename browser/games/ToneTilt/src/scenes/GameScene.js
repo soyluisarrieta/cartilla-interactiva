@@ -1,5 +1,4 @@
 import Health from '../../../core/components/Health.js'
-import Exercises from '../../../core/components/Exercises.js'
 import Alert from '../../../core/components/Alert.js'
 import UIManager from '../components/UIManager.js'
 import UIAnimations from '../../../core/UIAnimations.js'
@@ -13,7 +12,6 @@ export default class GameScene extends Phaser.Scene {
 
     this.ui = new UIManager(this)
     this.health = new Health(this)
-    this.exercises = new Exercises(this)
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
   }
@@ -23,17 +21,18 @@ export default class GameScene extends Phaser.Scene {
     this.game = window.gameSettings
     this.level = level
     this.tone = this.sound.add('noteSound')
+    this.score = 0
+    this.bestScore = 0
   }
 
   // Principal
   create () {
     this.ui.init()
     this.health.draw(3)
-    this.exercises.create(7)
     this.start()
+    this.drawScore()
     this.playToneButton()
     this.toneChangeButtons()
-    this.exercises.play(0)
 
     // Sonido de inicio de partida
     this.sound.stopAll()
@@ -74,6 +73,39 @@ export default class GameScene extends Phaser.Scene {
 
     // Ajustar el valor alterado del tono
     this.alteredToneRate = adjustedRange
+  }
+
+  // Marcador de puntos
+  drawScore () {
+    const { width } = this.cameras.main
+
+    this.scoreText = this.add
+      .bitmapText(width - 200, 350, FONTS.PRIMARY, this.score, 70)
+      .setOrigin(0.5, 0)
+
+    this.add
+      .bitmapText(width - 200, 450, FONTS.PRIMARY, 'Mejor puntaje', 32)
+      .setOrigin(0.5, 0)
+
+    this.bestScoreText = this.add
+      .bitmapText(width - 200, 650, FONTS.PRIMARY, this.bestScore, 70)
+      .setOrigin(0.5, 0)
+
+    this.add
+      .bitmapText(width - 200, 750, FONTS.PRIMARY, 'Puntos', 32)
+      .setOrigin(0.5, 0)
+  }
+
+  // Ganar punto
+  point () {
+    this.score = this.score + 100
+    this.scoreText.setText(this.score)
+
+    // Actualizar mejor puntaje
+    if (this.score > this.bestScore) {
+      this.bestScore = this.score
+      this.bestScoreText.setText(this.bestScore)
+    }
   }
 
   // Botón: Reproducir tonos
@@ -202,9 +234,9 @@ export default class GameScene extends Phaser.Scene {
       btnAccept: true
     })
 
+    this.point()
     this.sound.stopAll()
     this.sound.play('perfectMelody')
-    this.exercises.complete()
     this.start()
   }
 }
