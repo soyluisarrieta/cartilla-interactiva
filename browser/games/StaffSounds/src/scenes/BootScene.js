@@ -11,7 +11,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { game: gameName } = window.gameSettings
     InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
@@ -19,9 +18,12 @@ export default class BootScene extends Phaser.Scene {
 
     // Assets del juego
     const gameAssets = {
-      setPath: `/games/${gameName}/assets`,
+      setPath: '/games',
       assets: {
-        // 🚩
+        images: [
+          { key: 'tone', path: '/assets/images/figures/tone.png' },
+          { key: 'toneDashed', path: '/assets/images/figures/tone-dashed.png' }
+        ]
       }
     }
 
