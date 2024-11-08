@@ -3,6 +3,7 @@ import Opening from '../../../core/Opening.js'
 import AssetLoader from '../../../core/utils/AssetLoader.js'
 import { InitProfile } from '../../../../scripts/Profile.js'
 import { SCENES } from '../../../core/constants.js'
+import { STEPS } from '../../../StaffSounds/assets/how-to-play/intructions.js'
 
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -26,7 +27,7 @@ export default class BootScene extends Phaser.Scene {
 
     const assetLoader = new AssetLoader(this)
     assetLoader.load([
-      coreAssets.howToPlay(9), // steps
+      coreAssets.howToPlay(STEPS.length), // steps
       gameAssets
     ])
   }
