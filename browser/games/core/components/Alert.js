@@ -86,7 +86,7 @@ export default class Alert {
         .setOrigin(0.5)
         .setInteractive()
 
-      buttonText.on('pointerdown', () => {
+      buttonText.on('pointerup', () => {
         onClick && onClick()
         this.dismissAlert(alertContainer)
       })
@@ -102,7 +102,7 @@ export default class Alert {
         .setOrigin(0.5)
         .setInteractive()
 
-      buttonAccept.on('pointerdown', () => this.dismissAlert(alertContainer))
+      buttonAccept.on('pointerup', () => this.dismissAlert(alertContainer))
       alertContainer.add(buttonAccept)
     }
 
@@ -115,7 +115,7 @@ export default class Alert {
       }).setOrigin(0.5)
 
       closeButton.setInteractive()
-      closeButton.on('pointerdown', () => this.dismissAlert(alertContainer))
+      closeButton.on('pointerup', () => this.dismissAlert(alertContainer))
       alertContainer.add(closeButton)
     }
 
