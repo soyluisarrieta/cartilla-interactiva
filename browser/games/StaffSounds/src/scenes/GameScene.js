@@ -19,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.level = level
     this.game = window.gameSettings
+    this.composition = []
   }
 
   // Principal
@@ -75,11 +76,20 @@ export default class GameScene extends Phaser.Scene {
 
           // Ocultar el presionable
           hitBox.on('pointerout', () => {
-            tone.setAlpha(0)
+            if (this.composition[i]?.index !== index) {
+              tone.setAlpha(0)
+            }
           })
 
           // Fijar nota en la ubicación cliqueada
           hitBox.on('pointerup', () => {
+            if (this.composition[i]) {
+              const prevTone = this.composition[i]
+              prevTone.element
+                .setTexture('crotchetPresseable')
+                .setAlpha(0)
+            }
+            this.composition[i] = { index, element: tone }
             tone
               .setTexture('tone')
               .setAlpha(1)
