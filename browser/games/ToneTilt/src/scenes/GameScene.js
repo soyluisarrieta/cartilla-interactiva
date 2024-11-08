@@ -5,6 +5,7 @@ import UIAnimations from '../../../core/UIAnimations.js'
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { TONE_DIRECTIONS } from '../constants.js'
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -17,12 +18,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Inicialización
-  init (level) {
+  init () {
     this.game = window.gameSettings
-    this.level = level
     this.tone = this.sound.add('noteSound')
+    this.profile = getProfile()
+    this.bestScore = this.profile.games[this.game.id].bestScore ?? 0
     this.score = 0
-    this.bestScore = 0
   }
 
   // Principal
@@ -84,7 +85,7 @@ export default class GameScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     this.add
-      .bitmapText(width - 200, 450, FONTS.PRIMARY, 'Mejor puntaje', 32)
+      .bitmapText(width - 200, 450, FONTS.PRIMARY, 'Puntos', 32)
       .setOrigin(0.5, 0)
 
     this.bestScoreText = this.add
@@ -92,7 +93,7 @@ export default class GameScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     this.add
-      .bitmapText(width - 200, 750, FONTS.PRIMARY, 'Puntos', 32)
+      .bitmapText(width - 200, 750, FONTS.PRIMARY, 'Mejor puntaje', 32)
       .setOrigin(0.5, 0)
   }
 
@@ -105,6 +106,8 @@ export default class GameScene extends Phaser.Scene {
     if (this.score > this.bestScore) {
       this.bestScore = this.score
       this.bestScoreText.setText(this.bestScore)
+      this.profile.games[this.game.id].bestScore = this.score
+      setProfile(this.profile)
     }
   }
 
@@ -118,8 +121,6 @@ export default class GameScene extends Phaser.Scene {
       position: [x, y],
       withInteractions: true,
       onClick: ({ button }) => {
-        console.log(this.originalToneRate, this.alteredToneRate, (this.alteredToneRate - this.originalToneRate).toFixed(2))
-
         // Reproducir el sonido con el tono original
         this.tone.setRate(this.originalToneRate)
         this.tone.play()
