@@ -16,7 +16,7 @@ export default class UIManager {
 
   // Botón: Salir de la partida
   homeButton () {
-    Button.draw(this.scene)({
+    const button = Button.draw(this.scene)({
       ...BUTTONS.HOME,
       position: [120, 120],
       onClick: () => {
@@ -36,6 +36,12 @@ export default class UIManager {
         })
       }
     }).setScale(0.9)
+
+    this.scene.uiAnimations.fadeIn({
+      targets: button,
+      duration: 300,
+      delay: 300
+    })
   }
 
   // Títular

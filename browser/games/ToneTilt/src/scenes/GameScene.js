@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
-    this.health.draw(3)
+    this.health.draw(1)
     this.start()
     this.drawScore()
     this.playToneButton()
@@ -84,23 +84,51 @@ export default class GameScene extends Phaser.Scene {
       .bitmapText(width - 200, 350, FONTS.PRIMARY, this.score, 70)
       .setOrigin(0.5, 0)
 
-    this.add
-      .bitmapText(width - 200, 450, FONTS.PRIMARY, 'Puntos', 32)
+    const scoreLabel = this.add
+      .bitmapText(width - 200, 430, FONTS.PRIMARY, 'Puntos', 32)
       .setOrigin(0.5, 0)
+
+    this.uiAnimations.slideInFromRight({
+      targets: this.scoreText,
+      duration: 250,
+      delay: 600
+    })
+    this.uiAnimations.fadeIn({
+      targets: scoreLabel,
+      duration: 200,
+      delay: 800
+    })
 
     this.bestScoreText = this.add
       .bitmapText(width - 200, 650, FONTS.PRIMARY, this.bestScore, 70)
-      .setOrigin(0.5, 0)
+      .setOrigin(0.5)
 
-    this.add
-      .bitmapText(width - 200, 750, FONTS.PRIMARY, 'Mejor puntaje', 32)
-      .setOrigin(0.5, 0)
+    const bestScoreLabel = this.add
+      .bitmapText(width - 200, 730, FONTS.PRIMARY, 'Mejor puntaje', 32)
+      .setOrigin(0.5, 1)
+
+    this.uiAnimations.slideInFromRight({
+      targets: this.bestScoreText,
+      duration: 200,
+      delay: 600
+    })
+    this.uiAnimations.fadeIn({
+      targets: bestScoreLabel,
+      duration: 250,
+      delay: 800
+    })
   }
 
   // Ganar punto
   point () {
     this.score = this.score + 100
     this.scoreText.setText(this.score)
+
+    this.uiAnimations.scaleUp({
+      targets: this.scoreText,
+      duration: 200,
+      delay: 0
+    })
 
     // Actualizar mejor puntaje
     if (this.score > this.bestScore) {
@@ -145,6 +173,9 @@ export default class GameScene extends Phaser.Scene {
         })
       }
     })
+
+    this.uiAnimations.scaleUp({ targets: button })
+    this.uiAnimations.fadeIn({ targets: label, delay: 400 })
   }
 
   // Botón: Comparar tono incrementado/disminuido
@@ -162,9 +193,13 @@ export default class GameScene extends Phaser.Scene {
       onClick: ({ button }) => this.verifyToneChange(INCREASED)
     })
 
+    this.uiAnimations.slideInFromBottom({ targets: buttonIncreased, delay: 300 })
+
     const labelIncreased = this.add
       .bitmapText(x, y - gap + 110, FONTS.PRIMARY, 'Aumentó', 32)
       .setOrigin(0.5)
+
+    this.uiAnimations.fadeIn({ targets: labelIncreased, delay: 600 })
 
     // Tono disminuyó
     const buttonDecreased = Button.draw(this)({
@@ -174,9 +209,13 @@ export default class GameScene extends Phaser.Scene {
       onClick: ({ button }) => this.verifyToneChange(DECREASED)
     })
 
+    this.uiAnimations.slideInFromTop({ targets: buttonDecreased, delay: 300 })
+
     const labelDecreased = this.add
       .bitmapText(x, y + gap + 110, FONTS.PRIMARY, 'Disminuyó', 32)
       .setOrigin(0.5)
+
+    this.uiAnimations.fadeIn({ targets: labelDecreased, delay: 600 })
   }
 
   // Comprobar elección
