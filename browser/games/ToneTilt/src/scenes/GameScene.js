@@ -6,6 +6,7 @@ import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { TONE_DIRECTIONS } from '../constants.js'
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+import Socket from '../../../core/Socket.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -15,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
     this.health = new Health(this)
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
+    this.socket = new Socket(this)
   }
 
   // Inicialización
@@ -23,6 +25,7 @@ export default class GameScene extends Phaser.Scene {
     this.tone = this.sound.add('noteSound')
     this.profile = getProfile()
     this.bestScore = this.profile.games[this.game.id].bestScore ?? 0
+    this.isNewRecord = false
     this.score = 0
   }
 
@@ -132,6 +135,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Actualizar mejor puntaje
     if (this.score > this.bestScore) {
+      this.isNewRecord = true
       this.bestScore = this.score
       this.bestScoreText.setText(this.bestScore)
       this.profile.games[this.game.id].bestScore = this.score
@@ -272,6 +276,11 @@ export default class GameScene extends Phaser.Scene {
 
       this.sound.stopAll()
       this.sound.play(alert.sound)
+
+      // Enviar al servidor
+      if (isGameOver && this.isNewRecord) {
+        this.socket.levelCompleted({ bestScore: this.bestScore })
+      }
       return null
     }
 
