@@ -62,7 +62,7 @@ export default class GameScene extends Phaser.Scene {
             .setInteractive()
             .setAlpha(0)
 
-          tone.columnIndex = i
+          tone.coords = { x: i, y: index }
 
           // Zona interactiva
           const hitBox = this.add
@@ -76,7 +76,9 @@ export default class GameScene extends Phaser.Scene {
 
           // Ocultar el presionable
           hitBox.on('pointerout', () => {
-            if (this.composition[i]?.index !== index) {
+            console.log(this.composition)
+
+            if (this.composition[i]?.coords.y !== index) {
               tone.setAlpha(0)
             }
           })
@@ -85,11 +87,11 @@ export default class GameScene extends Phaser.Scene {
           hitBox.on('pointerup', () => {
             if (this.composition[i]) {
               const prevTone = this.composition[i]
-              prevTone.element
-                .setTexture('crotchetPresseable')
+              prevTone
+                .setTexture('toneDashed')
                 .setAlpha(0)
             }
-            this.composition[i] = { index, element: tone }
+            this.composition[i] = tone
             tone
               .setTexture('tone')
               .setAlpha(1)
