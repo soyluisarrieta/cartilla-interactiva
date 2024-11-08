@@ -15,7 +15,6 @@ export class GameController {
       }
       await this.gameModel.saveLevel(levelData)
     } catch (error) {
-      logger.error('Error en el nivel:', error)
       logger.error('Error en  el nivel:', error)
       throw error
     }

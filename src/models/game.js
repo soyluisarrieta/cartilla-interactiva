@@ -1,5 +1,6 @@
 import DBLocal from 'db-local'
 import logger from '../lib/winston/logger.js'
+import { GAMES } from '../constants.js'
 
 export class GameModel {
   constructor ({ profile, game }) {
@@ -7,21 +8,14 @@ export class GameModel {
     this.game = game
     this.path = `db/games/${game.id}`
 
+    const GAME = GAMES.find(({ id }) => id === this.game.id)
+
     const { Schema } = new DBLocal({ path: this.path })
-    this.Game = Schema(profile.id, {
-      _id: { type: String, required: true },
-      level: {
-        name: { type: String, required: true },
-        totalTimer: { type: Number, required: true }
-      },
-      exercises: { type: Array, required: true },
-      timestamp: { type: Number, default: Date.now }
-    })
+    this.Game = Schema(profile.id, GAME.schema)
   }
 
-  async saveLevel ({ level, exercises }) {
+  async saveLevel (data) {
     try {
-      const data = { level, exercises }
       const levelCompleted = await this.Game.create(data)
       await levelCompleted.save()
     } catch (error) {
