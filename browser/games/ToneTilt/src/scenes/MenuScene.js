@@ -24,7 +24,7 @@ export default class MenuScene extends Phaser.Scene {
     // Botón: Iniciar juego
     const btnStart = Button.draw(this)({
       ...BUTTONS.START_GAME,
-      scene: SCENES.LEVEL_SELECTION,
+      scene: SCENES.GAME,
       position: [width / 2.6, height - 270]
     })
 
