@@ -5,19 +5,27 @@
 {{/section}}
 
 <script type="module">
-  import FIGURES from '/scripts/figures.js'
+  import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
   import StartGame from '/games/StaffSounds/index.js'
 
-  const { 
-    // 🚩
-  } = FIGURES
+  const {
+    CLEF,
+    NOTES: {
+      DO3, 
+      RE3, 
+      MI3
+    }
+  } = TREBLE_CLEF
 
   window.gameSettings = {
     id: 'g8-do-re-mi',
     game: 'StaffSounds',
     module: 2,
     levels: [
-      // 🚩
+      {
+        clef: CLEF,
+        notes: [DO3, RE3, MI3]
+      }
     ]
   }
 
