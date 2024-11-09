@@ -37,6 +37,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
+    // Implementación del método start
   }
 
   // Notas en el Pentagrama
@@ -46,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     const totalNotes = this.level.notes.length
     const figureSize = 50
     const gapY = 0
-    const gapX = totalNotes < 5 ? 140 : 40
+    const gapX = totalNotes < 5 ? 100 : 40
 
     // Distribuir tonos
     grid({
@@ -56,64 +57,66 @@ export default class GameScene extends Phaser.Scene {
       gap: figureSize,
       position: [300, 250],
       element: ({ x, y }, i) => {
-        // Crear figuras de los tonos
-        for (let index = 0; index < notesPerColumn; index++) {
-          const tone = this.add
-            .image(x, y + (figureSize + gapY) * index, 'toneDashed')
-            .setScale(0.3)
-            .setInteractive()
-            .setAlpha(0)
-
-          tone.coords = { x: i, y: index }
-
-          // Asignar nota correspondiente según la posición
-          const note = Object.values(trebleClefConfig.NOTES).find(n => n.position === index)
-          if (note) {
-            tone.name = note.name
-            tone.frequency = note.frequency
-          }
-
-          // Zona interactiva
-          const hitBox = this.add
-            .rectangle(x, y + (figureSize + gapY) * index, tone.width * 0.3, tone.height * 0.3, 0xffffff, 0)
-            .setInteractive()
-
-          // Mostrar que se puede presionar
-          hitBox.on('pointerover', () => {
-            tone.setAlpha(1)
-          })
-
-          // Ocultar el presionable
-          hitBox.on('pointerout', () => {
-            if (this.composition[i]?.coords.y !== index) {
-              tone.setAlpha(0)
-            }
-          })
-
-          // Fijar nota en la ubicación cliqueada
-          hitBox.on('pointerup', () => {
-            if (this.composition[i]) {
-              const prevTone = this.composition[i]
-              prevTone
-                .setTexture('toneDashed')
-                .setAlpha(0)
-            }
-            this.composition[i] = tone
-            tone
-              .setTexture('tone')
-              .setAlpha(1)
-
-            console.log(tone)
-          })
-
-          // Guardar todas las posiciones
-          if (!this.pentagram[i]) {
-            this.pentagram[i] = []
-          }
-          this.pentagram[i][index] = tone
-        }
+        this.createTones(x, y, i, notesPerColumn, figureSize, gapY, trebleClefConfig)
       }
     })
-    console.log(this.pentagram)
+  }
+
+  // Crear los tonos
+  createTones (x, y, i, notesPerColumn, figureSize, gapY, trebleClefConfig) {
+    for (let index = 0; index < notesPerColumn; index++) {
+      const tone = this.add
+        .image(x, y + (figureSize + gapY) * index, 'toneDashed')
+        .setScale(0.3)
+        .setInteractive()
+        .setAlpha(0)
+
+      tone.coords = { x: i, y: index }
+
+      // Asignar nota correspondiente según la posición
+      const note = Object.values(trebleClefConfig.NOTES).find(n => n.position === index)
+      if (note) {
+        tone.name = note.name
+        tone.frequency = note.frequency
+      }
+
+      this.createHitBox(x, y, index, figureSize, gapY, tone, i)
+
+      // Guardar todas las posiciones
+      if (!this.pentagram[i]) {
+        this.pentagram[i] = []
+      }
+      this.pentagram[i][index] = tone
+    }
+  }
+
+  // Area de interactividad del tono
+  createHitBox (x, y, index, figureSize, gapY, tone, i) {
+    const hitBox = this.add
+      .rectangle(x, y + (figureSize + gapY) * index, tone.width * 0.3, tone.height * 0.3, 0xffffff, 0)
+      .setInteractive()
+
+    // Eventos
+    hitBox.on('pointerover', () => tone.setAlpha(1))
+    hitBox.on('pointerout', () => {
+      if (this.composition[i]?.coords.y !== index) {
+        tone.setAlpha(0)
+      }
+    })
+    hitBox.on('pointerup', () => this.handleOnClick(i, tone))
+  }
+
+  // Manejador para asignar nota
+  handleOnClick (i, tone) {
+    if (this.composition[i]) {
+      const prevTone = this.composition[i]
+      prevTone
+        .setTexture('toneDashed')
+        .setAlpha(0)
+    }
+    this.composition[i] = tone
+    tone
+      .setTexture('tone')
+      .setAlpha(1)
   }
 }
