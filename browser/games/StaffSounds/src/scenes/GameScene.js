@@ -31,6 +31,7 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.playButton()
+    this.confirmButton()
     this.drawTones()
     this.start()
 
@@ -62,7 +63,7 @@ export default class GameScene extends Phaser.Scene {
       maxColumns: melody.length,
       item: { width: 200 },
       gap: 0,
-      position: [width / 2, height - 100],
+      position: [width / 2.2, height - 100],
       alignCenter: true,
       element: ({ x, y }, i) => {
         this.add
@@ -79,7 +80,7 @@ export default class GameScene extends Phaser.Scene {
     const totalNotes = this.game.maxNotes
     const figureSize = 50
     const gapY = 0
-    const gapX = totalNotes < 7 ? 140 : 40
+    const gapX = totalNotes < 7 ? 120 : 40
 
     // Distribuir tonos
     grid({
@@ -166,23 +167,68 @@ export default class GameScene extends Phaser.Scene {
   // Añadir botón de reproducción
   playButton () {
     const { width, height } = this.cameras.main
+    const [x, y] = [width - 360, height - 170]
+
     Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
-      position: [width - 120, height - 120],
+      position: [x, y],
       withSound: false,
-      onClick: async ({ button }) => {
+      onClick: ({ button }) => {
         this.playComposition(this.game.notes)
       }
     })
+
+    this.add
+      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
+      .setOrigin(0.5)
   }
 
   // Función para reproducir la melodía
-  async playComposition () {
+  async playComposition (onSound = () => {}) {
     const melody = this.composition.map(({ name, frequency }) => ({
       name,
       frequency,
       duration: 1
     }))
-    await this.melody.play(melody, this.game.tempo)
+    await this.melody.play(melody, this.game.tempo, onSound)
+  }
+
+  // Añadir botón de reproducción
+  confirmButton () {
+    const { width, height } = this.cameras.main
+    const [x, y] = [width - 140, height - 170]
+
+    Button.draw(this)({
+      ...BUTTONS.PLAY,
+      position: [x, y],
+      withSound: false,
+      onClick: async ({ button }) => {
+        const mistakes = this.melody.check(this.composition)
+
+        // Incorrecto
+        if (mistakes) {
+          this.alert.showAlert('¡Melodía incorrecta!', {
+            type: 'error',
+            image: 'gameLogo',
+            message: 'Debes corregir las notas. Has perdido una de tus vidas',
+            btnAccept: true
+          })
+
+          return
+        }
+
+        // Correcto
+        this.alert.showAlert('¡Perfecto!', {
+          type: 'success',
+          image: 'gameLogo',
+          message: 'Has avanzado al siguiente ejercicio.',
+          btnAccept: true
+        })
+      }
+    })
+
+    this.add
+      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
+      .setOrigin(0.5)
   }
 }
