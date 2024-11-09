@@ -4,6 +4,7 @@ import UIAnimations from '../../../core/UIAnimations.js'
 import Socket from '../../../core/Socket.js'
 import { SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
+import { MUSICAL_STAFF } from '../constants.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -20,13 +21,14 @@ export default class GameScene extends Phaser.Scene {
     this.level = level
     this.game = window.gameSettings
     this.composition = []
+    this.pentagram = []
   }
 
   // Principal
   create () {
     this.ui.init()
+    this.drawTones()
     this.start()
-    this.drawNotes()
 
     // Sonido de inicio de partida
     this.sound.stopAll()
@@ -35,22 +37,22 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
-
   }
 
   // Notas en el Pentagrama
-  drawNotes () {
+  drawTones () {
+    const trebleClefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.level.clef)
+    const notesPerColumn = Object.values(trebleClefConfig.NOTES).length
+    const totalNotes = this.level.notes.length
     const figureSize = 50
     const gapY = 0
-    const gapX = 40
-    const notesPerColumn = 10
-    const totalColumns = 10
+    const gapX = totalNotes < 5 ? 140 : 40
 
     // Distribuir tonos
     grid({
-      totalItems: totalColumns,
+      totalItems: totalNotes,
       item: { width: figureSize + gapX, height: figureSize },
-      maxColumns: totalColumns,
+      maxColumns: totalNotes,
       gap: figureSize,
       position: [300, 250],
       element: ({ x, y }, i) => {
@@ -64,6 +66,13 @@ export default class GameScene extends Phaser.Scene {
 
           tone.coords = { x: i, y: index }
 
+          // Asignar nota correspondiente según la posición
+          const note = Object.values(trebleClefConfig.NOTES).find(n => n.position === index)
+          if (note) {
+            tone.name = note.name
+            tone.frequency = note.frequency
+          }
+
           // Zona interactiva
           const hitBox = this.add
             .rectangle(x, y + (figureSize + gapY) * index, tone.width * 0.3, tone.height * 0.3, 0xffffff, 0)
@@ -76,8 +85,6 @@ export default class GameScene extends Phaser.Scene {
 
           // Ocultar el presionable
           hitBox.on('pointerout', () => {
-            console.log(this.composition)
-
             if (this.composition[i]?.coords.y !== index) {
               tone.setAlpha(0)
             }
@@ -95,9 +102,18 @@ export default class GameScene extends Phaser.Scene {
             tone
               .setTexture('tone')
               .setAlpha(1)
+
+            console.log(tone)
           })
+
+          // Guardar todas las posiciones
+          if (!this.pentagram[i]) {
+            this.pentagram[i] = []
+          }
+          this.pentagram[i][index] = tone
         }
       }
     })
+    console.log(this.pentagram)
   }
 }
