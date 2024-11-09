@@ -46,7 +46,8 @@
       "import/no-absolute-path": "off"
     },
     "globals": {
-      "Phaser": "readonly"
+      "Phaser": "readonly",
+      "Tone": "readonly"
     }
   }
 }

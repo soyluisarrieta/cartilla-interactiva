@@ -1,3 +1,5 @@
+import '/assets/lib/tone/tone.15.1.3.min.js'
+
 export default class Melody {
   constructor (scene) {
     this.scene = scene
