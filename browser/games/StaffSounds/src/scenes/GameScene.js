@@ -4,9 +4,9 @@ import UIAnimations from '../../../core/UIAnimations.js'
 import Socket from '../../../core/Socket.js'
 import Melody from '../../../core/Melody.js'
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, SCENES } from '../../../core/constants.js'
+import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
-import { MUSICAL_STAFF } from '../constants.js'
+import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -41,17 +41,45 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
-    this.presetComposition(this.game.notes)
+    const generatedMelody = this.melody.generate(this.game.notes, this.game.maxNotes)
+
+    // Modo: Escribir
+    if (this.level.mode === GAME_MODES.WRITE) {
+      this.drawLabelNotes(generatedMelody)
+      return
+    }
+    // Modo: Escuchar
+    if (this.level.mode === GAME_MODES.LISTEN) {
+      this.presetComposition(this.game.notes)
+    }
+    // Modo: Leer
+  }
+
+  drawLabelNotes (melody) {
+    const { width, height } = this.cameras.main
+    grid({
+      totalItems: melody.length,
+      maxColumns: melody.length,
+      item: { width: 200 },
+      gap: 0,
+      position: [width / 2, height - 100],
+      alignCenter: true,
+      element: ({ x, y }, i) => {
+        this.add
+          .bitmapText(x, y, FONTS.PRIMARY, melody[i].name)
+          .setOrigin(0.5)
+      }
+    })
   }
 
   // Notas en el Pentagrama
   drawTones () {
     const clefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.game.clef)
     const notesPerColumn = Object.values(clefConfig.NOTES).length
-    const totalNotes = this.game.notes.length
+    const totalNotes = this.game.maxNotes
     const figureSize = 50
     const gapY = 0
-    const gapX = totalNotes < 5 ? 100 : 40
+    const gapX = totalNotes < 7 ? 140 : 40
 
     // Distribuir tonos
     grid({
