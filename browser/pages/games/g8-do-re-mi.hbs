@@ -6,6 +6,7 @@
 
 <script type="module">
   import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
+  import { GAME_MODES } from '/games/StaffSounds/src/constants.js'
   import StartGame from '/games/StaffSounds/index.js'
 
   const {
@@ -22,11 +23,12 @@
     game: 'StaffSounds',
     module: 2,
     tempo: 700,
+    clef: CLEF,
+    notes: [DO3, RE3, MI3],
     levels: [
-      {
-        clef: CLEF,
-        notes: [DO3, RE3, MI3]
-      }
+      { mode: GAME_MODES.WRITE },
+      { mode: GAME_MODES.READ },
+      { mode: GAME_MODES.LISTEN },
     ]
   }
 

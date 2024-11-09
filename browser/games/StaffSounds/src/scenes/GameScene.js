@@ -41,14 +41,14 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
-    this.presetComposition(this.level.notes)
+    this.presetComposition(this.game.notes)
   }
 
   // Notas en el Pentagrama
   drawTones () {
-    const trebleClefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.level.clef)
-    const notesPerColumn = Object.values(trebleClefConfig.NOTES).length
-    const totalNotes = this.level.notes.length
+    const clefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.game.clef)
+    const notesPerColumn = Object.values(clefConfig.NOTES).length
+    const totalNotes = this.game.notes.length
     const figureSize = 50
     const gapY = 0
     const gapX = totalNotes < 5 ? 100 : 40
@@ -61,13 +61,13 @@ export default class GameScene extends Phaser.Scene {
       gap: figureSize,
       position: [300, 250],
       element: ({ x, y }, i) => {
-        this.createTones(x, y, i, notesPerColumn, figureSize, gapY, trebleClefConfig)
+        this.createTones(x, y, i, notesPerColumn, figureSize, gapY, clefConfig)
       }
     })
   }
 
   // Crear los tonos
-  createTones (x, y, i, notesPerColumn, figureSize, gapY, trebleClefConfig) {
+  createTones (x, y, i, notesPerColumn, figureSize, gapY, clefConfig) {
     for (let index = 0; index < notesPerColumn; index++) {
       const tone = this.add
         .image(x, y + (figureSize + gapY) * index, 'toneDashed')
@@ -78,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
       tone.coords = { x: i, y: index }
 
       // Asignar nota correspondiente según la posición
-      const note = Object.values(trebleClefConfig.NOTES).find(n => n.position === index)
+      const note = Object.values(clefConfig.NOTES).find(n => n.position === index)
       if (note) {
         tone.name = note.name
         tone.position = note.position
@@ -143,7 +143,7 @@ export default class GameScene extends Phaser.Scene {
       position: [width - 120, height - 120],
       withSound: false,
       onClick: async ({ button }) => {
-        this.playComposition(this.level.notes)
+        this.playComposition(this.game.notes)
       }
     })
   }
