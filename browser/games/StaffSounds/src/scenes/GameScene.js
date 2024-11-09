@@ -2,7 +2,9 @@ import Alert from '../../../core/components/Alert.js'
 import UIManager from '../components/UIManager.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import Socket from '../../../core/Socket.js'
-import { SCENES } from '../../../core/constants.js'
+import Melody from '../../../core/Melody.js'
+import Button from '../../../core/components/Button.js'
+import { BUTTONS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { MUSICAL_STAFF } from '../constants.js'
 
@@ -14,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
     this.alert = new Alert(this)
     this.uiAnimations = new UIAnimations(this)
     this.socket = new Socket(this)
+    this.melody = new Melody(this)
   }
 
   // Inicialización
@@ -27,6 +30,7 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
+    this.playButton()
     this.drawTones()
     this.start()
 
@@ -129,5 +133,28 @@ export default class GameScene extends Phaser.Scene {
         this.handleOnClick(index, tone)
       }
     })
+  }
+
+  // Añadir botón de reproducción
+  playButton () {
+    const { width, height } = this.cameras.main
+    Button.draw(this)({
+      ...BUTTONS.LISTEN_MELODY,
+      position: [width - 120, height - 120],
+      withSound: false,
+      onClick: async ({ button }) => {
+        this.playComposition(this.level.notes)
+      }
+    })
+  }
+
+  // Función para reproducir la melodía
+  async playComposition () {
+    const melody = this.composition.map(({ name, frequency }) => ({
+      name,
+      frequency,
+      duration: 1
+    }))
+    await this.melody.play(melody, this.game.tempo)
   }
 }
