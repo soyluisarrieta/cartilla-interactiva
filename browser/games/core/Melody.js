@@ -8,6 +8,7 @@ export default class Melody {
     this.playing = false
     this.paused = false
     this.timerTicInterval = null
+    this.noteBaseFrequency = 329.63 // Frecuencia de NoteSound es 329.63Hz (E4)
   }
 
   // Generar una melodía aleatoria
@@ -52,13 +53,13 @@ export default class Melody {
     clearInterval(this.timerTicInterval)
   }
 
-  // Reproduce una figura musical o combinadas
+  // Reproducir una figura musical o combinadas
   playNote (figure, timeElapsed, onSound) {
     if (figure.figures) {
       return this.playSubfigures(figure.figures, timeElapsed, onSound)
     } else {
       return new Promise(resolve => {
-        const { name, duration, beats = 1 } = figure
+        const { name, duration, beats = 1, frequency } = figure
         const beatInterval = duration * this.tempo / beats
         const isRestNote = name.includes('rest')
 
@@ -70,7 +71,11 @@ export default class Melody {
             }
 
             if (!isRestNote) {
-              this.scene.sound.play('noteSound', { timeElapsed })
+              if (frequency) {
+                this.playNoteWithFrequency(frequency, duration)
+              } else {
+                this.scene.sound.play('noteSound', { timeElapsed })
+              }
             }
 
             // Llamar callback
@@ -84,6 +89,23 @@ export default class Melody {
         }, duration * this.tempo)
       })
     }
+  }
+
+  // Reproducir la nota con la frecuencia
+  playNoteWithFrequency (frequency, duration) {
+    const pitchShift = new Tone.PitchShift().toDestination()
+    const player = new Tone.Player('/games/assets/audios/note-sound.mp3', () => {
+      player.start(Tone.now(), 0, duration)
+      player.stop(Tone.now() + duration)
+    }).connect(pitchShift)
+
+    player.playbackRate = frequency / this.noteBaseFrequency
+
+    // Liberar recursos después de la reproducción
+    setTimeout(() => {
+      player.dispose()
+      pitchShift.dispose()
+    }, duration * 1000)
   }
 
   // Reproducir subfiguras secuencialmente
