@@ -37,7 +37,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
-    // Implementación del método start
+    this.presetComposition(this.level.notes)
   }
 
   // Notas en el Pentagrama
@@ -77,6 +77,7 @@ export default class GameScene extends Phaser.Scene {
       const note = Object.values(trebleClefConfig.NOTES).find(n => n.position === index)
       if (note) {
         tone.name = note.name
+        tone.position = note.position
         tone.frequency = note.frequency
       }
 
@@ -118,5 +119,15 @@ export default class GameScene extends Phaser.Scene {
     tone
       .setTexture('tone')
       .setAlpha(1)
+  }
+
+  // Composición preestablecida
+  presetComposition (notes) {
+    notes.forEach((note, index) => {
+      const tone = this.pentagram[index][note.position]
+      if (tone) {
+        this.handleOnClick(index, tone)
+      }
+    })
   }
 }
