@@ -4,10 +4,11 @@ import UIAnimations from '../../../core/UIAnimations.js'
 import Socket from '../../../core/Socket.js'
 import Melody from '../../../core/Melody.js'
 import Button from '../../../core/components/Button.js'
+import Exercises from '../../../core/components/Exercises.js'
+import Health from '../../../core/components/Health.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
-import Exercises from '../../../core/components/Exercises.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -19,6 +20,7 @@ export default class GameScene extends Phaser.Scene {
     this.socket = new Socket(this)
     this.melody = new Melody(this)
     this.exercises = new Exercises(this)
+    this.health = new Health(this)
   }
 
   // Inicialización
@@ -30,7 +32,8 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
-    this.exercises.create(3)
+    this.exercises.create(5)
+    this.health.draw(3)
     this.start()
     this.exercises.play(0)
 
