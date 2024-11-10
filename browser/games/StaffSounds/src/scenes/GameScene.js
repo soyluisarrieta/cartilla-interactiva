@@ -30,8 +30,6 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
-    this.playButton()
-    this.confirmButton()
     this.drawTones()
     this.start()
 
@@ -46,13 +44,17 @@ export default class GameScene extends Phaser.Scene {
 
     // Modo: Escribir
     if (this.level.mode === GAME_MODES.WRITE) {
+      this.confirmButton()
       this.drawLabelNotes(generatedMelody)
       return
     }
+
     // Modo: Escuchar
     if (this.level.mode === GAME_MODES.LISTEN) {
+      this.playButton()
       this.presetComposition(this.game.notes)
     }
+
     // Modo: Leer
   }
 
@@ -169,18 +171,25 @@ export default class GameScene extends Phaser.Scene {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 360, height - 170]
 
-    Button.draw(this)({
+    const button = Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
+      disabled: true,
       withSound: false,
       onClick: ({ button }) => {
         this.playComposition(this.game.notes)
       }
     })
 
-    this.add
+    const label = this.add
       .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
       .setOrigin(0.5)
+      .setAlpha(0.5)
+
+    this.disablePlayButton = (disable) => {
+      button.setDisabled(disable)
+      label.setAlpha(disable ? 0.5 : 1)
+    }
   }
 
   // Función para reproducir la melodía
@@ -198,9 +207,10 @@ export default class GameScene extends Phaser.Scene {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 140, height - 170]
 
-    Button.draw(this)({
+    const button = Button.draw(this)({
       ...BUTTONS.PLAY,
       position: [x, y],
+      disabled: true,
       withSound: false,
       onClick: async ({ button }) => {
         const mistakes = this.melody.check(this.composition)
@@ -227,8 +237,14 @@ export default class GameScene extends Phaser.Scene {
       }
     })
 
-    this.add
+    const label = this.add
       .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
       .setOrigin(0.5)
+      .setAlpha(0.5)
+
+    this.disableConfirmButton = (disable) => {
+      button.setDisabled(disable)
+      label.setAlpha(disable ? 0.5 : 1)
+    }
   }
 }
