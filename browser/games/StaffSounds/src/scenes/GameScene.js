@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = window.gameSettings.levels[1] ?? level
+    this.level = window.gameSettings.levels[2] ?? level
     this.game = window.gameSettings
   }
 
@@ -47,8 +47,8 @@ export default class GameScene extends Phaser.Scene {
     const generatedMelody = this.melody.generate(this.game.notes, this.game.maxNotes)
 
     // Reiniciar pentagrama
-    this.pentagram?.forEach((column) => {
-      column.forEach((note) => {
+    this.pentagram?.forEach((notes) => {
+      notes.forEach((note) => {
         note.destroy()
       })
     })
@@ -63,23 +63,22 @@ export default class GameScene extends Phaser.Scene {
       this.labelNotes?.forEach(label => label.destroy())
       this.labelNotes = []
       this.drawLabelNotes(generatedMelody)
-      return
+      return null
     }
 
     // Modo: Escuchar
     if (this.level.mode === GAME_MODES.LISTEN) {
       this.playButton(generatedMelody)
       const preComposition = generatedMelody.slice(0, 3)
-      preComposition.forEach((note, i) => {
-        this.pentagram[i].forEach(tone => { tone.blocked = true })
-        this.composition[i] = this.pentagram[i][note.position]
-      })
       this.presetComposition(preComposition)
+      return null
     }
 
     // Modo: Leer
+    this.presetComposition(generatedMelody)
   }
 
+  // Mostrar notas que debe componer
   drawLabelNotes (melody) {
     const { width, height } = this.cameras.main
     grid({
@@ -187,8 +186,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Composición preestablecida
-  presetComposition (notes) {
-    notes.forEach((note, index) => {
+  presetComposition (composition) {
+    composition.forEach((note, i) => {
+      this.pentagram[i].forEach(tone => { tone.blocked = true })
+      this.composition[i] = this.pentagram[i][note.position]
+    })
+    composition.forEach((note, index) => {
       const tone = this.pentagram[index][note.position]
       if (tone) {
         this.activeTone(index, tone)
