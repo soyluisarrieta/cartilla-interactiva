@@ -25,14 +25,11 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.level = level
     this.game = window.gameSettings
-    this.composition = new Array(this.game.maxNotes).fill(null)
-    this.pentagram = []
   }
 
   // Principal
   create () {
     this.ui.init()
-    this.drawTones()
     this.exercises.create(3)
     this.start()
     this.exercises.play(0)
@@ -46,8 +43,22 @@ export default class GameScene extends Phaser.Scene {
   start () {
     const generatedMelody = this.melody.generate(this.game.notes, this.game.maxNotes)
 
+    // Reiniciar pentagrama
+    this.pentagram?.forEach((column) => {
+      column.forEach((note) => {
+        note.destroy()
+      })
+    })
+
+    this.pentagram = []
+    this.composition = new Array(this.game.maxNotes).fill(null)
+
+    this.drawStaffTones()
+
     // Modo: Escribir
     if (this.level.mode === GAME_MODES.WRITE) {
+      this.labelNotes?.forEach(label => label.destroy())
+      this.labelNotes = []
       this.confirmButton()
       this.drawLabelNotes(generatedMelody)
       return
@@ -72,15 +83,17 @@ export default class GameScene extends Phaser.Scene {
       position: [width / 2.2, height - 100],
       alignCenter: true,
       element: ({ x, y }, i) => {
-        this.add
+        const labelNote = this.add
           .bitmapText(x, y, FONTS.PRIMARY, melody[i].name)
           .setOrigin(0.5)
+
+        this.labelNotes.push(labelNote)
       }
     })
   }
 
   // Notas en el Pentagrama
-  drawTones () {
+  drawStaffTones () {
     const clefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.game.clef)
     const notesPerColumn = Object.values(clefConfig.NOTES).length
     const totalNotes = this.game.maxNotes
