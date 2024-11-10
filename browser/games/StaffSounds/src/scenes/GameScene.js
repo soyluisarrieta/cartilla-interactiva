@@ -53,6 +53,7 @@ export default class GameScene extends Phaser.Scene {
       })
     })
 
+    this.keyNotes = []
     this.pentagram = []
     this.composition = new Array(this.game.maxNotes).fill(null)
     this.drawStaffTones()
@@ -60,9 +61,8 @@ export default class GameScene extends Phaser.Scene {
 
     // Modo: Escribir
     if (this.level.mode === GAME_MODES.WRITE) {
-      this.labelNotes?.forEach(label => label.destroy())
-      this.labelNotes = []
-      this.drawLabelNotes(generatedMelody)
+      this.keyNotes?.forEach(label => label.destroy())
+      this.drawKeyNotes(generatedMelody)
       return null
     }
 
@@ -76,24 +76,32 @@ export default class GameScene extends Phaser.Scene {
 
     // Modo: Leer
     this.presetComposition(generatedMelody)
+    this.drawKeyNotes(this.game.notes, true)
   }
 
   // Mostrar notas que debe componer
-  drawLabelNotes (melody) {
+  drawKeyNotes (melody, interactive = false) {
     const { width, height } = this.cameras.main
     grid({
       totalItems: melody.length,
       maxColumns: melody.length,
       item: { width: 200 },
       gap: 0,
-      position: [width / 2.2, height - 100],
+      position: [width / 2.2, height - 70],
       alignCenter: true,
       element: ({ x, y }, i) => {
-        const labelNote = this.add
+        const keyNote = this.add
           .bitmapText(x, y, FONTS.PRIMARY, melody[i].name)
           .setOrigin(0.5)
 
-        this.labelNotes.push(labelNote)
+        if (interactive) {
+          keyNote.setInteractive()
+          keyNote.on('pointerup', () => {
+            console.log(melody[i].name)
+          })
+        }
+
+        this.keyNotes.push(keyNote)
       }
     })
   }
