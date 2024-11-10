@@ -243,13 +243,52 @@ export default class GameScene extends Phaser.Scene {
 
         // Incorrecto
         if (mistakes) {
-          this.alert.showAlert('¡Melodía incorrecta!', {
+          const totalHealth = this.health.miss()
+          const isGameOver = totalHealth === 0
+          const isPlural = mistakes.length > 1 ? 's' : ''
+          const alert = {
+            title: '¡Composición incorrecta!',
             type: 'error',
             image: 'gameLogo',
-            message: 'Debes corregir las notas. Has perdido una de tus vidas',
-            btnAccept: true
+            message: `Debes corregir la${isPlural} nota${isPlural}. ¡Te quedan ${totalHealth} vidas!`
+          }
+
+          if (isGameOver) {
+            alert.title = '¡Fin del juego'
+            alert.type = 'default'
+            alert.image = 'gameLogo'
+            alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+
+            this.melody.stop()
+            this.sound.stopAll()
+            this.sound.play('gameOver')
+          }
+
+          const buttons = [
+            {
+              text: 'Volver a jugar',
+              onClick: () => {
+                this.scene.start(SCENES.GAME, this.level)
+              }
+            },
+            {
+              text: 'Modos',
+              onClick: () => {
+                this.scene.start(SCENES.LEVEL_SELECTION)
+              }
+            }
+          ]
+
+          this.alert.showAlert(alert.title, {
+            type: alert.type,
+            image: alert.image,
+            message: alert.message,
+            btnAccept: !isGameOver,
+            buttons: isGameOver ? buttons : [],
+            dismissible: false
           })
 
+          // Mostar las notas incorrectas
           return
         }
 
