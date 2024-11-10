@@ -7,6 +7,7 @@ import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
+import Exercises from '../../../core/components/Exercises.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -17,6 +18,7 @@ export default class GameScene extends Phaser.Scene {
     this.uiAnimations = new UIAnimations(this)
     this.socket = new Socket(this)
     this.melody = new Melody(this)
+    this.exercises = new Exercises(this)
   }
 
   // Inicialización
@@ -31,7 +33,9 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.drawTones()
+    this.exercises.create(3)
     this.start()
+    this.exercises.play(0)
 
     // Sonido de inicio de partida
     this.sound.stopAll()
@@ -238,6 +242,9 @@ export default class GameScene extends Phaser.Scene {
           message: 'Has avanzado al siguiente ejercicio.',
           btnAccept: true
         })
+
+        this.exercises.complete()
+        this.start()
       }
     })
 
