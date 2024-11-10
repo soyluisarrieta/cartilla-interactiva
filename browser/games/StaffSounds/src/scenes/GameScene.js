@@ -23,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.level = level
     this.game = window.gameSettings
-    this.composition = []
+    this.composition = new Array(this.game.maxNotes).fill(null)
     this.pentagram = []
   }
 
@@ -154,6 +154,10 @@ export default class GameScene extends Phaser.Scene {
     tone
       .setTexture('tone')
       .setAlpha(1)
+
+    // Habilitar botón de confirmar
+    const isCompositionReady = this.composition.some(note => !note)
+    this.disableConfirmButton(isCompositionReady)
   }
 
   // Composición preestablecida
