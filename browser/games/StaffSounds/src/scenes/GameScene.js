@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = level
+    this.level = window.gameSettings.levels[1] ?? level
     this.game = window.gameSettings
   }
 
@@ -55,22 +55,25 @@ export default class GameScene extends Phaser.Scene {
 
     this.pentagram = []
     this.composition = new Array(this.game.maxNotes).fill(null)
-
     this.drawStaffTones()
+    this.confirmButton()
 
     // Modo: Escribir
     if (this.level.mode === GAME_MODES.WRITE) {
       this.labelNotes?.forEach(label => label.destroy())
       this.labelNotes = []
-      this.confirmButton()
       this.drawLabelNotes(generatedMelody)
       return
     }
 
     // Modo: Escuchar
     if (this.level.mode === GAME_MODES.LISTEN) {
-      this.playButton()
-      this.presetComposition(this.game.notes)
+      this.playButton(generatedMelody)
+      const preComposition = generatedMelody.slice(0, 3)
+      preComposition.forEach((note, i) => {
+        this.composition[i] = this.pentagram[i][note.position]
+      })
+      this.presetComposition(preComposition)
     }
 
     // Modo: Leer
@@ -191,17 +194,16 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Añadir botón de reproducción
-  playButton () {
+  playButton (notes) {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 360, height - 170]
 
     const button = Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
-      disabled: true,
       withSound: false,
       onClick: ({ button }) => {
-        this.playComposition(this.game.notes)
+        this.playNotes(notes)
       }
     })
 
@@ -217,8 +219,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Función para reproducir la melodía
-  async playComposition (onSound = () => {}) {
-    const melody = this.composition.map(({ name, frequency }) => ({
+  async playNotes (notes, onSound = () => {}) {
+    const melody = notes.map(({ name, frequency }) => ({
       name,
       frequency,
       duration: 1
