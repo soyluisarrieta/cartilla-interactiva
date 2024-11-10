@@ -71,6 +71,7 @@ export default class GameScene extends Phaser.Scene {
       this.playButton(generatedMelody)
       const preComposition = generatedMelody.slice(0, 3)
       preComposition.forEach((note, i) => {
+        this.pentagram[i].forEach(tone => { tone.blocked = true })
         this.composition[i] = this.pentagram[i][note.position]
       })
       this.presetComposition(preComposition)
@@ -129,6 +130,7 @@ export default class GameScene extends Phaser.Scene {
         .setInteractive()
         .setAlpha(0)
 
+      tone.blocked = false
       tone.coords = { x: i, y: index }
 
       // Asignar nota correspondiente según la posición
@@ -156,17 +158,18 @@ export default class GameScene extends Phaser.Scene {
       .setInteractive()
 
     // Eventos
-    hitBox.on('pointerover', () => tone.setAlpha(1))
+    hitBox.on('pointerover', () => !tone.blocked && tone.setAlpha(1))
     hitBox.on('pointerout', () => {
+      if (tone.blocked) { return }
       if (this.composition[i]?.coords.y !== index) {
         tone.setAlpha(0)
       }
     })
-    hitBox.on('pointerup', () => this.handleOnClick(i, tone))
+    hitBox.on('pointerup', () => !tone.blocked && this.activeTone(i, tone))
   }
 
   // Manejador para asignar nota
-  handleOnClick (i, tone) {
+  activeTone (i, tone) {
     if (this.composition[i]) {
       const prevTone = this.composition[i]
       prevTone
@@ -188,7 +191,7 @@ export default class GameScene extends Phaser.Scene {
     notes.forEach((note, index) => {
       const tone = this.pentagram[index][note.position]
       if (tone) {
-        this.handleOnClick(index, tone)
+        this.activeTone(index, tone)
       }
     })
   }
