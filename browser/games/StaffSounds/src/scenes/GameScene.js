@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = window.gameSettings.levels[1] ?? level
+    this.level = level
     this.game = window.gameSettings
     UIManager.title = 'MODO: ' + level.title
   }

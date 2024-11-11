@@ -35,8 +35,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create () {
-    this.scene.start(SCENES.GAME, window.gameSettings.levels[0])
-    // const opening = new Opening(this)
-    // opening.start({ scene: SCENES.MENU })
+    const opening = new Opening(this)
+    opening.start({ scene: SCENES.MENU })
   }
 }
