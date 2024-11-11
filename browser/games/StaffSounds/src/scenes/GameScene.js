@@ -75,6 +75,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Modo: Leer
+    this.sequence = []
     this.presetComposition(generatedMelody)
     this.drawKeyNotes(this.game.notes, true)
   }
@@ -95,15 +96,80 @@ export default class GameScene extends Phaser.Scene {
           .setOrigin(0.5)
 
         if (interactive) {
+          keyNote.note = melody[i]
           keyNote.setInteractive()
           keyNote.on('pointerup', () => {
-            console.log(melody[i].name)
+            this.sequence.push(keyNote)
+            const index = this.sequence.length - 1
+            const gotNote = this.sequence[index].note.name
+            const expectedNote = this.composition[index].name
+            this.checkSecuence(gotNote, expectedNote)
           })
         }
 
         this.keyNotes.push(keyNote)
       }
     })
+  }
+
+  // Comprobar si está en la secuencia
+  checkSecuence (got, expected) {
+    // Incorrecto
+    if (got !== expected) {
+      this.sequence.pop()
+      const totalHealth = this.health.miss()
+      const isGameOver = totalHealth === 0
+
+      this.alert.showAlert('¡Nota incorrecta!', {
+        type: 'error',
+        image: 'gameLogo',
+        message: `Vuelve a intentarlo de nuevo. ¡Te quedan ${totalHealth} vidas!`,
+        btnAccept: true
+      })
+
+      this.sound.play('incorrectMelody')
+
+      if (isGameOver) {
+        this.alert.showAlert('¡Fin del juego!', {
+          type: 'gameover',
+          image: 'gameLogo',
+          message: 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!',
+          btnAccept: false,
+          buttons: [
+            {
+              text: 'Volver a jugar',
+              onClick: () => {
+                this.scene.start(SCENES.GAME, this.level)
+              }
+            },
+            {
+              text: 'Modos',
+              onClick: () => {
+                this.scene.start(SCENES.LEVEL_SELECTION)
+              }
+            }
+          ],
+          dismissible: false
+        })
+
+        this.sound.stopAll()
+        this.sound.play('gameOver')
+      }
+      return
+    }
+
+    // Correcto
+    this.sound.play('perfectMelody')
+    if (this.sequence.length === this.composition.length) {
+      this.alert.showAlert('¡Perfecto!', {
+        type: 'success',
+        image: 'gameLogo',
+        message: 'Has completado la secuencia correctamente. ¡Buen trabajo!',
+        btnAccept: true
+      })
+      this.exercises.complete()
+      this.start()
+    }
   }
 
   // Notas en el Pentagrama
