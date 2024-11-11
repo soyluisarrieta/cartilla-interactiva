@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = window.gameSettings.levels[0] ?? level
+    this.level = window.gameSettings.levels[1] ?? level
     this.game = window.gameSettings
   }
 
@@ -337,6 +337,7 @@ export default class GameScene extends Phaser.Scene {
       disabled: true,
       withSound: false,
       onClick: async ({ button }) => {
+        this.melody.stop()
         const mistakes = this.melody.check(this.composition)
 
         // Incorrecto
