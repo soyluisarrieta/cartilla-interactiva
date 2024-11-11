@@ -162,14 +162,16 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Correcto
-    this.exercises.complete()
     if (this.sequence.length !== this.composition.length) {
       this.sound.play('perfectMelody')
       return null
     }
-
+    const nextExercise = this.exercises.complete()
+    if (!nextExercise) {
+      this.levelCompleted()
+      return null
+    }
     this.start()
-
     this.alert.showAlert('¡Perfecto!', {
       type: 'success',
       image: 'gameLogo',
@@ -384,15 +386,19 @@ export default class GameScene extends Phaser.Scene {
         }
 
         // Correcto
+        const nextExercise = this.exercises.complete()
+        if (!nextExercise) {
+          this.levelCompleted()
+          return null
+        }
+
+        this.start()
         this.alert.showAlert('¡Perfecto!', {
           type: 'success',
           image: 'gameLogo',
           message: 'Has avanzado al siguiente ejercicio.',
           btnAccept: true
         })
-
-        this.exercises.complete()
-        this.start()
       }
     })
 
@@ -405,5 +411,30 @@ export default class GameScene extends Phaser.Scene {
       button.setDisabled(disable)
       label.setAlpha(disable ? 0.5 : 1)
     }
+  }
+
+  levelCompleted () {
+    this.sound.stopAll()
+    this.sound.play('levelComplete')
+    this.alert.showAlert('¡Modo completado!', {
+      type: 'success',
+      image: 'gameLogo',
+      message: 'Puedes seguir practicando este modo o cambiar a otro.',
+      dismissible: false,
+      buttons: [
+        {
+          text: 'Volver a jugar',
+          onClick: () => {
+            this.scene.restart()
+          }
+        },
+        {
+          text: 'Modos',
+          onClick: () => {
+            this.scene.start(SCENES.LEVEL_SELECTION)
+          }
+        }
+      ]
+    })
   }
 }
