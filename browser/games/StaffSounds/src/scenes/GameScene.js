@@ -104,8 +104,8 @@ export default class GameScene extends Phaser.Scene {
           keyNote.on('pointerup', () => {
             this.sequence.push(keyNote)
             const index = this.sequence.length - 1
-            const gotNote = this.sequence[index].note.name
-            const expectedNote = this.composition[index].name
+            const gotNote = this.sequence[index].note
+            const expectedNote = this.composition[index]
             this.checkSecuence(gotNote, expectedNote)
           })
         }
@@ -116,9 +116,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Comprobar si está en la secuencia
-  checkSecuence (got, expected) {
+  checkSecuence (gotNote, expectedNote) {
     // Incorrecto
-    if (got !== expected) {
+    if (gotNote.name !== expectedNote.name) {
       this.sequence.pop()
       const totalHealth = this.health.miss()
       const isGameOver = totalHealth === 0
@@ -163,7 +163,8 @@ export default class GameScene extends Phaser.Scene {
 
     // Correcto
     if (this.sequence.length !== this.composition.length) {
-      this.sound.play('perfectMelody')
+      const frequency = expectedNote.frequency
+      this.melody.playNoteWithFrequency(frequency, 3)
       return null
     }
     const nextExercise = this.exercises.complete()
@@ -180,7 +181,7 @@ export default class GameScene extends Phaser.Scene {
     })
 
     this.sound.stopAll()
-    this.sound.play('levelComplete')
+    this.sound.play('perfectMelody')
   }
 
   // Notas en el Pentagrama
