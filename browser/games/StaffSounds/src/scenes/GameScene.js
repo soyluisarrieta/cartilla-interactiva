@@ -25,15 +25,21 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = window.gameSettings.levels[2] ?? level
+    this.level = window.gameSettings.levels[1] ?? level
     this.game = window.gameSettings
   }
 
   // Principal
   create () {
     this.ui.init()
-    this.exercises.create(5)
+    this.exercises.create(2)
     this.health.draw(3)
+
+    const mode = this.level.mode
+    const { READ, LISTEN } = GAME_MODES
+    if (mode !== READ) { this.drawConfirmButton() }
+    if (mode === LISTEN) { this.playButton() }
+
     this.start()
     this.exercises.play(0)
 
@@ -66,12 +72,8 @@ export default class GameScene extends Phaser.Scene {
       return null
     }
 
-    this.confirmButton()
-
     // Modo: Escribir
     if (this.level.mode === GAME_MODES.LISTEN) {
-      this.confirmButton()
-      this.playButton(generatedMelody)
       const preComposition = generatedMelody.slice(0, 3)
       this.presetComposition(preComposition)
       return null
@@ -169,7 +171,7 @@ export default class GameScene extends Phaser.Scene {
     }
     const nextExercise = this.exercises.complete()
     if (!nextExercise) {
-      this.levelCompleted()
+      this.modeCompleted()
       return null
     }
     this.start()
@@ -267,7 +269,7 @@ export default class GameScene extends Phaser.Scene {
       .setAlpha(1)
 
     // Habilitar botón de confirmar
-    if (this.level.mode !== GAME_MODES.READ) {
+    if (this.disableConfirmButton) {
       const isCompositionReady = this.composition.some(note => !note)
       this.disableConfirmButton(isCompositionReady)
     }
@@ -288,7 +290,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Añadir botón de reproducción
-  playButton (notes) {
+  playButton () {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 360, height - 170]
 
@@ -297,7 +299,7 @@ export default class GameScene extends Phaser.Scene {
       position: [x, y],
       withSound: false,
       onClick: ({ button }) => {
-        this.playNotes(notes)
+        this.playNotes(this.melody.current)
       }
     })
 
@@ -314,16 +316,18 @@ export default class GameScene extends Phaser.Scene {
 
   // Función para reproducir la melodía
   async playNotes (notes, onSound = () => {}) {
+    this.disablePlayButton(true)
     const melody = notes.map(({ name, frequency }) => ({
       name,
       frequency,
       duration: 1
     }))
     await this.melody.play(melody, this.game.tempo, onSound)
+    this.disablePlayButton(false)
   }
 
   // Añadir botón de reproducción
-  confirmButton () {
+  drawConfirmButton () {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 140, height - 170]
 
@@ -389,7 +393,7 @@ export default class GameScene extends Phaser.Scene {
         // Correcto
         const nextExercise = this.exercises.complete()
         if (!nextExercise) {
-          this.levelCompleted()
+          this.modeCompleted()
           return null
         }
 
@@ -414,7 +418,8 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  levelCompleted () {
+  // Manejar el modo completado
+  modeCompleted () {
     this.sound.stopAll()
     this.sound.play('levelComplete')
     this.alert.showAlert('¡Modo completado!', {
