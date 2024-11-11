@@ -162,9 +162,9 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Correcto
+    const frequency = expectedNote.frequency
+    this.melody.playNoteWithFrequency(frequency, 3)
     if (this.sequence.length !== this.composition.length) {
-      const frequency = expectedNote.frequency
-      this.melody.playNoteWithFrequency(frequency, 3)
       return null
     }
     const nextExercise = this.exercises.complete()
