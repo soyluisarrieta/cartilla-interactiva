@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Inicialización
   init (level) {
-    this.level = window.gameSettings.levels[1] ?? level
+    this.level = window.gameSettings.levels[0] ?? level
     this.game = window.gameSettings
   }
 
@@ -59,6 +59,7 @@ export default class GameScene extends Phaser.Scene {
       })
     })
 
+    this.keyNotes?.forEach(label => label.destroy())
     this.keyNotes = []
     this.pentagram = []
     this.composition = new Array(this.game.maxNotes).fill(null)
@@ -72,15 +73,14 @@ export default class GameScene extends Phaser.Scene {
       return null
     }
 
-    // Modo: Escribir
+    // Modo: Escuchar
     if (this.level.mode === GAME_MODES.LISTEN) {
       const preComposition = generatedMelody.slice(0, 3)
       this.presetComposition(preComposition)
       return null
     }
 
-    // Modo: Escuchar
-    this.keyNotes?.forEach(label => label.destroy())
+    // Modo: Escribir
     this.drawKeyNotes(generatedMelody)
     return null
   }
