@@ -35,12 +35,6 @@ export default class GameScene extends Phaser.Scene {
     this.ui.init()
     this.exercises.create(5)
     this.health.draw(3)
-
-    const mode = this.level.mode
-    const { READ, LISTEN } = GAME_MODES
-    if (mode !== READ) { this.drawConfirmButton() }
-    if (mode === LISTEN) { this.playButton() }
-
     this.start()
     this.exercises.play(0)
 
@@ -52,6 +46,8 @@ export default class GameScene extends Phaser.Scene {
   // Iniciar ejercicio
   start () {
     const generatedMelody = this.melody.generate(this.game.notes, this.game.maxNotes)
+    const mode = this.level.mode
+    const { READ, LISTEN } = GAME_MODES
 
     // Reiniciar pentagrama
     this.pentagram?.forEach((notes) => {
@@ -67,15 +63,18 @@ export default class GameScene extends Phaser.Scene {
     this.drawStaffTones()
 
     // Modo: Leer
-    if (this.level.mode === GAME_MODES.READ) {
+    if (mode === READ) {
       this.sequence = []
       this.presetComposition(generatedMelody)
       this.drawKeyNotes(this.game.notes, true)
       return null
     }
 
+    this.drawConfirmButton()
+
     // Modo: Escuchar
-    if (this.level.mode === GAME_MODES.LISTEN) {
+    if (mode === LISTEN) {
+      this.drawPlayButton()
       const preComposition = generatedMelody.slice(0, 3)
       this.presetComposition(preComposition)
       return null
@@ -270,7 +269,7 @@ export default class GameScene extends Phaser.Scene {
       .setAlpha(1)
 
     // Habilitar botón de confirmar
-    if (this.disableConfirmButton) {
+    if (this.level.mode !== GAME_MODES.READ) {
       const isCompositionReady = this.composition.some(note => !note)
       this.disableConfirmButton(isCompositionReady)
     }
@@ -291,7 +290,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Añadir botón de reproducción
-  playButton () {
+  drawPlayButton () {
     const { width, height } = this.cameras.main
     const [x, y] = [width - 360, height - 170]
 
