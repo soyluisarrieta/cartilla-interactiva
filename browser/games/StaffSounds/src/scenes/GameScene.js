@@ -57,27 +57,30 @@ export default class GameScene extends Phaser.Scene {
     this.pentagram = []
     this.composition = new Array(this.game.maxNotes).fill(null)
     this.drawStaffTones()
-    this.confirmButton()
 
-    // Modo: Escribir
-    if (this.level.mode === GAME_MODES.WRITE) {
-      this.keyNotes?.forEach(label => label.destroy())
-      this.drawKeyNotes(generatedMelody)
+    // Modo: Leer
+    if (this.level.mode === GAME_MODES.READ) {
+      this.sequence = []
+      this.presetComposition(generatedMelody)
+      this.drawKeyNotes(this.game.notes, true)
       return null
     }
 
-    // Modo: Escuchar
+    this.confirmButton()
+
+    // Modo: Escribir
     if (this.level.mode === GAME_MODES.LISTEN) {
+      this.confirmButton()
       this.playButton(generatedMelody)
       const preComposition = generatedMelody.slice(0, 3)
       this.presetComposition(preComposition)
       return null
     }
 
-    // Modo: Leer
-    this.sequence = []
-    this.presetComposition(generatedMelody)
-    this.drawKeyNotes(this.game.notes, true)
+    // Modo: Escuchar
+    this.keyNotes?.forEach(label => label.destroy())
+    this.drawKeyNotes(generatedMelody)
+    return null
   }
 
   // Mostrar notas que debe componer
@@ -155,21 +158,27 @@ export default class GameScene extends Phaser.Scene {
         this.sound.stopAll()
         this.sound.play('gameOver')
       }
-      return
+      return null
     }
 
     // Correcto
-    this.sound.play('perfectMelody')
-    if (this.sequence.length === this.composition.length) {
-      this.alert.showAlert('¡Perfecto!', {
-        type: 'success',
-        image: 'gameLogo',
-        message: 'Has completado la secuencia correctamente. ¡Buen trabajo!',
-        btnAccept: true
-      })
-      this.exercises.complete()
-      this.start()
+    this.exercises.complete()
+    if (this.sequence.length !== this.composition.length) {
+      this.sound.play('perfectMelody')
+      return null
     }
+
+    this.start()
+
+    this.alert.showAlert('¡Perfecto!', {
+      type: 'success',
+      image: 'gameLogo',
+      message: 'Has completado la secuencia correctamente. ¡Buen trabajo!',
+      btnAccept: true
+    })
+
+    this.sound.stopAll()
+    this.sound.play('levelComplete')
   }
 
   // Notas en el Pentagrama
@@ -255,8 +264,10 @@ export default class GameScene extends Phaser.Scene {
       .setAlpha(1)
 
     // Habilitar botón de confirmar
-    const isCompositionReady = this.composition.some(note => !note)
-    this.disableConfirmButton(isCompositionReady)
+    if (this.level.mode !== GAME_MODES.READ) {
+      const isCompositionReady = this.composition.some(note => !note)
+      this.disableConfirmButton(isCompositionReady)
+    }
   }
 
   // Composición preestablecida
