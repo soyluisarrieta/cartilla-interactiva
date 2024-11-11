@@ -113,6 +113,7 @@ export default class GameScene extends Phaser.Scene {
         }
 
         this.keyNotes.push(keyNote)
+        this.uiAnimations.slideInFromBottom({ targets: keyNote, duration: 300, delay: 1000 + i * 100 })
       }
     })
   }
@@ -193,7 +194,7 @@ export default class GameScene extends Phaser.Scene {
     const totalNotes = this.game.maxNotes
     const figureSize = 50
     const gapY = 0
-    const gapX = totalNotes < 7 ? 120 : 40
+    const gapX = totalNotes < 7 ? 100 : 40
 
     // Distribuir tonos
     grid({
@@ -201,7 +202,7 @@ export default class GameScene extends Phaser.Scene {
       item: { width: figureSize + gapX, height: figureSize },
       maxColumns: totalNotes,
       gap: figureSize,
-      position: [300, 250],
+      position: [270, 250],
       element: ({ x, y }, i) => {
         this.createTones(x, y, i, notesPerColumn, figureSize, gapY, clefConfig)
       }
@@ -273,6 +274,8 @@ export default class GameScene extends Phaser.Scene {
       const isCompositionReady = this.composition.some(note => !note)
       this.disableConfirmButton(isCompositionReady)
     }
+
+    this.uiAnimations.scaleUp({ targets: tone, duration: 300, delay: 0, endScale: 0.3 })
   }
 
   // Composición preestablecida
@@ -284,7 +287,9 @@ export default class GameScene extends Phaser.Scene {
     composition.forEach((note, index) => {
       const tone = this.pentagram[index][note.position]
       if (tone) {
-        this.activeTone(index, tone)
+        this.time.delayedCall(1200 + index * 200, () => {
+          this.activeTone(index, tone)
+        })
       }
     })
   }
@@ -312,6 +317,9 @@ export default class GameScene extends Phaser.Scene {
       button.setDisabled(disable)
       label.setAlpha(disable ? 0.5 : 1)
     }
+
+    this.uiAnimations.slideInFromRight({ targets: button, delay: 400 })
+    this.uiAnimations.fadeIn({ targets: label, delay: 800 })
   }
 
   // Función para reproducir la melodía
@@ -411,12 +419,15 @@ export default class GameScene extends Phaser.Scene {
     const label = this.add
       .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
       .setOrigin(0.5)
-      .setAlpha(0.5)
+      .setAlpha(0)
 
     this.disableConfirmButton = (disable) => {
       button.setDisabled(disable)
       label.setAlpha(disable ? 0.5 : 1)
     }
+
+    this.uiAnimations.slideInFromRight({ targets: button, delay: 700, endAlpha: 0.5 })
+    this.uiAnimations.fadeIn({ targets: label, duration: 200, delay: 1100, endAlpha: 0.5 })
   }
 
   // Manejar el modo completado
