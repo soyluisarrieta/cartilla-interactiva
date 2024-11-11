@@ -27,12 +27,13 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.level = window.gameSettings.levels[1] ?? level
     this.game = window.gameSettings
+    UIManager.title = 'MODO: ' + level.title
   }
 
   // Principal
   create () {
     this.ui.init()
-    this.exercises.create(2)
+    this.exercises.create(5)
     this.health.draw(3)
 
     const mode = this.level.mode
