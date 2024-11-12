@@ -58,7 +58,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Iniciar ejercicio
   start () {
-    const generatedMelody = this.melody.generate(this.game.notes, this.game.maxNotes)
+    const generatedMelody = this.melody.generate(this.level.notes, this.game.maxNotes)
     const mode = this.level.mode
     const { READ, LISTEN } = GAME_MODES
 
@@ -79,7 +79,7 @@ export default class GameScene extends Phaser.Scene {
     if (mode === READ) {
       this.sequence = []
       this.presetComposition(generatedMelody)
-      this.drawKeyNotes(this.game.notes, true)
+      this.drawKeyNotes(this.level.notes, true)
       return null
     }
 

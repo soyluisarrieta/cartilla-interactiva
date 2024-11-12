@@ -8,7 +8,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
 
   create () {
     const { width, height } = this.cameras.main
-    const levels = window.gameSettings.levels
+    this.game = window.gameSettings
 
     // Imagen de fondo
     this.add.image(0, 0, 'bgMenu')
@@ -30,20 +30,65 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .setOrigin(0.5)
 
     // Crear niveles
-    const [x, y] = [width / 2, 400]
-    this.add
-      .image(x - 300, y, 'levels', 'level-easy')
-      .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[0], index: 0 }))
+    const modes = ['easy', 'medium', 'hard']
+    modes.forEach((mode, modeIndex) => {
+      this.add.image(width / 2 + (modeIndex - 1) * 300, 400, 'levels', `level-${mode}`)
+        .setInteractive()
+        .on('pointerup', () => {
+          const level = {
+            index: modeIndex,
+            notes: this.game.notes,
+            ...this.game.levels[modeIndex]
+          }
+          if (level.notes.highs || level.notes.lows) {
+            this.showLevelSelection(level)
+          } else {
+            this.scene.start(SCENES.GAME, level)
+          }
+        })
+    })
+  }
 
-    this.add
-      .image(x, y, 'levels', 'level-medium')
-      .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[1], index: 1 }))
+  showLevelSelection (level) {
+    const { width, height } = this.cameras.main
 
-    this.add
-      .image(x + 300, y, 'levels', 'level-hard')
-      .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[2], index: 2 }))
+    // Limpiar la escena antes de mostrar los niveles
+    this.children.removeAll()
+
+    // Imagen de fondo
+    this.add.image(0, 0, 'bgMenu')
+      .setOrigin(0)
+      .setDisplaySize(width, height)
+
+    // Botón: Ir atrás
+    Button.draw(this)({
+      ...BUTTONS.BACK,
+      scene: SCENES.LEVEL_SELECTION,
+      position: [150, 120]
+    })
+
+    // Título
+    this.add.image(width / 2, 120, 'bannerTitle')
+      .setOrigin(0.5)
+
+    this.add.bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un modo')
+      .setOrigin(0.5)
+
+    const contrasts = ['highs', 'lows']
+    contrasts.forEach((contrast, i) => {
+      this.add.image(
+        width / (i ? 1.7 : 2.3),
+        400,
+        'levels',
+        `level-${level.name.toLowerCase()}-${contrast}`
+      )
+        .setInteractive()
+        .on('pointerup', () => {
+          const translation = i ? 'Bajas' : 'Altas'
+          level.name = `${level.name} (${translation})`
+          level.notes = level.notes[contrast]
+          this.scene.start(SCENES.GAME, level)
+        })
+    })
   }
 }

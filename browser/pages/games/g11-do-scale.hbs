@@ -12,14 +12,9 @@
   const {
     CLEF,
     NOTES: {
-      DO3,
-      RE3,
-      MI3,
-      FA3,
-      SOL3,
-      LA3,
-      SI3, 
-      DO4, 
+      DO3,RE3,MI3,FA3,SOL3,LA3,SI3, 
+      DO4,RE4,MI4,FA4,SOL4,LA4,SI4, 
+      DO5 
     }
   } = TREBLE_CLEF
 
@@ -29,7 +24,10 @@
     module: 2,
     tempo: 700,
     clef: CLEF,
-    notes: [DO3,RE3,MI3,FA3,SOL3,LA3,SI3,DO4],
+    notes: {
+      highs: [DO4,RE4,MI4,FA4,SOL4,LA4,SI4,DO5],
+      lows: [DO3,RE3,MI3,FA3,SOL3,LA3,SI3,DO4],
+    },
     maxNotes: 6,
     levels: [
       { 
