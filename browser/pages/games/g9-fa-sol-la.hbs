@@ -5,19 +5,40 @@
 {{/section}}
 
 <script type="module">
-  import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
+  import { GAME_MODES } from '/games/StaffSounds/src/constants.js'
+  import StartGame from '/games/StaffSounds/index.js'
 
-  const { 
-    // 🚩
-  } = FIGURES
+  const {
+    CLEF,
+    NOTES: {
+      FA3, 
+      SOL3, 
+      LA3
+    }
+  } = TREBLE_CLEF
 
   window.gameSettings = {
     id: 'g9-fa-sol-la',
-    game: '🚩',
+    game: 'StaffSounds',
     module: 2,
+    tempo: 700,
+    clef: CLEF,
+    notes: [FA3, SOL3, LA3],
+    maxNotes: 6,
     levels: [
-      // 🚩
+      { 
+        name: 'Escribir',
+        mode: GAME_MODES.WRITE 
+      },
+      { 
+        name: 'Escuchar',
+        mode: GAME_MODES.LISTEN 
+      },
+      { 
+        name: 'Leer',
+        mode: GAME_MODES.READ 
+      },
     ]
   }
 
