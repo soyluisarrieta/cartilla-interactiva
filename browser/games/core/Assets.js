@@ -8,7 +8,7 @@ export default class Assets {
       id,
       module,
       name: game,
-      number: id?.charAt(1)
+      number: id?.match(/\d+/)[0]
     }
   }
 
