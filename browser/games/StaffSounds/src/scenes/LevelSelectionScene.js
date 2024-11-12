@@ -34,16 +34,16 @@ export default class LevelSelectionScene extends Phaser.Scene {
     this.add
       .image(x - 300, y, 'levels', 'level-easy')
       .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, levels[0]))
+      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[0], index: 0 }))
 
     this.add
       .image(x, y, 'levels', 'level-medium')
       .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, levels[1]))
+      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[1], index: 1 }))
 
     this.add
       .image(x + 300, y, 'levels', 'level-hard')
       .setInteractive()
-      .on('pointerup', () => this.scene.start(SCENES.GAME, levels[2]))
+      .on('pointerup', () => this.scene.start(SCENES.GAME, { ...levels[2], index: 2 }))
   }
 }

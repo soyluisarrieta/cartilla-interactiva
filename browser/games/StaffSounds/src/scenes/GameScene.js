@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
   init (level) {
     this.level = level
     this.game = window.gameSettings
-    UIManager.title = 'MODO: ' + level.title
+    UIManager.title = 'MODO: ' + level.name
   }
 
   // Principal
@@ -464,15 +464,15 @@ export default class GameScene extends Phaser.Scene {
     const exercises = this.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
     this.socket.levelCompleted({
       level: {
-        name: this.level.title,
+        name: this.level.name,
         totalTimer: calculateElapsedTime(this.levelStartTimer)
       },
       exercises
     })
 
-    const currentLevel = this.level
+    const modeIndex = this.level.index
     const profile = getProfile()
-    const profileLevel = profile.games[profile.playing].levels[currentLevel.index]
+    const profileLevel = profile.games[profile.playing].levels[modeIndex]
     profileLevel.completed = true
     setProfile(profile)
   }
