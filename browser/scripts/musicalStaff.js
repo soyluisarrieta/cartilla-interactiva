@@ -4,19 +4,22 @@ export const MUSICAL_STAFF = [
   {
     CLEF: 'TREBLE',
     NOTES: {
-      LA4: { name: 'La', position: 0, frequency: 440.00 },
-      SOL4: { name: 'Sol', position: 1, frequency: 392.00 },
-      FA4: { name: 'Fa', position: 2, frequency: 349.23 },
-      MI4: { name: 'Mi', position: 3, frequency: 329.63 },
-      RE4: { name: 'Re', position: 4, frequency: 293.66 },
-      DO4: { name: 'Do', position: 5, frequency: 261.63 },
-      SI3: { name: 'Si', position: 6, frequency: 246.94 },
-      LA3: { name: 'La', position: 7, frequency: 220.00 },
-      SOL3: { name: 'Sol', position: 8, frequency: 196.00 },
-      FA3: { name: 'Fa', position: 9, frequency: 174.61 },
-      MI3: { name: 'Mi', position: 10, frequency: 164.81 },
-      RE3: { name: 'Re', position: 11, frequency: 146.83 },
-      DO3: { name: 'Do', position: 12, frequency: 130.81 }
+      RE5: { name: "Re''", position: 0, frequency: 440.00 },
+      DO5: { name: "Do''", position: 1, frequency: 440.00 },
+      SI4: { name: "Si'", position: 2, frequency: 440.00 },
+      LA4: { name: "La'", position: 3, frequency: 440.00 },
+      SOL4: { name: "Sol'", position: 4, frequency: 392.00 },
+      FA4: { name: "Fa'", position: 5, frequency: 349.23 },
+      MI4: { name: "Mi'", position: 6, frequency: 329.63 },
+      RE4: { name: "Re'", position: 7, frequency: 293.66 },
+      DO4: { name: "Do'", position: 8, frequency: 261.63 },
+      SI3: { name: 'Si', position: 9, frequency: 246.94 },
+      LA3: { name: 'La', position: 10, frequency: 220.00 },
+      SOL3: { name: 'Sol', position: 11, frequency: 196.00 },
+      FA3: { name: 'Fa', position: 12, frequency: 174.61 },
+      MI3: { name: 'Mi', position: 13, frequency: 164.81 },
+      RE3: { name: 'Re', position: 14, frequency: 146.83 },
+      DO3: { name: 'Do', position: 15, frequency: 130.81 }
     }
   },
 

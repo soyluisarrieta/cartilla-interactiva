@@ -23,6 +23,8 @@ export default class GameScene extends Phaser.Scene {
     this.melody = new Melody(this)
     this.exercises = new Exercises(this)
     this.health = new Health(this)
+
+    this.scaleNotes = 0.25
   }
 
   // Inicialización
@@ -96,12 +98,13 @@ export default class GameScene extends Phaser.Scene {
   // Mostrar notas que debe componer
   drawKeyNotes (melody, interactive = false) {
     const { width, height } = this.cameras.main
+    const isReadMode = this.level.mode === GAME_MODES.READ
     grid({
       totalItems: melody.length,
       maxColumns: melody.length,
       item: { width: 200 },
       gap: 0,
-      position: [width / 2.2, height - 70],
+      position: [width / (isReadMode ? 1.8 : 2.2), height - 60],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const keyNote = this.add
@@ -200,7 +203,7 @@ export default class GameScene extends Phaser.Scene {
     const clefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.game.clef)
     const notesPerColumn = Object.values(clefConfig.NOTES).length
     const totalNotes = this.game.maxNotes
-    const figureSize = 50
+    const figureSize = 40
     const gapY = 0
     const gapX = totalNotes < 7 ? 100 : 40
 
@@ -209,7 +212,7 @@ export default class GameScene extends Phaser.Scene {
       totalItems: totalNotes,
       item: { width: figureSize + gapX, height: figureSize },
       maxColumns: totalNotes,
-      gap: figureSize,
+      gap: 50,
       position: [270, 250],
       element: ({ x, y }, i) => {
         this.createTones(x, y, i, notesPerColumn, figureSize, gapY, clefConfig)
@@ -222,7 +225,7 @@ export default class GameScene extends Phaser.Scene {
     for (let index = 0; index < notesPerColumn; index++) {
       const tone = this.add
         .image(x, y + (figureSize + gapY) * index, 'toneDashed')
-        .setScale(0.3)
+        .setScale(this.scaleNotes)
         .setInteractive()
         .setAlpha(0)
 
@@ -250,7 +253,7 @@ export default class GameScene extends Phaser.Scene {
   // Area de interactividad del tono
   createHitBox (x, y, index, figureSize, gapY, tone, i) {
     const hitBox = this.add
-      .rectangle(x, y + (figureSize + gapY) * index, tone.width * 0.3, tone.height * 0.3, 0xffffff, 0)
+      .rectangle(x, y + (figureSize + gapY) * index, tone.width * this.scaleNotes, tone.height * this.scaleNotes, 0xffffff, 0)
       .setInteractive()
 
     // Eventos
@@ -283,7 +286,7 @@ export default class GameScene extends Phaser.Scene {
       this.disableConfirmButton(isCompositionReady)
     }
 
-    this.uiAnimations.scaleUp({ targets: tone, duration: 300, delay: 0, endScale: 0.3 })
+    this.uiAnimations.scaleUp({ targets: tone, duration: 300, delay: 0, endScale: this.scaleNotes })
   }
 
   // Composición preestablecida
