@@ -9,6 +9,8 @@ import Health from '../../../core/components/Health.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
+import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
+import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -37,6 +39,9 @@ export default class GameScene extends Phaser.Scene {
     this.health.draw(3)
     this.start()
     this.exercises.play(0)
+
+    // Iniciar cronometro
+    this.levelStartTimer = Date.now()
 
     // Sonido de inicio de partida
     this.sound.stopAll()
@@ -454,5 +459,21 @@ export default class GameScene extends Phaser.Scene {
         }
       ]
     })
+
+    // Guardar progreso
+    const exercises = this.exercises.all.map(({ melody, timer }) => ({ melody, timer }))
+    this.socket.levelCompleted({
+      level: {
+        name: this.level.title,
+        totalTimer: calculateElapsedTime(this.levelStartTimer)
+      },
+      exercises
+    })
+
+    const currentLevel = this.level
+    const profile = getProfile()
+    const profileLevel = profile.games[profile.playing].levels[currentLevel.index]
+    profileLevel.completed = true
+    setProfile(profile)
   }
 }
