@@ -35,10 +35,16 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
-    this.exercises.create(5)
+    this.exercises.create(2)
     this.health.draw(3)
     this.start()
     this.exercises.play(0)
+
+    // Botones de acción
+    const mode = this.level.mode
+    const { LISTEN, READ } = GAME_MODES
+    if (mode === LISTEN) this.drawPlayButton()
+    if (mode !== READ) this.drawConfirmButton()
 
     // Iniciar cronometro
     this.levelStartTimer = Date.now()
@@ -75,11 +81,8 @@ export default class GameScene extends Phaser.Scene {
       return null
     }
 
-    this.drawConfirmButton()
-
     // Modo: Escuchar
     if (mode === LISTEN) {
-      this.drawPlayButton()
       const preComposition = generatedMelody.slice(0, 3)
       this.presetComposition(preComposition)
       return null
@@ -309,7 +312,7 @@ export default class GameScene extends Phaser.Scene {
       position: [x, y],
       withSound: false,
       onClick: ({ button }) => {
-        this.playNotes(this.melody.current)
+        this.playNotes()
       }
     })
 
@@ -328,8 +331,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Función para reproducir la melodía
-  async playNotes (notes, onSound = () => {}) {
+  async playNotes (onSound = () => {}) {
     this.disablePlayButton(true)
+    const notes = this.melody.current
     const melody = notes.map(({ name, frequency }) => ({
       name,
       frequency,
@@ -418,6 +422,12 @@ export default class GameScene extends Phaser.Scene {
           message: 'Has avanzado al siguiente ejercicio.',
           btnAccept: true
         })
+
+        // Habilitar botón de confirmar
+        if (this.level.mode !== GAME_MODES.READ) {
+          const isCompositionReady = this.composition.some(note => !note)
+          this.disableConfirmButton(isCompositionReady)
+        }
       }
     })
 
