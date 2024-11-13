@@ -8,7 +8,7 @@ import Exercises from '../../../core/components/Exercises.js'
 import Health from '../../../core/components/Health.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
-import { GAME_MODES } from '../constants.js'
+import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
 import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 
@@ -32,6 +32,21 @@ export default class GameScene extends Phaser.Scene {
     this.level = level
     this.game = window.gameSettings
     UIManager.title = 'MODO: ' + level.name
+
+    const ALL_NOTES = Object.values(MUSICAL_STAFF[0].NOTES)
+    const normalizeName = (name) => name.replace(/'/g, '')
+
+    // Solo notas naturales
+    if (level.notes.length < 7) {
+      this.notes = ALL_NOTES.filter(({ name }) => !(name.includes('#') || name.includes('b')))
+      console.log(this.notes)
+      return null
+    }
+
+    // Notas con alteraciones en varias octavas
+    this.notes = ALL_NOTES.filter(NOTE =>
+      level.notes.some((levelNote) => normalizeName(levelNote.name) === normalizeName(NOTE.name))
+    )
   }
 
   // Principal
@@ -200,7 +215,6 @@ export default class GameScene extends Phaser.Scene {
 
   // Notas en el Pentagrama
   drawStaffTones () {
-    const notesPerColumn = 16
     const totalNotes = this.game.maxNotes
     const figureSize = 40
     const gapY = 0
@@ -211,41 +225,36 @@ export default class GameScene extends Phaser.Scene {
       totalItems: totalNotes,
       item: { width: figureSize + gapX, height: figureSize },
       maxColumns: totalNotes,
-      gap: 50,
+      gap: 60,
       position: [270, 250],
       element: ({ x, y }, i) => {
-        this.createTones(x, y, i, notesPerColumn, figureSize, gapY)
+        this.createTones(x, y, i, figureSize, gapY)
       }
     })
   }
 
   // Crear los tonos
-  createTones (x, y, i, notesPerColumn, figureSize, gapY) {
-    for (let index = 0; index < notesPerColumn; index++) {
+  createTones (x, y, i, figureSize, gapY) {
+    this.notes.forEach((note, index) => {
       const tone = this.add
         .image(x, y + (figureSize + gapY) * index, 'toneDashed')
         .setScale(this.scaleNotes)
         .setInteractive()
         .setAlpha(0)
 
+      tone.name = note.name
       tone.blocked = false
       tone.coords = { x: i, y: index }
+      tone.position = note.position
+      tone.frequency = note.frequency
 
-      // Asignar nota correspondiente según la posición
-      const note = this.level.notes.find(n => n.position === index)
-      if (note) {
-        tone.name = note.name
-        tone.position = note.position
-        tone.frequency = note.frequency
-
-        // Agrupar alteración con el tono
-        if (tone.name.includes('#') || tone.name.includes('b')) {
-          const alterationImageKey = tone.name.includes('#') ? 'sharp' : 'flat'
-          tone.alteration = this.add.image(x - 60, y + (figureSize + gapY) * index, alterationImageKey)
-            .setScale(this.scaleNotes)
-            .setInteractive()
-          tone.alteration.setAlpha(0)
-        }
+      // Agrupar alteración con el tono
+      if (tone.name.includes('#') || tone.name.includes('b')) {
+        const alterationImageKey = tone.name.includes('#') ? 'sharp' : 'flat'
+        tone.alteration = this.add.image(x - 60, y + (figureSize + gapY) * index, alterationImageKey)
+          .setScale(this.scaleNotes)
+          .setInteractive()
+        tone.alteration.setAlpha(0)
       }
 
       this.createHitBox(x, y, index, figureSize, gapY, tone, i)
@@ -255,7 +264,7 @@ export default class GameScene extends Phaser.Scene {
         this.pentagram[i] = []
       }
       this.pentagram[i][index] = tone
-    }
+    })
   }
 
   // Area de interactividad del tono
