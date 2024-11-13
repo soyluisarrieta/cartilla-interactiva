@@ -5,19 +5,53 @@
 {{/section}}
 
 <script type="module">
-  import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/🚩/index.js'
+  import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
+  import { GAME_MODES } from '/games/StaffSounds/src/constants.js'
+  import StartGame from '/games/StaffSounds/index.js'
 
-  const { 
-    // 🚩
-  } = FIGURES
+  const {
+    CLEF,
+    NOTES: {
+      DO3,DO3s,DO3b,
+      RE3,RE3s,RE3b,
+      MI3,MI3s,MI3b,
+      FA3,FA3s,FA3b,
+      SOL3,SOL3s,SOL3b,
+      LA3,LA3s,LA3b,
+      SI3,SI3s,SI3b,
+    }
+  } = TREBLE_CLEF
 
   window.gameSettings = {
     id: 'g14-chromatic-scales',
-    game: '🚩',
-    module: 4,
+    game: 'StaffSounds',
+    module: 2,
+    tempo: 700,
+    clef: CLEF,
+    scales: [
+      {
+        name: 'Cromática Ascendente',
+        notes: [DO3, DO3s, RE3, RE3s, MI3, FA3, FA3s, SOL3, SOL3s, LA3, LA3s, SI3]
+      },
+      {
+        name: 'Cromática Descendente',
+        notes: [SI3, SI3b, LA3, LA3b, SOL3, SOL3b, FA3, FA3b, MI3, RE3, RE3b, DO3]
+      }
+    ],
+    maxNotes: 6,
     levels: [
-      // 🚩
+      {
+        name: 'Escribir',
+        mode: GAME_MODES.WRITE
+      },
+      {
+        name: 'Escuchar',
+        mode: GAME_MODES.LISTEN
+      },
+      {
+        name: 'Leer',
+        mode: GAME_MODES.READ
+      },
     ]
   }
 
