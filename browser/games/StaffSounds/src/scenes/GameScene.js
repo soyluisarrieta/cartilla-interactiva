@@ -233,11 +233,20 @@ export default class GameScene extends Phaser.Scene {
       tone.coords = { x: i, y: index }
 
       // Asignar nota correspondiente según la posición
-      const note = Object.values(clefConfig.NOTES).find(n => n.position === index)
+      const note = this.level.notes.find(n => n.position === index)
       if (note) {
         tone.name = note.name
         tone.position = note.position
         tone.frequency = note.frequency
+
+        // Agrupar alteración con el tono
+        if (tone.name.includes('#') || tone.name.includes('b')) {
+          const alterationImageKey = tone.name.includes('#') ? 'sharp' : 'flat'
+          tone.alteration = this.add.image(x - 60, y + (figureSize + gapY) * index, alterationImageKey)
+            .setScale(this.scaleNotes)
+            .setInteractive()
+          tone.alteration.setAlpha(0)
+        }
       }
 
       this.createHitBox(x, y, index, figureSize, gapY, tone, i)
@@ -264,21 +273,27 @@ export default class GameScene extends Phaser.Scene {
         tone.setAlpha(0)
       }
     })
-    hitBox.on('pointerup', () => !tone.blocked && this.activeTone(i, tone))
+    hitBox.on('pointerup', () => {
+      if (!tone.blocked) {
+        this.activeTone(i, tone)
+      }
+    })
   }
 
   // Manejador para asignar nota
   activeTone (i, tone) {
     if (this.composition[i]) {
       const prevTone = this.composition[i]
-      prevTone
-        .setTexture('toneDashed')
-        .setAlpha(0)
+      prevTone.setTexture('toneDashed').setAlpha(0)
+      if (prevTone.alteration) {
+        prevTone.alteration.setAlpha(0)
+      }
     }
     this.composition[i] = tone
-    tone
-      .setTexture('tone')
-      .setAlpha(1)
+    tone.setTexture('tone').setAlpha(1)
+    if (tone.alteration) {
+      tone.alteration.setAlpha(1)
+    }
 
     // Habilitar botón de confirmar
     if (this.level.mode !== GAME_MODES.READ) {
