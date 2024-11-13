@@ -22,7 +22,9 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'tone', path: '/assets/images/figures/tone.png' },
-          { key: 'toneDashed', path: '/assets/images/figures/tone-dashed.png' }
+          { key: 'toneDashed', path: '/assets/images/figures/tone-dashed.png' },
+          { key: 'sharp', path: '/assets/images/figures/sharp.png' },
+          { key: 'flat', path: '/assets/images/figures/flat.png' }
         ]
       }
     }
