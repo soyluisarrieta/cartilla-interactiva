@@ -156,7 +156,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
         }).setScale(0.4)
 
         this.add
-          .bitmapText(x + 70, y, FONTS.PRIMARY, scale.name, 70)
+          .bitmapText(x + 70, y, FONTS.PRIMARY, scale.name, 55)
           .setOrigin(0, 0.5)
           .setInteractive()
           .on('pointerup', onClick)
