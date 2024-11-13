@@ -8,7 +8,7 @@ import Exercises from '../../../core/components/Exercises.js'
 import Health from '../../../core/components/Health.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
-import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
+import { GAME_MODES } from '../constants.js'
 import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 import { getProfile, setProfile } from '../../../../scripts/Profile.js'
 
@@ -200,8 +200,7 @@ export default class GameScene extends Phaser.Scene {
 
   // Notas en el Pentagrama
   drawStaffTones () {
-    const clefConfig = MUSICAL_STAFF.find(({ CLEF }) => CLEF === this.game.clef)
-    const notesPerColumn = Object.values(clefConfig.NOTES).length
+    const notesPerColumn = 16
     const totalNotes = this.game.maxNotes
     const figureSize = 40
     const gapY = 0
@@ -215,13 +214,13 @@ export default class GameScene extends Phaser.Scene {
       gap: 50,
       position: [270, 250],
       element: ({ x, y }, i) => {
-        this.createTones(x, y, i, notesPerColumn, figureSize, gapY, clefConfig)
+        this.createTones(x, y, i, notesPerColumn, figureSize, gapY)
       }
     })
   }
 
   // Crear los tonos
-  createTones (x, y, i, notesPerColumn, figureSize, gapY, clefConfig) {
+  createTones (x, y, i, notesPerColumn, figureSize, gapY) {
     for (let index = 0; index < notesPerColumn; index++) {
       const tone = this.add
         .image(x, y + (figureSize + gapY) * index, 'toneDashed')
