@@ -46,7 +46,7 @@ export const MUSICAL_STAFF = [
 
       LA3: { name: 'La', position: 10, frequency: 220.00 },
       LA3s: { name: 'La#', position: 10, frequency: 233.08 },
-      LAb3: { name: 'Lab', position: 10, frequency: 207.65 },
+      LA3b: { name: 'Lab', position: 10, frequency: 207.65 },
 
       SOL3: { name: 'Sol', position: 11, frequency: 196.00 },
       SOL3s: { name: 'Sol#', position: 11, frequency: 207.65 },
