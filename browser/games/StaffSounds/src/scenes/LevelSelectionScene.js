@@ -1,5 +1,6 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
+import { grid } from '../../../core/utils/grid.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
   constructor () {
@@ -40,23 +41,33 @@ export default class LevelSelectionScene extends Phaser.Scene {
             notes: this.game.notes,
             ...this.game.levels[modeIndex]
           }
+
+          // Escalas musicales
+          if (this.game.scales) {
+            this.showScalesSelection(level)
+            return null
+          }
+
+          // Notas altas/bajas
           if (level.notes.highs || level.notes.lows) {
             this.showLevelSelection(level)
-          } else {
-            this.scene.start(SCENES.GAME, level)
+            return null
           }
+
+          // Notas especificas
+          this.scene.start(SCENES.GAME, level)
         })
     })
   }
 
+  // Seleccionar nivel de notas altas/bajas
   showLevelSelection (level) {
     const { width, height } = this.cameras.main
-
-    // Limpiar la escena antes de mostrar los niveles
     this.children.removeAll()
 
     // Imagen de fondo
-    this.add.image(0, 0, 'bgMenu')
+    this.add
+      .image(0, 0, 'bgMenu')
       .setOrigin(0)
       .setDisplaySize(width, height)
 
@@ -68,10 +79,12 @@ export default class LevelSelectionScene extends Phaser.Scene {
     })
 
     // Título
-    this.add.image(width / 2, 120, 'bannerTitle')
+    this.add
+      .image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add.bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un modo')
+    this.add
+      .bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un modo')
       .setOrigin(0.5)
 
     const contrasts = ['highs', 'lows']
@@ -89,6 +102,65 @@ export default class LevelSelectionScene extends Phaser.Scene {
           level.notes = level.notes[contrast]
           this.scene.start(SCENES.GAME, level)
         })
+    })
+  }
+
+  // Mostrar escalas musicales
+  showScalesSelection (selectedLevel) {
+    const { width, height } = this.cameras.main
+    this.children.removeAll()
+
+    // Imagen de fondo
+    this.add
+      .image(0, 0, 'bgMenu')
+      .setOrigin(0)
+      .setDisplaySize(width, height)
+
+    // Botón: Ir atrás
+    Button.draw(this)({
+      ...BUTTONS.BACK,
+      scene: SCENES.LEVEL_SELECTION,
+      position: [150, 120]
+    })
+
+    // Título
+    this.add
+      .image(width / 2, 120, 'bannerTitle')
+      .setOrigin(0.5)
+
+    this.add
+      .bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona una escala')
+      .setOrigin(0.5)
+
+    const scales = this.game.scales
+    grid({
+      totalItems: scales.length,
+      maxColumns: 2,
+      item: { width: 700, height: 100 },
+      gap: 100,
+      alignCenter: true,
+      position: [width / 1.75, 600],
+      element: ({ x, y }, i) => {
+        const scale = scales[i]
+        const level = {
+          ...selectedLevel,
+          name: `${selectedLevel.name} (Escala ${scale.name})`,
+          notes: scale.notes
+        }
+        const onClick = () => this.scene.start(SCENES.GAME, level)
+
+        Button.draw(this)({
+          ...BUTTONS.ARROW_RIGHT,
+          position: [x, y],
+          onClick
+        }).setScale(0.4)
+
+        this.add
+          .bitmapText(x + 70, y, FONTS.PRIMARY, scale.name, 70)
+          .setOrigin(0, 0.5)
+          .setInteractive()
+          .on('pointerup', onClick)
+      }
     })
   }
 }
