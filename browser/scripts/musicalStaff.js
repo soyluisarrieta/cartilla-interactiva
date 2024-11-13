@@ -17,7 +17,7 @@ export const MUSICAL_STAFF = [
       SI4b: { name: "Sib'", position: 2, frequency: 466.16 },
 
       LA4: { name: "La'", position: 3, frequency: 440.00 },
-      LAs4: { name: "La#'", position: 3, frequency: 466.16 },
+      LA4s: { name: "La#'", position: 3, frequency: 466.16 },
       LAb4: { name: "Lab'", position: 3, frequency: 415.30 },
 
       SOL4: { name: "Sol'", position: 4, frequency: 392.00 },
@@ -45,7 +45,7 @@ export const MUSICAL_STAFF = [
       SI3b: { name: 'Sib', position: 9, frequency: 233.08 },
 
       LA3: { name: 'La', position: 10, frequency: 220.00 },
-      LAs3: { name: 'La#', position: 10, frequency: 233.08 },
+      LA3s: { name: 'La#', position: 10, frequency: 233.08 },
       LAb3: { name: 'Lab', position: 10, frequency: 207.65 },
 
       SOL3: { name: 'Sol', position: 11, frequency: 196.00 },
@@ -84,7 +84,7 @@ export const MUSICAL_STAFF = [
 
       LA2: { name: 'La', position: 2, frequency: 110.00 },
       LA2s: { name: 'La#', position: 2, frequency: 116.54 },
-      LAb2: { name: 'Lab', position: 2, frequency: 103.83 },
+      LA2b: { name: 'Lab', position: 2, frequency: 103.83 },
 
       SOL2: { name: 'Sol', position: 3, frequency: 98.00 },
       SOL2s: { name: 'Sol#', position: 3, frequency: 103.83 },
@@ -111,8 +111,8 @@ export const MUSICAL_STAFF = [
       SI1b: { name: 'Sib', position: 8, frequency: 58.27 },
 
       LA1: { name: 'La', position: 9, frequency: 55.00 },
-      LAs1: { name: 'La#', position: 9, frequency: 58.27 },
-      LAb1: { name: 'Lab', position: 9, frequency: 51.91 },
+      LA1s: { name: 'La#', position: 9, frequency: 58.27 },
+      LA1b: { name: 'Lab', position: 9, frequency: 51.91 },
 
       SOL1: { name: 'Sol', position: 10, frequency: 49.00 },
       SOL1s: { name: 'Sol#', position: 10, frequency: 51.91 },
