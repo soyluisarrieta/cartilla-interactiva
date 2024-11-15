@@ -23,7 +23,7 @@
     "React",
     "Socket.io"
   ],
-  "author": "@SoyLuisArrieta",
+  "author": "SENA - SENNOVA",
   "license": "MIT",
   "dependencies": {
     "db-local": "3.1.0",
