@@ -1,12 +1,13 @@
 import DBLocal from 'db-local'
 import logger from '../lib/winston/logger.js'
-import { GAMES } from '../constants.js'
+import { GAMES, USER_DATA } from '../constants.js'
+import { app } from 'electron'
 
 export class GameModel {
   constructor ({ profile, game }) {
     this.profile = profile
     this.game = game
-    this.path = `db/games/${game.id}`
+    this.path = `${USER_DATA(app)}/db/games/${game.id}`
 
     const GAME = GAMES.find(({ id }) => id === this.game.id)
 

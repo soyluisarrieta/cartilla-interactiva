@@ -1,12 +1,22 @@
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import path from 'node:path'
+import fs from 'node:fs'
 
 // Obtener la ruta de la raíz del proyecto
 const __filename = fileURLToPath(import.meta.url)
-export const SRC_FOLDER = dirname(__filename)
+export const SRC_FOLDER = path.dirname(__filename)
 
 // Puerto
 export const PORT = process.env.PORT || 3000
+
+export const USER_DATA = (app) => {
+  const userData = app.getPath('userData')
+  const dbFolderPath = path.join(userData, 'db', 'games')
+  if (!fs.existsSync(dbFolderPath)) {
+    fs.mkdirSync(dbFolderPath, { recursive: true })
+  }
+  return userData
+}
 
 // Esquema básico
 export const BASIC_SCHEMA = {
