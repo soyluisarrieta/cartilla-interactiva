@@ -31,6 +31,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .setOrigin(0.5)
 
     // Crear niveles
+    const levels = window.gameSettings.levels
+    if (levels.length === 1) {
+      this.scene.start(SCENES.INSTRUCTIONS, levels[0])
+      return null
+    }
     this.levels.init()
   }
 }

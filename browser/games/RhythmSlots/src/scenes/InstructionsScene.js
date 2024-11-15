@@ -52,7 +52,7 @@ export default class InstructionsScene extends Phaser.Scene {
     // Obtener figuras musicales nuevas
     const prevLevel = levelIndex === 0 ? { figures: [] } : levels[levelIndex - 1]
     const newFigures = this.level.figures.filter(
-      (figure) => !prevLevel.figures.some(
+      (figure) => !prevLevel?.figures.some(
         ({ name }) => figure.exception === true ? false : name === figure.name
       )
     ).reverse()
