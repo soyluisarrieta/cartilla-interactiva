@@ -137,7 +137,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
       totalItems: scales.length,
       maxColumns: 2,
       item: { width: 700, height: 100 },
-      gap: 100,
+      gap: scales.length > 10 ? 0 : 100,
       alignCenter: true,
       position: [width / 1.75, 600],
       element: ({ x, y }, i) => {
