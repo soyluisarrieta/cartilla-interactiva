@@ -1,6 +1,6 @@
 # Configuración de la aplicación
 appId: com.sennova.cartilla-interactiva  # Identificador único de la aplicación
-productName: Cartilla-Interactiva  # Nombre del producto
+productName: Cartilla Interactiva  # Nombre del producto
 
 # Directorios de salida
 directories:
@@ -9,8 +9,8 @@ directories:
 # Configuración específica para Windows
 win:
   target: nsis  # Tipo de instalador: NSIS (Nullsoft Scriptable Install System)
-  icon: browser/images/favicons/favicon-256x256.png  # Icono para el ejecutable de la aplicación
-  artifactName: Instalador-Cartilla-Interactiva.${ext}  # Nombre del instalador generado
+  icon: browser/assets/images/favicons/web-app-manifest-512x512.png  # Icono para el ejecutable de la aplicación
+  artifactName: Cartilla-Interactiva.${ext}  # Nombre del instalador generado
 
 # Configuración específica para NSIS
 nsis:
