@@ -20,11 +20,8 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: '/games',
       assets: {
-        images: [
-          { key: 'tone', path: '/assets/images/figures/tone.png' },
-          { key: 'toneDashed', path: '/assets/images/figures/tone-dashed.png' },
-          { key: 'sharp', path: '/assets/images/figures/sharp.png' },
-          { key: 'flat', path: '/assets/images/figures/flat.png' }
+        atlas: [
+          { key: 'tone', dir: '/assets/ui', fileName: 'tone' }
         ]
       }
     }

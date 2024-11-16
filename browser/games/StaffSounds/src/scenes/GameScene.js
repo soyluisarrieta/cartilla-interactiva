@@ -8,7 +8,7 @@ import Exercises from '../../../core/components/Exercises.js'
 import Health from '../../../core/components/Health.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
-import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
+import { GAME_MODES, MUSICAL_STAFF, TONE } from '../constants.js'
 import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 import { getProfile, setProfile } from '../../../../scripts/profile.js'
 
@@ -271,7 +271,7 @@ export default class GameScene extends Phaser.Scene {
   createTones (x, y, i, figureSize, gapY) {
     this.notes.forEach((note, index) => {
       const tone = this.add
-        .image(x, y + (figureSize + gapY) * index, 'toneDashed')
+        .image(x, y + (figureSize + gapY) * index, TONE.key, TONE.HOVER)
         .setScale(this.scaleNotes)
         .setInteractive()
         .setAlpha(0)
@@ -288,8 +288,9 @@ export default class GameScene extends Phaser.Scene {
       const includesNoteOnMelody = noteOnMelody.name.includes('#') || noteOnMelody.name.includes('b')
       const includesNote = includesNoteOnMelody && this.game.id === 'g14-chromatic-scales'
       if (includesTone || includesNote) {
-        const alterationImageKey = tone.name.includes('#') || (includesNote && noteOnMelody.name.includes('#')) ? 'sharp' : 'flat'
-        tone.alteration = this.add.image(x - 60, y + (figureSize + gapY) * index, alterationImageKey)
+        const alterationKey = tone.name.includes('#') || (includesNote && noteOnMelody.name.includes('#')) ? 'sharp' : 'flat'
+        tone.alteration = this.add
+          .image(x - 60, y + (figureSize + gapY) * index, TONE.key, TONE[alterationKey])
           .setScale(this.scaleNotes)
           .setInteractive()
         tone.alteration.setAlpha(0)
@@ -330,13 +331,13 @@ export default class GameScene extends Phaser.Scene {
   activeTone (i, tone) {
     if (this.composition[i]) {
       const prevTone = this.composition[i]
-      prevTone.setTexture('toneDashed').setAlpha(0)
+      prevTone.setTexture(TONE.key, TONE.HOVER).setAlpha(0)
       if (prevTone.alteration) {
         prevTone.alteration.setAlpha(0)
       }
     }
     this.composition[i] = tone
-    tone.setTexture('tone').setAlpha(1)
+    tone.setTexture(TONE.key, TONE.DEFAULT).setAlpha(1)
     if (tone.alteration) {
       tone.alteration.setAlpha(1)
     }

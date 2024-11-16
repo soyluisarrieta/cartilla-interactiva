@@ -5,3 +5,14 @@ export const GAME_MODES = {
   READ: 'read',
   LISTEN: 'listen'
 }
+
+export const TONE = {
+  key: 'tone',
+  DEFAULT: 'tone',
+  HOVER: 'tone-dashed',
+  SOUNDING: 'tone-sounding',
+  FAILED: 'tone-failed',
+  PERFECT: 'tone-perfect',
+  SHARP: 'sharp',
+  FLAT: 'flat'
+}
