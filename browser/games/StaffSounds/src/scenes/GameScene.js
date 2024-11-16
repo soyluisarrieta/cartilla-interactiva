@@ -129,6 +129,9 @@ export default class GameScene extends Phaser.Scene {
       this.sequence = []
       this.presetComposition(generatedMelody)
       this.drawKeyNotes(this.level.notes, true)
+      setTimeout(() => {
+        this.composition[this.sequence.length].setTexture(TONE.key, TONE.SOUNDING)
+      }, 2300)
       return null
     }
 
@@ -180,9 +183,11 @@ export default class GameScene extends Phaser.Scene {
 
   // Comprobar si está en la secuencia
   checkSecuence (gotNote, expectedNote) {
+    const note = this.composition[this.sequence.length - 1]
     // Incorrecto
     if (gotNote.name !== expectedNote.name) {
       this.sequence.pop()
+      note.setTexture(TONE.key, TONE.FAILED)
       const totalHealth = this.health.miss()
       const isGameOver = totalHealth === 0
 
@@ -225,6 +230,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Correcto
+    note.setTexture(TONE.key, TONE.PERFECT)
+    this.composition[this.sequence.length]?.setTexture(TONE.key, TONE.SOUNDING)
     const frequency = expectedNote.frequency
     this.melody.playNoteWithFrequency(frequency, 3)
     if (this.sequence.length !== this.composition.length) {
@@ -414,7 +421,7 @@ export default class GameScene extends Phaser.Scene {
       this.composition[index].setTexture(TONE.key, TONE.SOUNDING)
     }
     await this.melody.play(melody, this.game.tempo, onSound)
-    this.composition[this.composition.length - 1].setTexture(TONE.key, TONE.DEFAULT)
+    this.composition[this.composition.length - 1]?.setTexture(TONE.key, TONE.DEFAULT)
     this.disablePlayButton(false)
   }
 
