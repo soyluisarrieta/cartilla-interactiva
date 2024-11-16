@@ -3,7 +3,7 @@ import Opening from '../../../core/Opening.js'
 import AssetLoader from '../../../core/utils/AssetLoader.js'
 import { InitProfile } from '../../../../scripts/profile.js'
 import { SCENES } from '../../../core/constants.js'
-import { STEPS } from '../../../StaffSounds/assets/how-to-play/intructions.js'
+import { STEPS } from '../../assets/how-to-play/intructions.js'
 
 export default class BootScene extends Phaser.Scene {
   constructor () {

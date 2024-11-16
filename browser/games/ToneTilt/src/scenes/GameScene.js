@@ -155,6 +155,7 @@ export default class GameScene extends Phaser.Scene {
     const button = Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
+      withSound: false,
       withInteractions: false,
       onClick: ({ button }) => {
         label.setAlpha(0.5)
@@ -194,6 +195,7 @@ export default class GameScene extends Phaser.Scene {
       ...BUTTONS.ARROW_RIGHT,
       position: [x, y - gap],
       withInteractions: true,
+      withSound: false,
       onClick: ({ button }) => this.verifyToneChange(INCREASED)
     })
 
@@ -210,6 +212,7 @@ export default class GameScene extends Phaser.Scene {
       ...BUTTONS.ARROW_LEFT,
       position: [x, y + gap],
       withInteractions: true,
+      withSound: false,
       onClick: ({ button }) => this.verifyToneChange(DECREASED)
     })
 
