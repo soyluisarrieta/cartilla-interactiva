@@ -43,6 +43,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
         Button.draw(this)({
           ...BUTTONS.ARROW_RIGHT,
           position: [x, y],
+          withSound: false,
           onClick
         }).setScale(0.4)
 

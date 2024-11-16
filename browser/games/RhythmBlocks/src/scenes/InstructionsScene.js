@@ -63,7 +63,6 @@ export default class InstructionsScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
-        this.sound.play('soundPress')
         this.scene.start(SCENES.GAME, this.level)
       })
 
