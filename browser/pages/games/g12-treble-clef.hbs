@@ -17,6 +17,19 @@
       DO5 
     }
   } = TREBLE_CLEF
+  
+  const RANGE_NOTES = [
+    DO3,RE3,MI3,FA3,SOL3,LA3,SI3, 
+    DO4,RE4,MI4,FA4,SOL4,LA4,SI4, 
+    DO5 
+  ]
+
+  const getRandomNotes = (number) => {
+    const maxNotes = number > RANGE_NOTES.length ? RANGE_NOTES.length : number;
+    const maxStartIndex = RANGE_NOTES.length - maxNotes;
+    const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
+    return RANGE_NOTES.slice(startIndex, startIndex + maxNotes);
+  }
 
   window.gameSettings = {
     id: 'g12-treble-clef',
@@ -25,26 +38,17 @@
     tempo: 700,
     clef: CLEF,
     notes: {
-      get: (number) => {
-        const maxNotes = number > NOTES.length ? NOTES.length : number;
-        const maxStartIndex = NOTES.length - maxNotes;
-        const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
-        return NOTES.slice(startIndex, startIndex + maxNotes);
-      },
+      get: getRandomNotes,
       groups: [3,6,4,8,5,10]
     },
     maxNotes: 6,
     levels: [
       {
-        name: 'Escribir',
-        mode: GAME_MODES.WRITE
-      },
-      {
-        name: 'Escuchar',
+        name: 'Auditivo',
         mode: GAME_MODES.LISTEN
       },
       {
-        name: 'Leer',
+        name: 'Visual',
         mode: GAME_MODES.READ
       },
     ]
