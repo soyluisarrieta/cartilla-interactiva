@@ -396,7 +396,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   // Función para reproducir la melodía
-  async playNotes (onSound = () => {}) {
+  async playNotes () {
     this.disablePlayButton(true)
     const notes = this.melody.current
     const melody = notes.map(({ name, frequency }) => ({
@@ -404,7 +404,17 @@ export default class GameScene extends Phaser.Scene {
       frequency,
       duration: 1
     }))
+    const onSound = ({ index }) => {
+      if (this.composition[index - 1]) {
+        this.composition[index - 1].setTexture(TONE.key, TONE.DEFAULT)
+      }
+      if (!this.composition[index]) {
+        return null
+      }
+      this.composition[index].setTexture(TONE.key, TONE.SOUNDING)
+    }
     await this.melody.play(melody, this.game.tempo, onSound)
+    this.composition[this.composition.length - 1].setTexture(TONE.key, TONE.DEFAULT)
     this.disablePlayButton(false)
   }
 
