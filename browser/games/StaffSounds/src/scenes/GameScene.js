@@ -114,6 +114,7 @@ export default class GameScene extends Phaser.Scene {
     // Reiniciar pentagrama
     this.pentagram?.forEach((notes) => {
       notes.forEach((note) => {
+        note.alteration?.destroy()
         note.destroy()
       })
     })
@@ -188,6 +189,7 @@ export default class GameScene extends Phaser.Scene {
     if (gotNote.name !== expectedNote.name) {
       this.sequence.pop()
       note.setTexture(TONE.key, TONE.FAILED)
+      note.failed = true
       const totalHealth = this.health.miss()
       const isGameOver = totalHealth === 0
 
@@ -285,6 +287,7 @@ export default class GameScene extends Phaser.Scene {
 
       tone.name = note.name
       tone.blocked = false
+      tone.failed = false
       tone.coords = { x: i, y: index }
       tone.position = note.position
       tone.frequency = note.frequency
@@ -294,8 +297,11 @@ export default class GameScene extends Phaser.Scene {
       const includesTone = tone.name.includes('#') || tone.name.includes('b')
       const includesNoteOnMelody = noteOnMelody.name.includes('#') || noteOnMelody.name.includes('b')
       const includesNote = includesNoteOnMelody && this.game.id === 'g14-chromatic-scales'
-      if (includesTone || includesNote) {
-        const alterationKey = tone.name.includes('#') || (includesNote && noteOnMelody.name.includes('#')) ? 'sharp' : 'flat'
+      if ((includesTone || includesNote) && note.alterations) {
+        const alterationKey = tone.name.includes('#') || (includesNote && noteOnMelody.name.includes('#')) ? 'SHARP' : 'FLAT'
+        const alteratedNote = note.alterations[alterationKey.toLowerCase()]
+        tone.name = alteratedNote.name
+        tone.frequency = alteratedNote.frequency
         tone.alteration = this.add
           .image(x - 60, y + (figureSize + gapY) * index, TONE.key, TONE[alterationKey])
           .setScale(this.scaleNotes)
@@ -345,6 +351,7 @@ export default class GameScene extends Phaser.Scene {
     }
     this.composition[i] = tone
     tone.setTexture(TONE.key, TONE.DEFAULT).setAlpha(1)
+    tone.failed = false
     if (tone.alteration) {
       tone.alteration.setAlpha(1)
     }
@@ -412,16 +419,20 @@ export default class GameScene extends Phaser.Scene {
       duration: 1
     }))
     const onSound = ({ index }) => {
-      if (this.composition[index - 1]) {
-        this.composition[index - 1].setTexture(TONE.key, TONE.DEFAULT)
-      }
+      const texture = this.composition[index - 1]?.failed
+        ? 'FAILED'
+        : 'DEFAULT'
+      this.composition[index - 1]?.setTexture(TONE.key, TONE[texture])
       if (!this.composition[index]) {
         return null
       }
       this.composition[index].setTexture(TONE.key, TONE.SOUNDING)
     }
     await this.melody.play(melody, this.game.tempo, onSound)
-    this.composition[this.composition.length - 1]?.setTexture(TONE.key, TONE.DEFAULT)
+    const texture = this.composition[this.composition.length - 1]?.failed
+      ? 'FAILED'
+      : 'DEFAULT'
+    this.composition[this.composition.length - 1]?.setTexture(TONE.key, TONE[texture])
     this.disablePlayButton(false)
   }
 
@@ -490,6 +501,7 @@ export default class GameScene extends Phaser.Scene {
           const notesMistakes = mistakes.map(({ index }) => this.composition[index])
           notesMistakes.forEach((note) => {
             note.setTexture(TONE.key, TONE.FAILED)
+            note.failed = true
           })
           return
         }
