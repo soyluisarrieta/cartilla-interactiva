@@ -39,13 +39,47 @@ export default class GameScene extends Phaser.Scene {
     // Solo notas naturales
     if (level.notes.length < 7) {
       this.notes = ALL_NOTES.filter(({ name }) => !(name.includes('#') || name.includes('b')))
-      console.log(this.notes)
       return null
     }
 
     // Notas con alteraciones en varias octavas
-    this.notes = ALL_NOTES.filter(NOTE =>
-      level.notes.some((levelNote) => normalizeName(levelNote.name) === normalizeName(NOTE.name))
+    if (this.game.id !== 'g14-chromatic-scales') {
+      this.notes = ALL_NOTES.filter(NOTE =>
+        level.notes.some((levelNote) => normalizeName(levelNote.name) === normalizeName(NOTE.name))
+      )
+      return null
+    }
+
+    // Excepción juego #14
+    function groupNotes (notes) {
+      const groupedNotes = []
+
+      notes.forEach(note => {
+        if (note.name.includes('#') || note.name.includes('b')) {
+          const alteration = note.name.includes('#') ? 'sharp' : 'flat'
+          const baseName = note.name.replace(alteration === 'sharp' ? '#' : 'b', '')
+          const baseNote = groupedNotes.find(n => n.name === baseName)
+          if (baseNote) {
+            baseNote.alterations = baseNote.alterations || {}
+            baseNote.alterations[alteration] = note
+          }
+        } else {
+          const naturalNote = { ...note }
+          const alterationNote = notes.find(n => n.name === `${naturalNote.name}#`)
+          if (alterationNote) {
+            naturalNote.alterations = { sharp: alterationNote }
+          }
+          groupedNotes.push(naturalNote)
+        }
+      })
+
+      return groupedNotes
+    }
+
+    this.notes = groupNotes(
+      ALL_NOTES.filter(NOTE =>
+        level.notes.some(levelNote => normalizeName(levelNote.name) === normalizeName(NOTE.name))
+      )
     )
   }
 
@@ -249,8 +283,12 @@ export default class GameScene extends Phaser.Scene {
       tone.frequency = note.frequency
 
       // Agrupar alteración con el tono
-      if (tone.name.includes('#') || tone.name.includes('b')) {
-        const alterationImageKey = tone.name.includes('#') ? 'sharp' : 'flat'
+      const noteOnMelody = this.melody.current[i]
+      const includesTone = tone.name.includes('#') || tone.name.includes('b')
+      const includesNoteOnMelody = noteOnMelody.name.includes('#') || noteOnMelody.name.includes('b')
+      const includesNote = includesNoteOnMelody && this.game.id === 'g14-chromatic-scales'
+      if (includesTone || includesNote) {
+        const alterationImageKey = tone.name.includes('#') || (includesNote && noteOnMelody.name.includes('#')) ? 'sharp' : 'flat'
         tone.alteration = this.add.image(x - 60, y + (figureSize + gapY) * index, alterationImageKey)
           .setScale(this.scaleNotes)
           .setInteractive()
