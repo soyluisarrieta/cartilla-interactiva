@@ -480,6 +480,10 @@ export default class GameScene extends Phaser.Scene {
           })
 
           // Mostar las notas incorrectas
+          const notesMistakes = mistakes.map(({ index }) => this.composition[index])
+          notesMistakes.forEach((note) => {
+            note.setTexture(TONE.key, TONE.FAILED)
+          })
           return
         }
 
