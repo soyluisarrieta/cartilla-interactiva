@@ -23,7 +23,8 @@ export const BASIC_SCHEMA = {
   _id: { type: String, required: true },
   level: {
     name: { type: String, required: true },
-    totalTimer: { type: Number, required: true }
+    totalTimer: { type: Number, required: true },
+    notes: { type: Array }
   },
   exercises: { type: Array, required: true },
   timestamp: { type: Number, default: Date.now }

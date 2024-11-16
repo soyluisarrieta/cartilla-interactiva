@@ -573,7 +573,8 @@ export default class GameScene extends Phaser.Scene {
     this.socket.levelCompleted({
       level: {
         name: this.level.name,
-        totalTimer: calculateElapsedTime(this.levelStartTimer)
+        totalTimer: calculateElapsedTime(this.levelStartTimer),
+        notes: this.level.notes.map(({ name }) => name)
       },
       exercises
     })
