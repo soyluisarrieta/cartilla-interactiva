@@ -117,13 +117,13 @@ export default class GameScene extends Phaser.Scene {
     grid({
       totalItems: melody.length,
       maxColumns: melody.length,
-      item: { width: 200 },
+      item: { width: melody.length > 7 ? 150 : 200 },
       gap: 0,
       position: [width / (isReadMode ? 1.8 : 2.2), height - 60],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const keyNote = this.add
-          .bitmapText(x, y, FONTS.PRIMARY, melody[i].name)
+          .bitmapText(x, y, FONTS.PRIMARY, melody[i].name, melody.length > 7 ? 40 : 60)
           .setOrigin(0.5)
 
         if (interactive) {

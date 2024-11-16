@@ -6,7 +6,6 @@ export class BookletController {
    */
   renderAllModules = (req, res) => {
     const modules = MODULES
-    console.log(MODULES)
     res.render('booklet', { modules })
   }
 
