@@ -95,6 +95,7 @@ export default class UIManager {
       ...BUTTONS.PLAY,
       position: [x, y],
       onClick: ({ button }) => {
+        this.scene.melody.stop()
         const groupedMelody = this.scene.slots.map(slot => (
           slot.currentBlock.figures
         ))
