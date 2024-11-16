@@ -1,4 +1,4 @@
-import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+import { getProfile, setProfile } from '../../../../scripts/profile.js'
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { addInteractions } from '../../../core/utils/addInteractions.js'

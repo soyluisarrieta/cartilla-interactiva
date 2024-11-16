@@ -10,7 +10,7 @@ import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { grid } from '../../../core/utils/grid.js'
 import { GAME_MODES, MUSICAL_STAFF } from '../constants.js'
 import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
-import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+import { getProfile, setProfile } from '../../../../scripts/profile.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -52,8 +52,8 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     this.ui.init()
-    this.exercises.create(2)
-    this.health.draw(5)
+    this.exercises.create(5)
+    this.health.draw(3)
     this.start()
     this.exercises.play(0)
 

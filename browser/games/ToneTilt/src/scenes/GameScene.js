@@ -5,7 +5,7 @@ import UIAnimations from '../../../core/UIAnimations.js'
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { TONE_DIRECTIONS } from '../constants.js'
-import { getProfile, setProfile } from '../../../../scripts/Profile.js'
+import { getProfile, setProfile } from '../../../../scripts/profile.js'
 import Socket from '../../../core/Socket.js'
 
 export default class GameScene extends Phaser.Scene {

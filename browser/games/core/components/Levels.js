@@ -1,4 +1,4 @@
-import { getProfile, setProfile } from '../../../scripts/Profile.js'
+import { getProfile, setProfile } from '../../../scripts/profile.js'
 import { SCENES } from '../constants.js'
 import UIAnimations from '../UIAnimations.js'
 import { addInteractions } from '../utils/addInteractions.js'
