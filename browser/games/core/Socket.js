@@ -17,7 +17,8 @@ export default class Socket {
           profile: JSON.stringify({
             id: profile.id,
             username: profile.username,
-            avatar: profile.avatar
+            avatar: profile.avatar,
+            serial: profile.serial
           }),
           game: JSON.stringify(game)
         }

@@ -101,6 +101,7 @@ export function Profile () {
 
     currentProfiles.push(newProfile)
     window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
+    !window.localStorage.getItem('serial') && window.localStorage.setItem('serial', uuidv4())
     loadProfiles()
     formNewProfile.reset()
     loadProfile(newProfile.id)
@@ -182,7 +183,11 @@ export function getProfile () {
   if (!profileId) return null
 
   const profiles = getAllProfiles()
-  return profiles.find(p => p.id === profileId) || null
+  const profile = profiles.find(p => p.id === profileId) || null
+  if (profile) {
+    profile.serial = window.localStorage.getItem('serial')
+  }
+  return profile
 }
 
 // Actualizar información del perfil seleccionado
