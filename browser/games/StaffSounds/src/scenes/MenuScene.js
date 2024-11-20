@@ -19,7 +19,7 @@ export default class MenuScene extends Phaser.Scene {
     // Logo del juego
     this.add.image(width / 2, 70, IMAGES.GAME_LOGO)
       .setOrigin(0.5, 0)
-      .setScale(1.1)
+      .setScale(1)
 
     // Botón: Iniciar juego
     const btnStart = Button.draw(this)({
