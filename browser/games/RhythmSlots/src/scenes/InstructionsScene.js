@@ -25,9 +25,13 @@ export default class InstructionsScene extends Phaser.Scene {
 
   // Botón: Ir atrás
   drawBackButton () {
+    const scene = window.gameSettings.id === 'g5-the-eighth-rest-figure'
+      ? SCENES.MENU
+      : SCENES.LEVEL_SELECTION
+
     Button.draw(this)({
       ...BUTTONS.BACK,
-      scene: SCENES.LEVEL_SELECTION,
+      scene,
       position: [150, 120]
     })
   }
