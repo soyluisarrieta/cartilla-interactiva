@@ -6,8 +6,8 @@ productName: Cartilla Interactiva  # Nombre del producto
 directories:
   output: dist  # Directorio de salida para los archivos generados
 
-# Ignorar directorios
 files:
+  - "!browser/assets/videos/**" # 🚩 Borrar esta linea para la versión final
   - "!desktop/**"
 
 # Configuración específica para Windows

@@ -6,12 +6,13 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev:desktop": "cd desktop/app && npm run dev",
+    "dev:desktop": "cd desktop && npm run dev",
     "dev:app": "cross-env NODE_ENV=development nodemon --watch src --watch public --exec npm start",
     "sass:browser": "sass --style=compressed browser/styles/main.scss:browser/styles/dist/main.css --watch",
     "dev": "concurrently \"npm run sass:browser\" \"npm run dev:desktop\" \"npm run dev:app\"",
-    "prebuild": "rimraf ../dist-desktop && mkdirp ../dist-desktop && npm run preact:build && cd ../..",
-    "build": "electron-builder"
+    "clean:desktop": "rimraf dist-desktop && mkdirp dist-desktop",
+    "build": "npm run clean:desktop && cd desktop && npm run preact:build && cd .. && electron-builder",
+    "build:fast": "electron-builder"
   },
   "keywords": [
     "educación",
