@@ -64,3 +64,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+#top-bar::before {
+  content: '';
+  -webkit-app-region: drag;
+  flex-grow: 1;
+  padding: 0.7rem;
+}
