@@ -1,6 +1,7 @@
-import { DEV_MODE, SRC_FOLDER } from '../../constants.js'
+import { DEV_MODE, PORT, SRC_FOLDER } from '../../constants.js'
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
+import { getLocalIpAddress } from '../../utils/getLocalIpAddress.js'
 
 // Función para crear una nueva ventana del navegador
 export async function createWindow () {
@@ -38,4 +39,8 @@ export async function createWindow () {
       mainWindow.webContents.send('isMaximized')
     }
   })
+
+  // Proporcionar ip del servidor
+  const localUrl = `http://${getLocalIpAddress()}:${PORT}`
+  ipcMain.handle('getIP', () => localUrl)
 }

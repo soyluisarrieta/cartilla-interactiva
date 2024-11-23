@@ -12,14 +12,11 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`#${type}-version`, process.version[type])
   }
 
-  const localUrl = `http://${getLocalIpAddress()}:${PORT}`
-  replaceText('#ip-local > span', localUrl)
-
   // Añadimos el evento click para abrir el enlace en el navegador
   const ipLinkElement = document.getElementById('ip-local')
   if (ipLinkElement) {
     ipLinkElement.addEventListener('click', () => {
-      shell.openExternal(localUrl)
+      shell.openExternal(`http://${getLocalIpAddress()}:${PORT}`)
     })
   }
 })
