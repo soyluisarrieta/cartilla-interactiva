@@ -10,7 +10,7 @@
     "dev:app": "cross-env NODE_ENV=development nodemon --watch src --watch public --exec npm start",
     "sass:browser": "sass --style=compressed browser/styles/main.scss:browser/styles/dist/main.css --watch",
     "dev": "concurrently \"npm run sass:browser\" \"npm run dev:desktop\" \"npm run dev:app\"",
-    "prebuild": "cd desktop/app && rimraf ../dist && mkdirp ../dist && npm run preact:build && cd ../..",
+    "prebuild": "rimraf ../dist-desktop && mkdirp ../dist-desktop && npm run preact:build && cd ../..",
     "build": "electron-builder"
   },
   "keywords": [

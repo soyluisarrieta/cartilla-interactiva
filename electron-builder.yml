@@ -6,6 +6,10 @@ productName: Cartilla Interactiva  # Nombre del producto
 directories:
   output: dist  # Directorio de salida para los archivos generados
 
+# Ignorar directorios
+files:
+  - "!desktop/**"
+
 # Configuración específica para Windows
 win:
   target: nsis  # Tipo de instalador: NSIS (Nullsoft Scriptable Install System)
