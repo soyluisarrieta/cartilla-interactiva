@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { MinusIcon, SquareIcon, XIcon } from 'lucide-react';
+import { CopyIcon, MinusIcon, SquareIcon, XIcon } from 'lucide-react';
 
 const { ipcRenderer } = require('electron');
 
@@ -33,7 +33,10 @@ export default function TopBar() {
           className='hover:bg-neutral-200'
           onClick={handleMaxiRestore}
         >
-          <SquareIcon size='16' />
+          {isMaximized 
+              ? <CopyIcon className='-scale-x-100' size='16' />
+              : <SquareIcon size='16' />
+          }
         </button>
         <button 
           id="close-window" 
