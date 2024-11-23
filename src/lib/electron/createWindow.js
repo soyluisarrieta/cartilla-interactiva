@@ -1,4 +1,4 @@
-import { SRC_FOLDER } from '../../constants.js'
+import { DEV_MODE, SRC_FOLDER } from '../../constants.js'
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 
@@ -20,8 +20,11 @@ export async function createWindow () {
     }
   })
 
-  // Cargar el archivo index.html en la nueva ventana
-  mainWindow.loadFile(join(SRC_FOLDER, '..', 'desktop', 'index.html'))
+  if (DEV_MODE) {
+    mainWindow.loadURL('http://localhost:5173/')
+  } else {
+    mainWindow.loadFile(join(SRC_FOLDER, '..', 'desktop', 'dist', 'index.html'))
+  }
 
   // Window buttons
   ipcMain.on('closeApp', () => { mainWindow.close() })
