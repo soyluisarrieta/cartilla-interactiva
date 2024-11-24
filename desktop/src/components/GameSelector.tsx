@@ -53,7 +53,7 @@ export default function GameSelector() {
         setSelectedMode('0');
         setSelectedScale('0');
       }}>
-        <SelectTrigger className="max-w-96 p-5 bg-white">
+        <SelectTrigger className="max-w-96 p-5 bg-white border-slate-400">
           <SelectValue placeholder="Selecciona un juego" />
         </SelectTrigger>
         <SelectContent>
@@ -89,7 +89,7 @@ export default function GameSelector() {
 
       {selectedGame?.scales && (
         <Select defaultValue='0' onValueChange={(value) => setSelectedScale(value)}>
-          <SelectTrigger className="w-auto p-5 bg-white">
+          <SelectTrigger className="w-auto p-5 bg-white border-slate-400">
             <SelectValue placeholder="Selecciona una escala" />
           </SelectTrigger>
           <SelectContent>
