@@ -22,29 +22,29 @@ export default function TopBar() {
         <button 
           id="minimize-window" 
           title="Minimizar"
-          className='hover:bg-neutral-200'
+          className='hover:bg-slate-700'
           onClick={() => ipcRenderer.send('minimizeApp')}
         >
-          <MinusIcon size='16' />
+          <MinusIcon className='text-white' size='16' />
         </button>
         <button 
           id="maximize-window" 
           title={isMaximized ? 'Restaurar' : 'Maximizar'}
-          className='hover:bg-neutral-200'
+          className='hover:bg-slate-700'
           onClick={handleMaxiRestore}
         >
           {isMaximized 
-              ? <CopyIcon className='-scale-x-100' size='16' />
-              : <SquareIcon size='16' />
+              ? <CopyIcon className='-scale-x-100 text-white' size='16' />
+              : <SquareIcon className='text-white' size='16' />
           }
         </button>
         <button 
           id="close-window" 
           title="Cerrar"
-          className='hover:bg-neutral-200'
+          className='hover:bg-slate-700'
           onClick={() => ipcRenderer.send('closeApp')}
         >
-          <XIcon size='16' />
+          <XIcon className='text-white' size='16' />
         </button>
       </div>
     </header>

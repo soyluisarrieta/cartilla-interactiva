@@ -46,14 +46,14 @@ export default function GameSelector() {
   const [selectedScale, setSelectedScale] = useState('0')
 
   return (
-    <div className='flex justify-center gap-3 p-5 flex-wrap'>
+    <div className='max-w-4xl mx-auto flex justify-center gap-3 p-5 flex-wrap'>
       <Select defaultValue='0' onValueChange={(i) => {
         setSelectedGame(GAMES[Number(i)]);
         setSelectedLevel('0');
         setSelectedMode('0');
         setSelectedScale('0');
       }}>
-        <SelectTrigger className="max-w-96 p-5">
+        <SelectTrigger className="max-w-96 p-5 bg-white">
           <SelectValue placeholder="Selecciona un juego" />
         </SelectTrigger>
         <SelectContent>
@@ -66,7 +66,7 @@ export default function GameSelector() {
       </Select>
 
       <Tabs defaultValue='0' onValueChange={(value) => setSelectedLevel(value)}>
-        <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7'>
+        <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200/70'>
           {selectedGame?.levels.map((level, i) => (
             <TabsTrigger key={i} value={i.toString()}>
               {level}
@@ -77,7 +77,7 @@ export default function GameSelector() {
 
       {selectedGame?.modes && (
         <Tabs defaultValue='0' onValueChange={(value) => setSelectedMode(value)}>
-          <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7'>
+          <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200/70'>
             {selectedGame.modes.map((mode, i) => (
               <TabsTrigger key={i} value={i.toString()}>
                 {mode}
@@ -89,7 +89,7 @@ export default function GameSelector() {
 
       {selectedGame?.scales && (
         <Select defaultValue='0' onValueChange={(value) => setSelectedScale(value)}>
-          <SelectTrigger className="w-auto p-5">
+          <SelectTrigger className="w-auto p-5 bg-white">
             <SelectValue placeholder="Selecciona una escala" />
           </SelectTrigger>
           <SelectContent>

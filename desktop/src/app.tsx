@@ -4,7 +4,7 @@ import TopBar from "@/components/TopBar";
 
 export function App() {
   return (
-    <main className='w-full min-h-screen'>
+    <main className='w-full min-h-screen bg-gradient-to-b from-slate-100 to-white'>
       <TopBar />
       <Header />
       <GameSelector />
