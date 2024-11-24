@@ -6,21 +6,6 @@ import { PLAYERS } from "@/mocks/players";
 import { useIPStore } from "@/store/useIPStore";
 import { TimerIcon } from "lucide-react";
 
-interface PlayerType {
-  id: number
-  name: string
-  isOnline: boolean
-  attempts: number
-  avatarId: number
-}
-
-interface BestScoreType {
-  playerId: number
-  points: number
-  seconds: number
-  timestamp: number
-}
-
 export default function Leaderboard() {
   const { localIP } = useIPStore();
   const sortedScores: BestScoreType[] = BEST_SCORES.sort((a, b) => b.points - a.points);

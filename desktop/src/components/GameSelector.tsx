@@ -3,13 +3,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GAMES } from "@/mocks/games";
 import { useState } from "preact/hooks";
 
-interface GameType {
-  name: string
-  levels: string[]
-  modes?: string[]
-  scales?: string[]
-}
-
 export default function GameSelector() {
   const [selectedGame, setSelectedGame] = useState<GameType>(GAMES[0])
   const [selectedLevel, setSelectedLevel] = useState('0')
