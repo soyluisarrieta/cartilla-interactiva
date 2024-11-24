@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import useLocalIP from "@/hooks/useLocalIP";
+import { useLocalIP } from "@/hooks/useLocalIP";
 import { ExternalLinkIcon } from "lucide-react";
 
 export default function Header() {
-  const localIP = useLocalIP();
+  const localIP = useLocalIP()
   return (
     <div className='p-10 bg-neutral-100'>
       <h1 className='text-5xl text-center font-bold text-black mb-3'>Panel de control</h1>
