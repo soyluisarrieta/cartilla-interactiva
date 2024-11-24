@@ -1,17 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { PATH } from "@/constants";
+import { AVATARS_FILES, PATH } from "@/constants";
 import { cn } from "@/lib/utils";
+import { BEST_SCORES } from "@/mocks/bestScores";
+import { PLAYERS } from "@/mocks/players";
 import { useIPStore } from "@/store/useIPStore";
 import { TimerIcon } from "lucide-react";
-
-const AVATARS_IMAGES = [
-  "boy1.png",
-  "boy2.png",
-  "boy3.png",
-  "girl1.png",
-  "girl2.png",
-  "girl3.png",
-]
 
 interface PlayerType {
   id: number
@@ -21,34 +14,12 @@ interface PlayerType {
   avatarId: number
 }
 
-const PLAYERS = [
-  {id: 0, name: 'Luis Arrieta', isOnline: false, attempts: 234, avatarId: 1},
-  {id: 1, name: 'Jessica Pistala', isOnline: true, attempts: 643, avatarId: 4},
-  {id: 2, name: 'Sebastián Arristala', isOnline: true, attempts: 873, avatarId: 2},
-  {id: 3, name: 'Martina López', isOnline: false, attempts: 165, avatarId: 5},
-  {id: 4, name: 'Pepito Pérez', isOnline: false, attempts: 254, avatarId: 2},
-  {id: 5, name: 'Julanito detal', isOnline: true, attempts: 28, avatarId: 4},
-  {id: 6, name: 'Paylus Estudio', isOnline: true, attempts: 0, avatarId: 5},
-  {id: 7, name: 'Amazonas Verdes', isOnline: true, attempts: 0, avatarId: 0}
-]
-
 interface BestScoreType {
   playerId: number
   points: number
   seconds: number
   timestamp: number
 }
-
-const BEST_SCORES = [
-  { playerId: 2, points: 92, seconds: 25, timestamp: 1732103183 },
-  { playerId: 6, points: 91, seconds: 29, timestamp: 1732543183 },
-  { playerId: 4, points: 88, seconds: 27, timestamp: 1732323183 },
-  { playerId: 1, points: 85, seconds: 28, timestamp: 1731993183 },
-  { playerId: 7, points: 83, seconds: 26, timestamp: 1732653183 },
-  { playerId: 3, points: 77, seconds: 230, timestamp: 1732213183 },
-  { playerId: 0, points: 73, seconds: 32, timestamp: 1731883183 },
-  { playerId: 5, points: 73, seconds: 31, timestamp: 1732433183 },
-]
 
 export default function Leaderboard() {
   const { localIP } = useIPStore();
@@ -64,7 +35,7 @@ export default function Leaderboard() {
 
       {sortedScores.map((score, index) => {
         const player: PlayerType | undefined = PLAYERS.find((p) => p.id === score.playerId);
-        const avatarSrc = player ? `${localIP}/${PATH.AVATARS}/${AVATARS_IMAGES[player.avatarId]}` : "";
+        const avatarSrc = player ? `${localIP}/${PATH.AVATARS}/${AVATARS_FILES[player.avatarId]}` : "";
         const isOnline = player?.isOnline;
         const date = new Date(score.timestamp * 1000);
         const formattedDate = date.toLocaleDateString("es-ES", {

@@ -1,5 +1,6 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GAMES } from "@/mocks/games";
 import { useState } from "preact/hooks";
 
 interface GameType {
@@ -9,38 +10,8 @@ interface GameType {
   scales?: string[]
 }
 
-const GAMES: GameType[] = [
-  {
-    name: 'Las Figuras y sus Silencios',
-    levels: ['Fácil', 'Medio', 'Dificil']
-  },
-  {
-    name: 'La Blanca y sus Silencio',
-    modes: ['Escribir', 'Escuchar', 'Leer'],
-    levels: ['Auditivo', 'Visual']
-  },
-  {
-    name: 'La Redonda y sus Silencio',
-    modes: ['Escribir', 'Escuchar', 'Leer'],
-    scales: ['Do mayor', 'Re mayor'],
-    levels: ['Auditivo', 'Visual']  
-  },
-  {
-    name: 'Las Figuras y sus Silencios',
-    levels: ['Fácil', 'Medio', 'Dificil']
-  },
-  {
-    name: 'La Blanca y sus Silencio',
-    levels: ['Fácil', 'Medio', 'Dificil']
-  },
-  {
-    name: 'La Redonda y sus Silencio',
-    levels: ['Fácil', 'Medio', 'Dificil']
-  },
-]
-
 export default function GameSelector() {
-  const [selectedGame, setSelectedGame] = useState(GAMES[0])
+  const [selectedGame, setSelectedGame] = useState<GameType>(GAMES[0])
   const [selectedLevel, setSelectedLevel] = useState('0')
   const [selectedMode, setSelectedMode] = useState('0')
   const [selectedScale, setSelectedScale] = useState('0')
