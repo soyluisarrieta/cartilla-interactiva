@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 interface GameType {
   name: string
@@ -66,7 +66,7 @@ export default function GameSelector() {
       </Select>
 
       <Tabs defaultValue='0' onValueChange={(value) => setSelectedLevel(value)}>
-        <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200/70'>
+        <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200'>
           {selectedGame?.levels.map((level, i) => (
             <TabsTrigger key={i} value={i.toString()}>
               {level}
@@ -77,7 +77,7 @@ export default function GameSelector() {
 
       {selectedGame?.modes && (
         <Tabs defaultValue='0' onValueChange={(value) => setSelectedMode(value)}>
-          <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200/70'>
+          <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200'>
             {selectedGame.modes.map((mode, i) => (
               <TabsTrigger key={i} value={i.toString()}>
                 {mode}
