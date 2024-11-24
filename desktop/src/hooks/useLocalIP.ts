@@ -8,7 +8,6 @@ export const useLocalIP = () => {
   useEffect(() => {
     async function fetchIP() {
       const ip = await ipcRenderer.invoke('getIP');
-      console.log('EJECUTADO',localIP);
       setLocalIP(ip);
     }
     !localIP && fetchIP();
