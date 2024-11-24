@@ -1,5 +1,6 @@
 import GameSelector from "@/components/GameSelector";
 import Header from "@/components/Header";
+import Leaderboard from "@/components/Leaderboard";
 import TopBar from "@/components/TopBar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -9,6 +10,7 @@ export function App() {
       <TopBar />
       <Header />
       <GameSelector />
+      <Leaderboard />
     </ScrollArea>
   )
 }
