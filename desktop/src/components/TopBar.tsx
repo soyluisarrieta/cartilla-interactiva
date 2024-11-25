@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import { CopyIcon, MinusIcon, SquareIcon, XIcon } from 'lucide-react';
 import { ipcRenderer } from '@/constants';
+import AlertToTurnOff from '@/components/AlertToTurnOff';
 
 export default function TopBar() {
   const [isMaximized, setIsMaximized] = useState(true)
@@ -38,14 +39,15 @@ export default function TopBar() {
               : <SquareIcon className='text-white' size='16' />
             }
           </button>
-          <button
-            id="close-window"
-            title="Cerrar"
-            className='hover:bg-slate-200/10'
-            onClick={() => ipcRenderer.send('closeApp')}
-          >
-            <XIcon className='text-white' size='16' />
-          </button>
+          <AlertToTurnOff>
+            <button
+              id="close-window"
+              title="Cerrar"
+              className='hover:bg-slate-200/10'
+            >
+              <XIcon className='text-white' size='16' />
+            </button>
+          </AlertToTurnOff>
         </div>
       </header>
       <div className='bg-green-700 sticky top-0 w-full h-8 z-30 -mt-8 shadow-lg shadow-green-800/50' />
