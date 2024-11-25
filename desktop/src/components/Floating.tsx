@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { ipcRenderer } from "@/constants"
 import { PLAYERS } from "@/mocks/players"
 import { DatabaseBackupIcon, PowerIcon } from "lucide-react"
 
@@ -14,15 +15,16 @@ export default function Floating() {
           size='icon'
           title='Recuperación de perfiles'
         >
-          <DatabaseBackupIcon className='text-slate-800' strokeWidth={1.5} />
+          <DatabaseBackupIcon className='text-slate-900' strokeWidth={1.5} />
         </Button>
         <Button
           className='scale-125 p-5 bg-white/70 filter backdrop-blur-sm'
           variant='outline'
           size='icon'
           title='Desconectar cartilla'
+          onClick={() => ipcRenderer.send('closeApp')}
         >
-          <PowerIcon className='text-slate-800' strokeWidth={1.9} />
+          <PowerIcon className='text-slate-900' strokeWidth={1.9} />
         </Button>
       </div>
 

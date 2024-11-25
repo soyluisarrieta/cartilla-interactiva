@@ -1,3 +1,5 @@
+export const { ipcRenderer } = require('electron');
+
 export const PATH = {
   AVATARS: `/assets/images/avatars`
 }

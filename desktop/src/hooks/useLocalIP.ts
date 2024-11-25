@@ -1,6 +1,6 @@
+import { ipcRenderer } from '@/constants';
 import { useIPStore } from '@/store/useIPStore';
 import { useEffect } from 'react';
-const { ipcRenderer } = require('electron');
 
 export const useLocalIP = () => {
   const { localIP, setLocalIP } = useIPStore()

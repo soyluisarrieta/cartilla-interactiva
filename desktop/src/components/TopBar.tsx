@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
 import { CopyIcon, MinusIcon, SquareIcon, XIcon } from 'lucide-react';
-
-const { ipcRenderer } = require('electron');
+import { ipcRenderer } from '@/constants';
 
 export default function TopBar() {
   const [isMaximized, setIsMaximized] = useState(true)
