@@ -1,4 +1,5 @@
 import Floating from "@/components/Floating";
+import Footer from "@/components/Footer";
 import GameSelector from "@/components/GameSelector";
 import Header from "@/components/Header";
 import Leaderboard from "@/components/Leaderboard";
@@ -13,6 +14,7 @@ export function App() {
       <GameSelector />
       <Leaderboard />
       <Floating />
+      <Footer />
     </ScrollArea>
   )
 }

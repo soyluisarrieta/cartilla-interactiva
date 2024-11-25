@@ -7,8 +7,8 @@ export default function Floating() {
   const connectedUsers = PLAYERS.filter(({ isOnline }) => isOnline)
   const isPlural = connectedUsers.length !== 1 && 's'
   return (
-    <>
-      <div className='max-w-40 fixed bottom-2 left-2 flex flex-col gap-y-2 p-2 bg-white/70 filter backdrop-blur-sm rounded'>
+    <div className='h-0 sticky bottom-0 left-0 flex justify-between items-end p-2'>
+      <div className='flex flex-col gap-y-2 p-2 bg-white/70 filter backdrop-blur-sm rounded'>
         <Button
           className='p-5 bg-white/70 filter backdrop-blur-sm'
           variant='outline'
@@ -30,9 +30,9 @@ export default function Floating() {
         </AlertToTurnOff>
       </div>
 
-      <span className='fixed bottom-2 right-2 text-lg bg-white/70 filter backdrop-blur-sm py-1 px-5 rounded-full' title='Usuarios conectados'>
+      <span className='text-lg bg-white/70 filter backdrop-blur-sm py-1 px-5 rounded-full' title='Usuarios conectados'>
         <span className='font-bold'>{connectedUsers.length}</span> conectado{isPlural}
       </span>
-    </>
+    </div>
   )
 }
