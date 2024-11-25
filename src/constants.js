@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 export const SRC_FOLDER = path.dirname(__filename)
 
 // Puerto
-export const PORT = process.env.PORT || 2000
+export const PORT = process.env.PORT || 5000
 
 export const USER_DATA = (app) => {
   const userData = app.getPath('userData')
