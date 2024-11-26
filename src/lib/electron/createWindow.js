@@ -1,5 +1,5 @@
 import { DEV_MODE, PORT, SRC_FOLDER } from '../../constants.js'
-import { BrowserWindow, ipcMain } from 'electron'
+import { BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { getLocalIpAddress } from '../../utils/getLocalIpAddress.js'
 
@@ -16,8 +16,7 @@ export async function createWindow () {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools: true,
-      preload: join(SRC_FOLDER, 'lib', 'electron', 'preload.mjs')
+      devTools: true
     }
   })
 
@@ -41,6 +40,11 @@ export async function createWindow () {
   })
 
   // Proporcionar ip del servidor
-  const localUrl = `http://${getLocalIpAddress()}:${PORT}`
+  const localUrl = `${getLocalIpAddress()}:${PORT}`
   ipcMain.handle('getIP', () => localUrl)
+
+  // Abrir cartilla con el botón
+  ipcMain.on('openIP', () => {
+    shell.openExternal(`http://${localUrl}`)
+  })
 }
