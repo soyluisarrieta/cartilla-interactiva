@@ -13,7 +13,7 @@ interface Props {
 export default function LeaderboardItem({score, index}: Props) {
   const { localIP } = useIPStore();
   const player: PlayerType | undefined = PLAYERS.find((p) => p.id === score.playerId);
-  const avatarSrc = player ? `${localIP}/${PATH.AVATARS}/${AVATARS_FILES[player.avatarId]}` : "";
+  const avatarSrc = player ? `http://${localIP}/${PATH.AVATARS}/${AVATARS_FILES[player.avatarId]}` : "";
   const isOnline = player?.isOnline;
   const date = new Date(score.timestamp * 1000);
   const formattedDate = date.toLocaleDateString("es-ES", {
