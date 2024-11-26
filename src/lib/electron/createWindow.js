@@ -24,7 +24,7 @@ export async function createWindow () {
   if (DEV_MODE) {
     mainWindow.loadURL('http://localhost:5173/')
   } else {
-    mainWindow.loadFile(join(SRC_FOLDER, '..', 'desktop', 'dist', 'index.html'))
+    mainWindow.loadFile(join(SRC_FOLDER, '..', 'dist-desktop', 'index.html'))
   }
 
   // Window buttons

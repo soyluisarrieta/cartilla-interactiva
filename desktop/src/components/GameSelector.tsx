@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GAMES } from "@/mocks/games";
-import { useState } from "preact/hooks";
 
 export default function GameSelector() {
   const [selectedGame, setSelectedGame] = useState<GameType>(GAMES[0])
   const [selectedLevel, setSelectedLevel] = useState('0')
   const [selectedMode, setSelectedMode] = useState('0')
   const [selectedScale, setSelectedScale] = useState('0')
+  
+  console.log(selectedLevel, selectedMode, selectedScale);
 
   return (
     <div className='max-w-4xl mx-auto flex justify-center gap-3 p-5 flex-wrap'>

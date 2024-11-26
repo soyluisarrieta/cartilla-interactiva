@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 import { CopyIcon, MinusIcon, SquareIcon, XIcon } from 'lucide-react';
 import { ipcRenderer } from '@/constants';
 import AlertToTurnOff from '@/components/AlertToTurnOff';

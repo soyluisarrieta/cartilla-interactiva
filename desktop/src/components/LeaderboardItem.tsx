@@ -26,7 +26,7 @@ export default function LeaderboardItem({score, index}: Props) {
     <div
       key={score.playerId}
       className="bg-white shadow-md shadow-slate-400/50 rounded-2xl py-4 px-10 flex justify-between items-center gap-4 hover:scale-105 cursor-default animate-fadeInFromTop opacity-0"
-      style={{'--animation-delay': `${300 * index}ms`}}
+      style={{'--animation-delay': `${300 * index}ms`} as React.CSSProperties}
     >
       <span className="text-3xl font-bold text-slate-700" title="Puesto">
         {index + 1}

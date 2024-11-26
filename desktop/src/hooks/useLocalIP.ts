@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import { ipcRenderer } from '@/constants';
 import { useIPStore } from '@/store/useIPStore';
-import { useEffect } from 'react';
 
 export const useLocalIP = () => {
   const { localIP, setLocalIP } = useIPStore()
@@ -10,8 +10,9 @@ export const useLocalIP = () => {
       const ip = await ipcRenderer.invoke('getIP');
       setLocalIP(ip);
     }
+    
     !localIP && fetchIP();
-  }, []);
+  }, [localIP, setLocalIP]);
 
   return localIP;
 };

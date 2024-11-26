@@ -1,10 +1,9 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { ipcRenderer } from "@/constants";
 import { Unplug } from "lucide-react";
-import { ReactNode } from "preact/compat";
 
 interface Props {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 export default function AlertToTurnOff({ children }: Props) {

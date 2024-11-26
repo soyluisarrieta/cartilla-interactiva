@@ -11,7 +11,7 @@
     "sass:browser": "sass --style=compressed browser/styles/main.scss:browser/styles/dist/main.css --watch",
     "dev": "concurrently \"npm run sass:browser\" \"npm run dev:desktop\" \"npm run dev:app\"",
     "clean:desktop": "rimraf dist-desktop && mkdirp dist-desktop",
-    "build": "npm run clean:desktop && cd desktop && npm run preact:build && cd .. && electron-builder",
+    "build": "npm run clean:desktop && cd desktop && npm run desktop:build && cd .. && electron-builder",
     "build:fast": "electron-builder"
   },
   "keywords": [
