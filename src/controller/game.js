@@ -1,12 +1,14 @@
 import logger from '../lib/winston/logger.js'
 import { GameModel } from '../models/game.js'
 import { ProfileModel } from '../models/profile.js'
+import { LeaderboardController } from './leaderboard.js'
 
 export class GameController {
   constructor ({ profile, game, socket }) {
     this.socket = socket
     this.profile = profile
     this.game = game
+    this.leaderboard = new LeaderboardController({ profile, game, socket })
     this.gameModel = new GameModel({ profile, game })
     this.profileModel = new ProfileModel({ serial: profile.serial })
     this.saveProfile(profile)
@@ -32,7 +34,7 @@ export class GameController {
       }
       await this.gameModel.saveLevel(level)
       const data = this.getDataFromLevel(level)
-      console.log(data)
+      this.leaderboard.newScore(data)
     } catch (error) {
       logger.error('Error en  el nivel:', error)
       throw error

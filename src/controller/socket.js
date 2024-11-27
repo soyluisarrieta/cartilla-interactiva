@@ -23,8 +23,6 @@ export class SocketController {
 
   // Manejar conexión por navegador
   handleConnection (socket) {
-    socket.to(socket.id).emit('updateLeaderboard', { score: 400 })
-
     // Verificar si la conexión proviene de la IP del administrador
     if (socket.handshake.address === getLocalIpAddress) {
       this.adminSocketId = socket.id
