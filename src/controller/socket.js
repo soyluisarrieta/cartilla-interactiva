@@ -1,23 +1,37 @@
 import { Server } from 'socket.io'
 import socketRoutes from '../routes/socket.js'
+import { getLocalIpAddress } from '../utils/getLocalIpAddress.js'
 
 export class SocketController {
   constructor () {
     this.io = null
     this.connectedUsers = {}
     this.sessionConnections = {}
+    this.adminSocketId = null
   }
 
   // Crear conexión
   connect (expressServer) {
-    this.io = new Server(expressServer)
+    this.io = new Server(expressServer, {
+      cors: {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST']
+      }
+    })
     this.io.on('connection', (socket) => this.handleConnection(socket))
   }
 
   // Manejar conexión por navegador
   handleConnection (socket) {
-    const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
+    socket.to(socket.id).emit('updateLeaderboard', { score: 400 })
 
+    // Verificar si la conexión proviene de la IP del administrador
+    if (socket.handshake.address === getLocalIpAddress) {
+      this.adminSocketId = socket.id
+      console.log('Administrador conectado')
+    }
+
+    const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
     if (!rawGame || !rawProfile) { return }
 
     const game = JSON.parse(rawGame)

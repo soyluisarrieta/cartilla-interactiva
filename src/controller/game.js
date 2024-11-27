@@ -3,7 +3,8 @@ import { GameModel } from '../models/game.js'
 import { ProfileModel } from '../models/profile.js'
 
 export class GameController {
-  constructor ({ profile, game }) {
+  constructor ({ profile, game, socket }) {
+    this.socket = socket
     this.profile = profile
     this.game = game
     this.gameModel = new GameModel({ profile, game })
@@ -24,12 +25,17 @@ export class GameController {
     }
   }
 
-  async levelCompleted (levelData) {
+  async levelCompleted (level) {
     try {
-      if (!levelData || typeof levelData !== 'object') {
+      if (!level || typeof level !== 'object') {
         throw new Error('Datos del nivel inválidos.')
       }
-      await this.gameModel.saveLevel(levelData)
+      await this.gameModel.saveLevel(level)
+      this.socket.broadcast.emit('updateLeaderboard', {
+        level,
+        gameId: this.game.id,
+        profile: this.profile
+      })
     } catch (error) {
       logger.error('Error en  el nivel:', error)
       throw error
