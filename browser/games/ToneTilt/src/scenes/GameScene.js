@@ -7,6 +7,7 @@ import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import { TONE_DIRECTIONS } from '../constants.js'
 import { getProfile, setProfile } from '../../../../scripts/profile.js'
 import Socket from '../../../core/Socket.js'
+import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.js'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -27,6 +28,9 @@ export default class GameScene extends Phaser.Scene {
     this.bestScore = this.profile.games[this.game.id].bestScore ?? 0
     this.isNewRecord = false
     this.score = 0
+
+    // Iniciar cronometro
+    this.startTimer = Date.now()
   }
 
   // Principal
@@ -282,7 +286,10 @@ export default class GameScene extends Phaser.Scene {
 
       // Enviar al servidor
       if (isGameOver && this.isNewRecord) {
-        this.socket.levelCompleted({ bestScore: this.bestScore })
+        this.socket.levelCompleted({
+          bestScore: this.bestScore,
+          time: calculateElapsedTime(this.startTimer)
+        })
       }
       return null
     }

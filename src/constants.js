@@ -22,7 +22,7 @@ export const USER_DATA = (app) => {
 }
 
 // Esquema básico
-export const BASIC_SCHEMA = {
+export const STANDARD_SCHEMA = {
   _id: { type: String, required: true },
   level: {
     name: { type: String, required: true },
@@ -38,32 +38,32 @@ export const GAMES = [
   {
     id: 'g1-the-figures-and-their-silences',
     slug: 'las-figuras-y-sus-silencios',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g2-what-rhythm-is-playing',
     slug: 'que-ritmo-suena',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g3-the-eighth-note-figure',
     slug: 'la-figura-corchea',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g4-the-sixteenth-note-figure',
     slug: 'la-figura-semicorchea',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g5-the-eighth-rest-figure',
     slug: 'la-figura-silencio-de-corchea',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g6-play-with-the-rhythm',
     slug: 'juega-con-el-ritmo',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g7-do-the-tones-go-up-or-down',
@@ -71,48 +71,49 @@ export const GAMES = [
     schema: {
       _id: { type: String, required: true },
       bestScore: { type: Number, required: true },
+      time: { type: Number, required: true },
       timestamp: { type: Number, default: Date.now }
     }
   },
   {
     id: 'g8-do-re-mi',
     slug: 'do-re-mi',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g9-fa-sol-la',
     slug: 'fa-sol-la',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g10-la-si-do',
     slug: 'la-si-do',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g11-do-scale',
     slug: 'escala-de-do',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g12-treble-clef',
     slug: 'clave-de-sol',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g13-major-scales',
     slug: 'escalas-mayores',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g14-chromatic-scales',
     slug: 'escalas-cromaticas',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   },
   {
     id: 'g15-major-and-minor-scales',
     slug: 'escalas-mayores-y-menores',
-    schema: BASIC_SCHEMA
+    schema: STANDARD_SCHEMA
   }
 ]
 
