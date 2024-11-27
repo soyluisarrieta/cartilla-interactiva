@@ -31,14 +31,33 @@ export class GameController {
         throw new Error('Datos del nivel inválidos.')
       }
       await this.gameModel.saveLevel(level)
-      this.socket.broadcast.emit('updateLeaderboard', {
-        level,
-        gameId: this.game.id,
-        profile: this.profile
-      })
+      const data = this.getDataFromLevel(level)
+      console.log(data)
     } catch (error) {
       logger.error('Error en  el nivel:', error)
       throw error
+    }
+  }
+
+  getDataFromLevel (data) {
+    if (this.game.game === 'ToneTilt') {
+      return {
+        score: data.bestScore,
+        time: data.time
+      }
+    }
+
+    const { level: { totalTimer, name }, ...extradata } = data
+    const BASE_SCORE = 10000 // Puntaje base
+    const TIME_PENALTY = 7.33 // Penalización por segundo
+    const calculatedScore = Math.max(0, BASE_SCORE - (totalTimer * TIME_PENALTY))
+    const score = Math.round(calculatedScore)
+
+    return {
+      ...extradata,
+      levelName: name,
+      time: totalTimer,
+      score
     }
   }
 }
