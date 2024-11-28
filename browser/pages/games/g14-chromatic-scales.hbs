@@ -7,6 +7,7 @@
 <script type="module">
   import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
   import { GAME_MODES } from '/games/StaffSounds/src/constants.js'
+  import { STANDARD_TEMPO } from '/games/core/constants.js'
   import StartGame from '/games/StaffSounds/index.js'
 
   const {
@@ -26,7 +27,7 @@
     id: 'g14-chromatic-scales',
     game: 'StaffSounds',
     module: 4,
-    tempo: 700,
+    tempo: STANDARD_TEMPO,
     clef: CLEF,
     scales: [
       {

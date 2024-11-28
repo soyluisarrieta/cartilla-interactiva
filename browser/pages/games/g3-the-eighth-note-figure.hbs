@@ -7,6 +7,7 @@
 <script type="module">
   import FIGURES from '/scripts/figures.js'
   import StartGame from '/games/RhythmSlots/index.js'
+  import { STANDARD_TEMPO } from '/games/core/constants.js'
 
   const { 
     crotchet,
@@ -22,7 +23,7 @@
     id: 'g3-the-eighth-note-figure',
     game: 'RhythmSlots',
     module: 1,
-    tempo: 700,
+    tempo: STANDARD_TEMPO,
     levels: [
       { 
         title: 'Las figuras corchea',

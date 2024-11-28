@@ -1,3 +1,5 @@
+export const STANDARD_TEMPO = 1000
+
 export const BUTTONS = {
   BACK: { key: 'btnBack', frame: 'back-btn' },
   ARROW_RIGHT: { key: 'uiButtons', frame: 'arrow-right' },

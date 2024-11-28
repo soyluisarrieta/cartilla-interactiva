@@ -7,6 +7,7 @@
 <script type="module">
   import { TREBLE_CLEF } from '/scripts/musicalStaff.js'
   import { GAME_MODES } from '/games/StaffSounds/src/constants.js'
+  import { STANDARD_TEMPO } from '/games/core/constants.js'
   import StartGame from '/games/StaffSounds/index.js'
 
   const {
@@ -22,7 +23,7 @@
     id: 'g10-la-si-do',
     game: 'StaffSounds',
     module: 2,
-    tempo: 700,
+    tempo: STANDARD_TEMPO,
     clef: CLEF,
     notes: [LA3, SI3, DO4],
     maxNotes: 6,

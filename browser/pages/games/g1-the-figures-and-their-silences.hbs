@@ -6,7 +6,8 @@
 
 <script type="module">
   import FIGURES from '/scripts/figures.js'
-  import StartGame from '/games/RhythmSlots/index.js';
+  import StartGame from '/games/RhythmSlots/index.js'
+  import { STANDARD_TEMPO } from '/games/core/constants.js'
 
   const { 
     crotchet,
@@ -22,7 +23,7 @@
     game: 'RhythmSlots',
     module: 1,
     attempts: 3,
-    tempo: 700,
+    tempo: STANDARD_TEMPO,
     levels: [{ 
       title: 'La figura negra y su silencio',
       description: 'La duración de estas notas es de un tiempo completo, lo que significa que ocupan todo un pulso en la música.',

@@ -7,6 +7,7 @@
 <script type="module">
   import FIGURES from '/scripts/figures.js'
   import StartGame from '/games/RhythmBlocks/index.js'
+  import { STANDARD_TEMPO } from '/games/core/constants.js'
 
   const { 
     crotchet,
@@ -22,7 +23,7 @@
     game: 'RhythmBlocks',
     module: 1,
     attempts: 2,
-    tempo: 700,
+    tempo: STANDARD_TEMPO,
     levels: [
       {
         name: 'easy',
