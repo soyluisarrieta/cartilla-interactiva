@@ -1,13 +1,12 @@
 import { Server } from 'socket.io'
 import socketRoutes from '../routes/socket.js'
-import { getLocalIpAddress } from '../utils/getLocalIpAddress.js'
+import { ProfileModel } from '../models/profile.js'
 
 export class SocketController {
   constructor () {
     this.io = null
     this.connectedUsers = {}
     this.sessionConnections = {}
-    this.adminSocketId = null
   }
 
   // Crear conexión
@@ -23,11 +22,11 @@ export class SocketController {
 
   // Manejar conexión por navegador
   handleConnection (socket) {
-    // Verificar si la conexión proviene de la IP del administrador
-    if (socket.handshake.address === getLocalIpAddress) {
-      this.adminSocketId = socket.id
-      console.log('Administrador conectado')
-    }
+    socket.on('init', () => {
+      if (socket?.handshake?.address !== '127.0.0.1') { return null }
+      const profiles = new ProfileModel({}).getAll()
+      socket.emit('profiles', profiles)
+    })
 
     const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
     if (!rawGame || !rawProfile) { return }

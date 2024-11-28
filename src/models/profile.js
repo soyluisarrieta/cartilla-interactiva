@@ -6,13 +6,16 @@ import { USER_DATA } from '../constants.js'
 import { app } from 'electron'
 
 export class ProfileModel {
-  constructor ({ serial }) {
+  constructor ({ serial = null }) {
+    this.path = `${USER_DATA(app)}/db/profiles`
+    if (!serial) { return null }
+
     const userData = app.getPath('userData')
     const dbFolderPath = path.join(userData, 'db', 'profiles')
     if (!fs.existsSync(dbFolderPath)) {
       fs.mkdirSync(dbFolderPath, { recursive: true })
     }
-    this.path = `${USER_DATA(app)}/db/profiles`
+
     const { Schema } = new DBLocal({ path: this.path })
     this.Profile = Schema(serial, {
       _id: { type: String, required: true },
@@ -21,6 +24,33 @@ export class ProfileModel {
       avatar: { type: String, required: true },
       timestamp: { type: Number, default: Date.now }
     })
+  }
+
+  getAll () {
+    try {
+      const files = fs.readdirSync(this.path)
+      let profiles = []
+
+      for (const file of files) {
+        const filePath = path.join(this.path, file)
+        if (fs.statSync(filePath).isFile() && file.endsWith('.json')) {
+          const serial = path.basename(file, '.json')
+          const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+          profiles = profiles.concat(
+            data.map(({ _id: id, ...profile }) => ({
+              id,
+              serial,
+              ...profile
+            }))
+          )
+        }
+      }
+
+      return profiles
+    } catch (error) {
+      logger.error('Error al obtener los perfiles:', error)
+      return []
+    }
   }
 
   async save (data) {
