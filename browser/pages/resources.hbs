@@ -1,0 +1,48 @@
+{{#section "head"}}
+{{> page-info
+  title="Cartilla interactiva | SENNOVA"
+}}
+{{/section}}
+
+<main>
+  <a class="back-btn" href="/">
+    <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
+  </a>
+  
+  <div id="resources-title" class="static-content">
+    <img src="/assets/images/pages/booklet-title.png" alt="Módulos de la cartilla" />
+  </div>
+
+  <h1 style="min-height: 40vh; font-size:3vw; font-family: Lato">RECURSOS</h1>
+
+</main>
+
+{{> footer}}
+
+{{#section "style"}}
+<style>
+  main {
+    width: 100%;
+    background-image: url('/assets/images/pages/main-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0 25vh;
+  }
+
+  #resources-title {
+    width: 50vw;
+    padding: 0 10vw;
+    margin: -1vw auto 2vw;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+</style>
+{{/section}}

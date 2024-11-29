@@ -9,6 +9,8 @@ export default function webRouter () {
   router.get('/', (req, res) => res.render('home'))
   router.get('/repositorio', (req, res) => res.render('repository'))
   router.get('/calentamiento', (req, res) => res.render('warm-up'))
+  router.get('/recursos', (req, res) => res.render('resources'))
+  router.get('/creditos', (req, res) => res.render('credits'))
 
   // Cartilla
   const bookletController = new BookletController()
