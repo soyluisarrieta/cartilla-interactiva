@@ -22,6 +22,16 @@
 
 {{> footer}}
 
+<script>
+  // Canto de ambientación
+  document.addEventListener("DOMContentLoaded", function() {
+    const audio = new Audio('/assets/audios/song-in-booklet.mp3')
+    audio.volume = 0.05
+    audio.loop = true
+    audio.play()
+  });
+</script>
+
 {{#section "style"}}
 <style>
   main {
