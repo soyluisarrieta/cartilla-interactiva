@@ -14,25 +14,31 @@
       href="/cartilla" 
       label="Cartilla interactiva" 
       gradient-from="#52c1d4" 
-      gradient-to="#5063a8" 
+      gradient-to="#5063a8"  
     }}
     {{> button 
       id="btn-videos-de-calentamiento" 
       href="/calentamiento" 
       label="Videos de calentamiento" 
-      gradient-from="#9E53D2" 
-      gradient-to="#6C53D3" 
+      gradient-from="#FF6347" 
+      gradient-to="#FF8C00"
     }}
     {{> button 
       id="btn-zona-de-juegos" 
       href="/zona-de-juegos" 
-      label="Zona de juegos" 
+      label="Zona de juegos"
+      gradient-from="#9E53D2" 
+      gradient-to="#6C53D3"  
+    }}
+    {{> button 
+      id="btn-recursos" 
+      href="/recursos" 
+      label="Recursos" 
       gradient-from="#D3D156" 
-      gradient-to="#57AC4E" 
+      gradient-to="#57AC4E"
     }}
 
     <div class="extra-buttons">
-      <a href="/recursos">Recursos</a>
       <a href="/creditos">Créditos</a>
     </div>
   </section>
@@ -56,8 +62,8 @@
 
   #booklet-title {
     width: 70vw;
-    padding: 0rem 10vw;
-    margin: -7vw auto 2vw;
+    padding: 0rem 12vw;
+    margin: -7vw auto 1vw;
 
     img {
       width: 100%;
@@ -71,7 +77,12 @@
     margin-bottom: -5vw;
     display: flex;
     flex-direction: column;
-    gap: 0.7vw;
+    gap: 0.8vw;
+
+    > a {
+      transform: scale(0.9);
+      margin-bottom: -1vw;
+    }
 
     .extra-buttons {
       width: auto;
@@ -83,7 +94,7 @@
         color: #352c1f;
         font-weight: 500;
         font-size: 1.5vw;
-        margin: 0.7vw 0;
+        margin: 1vw 0 0;
         font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       }
     }
