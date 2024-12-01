@@ -15,8 +15,6 @@ export class BookletController {
   renderModule = (req, res) => {
     const moduleId = parseInt(req.params.id, 10)
     const modules = MODULES
-    console.log(MODULES)
-
     if (!isNaN(moduleId) && moduleId >= 1 && moduleId <= modules.length) {
       res.render(`modules/module-${moduleId}`, { layout: 'slides', moduleId })
     } else {
