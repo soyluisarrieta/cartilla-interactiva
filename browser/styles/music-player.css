@@ -1,0 +1,102 @@
+#music-player {
+  width: 50vw;
+  position: fixed;
+  bottom: 2vw;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  transition: transform 400ms ease-in-out;
+  
+  .mejs__music-player {
+    margin-top: 10px;
+  }
+  .mejs__controls {
+    display: block;
+  }
+  .mejs__controls, .mejs__music-player {
+    background: none !important;
+  }
+  .mejs__time {
+    color: #a3a3a3;
+    font-size: 1vw;
+    font-weight: normal;
+  }
+
+  .mp {        
+    background-color: white;
+    background: rgba(199, 255, 197, 0.3);
+    backdrop-filter: blur(5vw);
+    border-radius: 1vw;
+    color: black;    
+    box-shadow: 0 0 1vw rgba(39, 91, 37, 0.5)
+  }
+  .mp__episode_title {
+    padding: 1vw 2vw;
+    font-size: 1.1vw;
+    font-weight: 600;
+    font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .mp__meta {
+    background: #000;
+    padding: 1vw;
+    display: flex;
+    justify-content: space-between;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+  }
+
+  .mejs-prepended-buttons {
+    display: flex;
+  }
+
+  .mejs-appended-buttons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .mejs__play > button {
+    background: transparent url('/assets/lib/media-element/mediaplayer-sprite-gray.svg') no-repeat;
+  }
+
+  .mejs__pause > button {
+    background: transparent url('/assets/lib/media-element/mediaplayer-sprite-gray.svg') no-repeat;
+    background-position: -20px 0;
+  }
+
+  .mejs__mute > button {
+    background: transparent url('/assets/lib/media-element/mediaplayer-sprite-gray.svg') no-repeat;
+    background-position: -60px 0;
+  }
+
+  .mejs__unmute > button {
+    background: transparent url('/assets/lib/media-element/mediaplayer-sprite-gray.svg') no-repeat;
+    background-position: -40px 0;
+  }
+
+  .mejs__button > button {
+    color: #555;
+  }
+
+  .mejs__horizontal-volume-slider {
+    display: none !important;
+  }
+
+  .mejs__time-total {
+    background: #459242;
+  }
+
+  .mejs__time-current, .mejs__time-handle-content {
+    background: #39b135;
+  }
+
+  .mejs__time-hovered {
+    background: rgba(180, 214, 28, 0.6);
+  }
+
+  .mejs__time-loaded {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+#music-player.show {
+  transform: translateX(-50%) translateY(0%);
+}

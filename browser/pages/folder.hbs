@@ -1,7 +1,9 @@
 {{#section "head"}}
-{{> page-info
-  title="Recursos | SENNOVA"
-}}
+  {{> page-info
+    title="Recursos | SENNOVA"
+  }}
+
+  <link rel='stylesheet' href='/assets/lib/media-element/mediaelement-and-player.v4.2.6.min.css'>
 {{/section}}
 
 <main>
@@ -32,11 +34,10 @@
             <span>{{this}}</span>
           </a>
         {{else if (endsWith this '.mp3')}}
-          <audio controls>
-            <source src="/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}" type="audio/mpeg">
-            Tu navegador no soporta el elemento de audio.
-          </audio>
-          <span>{{this}}</span>
+          <div class="audio-item" onclick="playAudio('{{this}}', '/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}')">
+            <img src="/assets/images/icons/audio.png" alt="PDF" />
+            <span>{{this}}</span>
+          </div>
         {{else}}
           <a href="/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}" target="_blank">
             <img src="/assets/images/icons/file.png" alt="Archivo" />
@@ -46,9 +47,72 @@
       </div>
     {{/each}}
   </div>
+
+  <div id="music-player">
+    <div class="mp">
+      <h3 id="audio-title" class="mp__episode_title">Reproductor de Audio</h3>
+      <div class="mp__meta">
+        <audio id="audio-player" controls width="100%">
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
+    </div>
+  </div>
 </main>
 
 {{> footer}}
+
+<script src='/assets/lib/media-element/mediaelement-and-player.v4.2.6.min.js'></script>
+<script>
+  "use strict";
+
+  const options = {
+    features: [
+      "playpause",
+      "progress",
+      "current",
+      "duration",
+    ]
+  };
+
+  const audioPlayer = new MediaElementPlayer(document.getElementById('audio-player'), options);
+
+  function playAudio(title, src) {
+    const audio = document.querySelector("#audio-player");
+    const audioTitle = document.querySelector("#audio-title");
+    const musicPlayer = document.querySelector("#music-player");
+
+    audioTitle.textContent = title;
+    audio.src = src;
+    audioPlayer.setSrc(src);
+    audioPlayer.play();
+
+    if (!musicPlayer.classList.contains('show')) {
+      musicPlayer.classList.add('show');
+    }
+  }
+
+  (function () {
+    const elementTop = document.createElement('div');
+    const elementBottom = document.createElement('div');
+    elementTop.classList.add('mejs-prepended-buttons');
+    elementBottom.classList.add('mejs-appended-buttons');
+
+    const controls = document.querySelector('.mejs__controls');
+    controls.prepend(elementTop);
+    controls.append(elementBottom);
+
+    const controlsChildren = Array.from(controls.childNodes).filter(v => v.className.startsWith("mejs_"));
+
+    controlsChildren.slice(0, 3).forEach(elem => {
+      elementTop.append(elem);
+    });
+
+    controlsChildren.slice(3, controlsChildren.length).forEach(elem => {
+      elementBottom.append(elem);
+    });
+  })();
+</script>
 
 {{#section "style"}}
 <style>
@@ -87,8 +151,8 @@
     transform: scale(1.03);
   }
   .item img {
-    width: 12vw;
-    height: 12vw;
+    width: 11vw;
+    height: 11vw;
   }
   .item a {
     display: block;
@@ -96,16 +160,25 @@
     color: #000;
   }
   .item span {
+    width: 11vw;
     display: block;
     margin-top: 0.4vw;
-    font-size: 0.8vw;
+    font-size: 0.9vw;
     font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: capitalize;
   }
   .item audio {
     margin-top: 1vw;
     width: 20vw;
+  }
+
+  .audio-item {
+    cursor: pointer;
+
+    img {
+      height: auto;
+    }
   }
 </style>
 {{/section}}
