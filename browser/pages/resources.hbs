@@ -1,7 +1,15 @@
 {{#section "head"}}
-{{> page-info
-  title="Cartilla interactiva | SENNOVA"
-}}
+  {{> page-info
+    title="Cartilla interactiva | SENNOVA"
+  }}
+  
+  <link rel="stylesheet" href="/assets/lib/swiper/swiper-bundle.min.css">
+
+  <script src="/scripts/main.js" type="module"></script>
+  <script type="module">
+    import { Profile } from '/scripts/profile.js'
+    Profile()
+  </script>
 {{/section}}
 
 <main>
@@ -10,39 +18,272 @@
   </a>
   
   <div id="resources-title" class="static-content">
-    <img src="/assets/images/pages/booklet-title.png" alt="Módulos de la cartilla" />
+    <img src="/assets/images/pages/game-zone-title.png" alt="Zona de juegos" />
   </div>
 
-  <h1 style="min-height: 40vh; font-size:3vw; font-family: Lato">RECURSOS</h1>
-
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Colegio san juan bosco">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-colegio-san-juan-bosco"
+            href="/recursos/colegio-san-juan-bosco" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Lengua">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-"
+            href="/recursos/lengua" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Huitoto mínica">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-huitoto-minica"
+            href="/recursos/huitoto-minica" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Huitoto murui">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-huitoto-murui"
+            href="/recursos/huitoto-murui" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Miraña">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-mirana"
+            href="/recursos/lengua-mirana" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Ocaina">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-ocaina"
+            href="/recursos/ocaina" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Tanimuca">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-tanimuca"
+            href="/recursos/tanimuca" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/thumbnails/modules/example-folder.avif" alt="Ticuna">
+        <div class="swiper-slide-content">
+          {{> button 
+            id="recurso-ticuna"
+            href="/recursos/ticuna" 
+            label="Abrir" 
+            gradient-from="#52c1d4" 
+            gradient-to="#5063a8"
+          }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 </main>
 
 {{> footer}}
 
+<script src="/assets/lib/swiper/swiper-bundle.min.js"></script>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper-container', {
+      effect: "coverflow",
+      direction: "horizontal",
+      mousewheel: true,
+      grabCursor: true,
+      slidesPerView: '3.5',
+      loop: true,
+      centeredSlides: true,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>
+
 {{#section "style"}}
-<style>
-  main {
-    width: 100%;
-    background-image: url('/assets/images/pages/main-bg.jpg');
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 0 25vh;
-  }
-
-  #resources-title {
-    width: 50vw;
-    padding: 0 10vw;
-    margin: -1vw auto 2vw;
-
-    img {
+  <style>
+    main {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      background-image: url('/assets/images/pages/main-bg.jpg');
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-  }
-</style>
+
+    #resources-title {
+      width: 45vw;
+      padding: 0 10vw;
+      margin: 4vw auto 2vw;
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    /* Animation Fade in */    
+    @keyframes fadeIn {
+      from { 
+        height: 0;
+        opacity: 0; 
+      }
+      to { 
+        height: auto;
+        opacity: 1; 
+      }
+    }
+
+    .swiper-container {
+      width: 100%;
+      padding: 0 5vw 5vw;
+      user-select: none;
+
+      .swiper-slide {
+        height: 0;
+        position: relative;
+        border-radius: 100vw;
+        opacity: 0;
+        animation: 300ms fadeIn 200ms forwards;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 2vw;
+          box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+        }
+
+        .swiper-slide-shadow-coverflow {
+          border-radius: 2vw;
+        }
+        
+        .swiper-slide-content {
+          width: 100%;
+          height: fit-content;
+          padding-top: 5vw;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          z-index: 10;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: flex-end;
+          opacity: 0;
+          transition: 200ms;
+
+          background: rgba(0,0,0,0.3);
+          background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+          border-bottom-left-radius: 2vw;
+          border-bottom-right-radius: 2vw;
+
+          > a.btn {
+            width: 50%;
+            height: auto;
+            margin-bottom: 1vw;
+            align-self: center;
+            filter: saturate(130%);
+            transform: translateY(2vw);
+            
+            span {
+              padding: 0.7vw;
+              font-size: 1.5vw;
+            }
+          }
+        }
+      }
+    }
+
+    .swiper-slide:hover .swiper-slide-content {
+      opacity: 1;
+
+      > a.btn {
+        transform: translateY(0);
+        transition-delay: 50ms;
+      }
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+      width: 3vw;
+      height: 3vw !important;
+      margin: 0 3vw;
+      top: 10vw;
+      color: #449342;
+      background-color: rgba(255,255,255,0.8);
+      padding: 2vw;
+      border-radius: 100vw;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: 150ms;
+      animation: 300ms fadeIn 700ms forwards;
+
+    }
+
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .swiper-button-next::after, .swiper-button-prev::after {
+      font-size: 2vw;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
 {{/section}}
