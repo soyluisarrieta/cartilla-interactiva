@@ -1,0 +1,111 @@
+{{#section "head"}}
+{{> page-info
+  title="Recursos | SENNOVA"
+}}
+{{/section}}
+
+<main>
+  <a class="back-btn" href="{{#if currentPath}}/recursos/{{language}}/{{../currentPath}}{{else}}/recursos{{/if}}">
+    <img src="/assets/images/back-btn.png" alt="Volver a atrás" />
+  </a>
+
+
+  <div id="resources-title" class="static-content">
+    <img src="/assets/images/pages/game-zone-title.png" alt="Zona de juegos" />
+  </div>
+
+  <div class="items">
+    {{#each folders}}
+      <div class="item">
+        <a href="/recursos/{{../language}}/{{this}}">
+          <img src="/assets/images/icons/folder.png" alt="Carpeta" />
+          <span>{{this}}</span>
+        </a>
+      </div>
+    {{/each}}
+
+    {{#each files}}
+      <div class="item">
+        {{#if (endsWith this '.pdf')}}
+          <a href="/recursos/{{../language}}/{{this}}" target="_blank">
+            <img src="/assets/images/icons/pdf-icon.png" alt="PDF" />
+            <span>{{this}}</span>
+          </a>
+        {{else if (endsWith this '.mp3')}}
+          <img src="/assets/images/icons/audio-icon.png" alt="Audio" />
+          <audio controls>
+            <source src="/recursos/{{../language}}/{{this}}" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+          </audio>
+          <span>{{this}}</span>
+        {{else}}
+          <a href="/recursos/{{../language}}/{{this}}" target="_blank">
+            <img src="/assets/images/icons/file-icon.png" alt="Archivo" />
+            <span>{{this}}</span>
+          </a>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+</main>
+
+{{> footer}}
+
+{{#section "style"}}
+<style>
+  main {
+    width: 100vw;
+    background-image: url('/assets/images/pages/main-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 7vw 3vw;
+  }
+  #resources-title {
+    width: 45vw;
+    padding: 0 10vw;
+    margin: 4vw auto 2vw;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    justify-content: center;
+  }
+  .item {
+    text-align: center;
+    transition: 100ms;
+  }
+  .item:hover {
+    transform: scale(1.03);
+  }
+  .item img {
+    width: 12vw;
+    height: 12vw;
+  }
+  .item a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+  }
+  .item span {
+    display: block;
+    margin-top: 0.4vw;
+    font-size: 1.3vw;
+    font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+  .item audio {
+    margin-top: 1vw;
+    width: 20vw;
+  }
+</style>
+{{/section}}
