@@ -13,6 +13,9 @@ export const hbs = exphbs.create({
       if (!this._sections) this._sections = {}
       this._sections[name] = options.fn(this)
       return null
+    },
+    endsWith: function (str, suffix) {
+      return str.endsWith(suffix)
     }
   }
 })
