@@ -58,8 +58,8 @@ export default {
 
       keyframes: {
         fadeInFromTop: {
-          from: { opacity: 0, transform: 'translateY(-2rem)' },
-          to: { opacity: 1, transform: 'translateY(0rem)' }
+          from: { opacity: 0, transform: 'translateY(-2rem) scale(0.95)' },
+          to: { opacity: 1, transform: 'translateY(0rem) scale(0.95)' }
 
         }
       },

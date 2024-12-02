@@ -28,7 +28,14 @@ export default function LeaderboardItem({ player, selectedLevel, index }: Props)
 
   return (
     <div
-      className="grid grid-cols-[minmax(auto,auto)_minmax(24rem,auto)_minmax(auto,14rem)_minmax(4rem,auto)] bg-white shadow-md shadow-slate-400/50 rounded-2xl py-4 px-10 items-center animate-fadeInFromTop opacity-0"
+      className={cn(
+        "grid grid-cols-[minmax(auto,auto)_minmax(24rem,auto)_minmax(auto,14rem)_minmax(4rem,auto)] py-2 px-10 items-center animate-fadeInFromTop opacity-0 rounded-2xl",
+        (time || score) && (
+          index === 0 ? 'bg-gradient-to-tr from-amber-400 to-yellow-200 shadow-lg shadow-amber-200 mb-0.5 py-5 !scale-100' :
+          index === 1 ? 'bg-gradient-to-tr from-slate-300/80 to-slate-50 shadow-lg shadow-slate-500/50 py-5' :
+          index === 2 && 'bg-gradient-to-tr from-amber-600/70 to-orange-300/70 shadow-lg shadow-orange-900/30 mb-2 py-5'
+        )
+      )}
       style={{ '--animation-delay': `${300 * index}ms` } as React.CSSProperties}
     >
       <span className="text-3xl font-bold text-slate-700 pr-4" title="Puesto">
@@ -37,7 +44,7 @@ export default function LeaderboardItem({ player, selectedLevel, index }: Props)
 
       <div className="flex items-center">
         <div className="relative">
-          <Avatar className="size-16 border-slate-100 border-4">
+          <Avatar className="size-16 border-white border-4">
             <AvatarImage src={avatarSrc} />
             <AvatarFallback></AvatarFallback>
           </Avatar>
@@ -53,8 +60,15 @@ export default function LeaderboardItem({ player, selectedLevel, index }: Props)
           />
         </div>
 
-        <div className="flex flex-col ml-3">
-          <span className="text-3xl font-bold text-slate-900" title="Nombre del jugador">
+        <div className={cn(
+            "flex flex-col ml-3",
+            (!time || !score) && "opacity-60"
+          )}
+        >
+          <span 
+            className="text-3xl font-bold text-slate-900"
+            title="Nombre del jugador"
+          >
             {player?.username || "Desconocido"}
           </span>
           <time className="font-mono -mb-1 text-slate-700" title="Fecha de puntaje">
@@ -64,14 +78,21 @@ export default function LeaderboardItem({ player, selectedLevel, index }: Props)
       </div>
 
       <time
-        className="font-mono text-xl flex justify-center items-center text-slate-700 text-center"
+        className={cn("font-mono text-xl flex justify-center items-center text-slate-700 text-center",
+        !time && 'opacity-0 pointer-events-none'
+      )}
         title="Duración"
       >
         <TimerIcon size={20} />
         {String(Math.floor(Math.round(time) / 60)).padStart(2, "0")}:{String(Math.round(time) % 60).padStart(2, "0")}
       </time>
 
-      <span className="text-3xl font-bold text-center" title="Puntos">
+      <span className={cn(
+        "text-3xl font-bold text-center",
+        !score && 'opacity-25'
+      )} 
+        title="Puntos"
+      >
         {score}
       </span>
     </div>
