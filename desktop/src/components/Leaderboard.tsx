@@ -1,40 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LeaderboardItem from "@/components/LeaderboardItem";
-import { BEST_SCORES } from "@/mocks/bestScores";
 import { io } from 'socket.io-client';
 import { HOST } from "@/constants";
 
 const socket = io(HOST);
+const SELECTED_LEVEL = 'easy'
 
 export default function Leaderboard() {
-  const sortedScores: BestScoreType[] = BEST_SCORES.sort((a, b) => b.points - a.points);
+  const [players, setPlayers] = useState<PlayerType[]>([])
+  const sortedPlayers = players
+    .map(player => ({
+      player,
+      score: player.stats.find(({ levelName }) => levelName === SELECTED_LEVEL)?.score || 0
+    }))
+    .sort((a, b) => b.score - a.score)
+    .map(({ player }) => player);
 
   useEffect(() => {
-    socket.on('updateLeaderboard', (scores) => {
-      console.log('Leaderboard updated:', scores);
-    });
-
-    socket.on('profiles', (profiles) => {
-      console.log('Profiles received:', profiles);
+    socket.emit('init', { game: {id: "g1-the-figures-and-their-silences"} });
+    
+    socket.on('leaderboard', (players) => {
+      setPlayers(players)
     });
 
     return () => {
-      socket.off('updateLeaderboard');
-      socket.off('profiles');
+      socket.off('leaderboard');
     };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center gap-y-2 mb-5">
-      <div className="flex justify-between py-1 px-10 gap-4 text-slate-700">
-        <span>Puesto</span>
-        <span className="w-96">Nombre del jugador</span>
-        <span className="pr-3">Duración</span>
-        <span>Puntaje</span>
+    <div className="min-h-screen w-fit mx-auto grid gap-y-2 px-10">
+      <div className="h-0 grid grid-cols-[minmax(auto,auto)_minmax(24rem,auto)_minmax(auto,14rem)_minmax(4rem,auto)] px-10 text-slate-700 text-center">
+        <span></span>
+        <span className="text-left pl-2">Nombre del jugador</span>
+        <span className="pl-4">Duración</span>
+        <span className="pl-2">Puntaje</span>
       </div>
 
-      {sortedScores.map((score, index) => (
-        <LeaderboardItem key={score.playerId} {...{ score, index }} />
+      {sortedPlayers.map((player, i) => (
+        <LeaderboardItem 
+          key={player.id}
+          player={player}
+          selectedLevel={SELECTED_LEVEL}
+          index={i}
+        />
       ))}
     </div>
   );

@@ -1,9 +1,19 @@
+interface StatType {
+  id: string
+  levelName: string
+  score: number
+  time: number
+  timestamp: number | null
+}
+
 interface PlayerType {
-  id: number
-  name: string
+  id: string
+  userId: string
+  serial: string
+  username: string
   isOnline: boolean
-  attempts: number
-  avatarId: number
+  avatar: string
+  stats: StatType[]
 }
 
 interface BestScoreType {
