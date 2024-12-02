@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
 import socketRoutes from '../routes/socket.js'
-import { ProfileModel } from '../models/profile.js'
+import { LeaderboardController } from './leaderboard.js'
 
 export class SocketController {
   constructor () {
@@ -22,10 +22,10 @@ export class SocketController {
 
   // Manejar conexión por navegador
   handleConnection (socket) {
-    socket.on('init', () => {
+    socket.on('init', async ({ game }) => {
       if (socket?.handshake?.address !== '127.0.0.1') { return null }
-      const profiles = new ProfileModel({}).getAll()
-      socket.emit('profiles', profiles)
+      const leaderboard = await new LeaderboardController({ game }).getAllScores()
+      socket.emit('leaderboard', leaderboard)
     })
 
     const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query

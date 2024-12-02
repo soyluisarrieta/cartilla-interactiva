@@ -20,6 +20,14 @@ export class LeaderboardModel {
     })
   }
 
+  async getAll () {
+    try {
+      return await this.Leaderboard.find()
+    } catch (error) {
+      logger.error('Error al obtener el puntaje:', error)
+    }
+  }
+
   async getBestScore (levelName) {
     try {
       return await this.Leaderboard.findOne({ profileId: this.profile.id, levelName })
