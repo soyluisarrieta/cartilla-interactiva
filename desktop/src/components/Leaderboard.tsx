@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LeaderboardItem from "@/components/LeaderboardItem";
 import { io } from 'socket.io-client';
 import { HOST } from "@/constants";
+import { useLeaderboardStore } from "@/store/leaderboardStore";
 
 const socket = io(HOST);
 const SELECTED_LEVEL = 'easy'
 
 export default function Leaderboard() {
-  const [players, setPlayers] = useState<PlayerType[]>([])
+  const { players, setPlayers } = useLeaderboardStore()
+  
   const sortedPlayers = players
     .map(player => ({
       player,
@@ -26,7 +28,7 @@ export default function Leaderboard() {
     return () => {
       socket.off('leaderboard');
     };
-  }, []);
+  }, [setPlayers]);
 
   return (
     <div className="min-h-screen w-fit mx-auto grid gap-y-2 px-10">

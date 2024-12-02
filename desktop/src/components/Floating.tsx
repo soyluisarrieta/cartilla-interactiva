@@ -1,10 +1,11 @@
 import AlertToTurnOff from "@/components/AlertToTurnOff"
 import { Button } from "@/components/ui/button"
-import { PLAYERS } from "@/mocks/players"
+import { useLeaderboardStore } from "@/store/leaderboardStore"
 import { DatabaseBackupIcon, PowerIcon } from "lucide-react"
 
 export default function Floating() {
-  const connectedUsers = PLAYERS.filter(({ isOnline }) => isOnline)
+  const { players } = useLeaderboardStore()
+  const connectedUsers = players.filter(({ isOnline }) => isOnline)
   const isPlural = connectedUsers.length !== 1 && 's'
   return (
     <div className='h-0 sticky bottom-0 left-0 flex justify-between items-end p-2'>
