@@ -1,23 +1,32 @@
-import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { GAMES } from "@/mocks/games";
+import { SOCKET } from "@/constants";
+import { DICT_LEVELS, GAMES } from "@/mocks/games";
+import { useLeaderboardStore } from "@/store/leaderboardStore";
+import { useEffect } from "react";
 
 export default function GameSelector() {
-  const [selectedGame, setSelectedGame] = useState<GameType>(GAMES[0])
-  const [selectedLevel, setSelectedLevel] = useState('0')
-  const [selectedMode, setSelectedMode] = useState('0')
-  const [selectedScale, setSelectedScale] = useState('0')
-  
-  console.log(selectedLevel, selectedMode, selectedScale);
+  const { 
+    selectors,
+    setGameSelector, 
+    setLevelSelector, 
+    setModeSelector, 
+    setScaleSelector, 
+    resetSelectors,
+  } = useLeaderboardStore()
+
+  const selectedGame = GAMES[selectors.game]
+
+  useEffect(()=>{
+    if (selectors.reseted) { return }
+    SOCKET.emit('getLeaderboard', { game: {id: "g1-the-figures-and-their-silences"} });
+  }, [selectors])
 
   return (
     <div className='max-w-4xl mx-auto flex justify-center gap-3 p-5 flex-wrap'>
       <Select defaultValue='0' onValueChange={(i) => {
-        setSelectedGame(GAMES[Number(i)]);
-        setSelectedLevel('0');
-        setSelectedMode('0');
-        setSelectedScale('0');
+        resetSelectors()
+        setGameSelector(Number(i))
       }}>
         <SelectTrigger className="max-w-96 p-5 bg-white border-slate-400">
           <SelectValue placeholder="Selecciona un juego" />
@@ -31,18 +40,18 @@ export default function GameSelector() {
         </SelectContent>
       </Select>
 
-      <Tabs defaultValue='0' onValueChange={(value) => setSelectedLevel(value)}>
+      <Tabs defaultValue='0' onValueChange={(i) => setLevelSelector(Number(i))}>
         <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200'>
           {selectedGame?.levels.map((level, i) => (
             <TabsTrigger key={i} value={i.toString()}>
-              {level}
+              {DICT_LEVELS[level as keyof typeof DICT_LEVELS]}
             </TabsTrigger>
           ))}
         </TabsList>
       </Tabs>
 
       {selectedGame?.modes && (
-        <Tabs defaultValue='0' onValueChange={(value) => setSelectedMode(value)}>
+        <Tabs defaultValue='0' onValueChange={(i) => setModeSelector(Number(i))}>
           <TabsList className='h-auto [&>button]:py-2 [&>button]:px-7 bg-slate-200'>
             {selectedGame.modes.map((mode, i) => (
               <TabsTrigger key={i} value={i.toString()}>
@@ -54,7 +63,7 @@ export default function GameSelector() {
       )}
 
       {selectedGame?.scales && (
-        <Select defaultValue='0' onValueChange={(value) => setSelectedScale(value)}>
+        <Select defaultValue='0' onValueChange={(i) => setScaleSelector(Number(i))}>
           <SelectTrigger className="w-auto p-5 bg-white border-slate-400">
             <SelectValue placeholder="Selecciona una escala" />
           </SelectTrigger>

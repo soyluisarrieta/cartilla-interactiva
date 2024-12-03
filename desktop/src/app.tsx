@@ -1,6 +1,5 @@
 import Floating from "@/components/Floating";
 import Footer from "@/components/Footer";
-import GameSelector from "@/components/GameSelector";
 import Header from "@/components/Header";
 import Leaderboard from "@/components/Leaderboard";
 import TopBar from "@/components/TopBar";
@@ -11,7 +10,6 @@ export default function App() {
     <ScrollArea className="w-full h-screen min-h-screen bg-gradient-to-b from-slate-100 to-white">
       <TopBar />
       <Header />
-      <GameSelector />
       <Leaderboard />
       <Floating />
       <Footer />
