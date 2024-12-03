@@ -26,10 +26,14 @@ export class LeaderboardController {
   async getAllScores () {
     try {
       const profiles = this.profileModel.getAll()
-      const leadeboard = await this.LeaderboardModel.getAll()
+      const leaderboard = await this.LeaderboardModel.getAll()
       const getStats = (userId) => {
-        const result = leadeboard.filter(({ profileId }) => profileId === userId)
+        const result = leaderboard.filter(({ profileId }) => profileId === userId)
         if (!result.length) { return [] }
+        if (this.game.id === 'g7-do-the-tones-go-up-or-down') {
+          const { _id: id, profileId, ...restStats } = result[0]
+          return [{ id, ...restStats }]
+        }
         return result.map(({ _id: id, profileId, ...restStats }) => ({ id, ...restStats }))
       }
 

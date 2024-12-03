@@ -13,7 +13,7 @@ export default function Leaderboard() {
   const sortedPlayers = players
     .map(player => ({
       player,
-      score: player.stats.find(({ levelName }) => levelName === SELECTED_LEVEL)?.score || 0
+      score: player.stats.find(({ levelName: lvl }) => lvl === 'unique' || lvl === SELECTED_LEVEL)?.score || 0
     }))
     .sort((a, b) => b.score - a.score)
     .map(({ player }) => player);
@@ -23,8 +23,6 @@ export default function Leaderboard() {
     SOCKET.emit('init', { game: GAMES[selectors.game] });
 
     SOCKET.on('leaderboard', (players) => {
-      console.log(players);
-      
       setPlayers(players)
     });
 

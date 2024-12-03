@@ -18,7 +18,7 @@ const DEFAULT_STATS = {
 export default function LeaderboardItem({ player, selectedLevel, index }: Props) {
   const { avatar, isOnline, stats } = player
   const avatarSrc = player ? `${HOST}/${PATH.AVATARS}/${avatar}` : "";
-  const { timestamp, time, score } = stats.find(s => s.levelName === selectedLevel) ?? DEFAULT_STATS
+  const { timestamp, time, score } = stats.find(s => s.levelName === 'unique' || s.levelName === selectedLevel) ?? DEFAULT_STATS
   const date = timestamp && new Date(timestamp)
   const formattedDate = date && date.toLocaleDateString("es-ES", {
     day: "2-digit",
