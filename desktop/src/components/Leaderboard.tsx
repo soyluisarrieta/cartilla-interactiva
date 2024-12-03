@@ -6,15 +6,16 @@ import GameSelector from "@/components/GameSelector";
 import { GAMES } from "@/mocks/games";
 import { AnimatePresence } from "framer-motion";
 
-const SELECTED_LEVEL = 'easy'
-
 export default function Leaderboard() {
   const { players, setPlayers, selectors } = useLeaderboardStore()
+  const selectedLevel = GAMES[selectors.game].levels[selectors.level]
 
   const sortedPlayers = players
     .map(player => ({
       player,
-      score: player.stats.find(({ levelName: lvl }) => lvl === 'unique' || lvl === SELECTED_LEVEL)?.score || 0
+      score: player.stats.find(({ levelName: lvl }) => 
+        lvl === 'unique' || lvl === selectedLevel
+    )?.score || 0
     }))
     .sort((a, b) => b.score - a.score)
     .map(({ player }) => player);
@@ -46,9 +47,9 @@ export default function Leaderboard() {
         <AnimatePresence mode="wait">
           {sortedPlayers.map((player, i) => (
             <LeaderboardItem
-              key={`${player.id}-${selectors.game}`}
+              key={`${player.id}-${selectors.game}-${selectedLevel}`}
               player={player}
-              selectedLevel={SELECTED_LEVEL}
+              selectedLevel={selectedLevel}
               index={i}
               />
             ))}
