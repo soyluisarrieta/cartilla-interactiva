@@ -14,6 +14,7 @@ interface PlayerType {
   isOnline: boolean
   avatar: string
   stats: StatType[]
+  order?: number
 }
 
 interface BestScoreType {

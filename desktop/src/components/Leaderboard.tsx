@@ -4,6 +4,7 @@ import { useLeaderboardStore } from "@/store/leaderboardStore";
 import { SOCKET } from "@/constants";
 import GameSelector from "@/components/GameSelector";
 import { GAMES } from "@/mocks/games";
+import { AnimatePresence } from "framer-motion";
 
 const SELECTED_LEVEL = 'easy'
 
@@ -42,14 +43,16 @@ export default function Leaderboard() {
           <span className="pl-2">Puntaje</span>
         </div>
 
-        {sortedPlayers.map((player, i) => (
-          <LeaderboardItem
-            key={`${player.id}-${SELECTED_LEVEL}`}
-            player={player}
-            selectedLevel={SELECTED_LEVEL}
-            index={i}
-          />
-        ))}
+        <AnimatePresence mode="wait">
+          {sortedPlayers.map((player, i) => (
+            <LeaderboardItem
+              key={`${player.id}-${selectors.game}`}
+              player={player}
+              selectedLevel={SELECTED_LEVEL}
+              index={i}
+              />
+            ))}
+        </AnimatePresence>
       </div>
     </main>
   );

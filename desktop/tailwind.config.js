@@ -51,18 +51,6 @@ export default {
           5: 'hsl(var(--chart-5))'
         }
       },
-
-      animation: {
-        fadeInFromTop: 'fadeInFromTop 200ms ease-in-out var(--animation-delay) both'
-      },
-
-      keyframes: {
-        fadeInFromTop: {
-          from: { opacity: 0, transform: 'translateY(-2rem) scale(0.95)' },
-          to: { opacity: 1, transform: 'translateY(0rem) scale(0.95)' }
-
-        }
-      },
       plugins: [require('tailwindcss-animate')]
     }
   }
