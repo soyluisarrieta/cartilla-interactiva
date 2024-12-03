@@ -9,12 +9,18 @@ import { AnimatePresence } from "framer-motion";
 export default function Leaderboard() {
   const { players, setPlayers, selectors } = useLeaderboardStore()
   const selectedLevel = GAMES[selectors.game].levels[selectors.level]
+  const selectedMode = GAMES[selectors.game]?.modes?.[selectors.mode]
+  const selectedScale = GAMES[selectors.game]?.scales?.[selectors.scale]
+  const selectedNotes = GAMES[selectors.game]?.notes?.[selectors.notes]
 
   const sortedPlayers = players
     .map(player => ({
       player,
-      score: player.stats.find(({ levelName: lvl }) => 
-        lvl === 'unique' || lvl === selectedLevel
+      score: player.stats.find(({ levelName, mode, scale, notes }) => 
+        (levelName === 'unique' || levelName === selectedLevel) &&
+        (!selectedMode || mode === selectedMode) &&
+        (!selectedScale || scale === selectedScale) &&
+        (!selectedNotes || notes === selectedNotes)
     )?.score || 0
     }))
     .sort((a, b) => b.score - a.score)
@@ -25,6 +31,8 @@ export default function Leaderboard() {
     SOCKET.emit('init', { game: GAMES[selectors.game] });
 
     SOCKET.on('leaderboard', (players) => {
+      console.log(players);
+      
       setPlayers(players)
     });
 

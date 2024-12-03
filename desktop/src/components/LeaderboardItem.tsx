@@ -4,16 +4,16 @@ import { HOST, PATH } from "@/constants";
 import { cn } from "@/lib/utils";
 import { TimerIcon } from "lucide-react";
 
-interface Props {
-  player: PlayerType
-  selectedLevel: string
-  index: number
-}
-
 const DEFAULT_STATS = {
   timestamp: null,
   time: 0,
   score: 0
+}
+
+interface Props {
+  player: PlayerType
+  selectedLevel: string
+  index: number
 }
 
 export default function LeaderboardItem({ player, selectedLevel, index }: Props) {

@@ -3,6 +3,9 @@ interface StatType {
   levelName: string
   score: number
   time: number
+  mode?: string
+  scale?: string
+  notes?: string
   timestamp: number | null
 }
 
@@ -14,19 +17,4 @@ interface PlayerType {
   isOnline: boolean
   avatar: string
   stats: StatType[]
-  order?: number
-}
-
-interface BestScoreType {
-  playerId: number
-  points: number
-  seconds: number
-  timestamp: number
-}
-
-interface GameType {
-  name: string
-  levels: string[]
-  modes?: string[]
-  scales?: string[]
 }
