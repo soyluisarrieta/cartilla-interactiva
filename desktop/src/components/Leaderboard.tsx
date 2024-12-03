@@ -32,27 +32,25 @@ export default function Leaderboard() {
   }, [selectors.game, selectors.reseted, setPlayers]);
 
   return (
-    <>
+    <main>
       <GameSelector />
-      <div className="h-full">
-        <div className="w-fit mx-auto grid gap-y-1 px-10">
-          <div className="grid grid-cols-[minmax(auto,auto)_minmax(24rem,auto)_minmax(auto,14rem)_minmax(4rem,auto)] px-10 pb-2 text-slate-700 text-center">
-            <span></span>
-            <span className="text-left pl-2">Nombre del jugador</span>
-            <span className="pl-4">Duración</span>
-            <span className="pl-2">Puntaje</span>
-          </div>
-
-          {sortedPlayers.map((player, i) => (
-            <LeaderboardItem
-              key={player.id}
-              player={player}
-              selectedLevel={SELECTED_LEVEL}
-              index={i}
-            />
-          ))}
+      <div className="w-fit mx-auto grid gap-y-1 px-10">
+        <div className="grid grid-cols-[minmax(auto,auto)_minmax(24rem,auto)_minmax(auto,14rem)_minmax(4rem,auto)] px-10 pb-2 text-slate-700 text-center">
+          <span></span>
+          <span className="text-left pl-2">Nombre del jugador</span>
+          <span className="pl-4">Duración</span>
+          <span className="pl-2">Puntaje</span>
         </div>
+
+        {sortedPlayers.map((player, i) => (
+          <LeaderboardItem
+            key={`${player.id}-${SELECTED_LEVEL}`}
+            player={player}
+            selectedLevel={SELECTED_LEVEL}
+            index={i}
+          />
+        ))}
       </div>
-    </>
+    </main>
   );
 }
