@@ -210,7 +210,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
         const scale = scales[i]
         const level = {
           ...selectedLevel,
-          name: `${selectedLevel.name} (Escala ${scale.name})`,
+          name: `${selectedLevel.name} (${scale.name})`,
           notes: scale.notes
         }
         const onClick = () => this.scene.start(SCENES.GAME, level)

@@ -75,6 +75,14 @@ export class LeaderboardController {
       })
     }
 
+    // Juego 13
+    if (this.game.id === 'g13-major-scales') {
+      return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
+        const [separedLevelName, scale] = separeLevelName(levelName)
+        return { id, levelName: separedLevelName, scale, ...restStats }
+      })
+    }
+
     // Cualquier otro juego
     return result.map(({ _id: id, profileId, ...restStats }) => ({ id, ...restStats }))
   }
