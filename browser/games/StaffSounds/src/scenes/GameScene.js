@@ -44,9 +44,16 @@ export default class GameScene extends Phaser.Scene {
 
     // Notas con alteraciones en varias octavas
     if (this.game.id !== 'g14-chromatic-scales') {
-      this.notes = ALL_NOTES.filter(NOTE =>
-        level.notes.some((levelNote) => normalizeName(levelNote.name) === normalizeName(NOTE.name))
-      )
+      this.notes = ALL_NOTES
+        .filter(NOTE =>
+          level.notes.some((levelNote) => normalizeName(levelNote.name) === normalizeName(NOTE.name))
+        ).map(NOTE => {
+          if (NOTE.name.includes('#') || NOTE.name.includes('b')) {
+            const alterations = NOTE.name.includes('#') ? 'sharp' : 'flat'
+            NOTE.alterations = { [alterations]: NOTE }
+          }
+          return NOTE
+        })
       return null
     }
 
