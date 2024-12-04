@@ -100,7 +100,7 @@ export default function GameSelector() {
           value={selectors.notes.toString()}
           onValueChange={(i) => setNotesSelector(Number(i))}
         >
-          <SelectTrigger className="w-auto p-5 bg-white border-slate-400">
+          <SelectTrigger className="w-auto min-w-32 p-5 bg-white border-slate-400">
             <SelectValue placeholder="Selecciona una escala" />
           </SelectTrigger>
           <SelectContent>

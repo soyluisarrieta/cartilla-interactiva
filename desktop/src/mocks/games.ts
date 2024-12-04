@@ -65,7 +65,7 @@ export const GAMES = [
     id: 'g12-treble-clef',
     name: 'Clave de Sol',
     levels: ['Auditivo', 'Visual'],
-    notes: ['Tres notas', 'Cuatro notas', 'Cinco notas', 'Seis notas', 'Ocho notas', 'Diez notas'],
+    notes: ['3 notas', '4 notas', '5 notas', '6 notas', '8 notas', '10 notas'],
   },
   {
     id: 'g13-major-scales',

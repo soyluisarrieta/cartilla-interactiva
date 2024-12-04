@@ -48,6 +48,10 @@ export class LeaderboardController {
     const result = leaderboard.filter(({ profileId }) => profileId === userId)
     if (!result.length) { return [] }
 
+    const separeLevelName = (levelName) => (
+      levelName.replace(/[()]/g, '').split(' ').filter(Boolean) ?? [null, null]
+    )
+
     // Juego 7
     if (this.game.id === 'g7-do-the-tones-go-up-or-down') {
       const { _id: id, profileId, ...restStats } = result[0]
@@ -57,10 +61,17 @@ export class LeaderboardController {
     // Juego 11
     if (this.game.id === 'g11-do-scale') {
       return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
-        const cleanLevelName = levelName.replace(/[()]/g, '')
-        const parts = cleanLevelName.split(' ').filter(Boolean)
-        if (!parts) { return [] }
-        return { id, levelName: parts[0], mode: parts[1], ...restStats }
+        const [separedLevelName, mode] = separeLevelName(levelName)
+        return { id, levelName: separedLevelName, mode, ...restStats }
+      })
+    }
+
+    // Juego 12
+    if (this.game.id === 'g12-treble-clef') {
+      return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
+        const [separedLevelName, sizeNotes] = separeLevelName(levelName)
+        const notes = `${sizeNotes} notas`
+        return { id, levelName: separedLevelName, notes, ...restStats }
       })
     }
 

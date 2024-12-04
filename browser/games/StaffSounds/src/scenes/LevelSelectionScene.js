@@ -106,6 +106,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
         const groupSize = noteGroups[i]
         const notes = this.game.notes.get(groupSize)
         const onClick = () => {
+          level.name = `${level.name} (${groupSize} notas)`
           level.notes = notes
           this.scene.start(SCENES.GAME, level)
         }
