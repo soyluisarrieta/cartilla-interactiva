@@ -9,6 +9,12 @@
       "purpose": "maskable"
     },
     {
+      "src": "/assets/images/favicons/web-app-manifest-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "/assets/images/favicons/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",

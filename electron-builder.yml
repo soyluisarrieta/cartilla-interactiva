@@ -13,7 +13,7 @@ files:
 # Configuración específica para Windows
 win:
   target: nsis  # Tipo de instalador: NSIS (Nullsoft Scriptable Install System)
-  icon: browser/assets/images/favicons/web-app-manifest-512x512.png  # Icono para el ejecutable de la aplicación
+  icon: browser/assets/images/favicons/web-app-manifest-256x256.png  # Icono para el ejecutable de la aplicación
   artifactName: Cartilla-Interactiva.${ext}  # Nombre del instalador generado
 
 # Configuración específica para NSIS

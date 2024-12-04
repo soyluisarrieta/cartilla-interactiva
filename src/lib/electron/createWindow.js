@@ -12,7 +12,7 @@ export async function createWindow () {
     minHeight: 400,
     frame: false,
     resizable: true,
-    icon: join(SRC_FOLDER, '..', 'browser', 'assets', 'images', 'favicons', 'web-app-manifest-512x512.png'),
+    icon: join(SRC_FOLDER, '..', 'browser', 'assets', 'images', 'favicons', 'web-app-manifest-256x256.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
