@@ -76,10 +76,11 @@ export class LeaderboardController {
     }
 
     // Juego 13
-    if (this.game.id === 'g13-major-scales') {
+    if (this.game.id === 'g13-major-scales' || this.game.id === 'g15-major-and-minor-scales') {
       return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
-        const [separedLevelName, scale] = separeLevelName(levelName)
-        return { id, levelName: separedLevelName, scale, ...restStats }
+        const [separedLevelName, scale, scaleMode] = separeLevelName(levelName)
+        const mode = scaleMode[0].toUpperCase() + scaleMode.slice(1)
+        return { id, levelName: separedLevelName, scale, mode, ...restStats }
       })
     }
 
