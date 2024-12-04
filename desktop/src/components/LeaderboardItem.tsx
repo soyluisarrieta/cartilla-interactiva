@@ -2,24 +2,17 @@ import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HOST, PATH } from "@/constants";
 import { cn } from "@/lib/utils";
-import { TimerIcon } from "lucide-react";
-
-const DEFAULT_STATS = {
-  timestamp: null,
-  time: 0,
-  score: 0
-}
+import { TimerIcon } from "lucide-react"
 
 interface Props {
   player: PlayerType
-  selectedLevel: string
   index: number
 }
 
-export default function LeaderboardItem({ player, selectedLevel, index }: Props) {
+export default function LeaderboardItem({ player, index }: Props) {
   const { avatar, isOnline, stats } = player;
   const avatarSrc = `${HOST}/${PATH.AVATARS}/${avatar || ''}`;
-  const { timestamp, time, score } = stats.find(s => s.levelName === 'unique' || s.levelName === selectedLevel) ?? DEFAULT_STATS;
+  const { timestamp, time, score } = stats[0];
   const date = timestamp ? new Date(timestamp) : null;
   const formattedDate = date ? date.toLocaleDateString("es-ES", {
     day: "2-digit",

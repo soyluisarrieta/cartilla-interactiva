@@ -27,13 +27,28 @@ export class LeaderboardController {
     try {
       const profiles = this.profileModel.getAll()
       const leaderboard = await this.LeaderboardModel.getAll()
+
       const getStats = (userId) => {
         const result = leaderboard.filter(({ profileId }) => profileId === userId)
         if (!result.length) { return [] }
+
+        // Juego 7
         if (this.game.id === 'g7-do-the-tones-go-up-or-down') {
           const { _id: id, profileId, ...restStats } = result[0]
           return [{ id, ...restStats }]
         }
+
+        // Juego 11
+        if (this.game.id === 'g11-do-scale') {
+          return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
+            const cleanLevelName = levelName.replace(/[()]/g, '')
+            const parts = cleanLevelName.split(' ').filter(Boolean)
+            if (!parts) { return [] }
+            return { id, levelName: parts[0], mode: parts[1], ...restStats }
+          })
+        }
+
+        // Cualquier otro juego
         return result.map(({ _id: id, profileId, ...restStats }) => ({ id, ...restStats }))
       }
 

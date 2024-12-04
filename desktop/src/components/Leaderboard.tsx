@@ -6,29 +6,40 @@ import GameSelector from "@/components/GameSelector";
 import { GAMES } from "@/mocks/games";
 import { AnimatePresence } from "framer-motion";
 
+const DEFAULT_STATS: StatType = {
+  id: 'none',
+  levelName: 'none',
+  score: 0,
+  time: 0,
+  timestamp: null
+}
+
 export default function Leaderboard() {
   const { players, setPlayers, selectors } = useLeaderboardStore()
-  const selectedLevel = GAMES[selectors.game].levels[selectors.level]
-  const selectedMode = GAMES[selectors.game]?.modes?.[selectors.mode]
-  const selectedScale = GAMES[selectors.game]?.scales?.[selectors.scale]
-  const selectedNotes = GAMES[selectors.game]?.notes?.[selectors.notes]
+  const selectedGame = GAMES[selectors.game]
+  const selectedLevel = selectedGame.levels[selectors.level]
+  const selectedMode = selectedGame?.modes?.[selectors.mode]
+  const selectedScale = selectedGame?.scales?.[selectors.scale]
+  const selectedNotes = selectedGame?.notes?.[selectors.notes]
 
   const sortedPlayers = players
     .map(player => ({
       player,
-      score: player.stats.find(({ levelName, mode, scale, notes }) => 
+      stats: player.stats.find(({ levelName, mode, scale, notes }) => 
         (levelName === 'unique' || levelName === selectedLevel) &&
         (!selectedMode || mode === selectedMode) &&
         (!selectedScale || scale === selectedScale) &&
         (!selectedNotes || notes === selectedNotes)
-    )?.score || 0
+    ) ?? DEFAULT_STATS
     }))
-    .sort((a, b) => b.score - a.score)
-    .map(({ player }) => player);
+    .sort((a, b) => b.stats?.score - a.stats?.score)
+    .map(({ player, stats }) => ({...player, stats: [stats]}));
+    
+    console.log(sortedPlayers);
 
   useEffect(() => {
     if (selectors.reseted) { return }
-    SOCKET.emit('init', { game: GAMES[selectors.game] });
+    SOCKET.emit('init', { game: selectedGame });
 
     SOCKET.on('leaderboard', (players) => {
       console.log(players);
@@ -39,7 +50,7 @@ export default function Leaderboard() {
     return () => {
       SOCKET.off('leaderboard');
     };
-  }, [selectors.game, selectors.reseted, setPlayers]);
+  }, [selectedGame, selectors.game, selectors.reseted, setPlayers]);
 
   return (
     <main>
@@ -55,9 +66,8 @@ export default function Leaderboard() {
         <AnimatePresence mode="wait">
           {sortedPlayers.map((player, i) => (
             <LeaderboardItem
-              key={`${player.id}-${selectors.game}-${selectedLevel}`}
+              key={`${player.id}-${selectors.game}-${selectors.level}-${selectors.mode}-${selectors.scale}-${selectors.notes}`}
               player={player}
-              selectedLevel={selectedLevel}
               index={i}
               />
             ))}
