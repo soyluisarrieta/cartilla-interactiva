@@ -75,7 +75,7 @@ export const GAMES = [
   },
   {
     id: 'g14-chromatic-scales',
-    name: 'Escalas cromaticas',
+    name: 'Escalas cromáticas',
     levels: ['Escribir', 'Escuchar', 'Leer'],
     scales: ['Ascendente', 'Descendente']
   },

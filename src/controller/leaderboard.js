@@ -84,6 +84,14 @@ export class LeaderboardController {
       })
     }
 
+    // Juego 14
+    if (this.game.id === 'g14-chromatic-scales') {
+      return result.map(({ _id: id, profileId, levelName, ...restStats }) => {
+        const [separedLevelName, , scale] = separeLevelName(levelName)
+        return { id, levelName: separedLevelName, scale, ...restStats }
+      })
+    }
+
     // Cualquier otro juego
     return result.map(({ _id: id, profileId, ...restStats }) => ({ id, ...restStats }))
   }
