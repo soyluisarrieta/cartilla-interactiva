@@ -21,8 +21,9 @@ export class GameController {
       }
       const { id, ...data } = profile
       await this.profileModel.save({ userId: id, ...data })
-      const profiles = this.profileModel.getAll()
-      this.socket.broadcast.emit('profiles', profiles)
+      await this.profileModel.setOnline(profile.id, true)
+      const leaderboard = await this.leaderboard.getAllScores()
+      this.socket.broadcast.emit('leaderboard', leaderboard)
     } catch (error) {
       logger.error('Hubo un error al guardar un nuevo perfil:', error)
       throw error

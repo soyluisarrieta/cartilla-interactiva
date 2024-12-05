@@ -33,7 +33,7 @@ export class LeaderboardController {
         userId: p.userId,
         serial: p.serial,
         username: p.username,
-        isOnline: false,
+        isOnline: p.isOnline,
         avatar: p.avatar,
         stats: this.getStats(p.userId, leaderboard)
       }))

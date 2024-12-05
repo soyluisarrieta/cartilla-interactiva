@@ -4,6 +4,9 @@ interface LeaderboardStore {
   players: PlayerType[]
   setPlayers: (players: PlayerType[]) => void
 
+  totalOnline: number
+  setTotalOnline: (total: number) => void
+
   setGameSelector: (game: number) => void
   setLevelSelector: (level: number) => void
   setModeSelector: (mode: number) => void
@@ -23,6 +26,9 @@ interface LeaderboardStore {
 export const useLeaderboardStore = create<LeaderboardStore>((set) => ({
   players: [],
   setPlayers: (players) => set(() => ({ players })),
+
+  totalOnline: 0,
+  setTotalOnline: (total) => set(({totalOnline}) => ({ totalOnline: total + totalOnline })),
 
   selectors: { game: 0, level: 0, mode: 0, scale: 0, notes: 0, reseted: false  },
   setGameSelector: (game) => set(({selectors}) => ({ selectors: { ...selectors, game, reseted: false} })),

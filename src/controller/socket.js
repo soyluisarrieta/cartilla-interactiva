@@ -1,6 +1,7 @@
 import { Server } from 'socket.io'
 import socketRoutes from '../routes/socket.js'
 import { LeaderboardController } from './leaderboard.js'
+import { ProfileModel } from '../models/profile.js'
 
 export class SocketController {
   constructor () {
@@ -21,7 +22,7 @@ export class SocketController {
   }
 
   // Manejar conexión por navegador
-  handleConnection (socket) {
+  async handleConnection (socket) {
     socket.on('init', async ({ game }) => {
       if (socket?.handshake?.address !== '127.0.0.1') { return null }
       const leaderboard = await new LeaderboardController({ game }).getAllScores()
@@ -33,6 +34,7 @@ export class SocketController {
 
     const game = JSON.parse(rawGame)
     const profile = JSON.parse(rawProfile)
+    this.ProfileModel = new ProfileModel(profile)
 
     // Si el sessionId ya existe, incrementar el contador de conexiones
     if (this.connectedUsers[sessionId]) {
@@ -49,7 +51,12 @@ export class SocketController {
     socketRoutes(socket, { game, profile })
 
     // Manejar la desconexión
-    socket.on('disconnect', () => this.handleDisconnect(socket, sessionId))
+    socket.on('disconnect', async () => {
+      await this.ProfileModel.setOnline(profile.id, false)
+      const leaderboard = await new LeaderboardController({ game }).getAllScores()
+      socket.broadcast.emit('leaderboard', leaderboard)
+      this.handleDisconnect(socket, sessionId)
+    })
   }
 
   // Manejador de desconexión

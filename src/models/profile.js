@@ -21,9 +21,15 @@ export class ProfileModel {
       _id: { type: String, required: true },
       userId: { type: String, required: true },
       username: { type: String, required: true },
+      isOnline: { type: Boolean, default: false },
       avatar: { type: String, required: true },
       timestamp: { type: Number, default: Date.now }
     })
+  }
+
+  async setOnline (userId, isOnline) {
+    const profile = await this.Profile.update({ userId }, { isOnline })
+    profile.save()
   }
 
   getAll () {
