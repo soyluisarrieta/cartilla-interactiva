@@ -13,11 +13,91 @@
     <img src="/assets/images/pages/booklet-title.png" alt="Módulos de la cartilla" />
   </div>
 
-  <h1 style="min-height: 40vh; font-size:3vw; font-family: Lato">CRÉDITOS</h1>
-
+  <main>
+    <div>
+      <p><strong>Semillero de Investigación Amazonas Verde</strong></p>
+      <p>Servicio Nacional de Aprendizaje SENA</p>
+      <p>SENNOVA</p>
+    </div>
+    <div>
+      <p>"Centro para la Biodiversidad y el Turismo del Amazonas</p>
+      <p>SENA Regional Amazonas"</p>
+    </div>
+    <div>
+      <h2>Coordinador Sistema de Investigación, Desarrollo Tecnológico e Innovación-SENNOVA</h2>
+      <p>Edgar Adrián Zambrano Tamayo</p>
+    </div>
+    <div>
+      <h2>Subdirector Centro para la Biodiversidad y el Turismo del Amazonas</h2>
+      <p>Claudia Yazmín Cañas Beltrán</p>
+    </div>
+    <div>
+      <h2>Dinamizadora SENNOVA</h2>
+      <p>Ángela Andrea González villa</p>
+    </div>
+    <div>
+      <h2>Análisis y desarrollo de software</h2>
+      <p>Luis Eduardo Arrieta Avilez</p>
+    </div>
+    <div>
+      <h2>Diseño Gráfico</h2>
+      <p>Duvan Alexis Sinisterra</p>
+    </div>
+    <div>
+      <h2>Aprendices Semillero Amazonas Verde – SENNOVA</h2>
+      <ul>
+        <li>Adriana Marcela Montilla González</li>
+        <li>Brayan Esteban Rosas Gutierrez</li>
+        <li>Cleotilde Negedeka Jaitofiama</li>
+        <li>Elia Judith Payeu López</li>
+        <li>Elio Guillermo Miraña Miraña</li>
+        <li>Emilio Eliécer Navia Zuñiga</li>
+        <li>José Manuel Monje Tello</li>
+        <li>Laura Albán Soria</li>
+        <li>María Teresa Faerito</li>
+        <li>Nicanor Morales Pérez</li>
+        <li>Rosalía Rubio Rodríguez</li>
+        <li>Simón Pedro Letuama Tanimuca</li>
+        <li>Tomasa Morales Soria</li>
+        <li>Verónica Curi Soto</li>
+        <li>Cesar Augusto Zapata Carihuasari</li>
+        <li>Niddy Yuliana Velasco Angarita</li>
+        <li>Jamed Mauricio García Zapata</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Autor</h2>
+      <p>Oscar Fabián Cabrera Santacruz</p>
+    </div>
+  </main>
 </main>
 
 {{> footer}}
+
+<script>
+  let scrollInterval;
+  let isScrollingManually = false;
+
+  function startAutoScroll() {
+    const scrollSpeed = 1;
+    stopAutoScroll();
+    scrollInterval = setInterval(() => {
+      window.scrollBy(0, scrollSpeed);
+    
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        stopAutoScroll();
+      }
+    }, 16);
+  }
+
+  function stopAutoScroll() {
+    clearInterval(scrollInterval);
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(startAutoScroll, 300)
+  });
+</script>
 
 {{#section "style"}}
 <style>
@@ -26,17 +106,45 @@
     background-image: url('/assets/images/pages/main-bg.jpg');
     background-position: center;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 0 25vh;
+    background-attachment: fixed;
+    padding: 3vw 10vw 10vh;
+    font-size: 1.3vw;
+    font-weight: 500;
+    font-family: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    * {
+      text-align: center;
+    }
+
+    div {
+      margin-bottom: 2vw;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 1.4vw;
+    }
+
+    p {
+      margin: 0.5vw auto;
+    }
+
+    ul {
+      margin-top: 2vh;
+      column-count: 2;
+      padding: 0 5vw;
+      
+      li {
+        list-style-type: none;
+        margin-bottom: 1vh;
+      }
+    }
   }
 
   #credits-title {
     width: 50vw;
     padding: 0 10vw;
-    margin: -1vw auto 2vw;
+    margin: 0 auto;
 
     img {
       width: 100%;
