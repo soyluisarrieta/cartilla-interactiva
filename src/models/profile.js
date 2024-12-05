@@ -28,8 +28,12 @@ export class ProfileModel {
   }
 
   async setOnline (userId, isOnline) {
-    const profile = await this.Profile.update({ userId }, { isOnline })
-    profile.save()
+    try {
+      const profile = await this.Profile.update({ userId }, { isOnline })
+      profile.save()
+    } catch (error) {
+      logger.error('Error al definir conexión de uno o varios perfiles:', error)
+    }
   }
 
   getAll () {

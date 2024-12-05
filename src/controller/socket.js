@@ -12,6 +12,7 @@ export class SocketController {
 
   // Crear conexión
   connect (expressServer) {
+    this.resetOnlines()
     this.io = new Server(expressServer, {
       cors: {
         origin: 'http://localhost:5173',
@@ -71,5 +72,15 @@ export class SocketController {
     } else {
       console.log(`Pestaña cerrada para sessionId "${sessionId}" - Conexiones restantes: ${this.sessionConnections[sessionId]}`)
     }
+  }
+
+  async resetOnlines () {
+    const profiles = new ProfileModel({})
+      .getAll()
+      .filter(({ isOnline }) => isOnline)
+
+    profiles.forEach(({ serial, userId }) => {
+      new ProfileModel({ serial }).setOnline(userId, false)
+    })
   }
 }
