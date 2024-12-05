@@ -14,6 +14,7 @@ interface PlayerType {
   userId: string
   serial: string
   username: string
+  playing: string
   isOnline: boolean
   avatar: string
   stats: StatType[]

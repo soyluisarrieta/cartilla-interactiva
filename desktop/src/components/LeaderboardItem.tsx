@@ -3,14 +3,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HOST, PATH } from "@/constants";
 import { cn } from "@/lib/utils";
 import { TimerIcon } from "lucide-react"
+import { GAMES } from "@/mocks/games";
 
 interface Props {
   player: PlayerType
+  selectedGame: string
   index: number
 }
 
-export default function LeaderboardItem({ player, index }: Props) {
-  const { avatar, isOnline, stats } = player;
+export default function LeaderboardItem({ player, selectedGame, index }: Props) {
+  const { avatar, isOnline, playing, stats } = player;
   const avatarSrc = `${HOST}/${PATH.AVATARS}/${avatar || ''}`;
   const { timestamp, time, score } = stats[0];
   const date = timestamp ? new Date(timestamp) : null;
@@ -19,6 +21,13 @@ export default function LeaderboardItem({ player, index }: Props) {
     month: "long",
     year: "numeric",
   }) : null;
+
+  const onlineStatus = isOnline && playing === selectedGame
+  const getGameNameById = (gameId: string) => {
+    const i = GAMES.findIndex(({id}) => id === gameId)
+    const name = GAMES[i]?.name
+    return name ? `: "${i+1}. ${name}"` : ' otro juego.' 
+  }
 
   return (
     <motion.div
@@ -45,15 +54,15 @@ export default function LeaderboardItem({ player, index }: Props) {
             <AvatarImage src={avatarSrc} />
             <AvatarFallback></AvatarFallback>
           </Avatar>
-          {isOnline && (
-            <span
-              className="size-6 bg-emerald-500/30 rounded-full absolute -bottom-1 -right-1 animate-ping"
-              title="En línea"
-            />
+          {onlineStatus && (playing === selectedGame) &&  (
+            <span className="size-6 bg-emerald-500/50 rounded-full absolute -bottom-1 -right-1 animate-ping" />
           )}
           <span
-            className={cn("size-6 border-4 border-white rounded-full absolute -bottom-1 -right-1 hover:scale-110", isOnline ? 'bg-emerald-500' : 'bg-slate-300')}
-            title={isOnline ? 'En línea' : 'Desconectado'}
+            className={cn(
+              "size-6 border-4 border-white rounded-full absolute -bottom-1 -right-1 hover:scale-110", 
+              onlineStatus ? 'bg-emerald-500' : (isOnline ? 'bg-blue-400' : 'bg-slate-300')
+            )}
+            title={onlineStatus ? '¡Jugando este juego!' : (isOnline ? `Está jugando${getGameNameById(playing)}` : 'Desconectado')}
           />
         </div>
 

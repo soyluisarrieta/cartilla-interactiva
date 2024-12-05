@@ -35,15 +35,11 @@ export default function Leaderboard() {
     .sort((a, b) => b.stats?.score - a.stats?.score)
     .map(({ player, stats }) => ({...player, stats: [stats]}));
     
-    console.log(sortedPlayers);
-
   useEffect(() => {
     if (selectors.reseted) { return }
     SOCKET.emit('init', { game: selectedGame });
 
     SOCKET.on('leaderboard', (players) => {
-      console.log(players);
-      
       setPlayers(players)
     });
 
@@ -67,6 +63,7 @@ export default function Leaderboard() {
           {sortedPlayers.map((player, i) => (
             <LeaderboardItem
               key={`${player.id}-${selectors.game}-${selectors.level}-${selectors.mode}-${selectors.scale}-${selectors.notes}`}
+              selectedGame={selectedGame.id}
               player={player}
               index={i}
               />
