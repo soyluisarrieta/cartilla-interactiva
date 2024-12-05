@@ -21,15 +21,16 @@ export class ProfileModel {
       _id: { type: String, required: true },
       userId: { type: String, required: true },
       username: { type: String, required: true },
+      playing: { type: String, default: '' },
       isOnline: { type: Boolean, default: false },
       avatar: { type: String, required: true },
       timestamp: { type: Number, default: Date.now }
     })
   }
 
-  async setOnline (userId, isOnline) {
+  async setOnline (userId, isOnline, props = {}) {
     try {
-      const profile = await this.Profile.update({ userId }, { isOnline })
+      const profile = await this.Profile.update({ userId }, { isOnline, ...props })
       profile.save()
     } catch (error) {
       logger.error('Error al definir conexión de uno o varios perfiles:', error)

@@ -21,7 +21,7 @@ export class GameController {
       }
       const { id, ...data } = profile
       await this.profileModel.save({ userId: id, ...data })
-      await this.profileModel.setOnline(profile.id, true)
+      await this.profileModel.setOnline(profile.id, true, { playing: this.game.id })
       const leaderboard = await this.leaderboard.getAllScores()
       this.socket.broadcast.emit('leaderboard', leaderboard)
     } catch (error) {
