@@ -3,10 +3,12 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { useLeaderboardStore } from "@/store/leaderboardStore";
 import { HelpCircle, RectangleEllipsisIcon, SearchIcon } from "lucide-react";
 import GeneratedToken from "@/components/GeneratedToken";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { HOST, PATH } from '@/constants';
 
 interface Props {
   children: React.ReactNode
@@ -46,19 +48,22 @@ export default function ModalBackups({ children }: Props) {
         </DialogDescription>
         <hr className="mt-2" />
         <ScrollArea className="w-full h-[50vh] [&>.scroll-bar]:mr-0 pr-4 -mt-2">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="px-2"></TableHead>
-                <TableHead>Nombre de usuario</TableHead>
-                <TableHead className="text-right"></TableHead>
-              </TableRow>
-            </TableHeader>
+          <Table className='mb-10'> 
             <TableBody>
-              {filteredPlayers.map(({ id, username, serial }, index) => (
+              {filteredPlayers.map(({ id, username, serial, avatar }, index) => (
                 <TableRow key={id} className="group">
                   <TableCell className="px-2 text-primary/70">{index + 1}</TableCell>
-                  <TableCell className="w-full text-base">{username}</TableCell>
+                  <TableCell className='p-0'>
+                    <div className="relative inline-block">
+                      <Avatar className="size-10 border-white border-4">
+                        <AvatarImage src={`${HOST}/${PATH.AVATARS}/${avatar || ''}`} />
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>
+                    </div>
+                  </TableCell>
+                  <TableCell className="w-full text-base pl-1">
+                    {username}
+                  </TableCell>
                   <TableCell className="text-right">
                     <GeneratedToken playerName={username} serial={serial}>
                       <Button className="h-auto p-0 group-hover:visible invisible text-xs" size='sm' variant='link'>
