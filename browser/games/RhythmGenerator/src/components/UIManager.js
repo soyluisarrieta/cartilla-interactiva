@@ -103,8 +103,9 @@ export default class UIManager {
   drawTempo () {
     const { width } = this.scene.cameras.main
     const tempo = this.scene.game.tempo
+    const bpm = Math.round(60000 / tempo)
     this.tempoIndicator = this.scene.add
-      .bitmapText(width - 50, 50, FONTS.PRIMARY, `Tempo: ${tempo} BPM`, 32
+      .bitmapText(width - 50, 50, FONTS.PRIMARY, `Tempo: ${bpm} BPM`, 32
       ).setOrigin(1, 0)
 
     this.updateTempo(tempo)
@@ -114,7 +115,8 @@ export default class UIManager {
 
   // Método para actualizar el indicador de tempo
   updateTempo (newTempo) {
-    this.tempoIndicator.setText(`Tempo: ${newTempo} BPM`)
+    const bpm = Math.round(60000 / newTempo)
+    this.tempoIndicator.setText(`Tempo: ${bpm} BPM`)
   }
 
   // Botones de acción
@@ -238,7 +240,7 @@ export default class UIManager {
     const game = this.scene.game
     const tempoIncrement = 100
     game.tempo += speed * tempoIncrement
-    game.tempo = Math.max(400, Math.min(game.tempo, 4000))
+    game.tempo = Math.max(200, Math.min(game.tempo, 2000))
     this.updateTempo(game.tempo)
   }
 }
