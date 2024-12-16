@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,13 @@ interface Props {
 }
 
 export default function ModalBackups({ children }: Props) {
-  const { players } = useLeaderboardStore()
+  const { players } = useLeaderboardStore();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredPlayers = players.filter(player =>
+    player.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -21,12 +28,13 @@ export default function ModalBackups({ children }: Props) {
       <DialogContent className='max-w-2xl max-h-screen gap-2 px-0 pl-6 pr-1 pb-1' hideCloseButton>
         <DialogHeader className="flex-row items-center justify-between space-y-0 gap-2 pr-4">
           <DialogTitle className='text-xl grow'>Restauración de perfiles</DialogTitle>
-          <label className="w-60 flex items-center relative" htmlFor="searchProfile">
+          <label className="w-60 flex items-center relative">
             <SearchIcon className="absolute left-2 opacity-70" size={16} />
             <Input
-              id="searchProfile"
               className="pl-8"
               placeholder="Buscar por nombre"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </label>
           <DialogClose asChild>
@@ -47,7 +55,7 @@ export default function ModalBackups({ children }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {players.map(({ id, username, serial }, index) => (
+              {filteredPlayers.map(({ id, username, serial }, index) => (
                 <TableRow key={id} className="group">
                   <TableCell className="px-2 text-primary/70">{index + 1}</TableCell>
                   <TableCell className="w-full text-base">{username}</TableCell>
