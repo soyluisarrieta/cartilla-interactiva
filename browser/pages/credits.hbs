@@ -19,6 +19,14 @@
       <p>Servicio Nacional de Aprendizaje SENA</p>
       <p>SENNOVA</p>
     </div>
+
+    <div class="logos">
+      <img src="/assets/images/logos/sena.png" alt="SENA" />
+      <img src="/assets/images/logos/sennova.png" alt="SENNOVA" />
+      <img src="/assets/images/logos/amazonas-verde.png" alt="AMAZONAS VERDE" />
+      <img src="/assets/images/logos/creative-commons.png" alt="CREATIVE COMMONS" style="height: 3vw;" />
+    </div>
+
     <div>
       <p>"Centro para la Biodiversidad y el Turismo del Amazonas</p>
       <p>SENA Regional Amazonas"</p>
@@ -149,6 +157,18 @@
     img {
       width: 100%;
       height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  main .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+
+    img {
+      height: 6vw;
       object-fit: contain;
     }
   }
