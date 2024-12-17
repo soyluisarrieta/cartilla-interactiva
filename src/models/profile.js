@@ -8,13 +8,14 @@ import { app } from 'electron'
 export class ProfileModel {
   constructor ({ serial = null }) {
     this.path = `${USER_DATA(app)}/db/profiles`
-    if (!serial) { return null }
 
     const userData = app.getPath('userData')
     const dbFolderPath = path.join(userData, 'db', 'profiles')
     if (!fs.existsSync(dbFolderPath)) {
       fs.mkdirSync(dbFolderPath, { recursive: true })
     }
+
+    if (!serial) { return null }
 
     const { Schema } = new DBLocal({ path: this.path })
     this.Profile = Schema(serial, {
