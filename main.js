@@ -2,13 +2,20 @@ import { app } from 'electron'
 import { startServer } from './src/server.js'
 import { createWindow } from './src/lib/electron/createWindow.js'
 
-// Iniciar la aplicación cuando esté lista
-app.whenReady().then(() => {
-  startServer()
-  createWindow()
-})
+const gotTheLock = app.requestSingleInstanceLock()
 
-// Manejar evento de cierre de todas las ventanas
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit() // Cerrar la aplicación si no está en macOS
-})
+// Verificar si ya está ejecutada la app
+if (!gotTheLock) {
+  app.quit()
+} else {
+  // Manejar la primera instancia de la aplicación
+  app.whenReady().then(() => {
+    startServer()
+    createWindow()
+  })
+
+  // Manejar evento de cierre de todas las ventanas
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') app.quit() // Cerrar la aplicación si no está en macOS
+  })
+}

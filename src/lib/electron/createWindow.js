@@ -1,5 +1,5 @@
 import { DEV_MODE, PORT, SRC_FOLDER } from '../../constants.js'
-import { BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { getLocalIpAddress } from '../../utils/getLocalIpAddress.js'
 
@@ -46,5 +46,13 @@ export async function createWindow () {
   // Abrir cartilla con el botón
   ipcMain.on('openIP', () => {
     shell.openExternal(`http://${localUrl}`)
+  })
+
+  // Manejar el evento cuando otra instancia intente abrirse
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
   })
 }
