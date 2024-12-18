@@ -1,27 +1,36 @@
 import DBLocal from 'db-local'
-import path from 'node:path'
-import fs from 'node:fs'
 import logger from '../lib/winston/logger.js'
 import { USER_DATA } from '../constants.js'
 import { app } from 'electron'
 
 export class TokenModel {
   constructor () {
-    this.path = `${USER_DATA(app)}/db/tokens`
+    this.path = `${USER_DATA(app)}/db`
     const { Schema } = new DBLocal({ path: this.path })
     this.Tokens = Schema('tokens', {
-      _id: { type: String, required: true },
       token: { type: String, required: true },
       profiles: { type: Array, required: true },
       timestamp: { type: Number, default: Date.now }
     })
   }
 
-  async save ({ token, profiles }) {
+  async save ({ generatedToken, profiles }) {
     try {
-
+      const token = await this.Tokens.create({ token: generatedToken, profiles })
+      await token.save()
     } catch (error) {
       logger.error('Error al guardar el token de restauración:', error)
+    }
+  }
+
+  async deleteAll () {
+    try {
+      const tokens = await this.Tokens.find()
+      for (const token of tokens) {
+        await this.Tokens.remove({ _id: token._id })
+      }
+    } catch (error) {
+      logger.error('Error al eliminar los tokens expirados:', error)
     }
   }
 }

@@ -2,6 +2,7 @@ import { Server } from 'socket.io'
 import socketRoutes from '../routes/socket.js'
 import { LeaderboardController } from './leaderboard.js'
 import { ProfileModel } from '../models/profile.js'
+import { TokensController } from './tokens.js'
 
 export class SocketController {
   constructor () {
@@ -28,6 +29,11 @@ export class SocketController {
       if (socket?.handshake?.address !== '127.0.0.1') { return null }
       const leaderboard = await new LeaderboardController({ game }).getAllScores()
       socket.emit('leaderboard', leaderboard)
+    })
+    socket.on('generateToken', async (data) => {
+      if (socket?.handshake?.address !== '127.0.0.1') { return null }
+      const tokenController = new TokensController({ socket })
+      tokenController.generate(data)
     })
 
     const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
