@@ -9,10 +9,10 @@ export class TokensController {
     this.tokenModel = new TokenModel()
   }
 
-  async generate ({ token, profiles }) {
+  async generate ({ token, serial }) {
     try {
       await this.tokenModel.deleteAll()
-      await this.tokenModel.save({ generatedToken: token, profiles })
+      await this.tokenModel.save({ generatedToken: token, serial })
       return token
     } catch (error) {
       logger.error('Hubo un error al generar el token de restauración:', error)

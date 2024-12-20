@@ -27,10 +27,8 @@ export default function GeneratedToken({ playerName, serial, open, onOpenChange 
     if (document.visibilityState !== 'visible') {
       return token;
     }
-    console.log('Token emitido');
-    const profileId = profiles.map(p => p.id);
     const generatedToken = Math.random().toString(36).substr(2, 10).toUpperCase();
-    SOCKET.emit('generateToken', { token: generatedToken, profiles: profileId });
+    SOCKET.emit('generateToken', { token: generatedToken, serial });
     return generatedToken;
   };
 

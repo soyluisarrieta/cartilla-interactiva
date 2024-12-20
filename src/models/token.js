@@ -9,14 +9,14 @@ export class TokenModel {
     const { Schema } = new DBLocal({ path: this.path })
     this.Tokens = Schema('tokens', {
       token: { type: String, required: true },
-      profiles: { type: Array, required: true },
+      serial: { type: String, required: true },
       timestamp: { type: Number, default: Date.now }
     })
   }
 
-  async save ({ generatedToken, profiles }) {
+  async save ({ generatedToken, serial }) {
     try {
-      const token = await this.Tokens.create({ token: generatedToken, profiles })
+      const token = await this.Tokens.create({ token: generatedToken, serial })
       await token.save()
     } catch (error) {
       logger.error('Error al guardar el token de restauración:', error)
