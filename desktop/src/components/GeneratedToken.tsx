@@ -98,7 +98,8 @@ export default function GeneratedToken({ playerName, serial, open, onOpenChange 
           </div>
           {token}
           <div className="w-full bg-muted-foreground/10 p-2 text-xs text-center flex items-center justify-center" title={profiles.map(({ username }) => username).join(' - ')}>
-            Se recuperará el perfil de "<span className="max-w-40 inline-block text-ellipsis overflow-hidden whitespace-nowrap font-bold">{playerName}</span>" junto con {profiles.length > 1 ? profiles.length : 'un perfil'} más.
+            Se recuperará el perfil de "<span className="max-w-40 inline-block text-ellipsis overflow-hidden whitespace-nowrap font-bold">{playerName}</span>" 
+            {Boolean(profiles.length - 1) && `junto con ${profiles.length > 1 ? profiles.length : 'un perfil'} más`}.
           </div>
         </div>
         <Button onClick={handleRefresh}>Refrescar</Button>
