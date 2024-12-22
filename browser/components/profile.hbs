@@ -21,7 +21,7 @@
 
     <div class="restore-container">
       <i>&times;</i>
-      <form>
+      <form id="form-restore-profiles">
         <input placeholder="Ingresa token de restauración" />
         <button type="submit">Restaurar</button>
       </form>
@@ -84,21 +84,34 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+  import { io } from '/assets/lib/socketio/socket.io.esm.min.js'
+  
+  const socket = io()
   const $backdrop = document.querySelector('.backdrop');
   const $restoreButton = document.querySelector('.btn-restore');
   const $restoreContainer = document.querySelector('.restore-container');
   const $restoreClose = document.querySelector('.restore-container i');
+  const $formRestore = document.querySelector('#form-restore-profiles');
 
-  $restoreButton.addEventListener('click', function() {
+  $restoreButton.addEventListener('click', () =>  {
     $restoreContainer.style.display = 'inline-block'
   });
 
-  $restoreClose.addEventListener('click', function() {
+  $restoreClose.addEventListener('click', () =>  {
     $restoreContainer.style.display = 'none'
   });
 
-  $backdrop.addEventListener('click', function() {
+  $backdrop.addEventListener('click', () =>  {
     $restoreContainer.style.display = 'none'
+  });
+
+  $formRestore.addEventListener('submit', (e) => {
+    e.preventDefault();
+    socket.emit('restoreProfiles', e.target[0].value)
+  });
+
+  socket.on('restoredProfiles', (response) => {
+    console.log({response})
   });
 </script>
