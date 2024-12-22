@@ -35,6 +35,11 @@ export class SocketController {
       const tokenController = new TokensController({ socket })
       tokenController.generate(data)
     })
+    socket.on('restoreProfiles', async (token) => {
+      const tokenController = new TokensController({ socket })
+      const response = await tokenController.getProfilesByToken(token)
+      socket.emit('restoredProfiles', response)
+    })
 
     const { sessionId, game: rawGame, profile: rawProfile } = socket.handshake.query
     if (!rawGame || !rawProfile) { return }

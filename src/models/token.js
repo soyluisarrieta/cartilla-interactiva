@@ -18,19 +18,25 @@ export class TokenModel {
     try {
       const token = await this.Tokens.create({ token: generatedToken, serial })
       await token.save()
+      await this.Tokens.remove(t => t.token !== generatedToken)
     } catch (error) {
       logger.error('Error al guardar el token de restauración:', error)
     }
   }
 
-  async deleteAll () {
+  async getSerial (token) {
     try {
-      const tokens = await this.Tokens.find()
-      for (const token of tokens) {
-        await this.Tokens.remove({ _id: token._id })
+      const data = await this.Tokens.findOne({ token })
+      if (!data) {
+        return { error: 'No se encontró el token de restauración' }
       }
+      if (Date.now() - data.timestamp > 30000) {
+        await this.Tokens.remove({ _id: data._id })
+        return { error: 'El Token de restauración ha expirado.' }
+      }
+      return data.serial
     } catch (error) {
-      logger.error('Error al eliminar los tokens expirados:', error)
+      logger.error('Error al obtener los perfiles usando el token de restauración:', error)
     }
   }
 }
