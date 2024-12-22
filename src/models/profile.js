@@ -65,6 +65,16 @@ export class ProfileModel {
     }
   }
 
+  async getAllBySerial () {
+    try {
+      const profiles = await this.Profile.find()
+      return profiles.map(({ _id: id, ...profile }) => ({ id, ...profile }))
+    } catch (error) {
+      logger.error('Error al obtener los perfiles por serial:', error)
+      return []
+    }
+  }
+
   async save (data) {
     try {
       const exists = await this.Profile.findOne({ userId: data.userId })
