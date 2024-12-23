@@ -30,16 +30,12 @@ export class TokensController {
       const profileModel = new ProfileModel({ serial })
       const profiles = await profileModel.getAllBySerial()
       const profilesWithGames = await Promise.all(
-        profiles.map(async (profile) => {
-          const games = this.getGamesByProfile(profile.userId)
-          return {
-            ...profile,
-            games
-          }
+        profiles.map(async ({ avatar, userId: id, username }) => {
+          const games = this.getGamesByProfile(id)
+          const lastTime = new Date().toLocaleString()
+          return { avatar, id, username, serial, games, lastTime }
         })
       )
-      console.log(profilesWithGames[0].games)
-
       return profilesWithGames
     } catch (error) {
       logger.error('Hubo un error al obtener los perfiles usando el token de restauración:', error)
@@ -51,7 +47,7 @@ export class TokensController {
     try {
       const basePath = `${USER_DATA(app)}/db/games`
       const gameFolders = fs.readdirSync(basePath)
-      let games = []
+      const gamesObj = {}
 
       for (const folder of gameFolders) {
         const folderPath = path.join(basePath, folder)
@@ -59,15 +55,37 @@ export class TokensController {
           const profileFile = path.join(folderPath, `${profileId}.json`)
           if (fs.existsSync(profileFile)) {
             const data = JSON.parse(fs.readFileSync(profileFile, 'utf-8'))
-            games = games.concat(data)
+            if (folder === 'g7-do-the-tones-go-up-or-down') {
+              gamesObj[folder] = { bestScore: data[0].bestScore, levels: [] }
+              continue
+            }
+            gamesObj[folder] = {
+              levels: data.map(({ level }) => {
+                let name = level?.name ?? 'unique'
+                if (
+                  folder === 'g11-do-scale' ||
+                  folder === 'g12-treble-clef' ||
+                  folder === 'g13-major-scales' ||
+                  folder === 'g14-chromatic-scales' ||
+                  folder === 'g15-major-and-minor-scales'
+                ) {
+                  name = this.getParsedLevelName(name)
+                }
+                return { name, completed: true }
+              })
+            }
           }
         }
       }
-
-      return games
+      return gamesObj
     } catch (error) {
       logger.error('Error al obtener los datos de los juegos por perfil:', error)
       return []
     }
+  }
+
+  getParsedLevelName (levelName) {
+    const [separedLevelName] = levelName.replace(/[()]/g, '').split(' ').filter(Boolean) ?? [null, null]
+    return separedLevelName
   }
 }
