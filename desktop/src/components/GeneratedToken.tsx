@@ -12,7 +12,7 @@ interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-const DURATION = 10 // segundos
+const DURATION = 20 // segundos
 
 export default function GeneratedToken({ playerName, serial, open, onOpenChange }: Props) {  
   const [token, setToken] = useState('LKJS123123');

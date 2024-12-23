@@ -30,7 +30,7 @@ export class TokenModel {
       if (!data) {
         return { error: 'No se encontró el token de restauración' }
       }
-      if (Date.now() - data.timestamp > 30000) {
+      if (Date.now() - data.timestamp > 20000) {
         await this.Tokens.remove({ _id: data._id })
         return { error: 'El Token de restauración ha expirado.' }
       }
