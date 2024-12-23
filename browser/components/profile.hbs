@@ -26,6 +26,7 @@
         <button type="submit">Restaurar</button>
       </form>
       <small>Usa un token para recuperar todos los perfiles.</small>
+      <p class="error-message">Usa un token para recuperar todos los perfiles.</p>
     </div>
 
     <div class="profile-content">
@@ -70,9 +71,9 @@
         <div class="profile-cards">
           <template>
             <button class="profile-card">
-              <img src="/assets/images/avatars/boy1.png" alt="Imagen de perfil">
-              <span class="name" title="Jessica Pistala chalaca y no sé que más">
-                Jessica Pistala chalaca y no sé que más
+              <img src="/assets/images/avatars/girl1.png" alt="Imagen de perfil">
+              <span class="name" title="Jessica Pistala">
+                Jessica Pistala
               </span>
               <p class="last-time">Última vez: <time>15/07/2024 - 07:45pm</time></p>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
@@ -93,9 +94,14 @@
   const $restoreContainer = document.querySelector('.restore-container');
   const $restoreClose = document.querySelector('.restore-container i');
   const $formRestore = document.querySelector('#form-restore-profiles');
+  const $message = $restoreContainer.querySelector('small');
+  const $errorMessage = $restoreContainer.querySelector('.error-message');
 
   $restoreButton.addEventListener('click', () =>  {
     $restoreContainer.style.display = 'inline-block'
+    $formRestore.querySelector('input').focus()
+    $message.style.display = 'block'
+    $errorMessage.style.display = 'none'
   });
 
   $restoreClose.addEventListener('click', () =>  {
@@ -112,6 +118,17 @@
   });
 
   socket.on('restoredProfiles', (response) => {
+    if (response.error) {
+        $message.style.display = 'inline-block'
+        $errorMessage.style.display = 'none'
+      setTimeout(() => {
+        $message.style.display = 'none'
+        $errorMessage.style.display = 'inline-block'
+        $errorMessage.textContent = response.error
+      }, 1000)
+      return
+    }
+
     const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
     currentProfiles.push(...response)
     window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
