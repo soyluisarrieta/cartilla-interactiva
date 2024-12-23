@@ -112,6 +112,9 @@
   });
 
   socket.on('restoredProfiles', (response) => {
-    console.log({response})
+    const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
+    currentProfiles.push(...response)
+    window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
+    window.location.reload()
   });
-</script>
+</script> 
