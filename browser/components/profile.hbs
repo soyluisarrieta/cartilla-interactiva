@@ -94,6 +94,7 @@
   const $restoreContainer = document.querySelector('.restore-container');
   const $restoreClose = document.querySelector('.restore-container i');
   const $formRestore = document.querySelector('#form-restore-profiles');
+  const $buttonRestore = $restoreContainer.querySelector('button');
   const $message = $restoreContainer.querySelector('small');
   const $errorMessage = $restoreContainer.querySelector('.error-message');
 
@@ -114,10 +115,11 @@
 
   $formRestore.addEventListener('submit', (e) => {
     e.preventDefault();
+    $buttonRestore.style.pointerEvents = 'none'
     socket.emit('restoreProfiles', e.target[0].value)
   });
 
-  socket.on('restoredProfiles', (response) => {
+  socket.on('restoredProfiles', (response) => {    
     if (response.error) {
         $message.style.display = 'inline-block'
         $errorMessage.style.display = 'none'
@@ -125,12 +127,51 @@
         $message.style.display = 'none'
         $errorMessage.style.display = 'inline-block'
         $errorMessage.textContent = response.error
-      }, 1000)
+        $buttonRestore.style.pointerEvents = 'auto'
+      }, 500)
       return
     }
 
     const currentProfiles = JSON.parse(window.localStorage.getItem('profiles')) || []
-    currentProfiles.push(...response)
+    const processedProfiles = response.map(newProfile => {
+      const existingProfileById = currentProfiles.find(p => p.id === newProfile.id)
+      if (existingProfileById) {
+        return {
+          ...existingProfileById,
+          games: newProfile.games
+        }
+      }
+
+      let baseName = newProfile.username
+      let counter = 1
+      let finalName = baseName
+
+      // Si el nombre ya tiene un número al final, mantenerlo
+      if (/\s\d+$/.test(baseName)) {
+        return newProfile
+      }
+
+      while (currentProfiles.some(p => p.username === finalName)) {
+        finalName = `${baseName} (${counter})`
+        counter++
+      }
+
+      return {
+        ...newProfile,
+        username: finalName
+      }
+    })
+
+    // Reemplazar perfiles existentes y agregar nuevos
+    const updatedProfiles = currentProfiles.map(profile => {
+      const updatedProfile = processedProfiles.find(p => p.id === profile.id)
+      return updatedProfile || profile
+    })
+    const newProfiles = processedProfiles.filter(profile => 
+      !currentProfiles.some(p => p.id === profile.id)
+    )
+    currentProfiles.length = 0
+    currentProfiles.push(...updatedProfiles, ...newProfiles)
     window.localStorage.setItem('profiles', JSON.stringify(currentProfiles))
     window.location.reload()
   });
