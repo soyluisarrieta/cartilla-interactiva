@@ -30,9 +30,9 @@ export class TokensController {
       const profileModel = new ProfileModel({ serial })
       const profiles = await profileModel.getAllBySerial()
       const profilesWithGames = await Promise.all(
-        profiles.map(async ({ avatar, userId: id, username }) => {
+        profiles.map(async ({ avatar, userId: id, username, timestamp }) => {
           const games = this.getGamesByProfile(id)
-          const lastTime = new Date().toLocaleString()
+          const lastTime = new Date(timestamp).toLocaleString()
           return { avatar, id, username, serial, games, lastTime }
         })
       )
@@ -53,26 +53,40 @@ export class TokensController {
         const folderPath = path.join(basePath, folder)
         if (fs.statSync(folderPath).isDirectory()) {
           const profileFile = path.join(folderPath, `${profileId}.json`)
+          const defaultLevels = folder.match(/g1[1-5]/)
+            ? ['Escribir', 'Leer', 'Escuchar']
+            : ['easy', 'medium', 'hard']
+
           if (fs.existsSync(profileFile)) {
             const data = JSON.parse(fs.readFileSync(profileFile, 'utf-8'))
             if (folder === 'g7-do-the-tones-go-up-or-down') {
               gamesObj[folder] = { bestScore: data[0].bestScore, levels: [] }
               continue
             }
+
+            const completedLevels = data.map(({ level }) => {
+              let name = level?.name ?? 'unique'
+              if (
+                folder === 'g11-do-scale' ||
+                folder === 'g12-treble-clef' ||
+                folder === 'g13-major-scales' ||
+                folder === 'g14-chromatic-scales' ||
+                folder === 'g15-major-and-minor-scales'
+              ) {
+                name = this.getParsedLevelName(name)
+              }
+              return { name, completed: true }
+            })
+
+            const allLevels = defaultLevels.map(levelName => {
+              const completedLevel = completedLevels.find(l => l.name === levelName)
+              return completedLevel || { name: levelName }
+            })
+
+            gamesObj[folder] = { levels: allLevels }
+          } else {
             gamesObj[folder] = {
-              levels: data.map(({ level }) => {
-                let name = level?.name ?? 'unique'
-                if (
-                  folder === 'g11-do-scale' ||
-                  folder === 'g12-treble-clef' ||
-                  folder === 'g13-major-scales' ||
-                  folder === 'g14-chromatic-scales' ||
-                  folder === 'g15-major-and-minor-scales'
-                ) {
-                  name = this.getParsedLevelName(name)
-                }
-                return { name, completed: true }
-              })
+              levels: defaultLevels.map(name => ({ name }))
             }
           }
         }
