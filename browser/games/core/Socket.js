@@ -1,6 +1,6 @@
 import { io } from '/assets/lib/socketio/socket.io.esm.min.js'
 import { getSessionId } from './utils/generateId.js'
-import { getProfile } from '../../scripts/profile.js'
+import { getProfile, setProfile } from '../../scripts/profile.js'
 
 export default class Socket {
   constructor () {
@@ -45,5 +45,12 @@ export default class Socket {
   // Enviar info del nivel completado
   levelCompleted (payload) {
     this.socket.emit('levelCompleted', payload)
+    const timestamp = new Date().toLocaleDateString('es-CO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'America/Bogota'
+    })
+    setProfile({ timestamp })
   }
 }

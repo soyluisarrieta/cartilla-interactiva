@@ -95,8 +95,13 @@ export function Profile () {
       id: uuidv4(),
       username,
       avatar: `${avatar}.png`,
-      lastTime: new Date().toLocaleString(),
-      games: {}
+      games: {},
+      lastTime: new Date().toLocaleDateString('es-CO', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'America/Bogota'
+      })
     }
 
     currentProfiles.push(newProfile)

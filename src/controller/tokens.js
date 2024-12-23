@@ -32,7 +32,12 @@ export class TokensController {
       const profilesWithGames = await Promise.all(
         profiles.map(async ({ avatar, userId: id, username, timestamp }) => {
           const games = this.getGamesByProfile(id)
-          const lastTime = new Date(timestamp).toLocaleString()
+          const lastTime = new Date(timestamp).toLocaleDateString('es-CO', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'America/Bogota'
+          })
           return { avatar, id, username, serial, games, lastTime }
         })
       )
