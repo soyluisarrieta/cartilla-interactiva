@@ -10,7 +10,8 @@ export class TokenModel {
     this.Tokens = Schema('tokens', {
       token: { type: String, required: true },
       serial: { type: String, required: true },
-      timestamp: { type: Number, default: Date.now }
+      timestamp: { type: Number, default: Date.now },
+      used: { type: Boolean, default: false }
     })
   }
 
@@ -34,6 +35,11 @@ export class TokenModel {
         await this.Tokens.remove({ _id: data._id })
         return { error: 'El Token de restauración ha expirado.' }
       }
+      if (data.used) {
+        return { error: 'El Token de restauración ya ha sido usado.' }
+      }
+      const usedToken = await this.Tokens.update({ _id: data._id }, { used: true })
+      usedToken.save()
       return data.serial
     } catch (error) {
       logger.error('Error al obtener los perfiles usando el token de restauración:', error)
