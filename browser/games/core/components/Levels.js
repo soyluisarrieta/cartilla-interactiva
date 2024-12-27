@@ -15,7 +15,7 @@ export default class Levels {
   init () {
     const { width } = this.scene.cameras.main
     const profile = getProfile()
-    const profileLevels = profile.games[profile.playing].levels
+    const profileLevels = profile.games[profile.playing]?.levels ?? []
     const currentGame = window.gameSettings
     const levels = currentGame ? currentGame.levels : currentGame.levels
 
@@ -30,7 +30,7 @@ export default class Levels {
       level.index = index
       level.position = index
       level.locked = Boolean(index !== 0 && profileLevels[index - 1]?.completed === undefined)
-      level.status = profileLevel.completed ? '-completed' : level.locked ? '-locked' : ''
+      level.status = profileLevel?.completed ? '-completed' : level.locked ? '-locked' : ''
       this.draw(level, position)
       position[0] += Levels.gap
     }

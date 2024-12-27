@@ -15,7 +15,7 @@ interface Props {
 const DURATION = 20 // segundos
 
 export default function GeneratedToken({ playerName, serial, open, onOpenChange }: Props) {  
-  const [token, setToken] = useState('LKJS123123');
+  const [token, setToken] = useState('');
   const [timer, setTimer] = useState(DURATION);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const pendingRefresh = useRef(false);
@@ -97,7 +97,7 @@ export default function GeneratedToken({ playerName, serial, open, onOpenChange 
           {token}
           <div className="w-full bg-muted-foreground/10 p-2 text-xs text-center flex items-center justify-center" title={profiles.map(({ username }) => username).join(' - ')}>
             Se recuperará el perfil de "<span className="max-w-40 inline-block text-ellipsis overflow-hidden whitespace-nowrap font-bold">{playerName}</span>" 
-            {Boolean(profiles.length - 1) && `junto con ${profiles.length > 1 ? profiles.length : 'un perfil'} más`}.
+            {Boolean(profiles.length - 1) && ` junto con ${profiles.length > 1 ? profiles.length : 'un perfil'} más`}.
           </div>
         </div>
         <Button onClick={handleRefresh}>Refrescar</Button>
