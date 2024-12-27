@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
     this.game = window.gameSettings
     this.tone = this.sound.add('noteSound')
     this.profile = getProfile()
-    this.bestScore = this.profile.games[this.game.id].bestScore ?? 0
+    this.bestScore = this.profile.games[this.game.id]?.bestScore ?? 0
     this.isNewRecord = false
     this.score = 0
 
