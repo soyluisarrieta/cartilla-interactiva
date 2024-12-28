@@ -65,7 +65,7 @@ export class TokensController {
           if (fs.existsSync(profileFile)) {
             const data = JSON.parse(fs.readFileSync(profileFile, 'utf-8'))
             if (folder === 'g7-do-the-tones-go-up-or-down') {
-              gamesObj[folder] = { bestScore: data[0].bestScore, levels: [] }
+              gamesObj[folder] = { bestScore: data[0]?.bestScore ?? 0, levels: [] }
               continue
             }
 
@@ -85,6 +85,7 @@ export class TokensController {
 
             const allLevels = defaultLevels.map(levelName => {
               const completedLevel = completedLevels.find(l => l.name === levelName)
+              console.log({ completedLevel })
               return completedLevel || { name: levelName }
             })
 
@@ -105,6 +106,8 @@ export class TokensController {
 
   getParsedLevelName (levelName) {
     const [separedLevelName] = levelName.replace(/[()]/g, '').split(' ').filter(Boolean) ?? [null, null]
+    if (separedLevelName === 'Auditivo') { return 'Escuchar' }
+    if (separedLevelName === 'Visual') { return 'Leer' }
     return separedLevelName
   }
 }
