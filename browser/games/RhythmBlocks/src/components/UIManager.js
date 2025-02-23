@@ -49,9 +49,11 @@ export default class UIManager {
   // Títular
   setTitle (text) {
     const { width } = this.scene.cameras.main
-    return this.scene.add
-      .bitmapText(width / 2, 100, FONTS.PRIMARY, text)
-      .setOrigin(0.5, 0)
+    return this.scene.add.text(width / 2, 100, text, {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5, 0)
   }
 
   // Botón: Reproducir melodía
@@ -62,9 +64,11 @@ export default class UIManager {
     const x = width - 360
     const y = height - 170
 
-    const label = this.scene.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Melodía', 32)
-      .setOrigin(0.5)
+    const label = this.scene.add.text(x, y + 110, 'Melodía', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     Button.draw(this.scene)({
       ...BUTTONS.LISTEN_MELODY,
@@ -231,9 +235,11 @@ export default class UIManager {
       }
     })
 
-    const label = this.scene.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
-      .setOrigin(0.5)
+    const label = this.scene.add.text(x, y + 110, 'Confirmar', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const setDisabled = (disable) => {
       button.setDisabled(disable)

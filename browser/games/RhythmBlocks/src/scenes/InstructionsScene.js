@@ -37,18 +37,22 @@ export default class InstructionsScene extends Phaser.Scene {
     const { width, height } = this.cameras.main
     const { metrics, title, description } = this.level
 
-    this.add
-      .bitmapText(width / 2, 70, FONTS.PRIMARY, title.toUpperCase(), 70)
-      .setOrigin(0.45, 0)
+    this.add.text(width / 2, 80, title.toUpperCase(), {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.45, 0)
 
     const uiImage = this.add
       .image(width / 2, 300, `metric${metrics.name}`)
       .setOrigin(0.5, 0)
 
-    const uiDescription = this.add
-      .bitmapText(width / 2, height - 300, FONTS.SECONDARY, description, 40)
-      .setOrigin(0.5, 0)
-      .setMaxWidth(700)
+    const uiDescription = this.add.text(width / 2, height - 300, description, {
+      fontSize: '40px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff',
+      wordWrap: { width: 700 }
+    }).setOrigin(0.5, 0)
 
     this.animations.fadeIn({ targets: [uiImage, uiDescription], delay: 300 })
   }
