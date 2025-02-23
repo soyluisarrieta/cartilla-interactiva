@@ -12,6 +12,36 @@ export const BUTTONS = {
   HOW_TO_PLAY: { key: 'btnHowToPlay', frame: 'how-to-play-btn' }
 }
 
+export const ALERTS = {
+  KEY: 'alerts',
+  SUCCESS: {
+    BG: 'bg-success',
+    ICON: 'icon-success',
+    BUTTON: 'btn-success'
+  },
+  COMPLETED: {
+    BG: 'bg-completed',
+    ICON: 'icon-completed',
+    BUTTON: 'btn-completed'
+  },
+  FAILED: {
+    BG: 'bg-failed',
+    ICON: 'icon-failed',
+    BUTTON: 'btn-failed'
+  },
+  GAMEOVER: {
+    BG: 'bg-gameover',
+    ICON: 'icon-gameover',
+    BUTTON: 'btn-gameover'
+  },
+  WARN: {
+    BG: 'bg-warn',
+    ICON: 'icon-warn',
+    BUTTON1: 'btn-warn-1',
+    BUTTON2: 'btn-warn-2'
+  }
+}
+
 export const HEALTH = {
   OFF: 'health-off',
   ON: 'health-on'

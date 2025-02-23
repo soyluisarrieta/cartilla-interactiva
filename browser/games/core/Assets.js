@@ -40,7 +40,8 @@ export default class Assets {
           { key: 'uiButtons', dir: '/ui', fileName: 'ui-buttons' },
           { key: 'levels', dir: '/ui', fileName: 'levels' },
           { key: 'exercise', dir: '/ui', fileName: 'exercise-states' },
-          { key: 'figures', dir: '/ui', fileName: 'figures' }
+          { key: 'figures', dir: '/ui', fileName: 'figures' },
+          { key: 'alerts', dir: '/ui', fileName: 'alerts' }
         ],
         audio: [
           { key: 'soundPress', path: '/audios/sound-press.mp3' },
