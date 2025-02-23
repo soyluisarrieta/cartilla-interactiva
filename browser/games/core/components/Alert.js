@@ -64,16 +64,22 @@ export default class Alert {
     alertContainer.add(modalImage)
 
     // Título del modal
-    const modalTitle = this.scene.add.bitmapText(0, -height / 2 + 235, FONTS.PRIMARY, title, 60)
-      .setOrigin(0.5, 0)
+    const modalTitle = this.scene.add.text(0, -height / 2 + 235, title, {
+      fontSize: '60px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5, 0)
     alertContainer.add(modalTitle)
 
     // Texto opcional
     if (message) {
-      const modalText = this.scene.add.bitmapText(0, -height / 2 + 325, FONTS.SECONDARY, message, 24)
-        .setOrigin(0.5, 0)
-        .setMaxWidth(width - 50)
-        .setCenterAlign()
+      const modalText = this.scene.add.text(0, -height / 2 + 340, message, {
+        fontSize: '28px',
+        fontFamily: FONTS.SECONDARY,
+        color: '#ffffff',
+        wordWrap: { width: width - 50 },
+        align: 'center'
+      }).setOrigin(0.5)
       alertContainer.add(modalText)
     }
 

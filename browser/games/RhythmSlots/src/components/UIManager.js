@@ -99,8 +99,11 @@ export default class UIManager {
 
   // Mostrar la información del nivel actual
   drawLevelInfo () {
-    this.scene.add.bitmapText(this.scene.screen.width / 2, 100, 'primaryFont', `Jugando en el nivel #${this.scene.level.index}`)
-      .setOrigin(0.5, 0)
+    this.scene.add.text(this.scene.screen.width / 2, 70, `Jugando en el nivel ${this.scene.level.index + 1}`, {
+      fontSize: '90px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5, 0)
   }
 
   // Mostrar los botones para seleccionar notas
@@ -141,9 +144,11 @@ export default class UIManager {
     const x = width / 2.42
     const y = height - 170
 
-    const label = this.scene.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Melodía', 32)
-      .setOrigin(0.5)
+    const label = this.scene.add.text(x, y + 110, 'Melodía', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const button = Button.draw(this.scene)({
       ...BUTTONS.LISTEN_MELODY,
@@ -186,9 +191,11 @@ export default class UIManager {
     const x = width / 1.95
     const y = height - 170
 
-    const label = this.scene.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
-      .setOrigin(0.5)
+    const label = this.scene.add.text(x, y + 110, 'Confirmar', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const button = Button.draw(this.scene)({
       ...BUTTONS.PLAY,

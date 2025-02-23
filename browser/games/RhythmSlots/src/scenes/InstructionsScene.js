@@ -1,5 +1,5 @@
 import Button from '../../../core/components/Button.js'
-import { BUTTONS, SCENES } from '../../../core/constants.js'
+import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
 import UIAnimations from '../../../core/UIAnimations.js'
 import UIManager from '../components/UIManager.js'
 
@@ -42,14 +42,18 @@ export default class InstructionsScene extends Phaser.Scene {
     const { title, description, index: levelIndex } = this.level
     const { levels } = window.gameSettings
 
-    this.add
-      .bitmapText(width / 2, 70, 'primaryFont', title.toUpperCase(), 70)
-      .setOrigin(0.45, 0)
+    this.add.text(width / 2, 70, title.toUpperCase(), {
+      fontSize: '90px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.45, 0)
 
-    const uiDescription = this.add
-      .bitmapText(1000, 350, 'primaryFont', description, 40)
-      .setOrigin(0)
-      .setMaxWidth(700)
+    const uiDescription = this.add.text(1000, 350, description, {
+      fontSize: '50px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff',
+      wordWrap: { width: 700 }
+    }).setOrigin(0)
 
     this.uiAnimations.fadeIn({ targets: uiDescription, delay: 300 })
 
