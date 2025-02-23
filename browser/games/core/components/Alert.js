@@ -3,6 +3,7 @@ import { ALERTS, FONTS } from '../constants.js'
 
 export default class Alert {
   static textures = {
+    warning: ALERTS.WARN,
     gameover: ALERTS.GAMEOVER,
     success: ALERTS.SUCCESS,
     completed: ALERTS.COMPLETED,
@@ -28,7 +29,6 @@ export default class Alert {
     width += image ? 300 : 0
     height += image ? 300 : 0
 
-    console.log(type)
     const { BG, ICON } = Alert.textures[type]
 
     // Crear un contenedor para toda la alerta centrada
