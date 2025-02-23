@@ -250,10 +250,10 @@ export default class GameScene extends Phaser.Scene {
       const totalHealth = this.health.total
       const isGameOver = totalHealth === 0
       if (isGameOver) {
-        alert.title = '¡Fin del juego'
-        alert.type = 'default'
+        alert.title = '¡Fin del juego!'
+        alert.type = 'gameover'
         alert.image = 'gameLogo'
-        alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a jugar!'
+        alert.message = 'Has perdido todas tus vidas, ¡vuelve a intentarlo!'
         alert.sound = 'gameOver'
       }
 

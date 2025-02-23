@@ -216,10 +216,10 @@ export default class UIManager {
           }
 
           if (isGameOver) {
-            alert.title = '¡Fin del juego'
-            alert.type = 'default'
+            alert.title = '¡Fin del juego!'
+            alert.type = 'gameover'
             alert.image = 'gameLogo'
-            alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+            alert.message = 'Has perdido todas tus vidas, ¡vuelve a intentarlo!'
 
             this.scene.melody.stop()
             this.scene.sound.stopAll()
@@ -234,7 +234,7 @@ export default class UIManager {
               }
             },
             {
-              text: 'Niveles',
+              text: 'Ir a niveles',
               onClick: () => {
                 this.scene.scene.start(SCENES.LEVEL_SELECTION)
               }
@@ -321,9 +321,9 @@ export default class UIManager {
       this.scene.sound.play('levelComplete')
 
       this.scene.alert.showAlert('¡Nivel finalizado!', {
-        type: 'success',
+        type: 'completed',
         image: 'gameLogo',
-        message: 'Puedes seguir practicando este nivel o cambiar a otra dificultad.',
+        message: '¡Bien hecho! continua aprendiendo.',
         dismissible: false,
         buttons: [
           {
@@ -333,7 +333,7 @@ export default class UIManager {
             }
           },
           {
-            text: 'Niveles',
+            text: 'Ir a niveles',
             onClick: () => {
               this.scene.scene.start(SCENES.LEVEL_SELECTION)
             }

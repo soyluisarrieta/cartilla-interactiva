@@ -213,7 +213,7 @@ export default class GameScene extends Phaser.Scene {
         this.alert.showAlert('¡Fin del juego!', {
           type: 'gameover',
           image: 'gameLogo',
-          message: 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!',
+          message: 'Has perdido todas tus vidas, ¡vuelve a intentarlo!',
           btnAccept: false,
           buttons: [
             {
@@ -470,10 +470,10 @@ export default class GameScene extends Phaser.Scene {
           }
 
           if (isGameOver) {
-            alert.title = '¡Fin del juego'
-            alert.type = 'default'
+            alert.title = '¡Fin del juego!'
+            alert.type = 'gameover'
             alert.image = 'gameLogo'
-            alert.message = 'Has perdido todas tus vidas, ¡pero puedes volver a intentarlo!'
+            alert.message = 'Has perdido todas tus vidas, ¡vuelve a intentarlo!'
 
             this.melody.stop()
             this.sound.stopAll()
@@ -555,9 +555,9 @@ export default class GameScene extends Phaser.Scene {
     this.sound.stopAll()
     this.sound.play('levelComplete')
     this.alert.showAlert('¡Modo completado!', {
-      type: 'success',
+      type: 'completed',
       image: 'gameLogo',
-      message: 'Puedes seguir practicando este modo o cambiar a otro.',
+      message: '¡Bien hecho! continua aprendiendo.',
       dismissible: false,
       buttons: [
         {
