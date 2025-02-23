@@ -12,7 +12,7 @@ export default class Block extends Phaser.GameObjects.Container {
   // Implementación
   draw ({ x, y, size }) {
     this.blockImage = this.scene.add.image(0, 0, UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(size))
-      .setScale(Block.scale)
+      .setScale(Block.scale + 0.4)
       .setOrigin(0)
     this.add(this.blockImage)
 
@@ -78,7 +78,7 @@ export default class Block extends Phaser.GameObjects.Container {
 
     this.on('dragstart', () => {
       this.resetTexture()
-      this.blockImage.setTint(0xff0000)
+      this.blockImage.setTexture(UI.BLOCKS.KEY, UI.BLOCKS.BLOCK(`${this.size}-drag`))
       if (this.currentSlot) {
         this.currentSlot.reset()
       }
@@ -89,7 +89,7 @@ export default class Block extends Phaser.GameObjects.Container {
     })
 
     this.on('dragend', (pointer) => {
-      this.blockImage.clearTint()
+      this.resetTexture()
       const droppedInSlot = this.scene.slots.find((slot) =>
         Phaser.Geom.Rectangle.ContainsPoint(slot.getBounds(), pointer)
       )

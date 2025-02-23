@@ -36,7 +36,7 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.health.draw(3)
-    this.exercises.create(7)
+    this.exercises.create(1)
     this.start()
     this.exercises.play(0)
 
@@ -110,7 +110,7 @@ export default class GameScene extends Phaser.Scene {
       item: blockDimensions,
       scale: Block.scale,
       maxColumns: metrics.figures === 2 ? 3 : (metrics.figures === 3 ? 2 : 1),
-      gap: 40,
+      gap: metrics.figures === 3 ? 160 : 140,
       position: [170, 250],
       element: ({ x, y }, i) => {
         const block = new Block(this)
