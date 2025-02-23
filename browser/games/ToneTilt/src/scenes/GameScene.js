@@ -87,13 +87,19 @@ export default class GameScene extends Phaser.Scene {
   drawScore () {
     const { width } = this.cameras.main
 
-    this.scoreText = this.add
-      .bitmapText(width - 200, 350, FONTS.PRIMARY, this.score, 70)
+    this.scoreText = this.add.text(width - 200, 350, this.score, {
+      fontSize: '70px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    })
       .setOrigin(0.5, 0)
 
     const scoreLabel = this.add
-      .bitmapText(width - 200, 430, FONTS.PRIMARY, 'Puntos', 32)
-      .setOrigin(0.5, 0)
+      .text(width - 200, 430, 'Puntos', {
+        fontSize: '32px',
+        fontFamily: FONTS.SECONDARY,
+        color: '#ffffff'
+      }).setOrigin(0.5, 0)
 
     this.uiAnimations.slideInFromRight({
       targets: this.scoreText,
@@ -107,12 +113,19 @@ export default class GameScene extends Phaser.Scene {
     })
 
     this.bestScoreText = this.add
-      .bitmapText(width - 200, 650, FONTS.PRIMARY, this.bestScore, 70)
+      .text(width - 200, 650, this.bestScore, {
+        fontSize: '70px',
+        fontFamily: FONTS.SECONDARY,
+        color: '#ffffff'
+      })
       .setOrigin(0.5)
 
     const bestScoreLabel = this.add
-      .bitmapText(width - 200, 730, FONTS.PRIMARY, 'Mejor puntaje', 32)
-      .setOrigin(0.5, 1)
+      .text(width - 200, 730, 'Mejor puntaje', {
+        fontSize: '32px',
+        fontFamily: FONTS.SECONDARY,
+        color: '#ffffff'
+      }).setOrigin(0.5, 1)
 
     this.uiAnimations.slideInFromRight({
       targets: this.bestScoreText,
@@ -152,9 +165,11 @@ export default class GameScene extends Phaser.Scene {
     const { height } = this.cameras.main
     const [x, y] = [400, height / 2 + 50]
 
-    const label = this.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
-      .setOrigin(0.5)
+    const label = this.add.text(x, y + 110, 'Reproducir', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const button = Button.draw(this)({
       ...BUTTONS.LISTEN_MELODY,
@@ -205,9 +220,11 @@ export default class GameScene extends Phaser.Scene {
 
     this.uiAnimations.slideInFromBottom({ targets: buttonIncreased, delay: 300 })
 
-    const labelIncreased = this.add
-      .bitmapText(x, y - gap + 110, FONTS.PRIMARY, 'Aumentó', 32)
-      .setOrigin(0.5)
+    const labelIncreased = this.add.text(x, y - gap + 110, 'Aumentó', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     this.uiAnimations.fadeIn({ targets: labelIncreased, delay: 600 })
 
@@ -222,9 +239,11 @@ export default class GameScene extends Phaser.Scene {
 
     this.uiAnimations.slideInFromTop({ targets: buttonDecreased, delay: 300 })
 
-    const labelDecreased = this.add
-      .bitmapText(x, y + gap + 110, FONTS.PRIMARY, 'Disminuyó', 32)
-      .setOrigin(0.5)
+    const labelDecreased = this.add.text(x, y + gap + 110, 'Disminuyó', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     this.uiAnimations.fadeIn({ targets: labelDecreased, delay: 600 })
   }

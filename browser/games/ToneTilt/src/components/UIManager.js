@@ -47,8 +47,10 @@ export default class UIManager {
   // Títular
   setTitle (text) {
     const { width } = this.scene.cameras.main
-    return this.scene.add
-      .bitmapText(width / 2, 100, FONTS.PRIMARY, text)
-      .setOrigin(0.5, 0)
+    return this.scene.add.text(width / 2, 70, text, {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5, 0)
   }
 }
