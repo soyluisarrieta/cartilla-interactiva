@@ -54,8 +54,8 @@ export const IMAGES = {
 }
 
 export const FONTS = {
-  PRIMARY: 'primaryFont',
-  SECONDARY: 'primaryFont'
+  PRIMARY: 'GrahamCrackerFont',
+  SECONDARY: 'CarameliaFont'
 }
 
 export const EXERCISE = {

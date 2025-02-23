@@ -21,6 +21,15 @@
   <link rel="stylesheet" href="/styles/dist/main.css">
 
   <style>
+    @font-face {
+      font-family: "GrahamCrackerFont";
+      src: url("/games/assets/fonts/GrahamCrackerJF.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "CarameliaFont";
+      src: url("/games/assets/fonts/Caramelia.otf") format("opentype");
+    }
+    
     html, body {
         margin: 0;
         padding: 0;
@@ -110,6 +119,8 @@
   </script>
 </head>
 <body>
+  <div style="font-family: GrahamCrackerFont; opacity: 0; position: fixed; top: 0; left: 0; z-index: -1">Load primary font</div>
+  <div style="font-family: CarameliaFont; opacity: 0; position: fixed; top: 0; left: 0; z-index: -1">Load secondary font</div>
   <div id="pattern-bg"></div>
 
   {{!-- Action buttons --}}

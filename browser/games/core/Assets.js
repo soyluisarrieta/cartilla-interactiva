@@ -14,7 +14,6 @@ export default class Assets {
 
   setup (phaser) {
     const assetLoader = new AssetLoader(phaser)
-    this.fonts(phaser)
     assetLoader.load([
       this.main()
     ])
@@ -55,11 +54,6 @@ export default class Assets {
         ]
       }
     }
-  }
-
-  fonts (phaser) {
-    phaser.load.setPath('/games/assets/fonts')
-    phaser.load.bitmapFont('primaryFont', '/examplefont.png', '/examplefont.fnt')
   }
 
   howToPlay (totalSteps) {
