@@ -20,7 +20,9 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
       assets: {
-        // 🚩
+        atlas: [
+          { key: 'velocityControl', dir: '/ui', fileName: 'velocity-control' }
+        ]
       }
     }
 

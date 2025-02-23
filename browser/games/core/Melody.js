@@ -40,10 +40,10 @@ export default class Melody {
 
   // Iniciar temporizador
   startTimerTic () {
-    this.scene.sound.play('timerTic')
+    this.scene.sound.play('timerTic', { volume: 0.5 })
     this.timerTicInterval = setInterval(() => {
       if (this.playing) {
-        this.scene.sound.play('timerTic')
+        this.scene.sound.play('timerTic', { volume: 0.5 })
       }
     }, this.tempo)
   }

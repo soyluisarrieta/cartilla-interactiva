@@ -137,12 +137,12 @@ export default class UIManager {
       },
       {
         label: 'Acelerar',
-        texture: BUTTONS.ARROW_RIGHT,
+        texture: { key: 'velocityControl', frame: 'acceleration' },
         handleEvent: () => this.speedMelodyButton.bind(this)(-1)
       },
       {
         label: 'Desacelerar',
-        texture: BUTTONS.ARROW_LEFT,
+        texture: { key: 'velocityControl', frame: 'deceleration' },
         handleEvent: () => this.speedMelodyButton.bind(this)(1)
       }
     ]
@@ -164,7 +164,7 @@ export default class UIManager {
         const button = Button.draw(this.scene)({
           ...texture,
           position: [x, y],
-          withInteractions: false,
+          withInteractions: true,
           onClick: ({ button }) => handleEvent({ label, button })
         })
 
