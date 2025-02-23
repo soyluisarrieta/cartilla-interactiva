@@ -27,8 +27,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
     this.add.image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add.bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un nivel')
-      .setOrigin(0.5)
+    this.add.text(width / 2, 120, 'Selecciona un nivel', {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     // Crear niveles
     const levels = this.game.levels
@@ -47,9 +50,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
           onClick
         }).setScale(0.4)
 
-        this.add
-          .bitmapText(x + 50, y, FONTS.PRIMARY, levels[i].title, 50)
-          .setOrigin(0, 0.5)
+        this.add.text(x + 50, y, levels[i].title, {
+          fontSize: '50px',
+          fontFamily: FONTS.SECONDARY,
+          color: '#ffffff'
+        }).setOrigin(0, 0.5)
           .setInteractive()
           .on('pointerup', onClick)
       }

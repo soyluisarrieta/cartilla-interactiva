@@ -49,9 +49,11 @@ export default class UIManager {
   // Títular
   setTitle (text) {
     const { width } = this.scene.cameras.main
-    return this.scene.add
-      .bitmapText(width / 2, 100, FONTS.PRIMARY, text)
-      .setOrigin(0.5, 0)
+    return this.scene.add.text(width / 2, 70, text, {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5, 0)
   }
 
   // Figuras involucradas
@@ -65,7 +67,7 @@ export default class UIManager {
       item: { width: figureWidth },
       maxColumns: figures.length,
       gap: figureWidth * 3,
-      position: [width / 2, 330],
+      position: [width / 2, 350],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const image = this.scene.add
@@ -76,26 +78,19 @@ export default class UIManager {
         const fixedHeight = figureWidth * aspectRatio
         image.setDisplaySize(figureWidth, fixedHeight)
 
-        const label = this.scene.add
-          .bitmapText(x + figureWidth / 2, y + 20, FONTS.PRIMARY, figures[i].title, 19)
-          .setOrigin(0.5, 0)
-          .setCenterAlign()
-          .setMaxWidth(figureWidth * 4)
+        const label = this.scene.add.text(x + figureWidth / 2, y + 20, figures[i].title, {
+          fontSize: '22px',
+          fontFamily: FONTS.SECONDARY,
+          color: '#ffffff',
+          wordWrap: { width: figureWidth * 4 },
+          align: 'center'
+        }).setOrigin(0.5, 0)
 
         this.scene.uiAnimations.slideInFromTop({
           targets: [image, label],
           delay: 600
         })
       }
-    })
-
-    const subTitle = this.scene.add
-      .bitmapText(width / 2, 430, FONTS.PRIMARY, 'Figuras involucradas', 28)
-      .setOrigin(0.5)
-
-    this.scene.uiAnimations.fadeIn({
-      targets: subTitle,
-      delay: 600
     })
   }
 
@@ -104,9 +99,11 @@ export default class UIManager {
     const { width } = this.scene.cameras.main
     const tempo = this.scene.game.tempo
     const bpm = Math.round(60000 / tempo)
-    this.tempoIndicator = this.scene.add
-      .bitmapText(width - 50, 50, FONTS.PRIMARY, `Tempo: ${bpm} BPM`, 32
-      ).setOrigin(1, 0)
+    this.tempoIndicator = this.scene.add.text(width - 50, 90, `Tempo: ${bpm} BPM`, {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(1, 0)
 
     this.updateTempo(tempo)
 
@@ -158,9 +155,11 @@ export default class UIManager {
       position: [300, 900],
       element: ({ x, y }, i) => {
         const { label: labelText, texture, handleEvent } = this.buttons[i]
-        const label = this.scene.add
-          .bitmapText(x, y + 110, FONTS.PRIMARY, labelText, 32)
-          .setOrigin(0.5)
+        const label = this.scene.add.text(x, y + 110, labelText, {
+          fontSize: '32px',
+          fontFamily: FONTS.SECONDARY,
+          color: '#ffffff'
+        }).setOrigin(0.5)
 
         const button = Button.draw(this.scene)({
           ...texture,
