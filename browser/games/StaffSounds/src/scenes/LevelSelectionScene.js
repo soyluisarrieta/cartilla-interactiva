@@ -27,8 +27,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
     this.add.image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add.bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un modo')
-      .setOrigin(0.5)
+    this.add.text(width / 2, 120, 'Selecciona un modo', {
+      fontSize: '48px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     // Crear niveles
     const modes = this.game.levels.length === 2 ? ['easy', 'medium'] : ['easy', 'medium', 'hard']
@@ -90,9 +93,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add
-      .bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona una cantidad')
-      .setOrigin(0.5)
+    this.add.text(width / 2, 120, 'Selecciona una cantidad', {
+      fontSize: '48px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     // Crear botones para cada grupo de notas
     grid({
@@ -117,9 +122,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
           onClick
         }).setScale(0.4)
 
-        this.add
-          .bitmapText(x + 70, y, FONTS.PRIMARY, `${groupSize} notas`, 55)
-          .setOrigin(0, 0.5)
+        this.add.text(x + 70, y, `${groupSize} notas`, {
+          fontSize: '55px',
+          fontFamily: FONTS.PRIMARY,
+          color: '#ffffff'
+        }).setOrigin(0, 0.5)
           .setInteractive()
           .on('pointerup', onClick)
       }
@@ -149,9 +156,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add
-      .bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona un modo')
-      .setOrigin(0.5)
+    this.add.text(width / 2, 120, 'Selecciona un modo', {
+      fontSize: '48px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const contrasts = ['highs', 'lows']
     contrasts.forEach((contrast, i) => {
@@ -194,9 +203,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
       .image(width / 2, 120, 'bannerTitle')
       .setOrigin(0.5)
 
-    this.add
-      .bitmapText(width / 2, 120, FONTS.PRIMARY, 'Selecciona una escala')
-      .setOrigin(0.5)
+    this.add.text(width / 2, 120, 'Selecciona una escala', {
+      fontSize: '48px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
 
     const scales = this.game.scales
     grid({
@@ -221,9 +232,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
           onClick
         }).setScale(0.4)
 
-        this.add
-          .bitmapText(x + 70, y, FONTS.PRIMARY, scale.name, 55)
-          .setOrigin(0, 0.5)
+        this.add.text(x + 70, y, scale.name, {
+          fontSize: '55px',
+          fontFamily: FONTS.SECONDARY,
+          color: '#ffffff'
+        }).setOrigin(0, 0.5)
           .setInteractive()
           .on('pointerup', onClick)
       }

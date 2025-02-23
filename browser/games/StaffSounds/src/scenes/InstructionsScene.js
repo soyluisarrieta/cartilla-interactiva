@@ -32,9 +32,11 @@ export default class InstructionsScene extends Phaser.Scene {
   // Título y descripción
   drawInstructions () {
     const { width } = this.cameras.main
-    this.add
-      .bitmapText(width / 2, 70, FONTS.PRIMARY, 'Instrucciones', 70)
-      .setOrigin(0.45, 0)
+    this.add.text(width / 2, 70, 'Instrucciones', {
+      fontSize: '70px',
+      fontFamily: FONTS.PRIMARY,
+      color: '#ffffff'
+    }).setOrigin(0.45, 0)
   }
 
   // Botón: Empezar a jugar

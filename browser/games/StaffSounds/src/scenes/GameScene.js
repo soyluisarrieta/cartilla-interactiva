@@ -167,9 +167,11 @@ export default class GameScene extends Phaser.Scene {
       position: [width / (isReadMode ? 1.8 : 2.2), height - 60],
       alignCenter: true,
       element: ({ x, y }, i) => {
-        const keyNote = this.add
-          .bitmapText(x, y, FONTS.PRIMARY, melody[i].name, melody.length > 7 ? 40 : 60)
-          .setOrigin(0.5)
+        const keyNote = this.add.text(x, y, melody[i].name, {
+          fontSize: melody.length > 7 ? '40px' : '60px',
+          fontFamily: FONTS.PRIMARY,
+          color: '#ffffff'
+        }).setOrigin(0.5)
 
         if (interactive) {
           keyNote.note = melody[i]
@@ -402,9 +404,11 @@ export default class GameScene extends Phaser.Scene {
       }
     })
 
-    const label = this.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Reproducir', 32)
-      .setOrigin(0.5)
+    const label = this.add.text(x, y + 110, 'Reproducir', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
       .setAlpha(0.5)
 
     this.disablePlayButton = (disable) => {
@@ -536,9 +540,11 @@ export default class GameScene extends Phaser.Scene {
       }
     })
 
-    const label = this.add
-      .bitmapText(x, y + 110, FONTS.PRIMARY, 'Confirmar', 32)
-      .setOrigin(0.5)
+    const label = this.add.text(x, y + 110, 'Confirmar', {
+      fontSize: '32px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff'
+    }).setOrigin(0.5)
       .setAlpha(0)
 
     this.disableConfirmButton = (disable) => {

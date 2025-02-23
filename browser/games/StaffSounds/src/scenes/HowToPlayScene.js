@@ -72,10 +72,13 @@ export default class HowToPlayScene extends Phaser.Scene {
       .setOrigin(0.5, 0)
 
     // Mensaje de explicación
-    this.message = this.add.bitmapText(width / 2, 700, FONTS.PRIMARY, STEPS[this.currentStep], 48)
-      .setOrigin(0.5, 0)
-      .setMaxWidth(width - 400)
-      .setCenterAlign()
+    this.message = this.add.text(width / 2, 700, STEPS[this.currentStep], {
+      fontSize: '48px',
+      fontFamily: FONTS.SECONDARY,
+      color: '#ffffff',
+      wordWrap: { width: width - 400 },
+      align: 'center'
+    }).setOrigin(0.5, 0)
 
     // Marco decorativo
     this.add.image(width / 2, 50, IMAGES.DECORATIVE_FRAME)
