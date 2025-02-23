@@ -96,7 +96,7 @@ export default class UIManager {
     const y = height - 170
 
     const button = Button.draw(this.scene)({
-      ...BUTTONS.PLAY,
+      ...BUTTONS.CONFIRM,
       position: [x, y],
       onClick: ({ button }) => {
         this.scene.melody.stop()

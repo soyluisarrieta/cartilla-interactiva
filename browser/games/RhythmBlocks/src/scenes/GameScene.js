@@ -36,7 +36,7 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.ui.init()
     this.health.draw(3)
-    this.exercises.create(1)
+    this.exercises.create(5)
     this.start()
     this.exercises.play(0)
 

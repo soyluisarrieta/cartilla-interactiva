@@ -453,7 +453,7 @@ export default class GameScene extends Phaser.Scene {
     const [x, y] = [width - 140, height - 170]
 
     const button = Button.draw(this)({
-      ...BUTTONS.PLAY,
+      ...BUTTONS.CONFIRM,
       position: [x, y],
       disabled: true,
       withSound: false,

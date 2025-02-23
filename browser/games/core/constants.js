@@ -9,7 +9,8 @@ export const BUTTONS = {
   PLAY: { key: 'uiButtons', frame: 'play' },
   HOME: { key: 'uiButtons', frame: 'home' },
   START_GAME: { key: 'btnStart', frame: 'start-btn' },
-  HOW_TO_PLAY: { key: 'btnHowToPlay', frame: 'how-to-play-btn' }
+  HOW_TO_PLAY: { key: 'btnHowToPlay', frame: 'how-to-play-btn' },
+  CONFIRM: { key: 'btnConfirm', frame: 'btn-confirm' }
 }
 
 export const ALERTS = {

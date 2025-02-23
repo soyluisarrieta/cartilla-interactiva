@@ -40,7 +40,8 @@ export default class Assets {
           { key: 'levels', dir: '/ui', fileName: 'levels' },
           { key: 'exercise', dir: '/ui', fileName: 'exercise-states' },
           { key: 'figures', dir: '/ui', fileName: 'figures' },
-          { key: 'alerts', dir: '/ui', fileName: 'alerts' }
+          { key: 'alerts', dir: '/ui', fileName: 'alerts' },
+          { key: 'btnConfirm', dir: '/ui', fileName: 'confirm-button' }
         ],
         audio: [
           { key: 'soundPress', path: '/audios/sound-press.mp3' },

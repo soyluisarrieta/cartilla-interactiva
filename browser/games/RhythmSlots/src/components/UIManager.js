@@ -198,11 +198,10 @@ export default class UIManager {
     }).setOrigin(0.5)
 
     const button = Button.draw(this.scene)({
-      ...BUTTONS.PLAY,
+      ...BUTTONS.CONFIRM,
       position: [x, y],
       disabled: true,
       withSound: false,
-      withInteractions: false,
       onClick: async ({ button }) => {
         this.disableFinishButton(true)
         this.scene.melody.stop()
