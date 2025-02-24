@@ -86,9 +86,8 @@ export default class Slot {
   }
 
   // Manejador para la selección de casillas
-  handleNoteSelection (btnNote, figure) {
+  handleNoteSelection (figure) {
     const slots = this.scene.slots
-    btnNote.setScale(0.51)
 
     const indexSelectedSlot = slots.findIndex(slot => slot.isSelected)
     const selectedSlot = slots[indexSelectedSlot]

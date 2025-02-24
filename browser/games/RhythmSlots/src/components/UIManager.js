@@ -108,30 +108,34 @@ export default class UIManager {
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
-    const layout = { gap: 10, marginTop: 700, marginRight: 150 }
+    const layout = { gap: 20, marginTop: 700, marginRight: 150 }
     const { figures } = this.scene.level
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
     const startX = (this.scene.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
 
     figures.forEach((figure, index) => {
-      const btnNote = this.scene.add.image(position.x, position.y, figure.name)
-        .setScale(0.56)
+      const btnNote = this.scene.add
+        .image(position.x, position.y, 'btnFigures', `btn-${figure.name}`)
+        .setScale(0.8)
         .setOrigin(0.5)
         .setInteractive()
 
       position.x += layout.gap + 100
 
-      btnNote.on('pointerdown', () => this.scene.slot.handleNoteSelection(btnNote, figure, index))
-      btnNote.on('pointerup', () => btnNote.setScale(0.56))
-      btnNote.on('pointerout', () => btnNote.setScale(0.56))
+      addInteractions({
+        button: btnNote,
+        key: 'btnFigures',
+        frame: `btn-${figure.name}`,
+        onClick: () => this.scene.slot.handleNoteSelection(figure, index)
+      })
 
       const baseDelay = 200
       this.scene.uiAnimations.scaleUp({
         targets: btnNote,
         duration: 600,
         delay: baseDelay + index * 100,
-        endScale: 0.56
+        endScale: 0.8
       })
     })
   }

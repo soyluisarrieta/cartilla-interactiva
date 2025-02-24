@@ -1,0 +1,586 @@
+{
+	"textures": [
+		{
+			"image": "figure-buttons",
+			"format": "RGBA8888",
+			"size": {
+				"w": 435,
+				"h": 2163
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "btn-crotchet-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-crotchet-rest-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 145,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-minim-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 290,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-quaver-duo-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 0,
+						"y": 245,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-quaver-quad-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 145,
+						"y": 245,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-quaver-rest-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 290,
+						"y": 245,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-semibreve-rest-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 0,
+						"y": 490,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-semiquaver-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 145,
+						"y": 490,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-semiquaver-quad-hovered",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 246
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 145,
+						"h": 245
+					},
+					"frame": {
+						"x": 290,
+						"y": 490,
+						"w": 145,
+						"h": 245
+					}
+				},
+				{
+					"filename": "btn-crotchet-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 0,
+						"y": 735,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-crotchet",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 143,
+						"y": 735,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-minim",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 286,
+						"y": 735,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-quaver-duo",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 0,
+						"y": 976,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-quaver-quad",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 143,
+						"y": 976,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-quaver-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 286,
+						"y": 976,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-semibreve-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 0,
+						"y": 1217,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-semiquaver-quad",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 143,
+						"y": 1217,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-semiquaver",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 143,
+						"h": 241
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 143,
+						"h": 241
+					},
+					"frame": {
+						"x": 286,
+						"y": 1217,
+						"w": 143,
+						"h": 241
+					}
+				},
+				{
+					"filename": "btn-crotchet-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 0,
+						"y": 1458,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-crotchet-rest-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 139,
+						"y": 1458,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-minim-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 278,
+						"y": 1458,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-quaver-duo-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 0,
+						"y": 1693,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-quaver-quad-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 139,
+						"y": 1693,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-quaver-rest-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 278,
+						"y": 1693,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-semibreve-rest-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 0,
+						"y": 1928,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-semiquaver-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 139,
+						"y": 1928,
+						"w": 139,
+						"h": 235
+					}
+				},
+				{
+					"filename": "btn-semiquaver-quad-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 237
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 139,
+						"h": 235
+					},
+					"frame": {
+						"x": 278,
+						"y": 1928,
+						"w": 139,
+						"h": 235
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
