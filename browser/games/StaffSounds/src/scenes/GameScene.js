@@ -24,7 +24,7 @@ export default class GameScene extends Phaser.Scene {
     this.exercises = new Exercises(this)
     this.health = new Health(this)
 
-    this.scaleNotes = 0.25
+    this.scaleNotes = 0.7
   }
 
   // Inicialización
