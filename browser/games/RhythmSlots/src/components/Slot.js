@@ -77,7 +77,7 @@ export default class Slot {
   // Seleccionar un slot especifico
   selectSlot (slotToSelect) {
     this.scene.slots.forEach(slot => {
-      slot.element.setScale(0.66)
+      slot.element.setScale(0.7)
       slot.isSelected = false
     })
 
@@ -99,7 +99,7 @@ export default class Slot {
 
     selectedSlot.figure = figure
     selectedSlot.note = figure.name
-    selectedSlot.element.setTexture(figure.name)
+    selectedSlot.element.setTexture('pieces', `piece-${figure.name}`)
     selectedSlot.isFixed = true
 
     const nextEmptySlot = slots.find(slot => slot.note === null || !slot.isFixed)

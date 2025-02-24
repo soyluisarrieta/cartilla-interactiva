@@ -33,7 +33,8 @@ export default class BootScene extends Phaser.Scene {
           { key: 'semiquaver-quad', path: '/images/btn-semiquaver-quad.png' }
         ],
         atlas: [
-          { key: 'btnFigures', dir: '/ui', fileName: 'figure-buttons' }
+          { key: 'btnFigures', dir: '/ui', fileName: 'figure-buttons' },
+          { key: 'pieces', dir: '/ui', fileName: 'pieces' }
         ]
       }
     }
