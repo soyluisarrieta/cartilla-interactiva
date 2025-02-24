@@ -6,7 +6,7 @@ export const BUTTONS = {
   ARROW_LEFT: { key: 'uiButtons', frame: 'arrow-left' },
   LISTEN_MELODY: { key: 'uiButtons', frame: 'listen-melody' },
   REPEAT: { key: 'uiButtons', frame: 'repeat' },
-  PLAY: { key: 'uiButtons', frame: 'play' },
+  PLAY: { key: 'uiButtons', frame: 'listen-melody' },
   HOME: { key: 'uiButtons', frame: 'home' },
   START_GAME: { key: 'btnStart', frame: 'start-btn' },
   HOW_TO_PLAY: { key: 'btnHowToPlay', frame: 'how-to-play-btn' },

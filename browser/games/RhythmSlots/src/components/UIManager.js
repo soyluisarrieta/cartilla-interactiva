@@ -154,11 +154,8 @@ export default class UIManager {
       ...BUTTONS.LISTEN_MELODY,
       position: [x, y],
       withSound: false,
-      withInteractions: false,
       onClick: async ({ button }) => {
         if (!this.scene.melody.playing) {
-          label.setText('Detener')
-          button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
           const melody = this.scene.melody.current
           const onSound = this.onInterval.bind(this)
           await this.scene.melody.play(melody, tempo, onSound)
@@ -166,8 +163,6 @@ export default class UIManager {
 
         this.scene.slot.resetIntervals()
         this.scene.melody.stop()
-        label.setText('Melodía')
-        button.setTexture(BUTTONS.LISTEN_MELODY.key, BUTTONS.LISTEN_MELODY.frame)
       }
     })
 

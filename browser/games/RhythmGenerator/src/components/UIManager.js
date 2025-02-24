@@ -165,6 +165,7 @@ export default class UIManager {
           ...texture,
           position: [x, y],
           withInteractions: true,
+          withSound: false,
           onClick: ({ button }) => handleEvent({ label, button })
         })
 
@@ -194,7 +195,6 @@ export default class UIManager {
       decelerateButton.button.setDisabled(true)
 
       label.setText('Pausar')
-      button.setTexture('melodyControls', 'pause')
       const onSound = ({ index }) => intervals.select(index).setActived(true)
       await melody.play(melody.current, tempo, onSound)
 
@@ -208,11 +208,9 @@ export default class UIManager {
       decelerateButton.button.setDisabled(false)
     } else if (melody.paused) {
       label.setText('Pausar')
-      button.setTexture('melodyControls', 'pause')
       melody.resume()
     } else if (!melody.paused) {
       label.setText('Reanudar')
-      button.setTexture('melodyControls', 'resume')
       melody.pause()
     }
   }
