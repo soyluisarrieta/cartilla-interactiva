@@ -21,7 +21,9 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
       assets: {
-        // 🚩
+        atlas: [
+          { key: 'btnInclinations', dir: '/ui', fileName: 'inclination-buttons' }
+        ]
       }
     }
 

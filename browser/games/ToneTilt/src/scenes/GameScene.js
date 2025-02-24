@@ -211,7 +211,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Tono aumentó
     const buttonIncreased = Button.draw(this)({
-      ...BUTTONS.ARROW_RIGHT,
+      ...{ key: 'btnInclinations', frame: 'ascending' },
       position: [x, y - gap],
       withInteractions: true,
       withSound: false,
@@ -230,7 +230,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Tono disminuyó
     const buttonDecreased = Button.draw(this)({
-      ...BUTTONS.ARROW_LEFT,
+      ...{ key: 'btnInclinations', frame: 'descending' },
       position: [x, y + gap],
       withInteractions: true,
       withSound: false,
