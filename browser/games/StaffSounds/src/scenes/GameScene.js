@@ -159,17 +159,26 @@ export default class GameScene extends Phaser.Scene {
   drawKeyNotes (melody, interactive = false) {
     const { width, height } = this.cameras.main
     const isReadMode = this.level.mode === GAME_MODES.READ
+    const isWriteMode = this.level.mode === GAME_MODES.WRITE
+
+    if (isWriteMode) {
+      const title = this.add
+        .image(width / 2 - 200, height - 140, 'titleKeyNotes')
+        .setScale(0.6)
+      this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
+    }
+
     grid({
       totalItems: melody.length,
       maxColumns: melody.length,
-      item: { width: melody.length > 7 ? 150 : 200 },
+      item: { width: melody.length > 7 ? 130 : 200 },
       gap: 0,
-      position: [width / (isReadMode ? 1.8 : 2.2), height - 60],
+      position: [width / (isReadMode ? 1.8 : 2.2), height - 47],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const keyNote = this.add.text(x, y, melody[i].name, {
-          fontSize: melody.length > 7 ? '40px' : '60px',
-          fontFamily: FONTS.PRIMARY,
+          fontSize: melody.length > 7 ? '40px' : '48px',
+          fontFamily: FONTS.SECONDARY,
           color: '#ffffff'
         }).setOrigin(0.5)
 
