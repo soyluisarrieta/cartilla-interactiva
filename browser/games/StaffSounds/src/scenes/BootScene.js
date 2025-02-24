@@ -11,7 +11,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { game: gameName } = window.gameSettings
+    const { game: gameName, module } = window.gameSettings
     InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
@@ -22,7 +22,8 @@ export default class BootScene extends Phaser.Scene {
       setPath: `/games/${gameName}/assets`,
       assets: {
         images: [
-          { key: 'titleKeyNotes', path: '/images/dictation-notes.png' }
+          { key: 'titleKeyNotes', path: '/images/dictation-notes.png' },
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` }
         ],
         atlas: [
           { key: 'tone', dir: '../../assets/ui', fileName: 'tone' }

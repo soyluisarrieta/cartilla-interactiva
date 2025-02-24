@@ -34,6 +34,14 @@ export default class GameScene extends Phaser.Scene {
 
   // Principal
   create () {
+    const { width: widthScreen, height: heightScreen } = this.cameras.main
+
+    // Imagen de fondo y Logo
+    this.add
+      .image(0, 0, 'bgGameScene')
+      .setOrigin(0)
+      .setDisplaySize(widthScreen, heightScreen)
+
     this.ui.init()
     this.health.draw(3)
     this.exercises.create(5)

@@ -9,7 +9,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { game: gameName } = window.gameSettings
+    const { game: gameName, module } = window.gameSettings
     InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
@@ -20,6 +20,7 @@ export default class BootScene extends Phaser.Scene {
       setPath: `/games/${gameName}/assets`,
       assets: {
         images: [
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
           { key: 'slot', path: '/images/slot.png' },
           { key: 'semibreve', path: '/images/btn-semibreve.png' },
           { key: 'semibreve-rest', path: '/images/btn-semibreve-rest.png' },

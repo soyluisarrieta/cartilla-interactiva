@@ -10,7 +10,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { game: gameName } = window.gameSettings
+    const { game: gameName, module } = window.gameSettings
     InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
@@ -22,7 +22,8 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'metric2/4', path: '/metrics/metric-2x4.png' },
-          { key: 'metric3/4', path: '/metrics/metric-3x4.png' }
+          { key: 'metric3/4', path: '/metrics/metric-3x4.png' },
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` }
         ],
         atlas: [
           { key: 'blocks', dir: '/ui', fileName: 'blocks' }

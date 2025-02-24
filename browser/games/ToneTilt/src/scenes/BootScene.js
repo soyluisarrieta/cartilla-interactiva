@@ -11,7 +11,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
-    const { game: gameName } = window.gameSettings
+    const { game: gameName, module } = window.gameSettings
     InitProfile(window.gameSettings)
 
     const coreAssets = new Assets(window.gameSettings)
@@ -21,6 +21,9 @@ export default class BootScene extends Phaser.Scene {
     const gameAssets = {
       setPath: `/games/${gameName}/assets`,
       assets: {
+        images: [
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` }
+        ],
         atlas: [
           { key: 'btnInclinations', dir: '/ui', fileName: 'inclination-buttons' }
         ]
