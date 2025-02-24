@@ -127,23 +127,23 @@ export default class UIManager {
       },
       {
         label: 'Detener',
-        texture: BUTTONS.REPEAT,
+        texture: { key: 'melodyControls', frame: 'stop' },
         handleEvent: this.handleStop.bind(this)
       },
       {
         label: 'Generar',
-        texture: BUTTONS.LISTEN_MELODY,
+        texture: { key: 'melodyControls', frame: 'generation' },
         handleEvent: this.scene.start.bind(this.scene)
       },
       {
-        label: 'Acelerar',
-        texture: { key: 'velocityControl', frame: 'acceleration' },
-        handleEvent: () => this.speedMelodyButton.bind(this)(-1)
+        label: 'Desacelerar',
+        texture: { key: 'melodyControls', frame: 'deceleration' },
+        handleEvent: () => this.speedMelodyButton.bind(this)(1)
       },
       {
-        label: 'Desacelerar',
-        texture: { key: 'velocityControl', frame: 'deceleration' },
-        handleEvent: () => this.speedMelodyButton.bind(this)(1)
+        label: 'Acelerar',
+        texture: { key: 'melodyControls', frame: 'acceleration' },
+        handleEvent: () => this.speedMelodyButton.bind(this)(-1)
       }
     ]
 
@@ -194,7 +194,7 @@ export default class UIManager {
       decelerateButton.button.setDisabled(true)
 
       label.setText('Pausar')
-      button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+      button.setTexture('melodyControls', 'pause')
       const onSound = ({ index }) => intervals.select(index).setActived(true)
       await melody.play(melody.current, tempo, onSound)
 
@@ -208,11 +208,11 @@ export default class UIManager {
       decelerateButton.button.setDisabled(false)
     } else if (melody.paused) {
       label.setText('Pausar')
-      button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+      button.setTexture('melodyControls', 'pause')
       melody.resume()
     } else if (!melody.paused) {
       label.setText('Reanudar')
-      button.setTexture(BUTTONS.REPEAT.key, BUTTONS.REPEAT.frame)
+      button.setTexture('melodyControls', 'resume')
       melody.pause()
     }
   }
