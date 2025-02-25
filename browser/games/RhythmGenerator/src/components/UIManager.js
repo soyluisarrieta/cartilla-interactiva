@@ -99,14 +99,22 @@ export default class UIManager {
     const { width } = this.scene.cameras.main
     const tempo = this.scene.game.tempo
     const bpm = Math.round(60000 / tempo)
-    this.tempoIndicator = this.scene.add.text(width - 50, 90, `Tempo: ${bpm} BPM`, {
+    const x = width - 150
+    const y = 90
+
+    const mannerBanner = this.scene.add
+      .image(x, y, 'mannerBanner')
+      .setOrigin(0.5)
+
+    this.tempoIndicator = this.scene.add.text(x, y, `Tempo: ${bpm} BPM`, {
       fontSize: '32px',
       fontFamily: FONTS.SECONDARY,
       color: '#ffffff'
-    }).setOrigin(1, 0)
+    }).setOrigin(0.5)
 
     this.updateTempo(tempo)
 
+    this.scene.uiAnimations.slideInFromRight({ targets: mannerBanner })
     this.scene.uiAnimations.slideInFromRight({ targets: this.tempoIndicator })
   }
 
