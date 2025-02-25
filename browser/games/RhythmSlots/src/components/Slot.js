@@ -18,18 +18,23 @@ export default class Slot {
     } = this.scene
     const { maxSlots, compass } = this.scene.level
 
-    const layout = { gap: 30, marginTop: 400, marginRight: 150 }
+    const layout = { gap: 30, marginTop: 350, marginRight: 150 }
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
     const startX = (screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
     const position = { x: startX, y: layout.marginTop }
+
+    const banner = maxSlots === 4 ? 'itemBanner1' : maxSlots === 8 ? 'itemBanner2' : 'itemBanner3'
+
+    this.scene.add
+      .image(screen.width / 2 - layout.marginRight / 2, position.y + 50, banner)
 
     for (let i = 0; i < maxSlots; i++) {
       const slot = scene.image(position.x, position.y, 'slot')
         .setOrigin(0.5)
         .setInteractive()
 
-      const intervalIndicator = scene.image(position.x, position.y + 160, 'uiButtons', this.invervalTextures.normal)
+      const intervalIndicator = scene.image(position.x, position.y + 140, 'uiButtons', this.invervalTextures.normal)
         .setScale(0.4)
         .setOrigin(0.5)
 

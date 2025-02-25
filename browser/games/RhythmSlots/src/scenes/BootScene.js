@@ -31,7 +31,10 @@ export default class BootScene extends Phaser.Scene {
           { key: 'quaver', path: '/images/btn-quaver.png' },
           { key: 'quaver-duo', path: '/images/btn-quaver-duo.png' },
           { key: 'quaver-rest_quaver', path: '/images/btn-quaver-rest_quaver.png' },
-          { key: 'semiquaver-quad', path: '/images/btn-semiquaver-quad.png' }
+          { key: 'semiquaver-quad', path: '/images/btn-semiquaver-quad.png' },
+          { key: 'itemBanner1', path: '../../assets/ui/item-banner-1.png' },
+          { key: 'itemBanner2', path: '../../assets/ui/item-banner-2.png' },
+          { key: 'itemBanner3', path: '../../assets/ui/item-banner-3.png' }
         ],
         atlas: [
           { key: 'btnFigures', dir: '/ui', fileName: 'figure-buttons' },
