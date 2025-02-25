@@ -60,13 +60,13 @@ export default class UIManager {
   drawFiguresInvolved () {
     const { width } = this.scene.cameras.main
     const { figures } = this.scene.level
-    const figureWidth = 40
+    const figureWidth = 70
 
     grid({
       totalItems: figures.length,
-      item: { width: figureWidth },
+      item: { width: 40 },
       maxColumns: figures.length,
-      gap: figureWidth * 3,
+      gap: 40 * 3,
       position: [width / 2, 350],
       alignCenter: true,
       element: ({ x, y }, i) => {
@@ -78,7 +78,7 @@ export default class UIManager {
         const fixedHeight = figureWidth * aspectRatio
         image.setDisplaySize(figureWidth, fixedHeight)
 
-        const label = this.scene.add.text(x + figureWidth / 2, y + 20, figures[i].title, {
+        const label = this.scene.add.text(x + figureWidth / 2, y - 10, figures[i].title, {
           fontSize: '22px',
           fontFamily: FONTS.SECONDARY,
           color: '#ffffff',

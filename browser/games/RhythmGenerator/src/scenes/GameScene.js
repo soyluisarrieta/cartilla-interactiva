@@ -62,15 +62,15 @@ export default class GameScene extends Phaser.Scene {
     const { width } = this.cameras.main
     const { metrics: { compass, figures: notesPerColumn } } = this.level
     const totalFigures = compass * notesPerColumn
-    const figureWidth = 55
+    const figureWidth = 120
     const gapPerNotes = 20
 
     // Distribuir figuras por compás
     grid({
       totalItems: compass,
-      item: { width: (figureWidth + gapPerNotes) * notesPerColumn },
+      item: { width: (55 + gapPerNotes) * notesPerColumn },
       maxColumns: compass,
-      gap: figureWidth,
+      gap: 55,
       position: [width / 2, 500],
       alignCenter: true,
       element: ({ x, y }, i) => {
@@ -85,18 +85,18 @@ export default class GameScene extends Phaser.Scene {
           }
 
           const note = melody[noteIndex]
-          const posX = x + ((figureWidth + gapPerNotes) * j)
+          const posX = x + ((55 + gapPerNotes) * j)
 
           const image = this.add
             .image(posX, y, 'figures', note.name)
-            .setOrigin(0)
+            .setOrigin(0.5)
 
           const aspectRatio = image.height / image.width
           const fixedHeight = figureWidth * aspectRatio
           image.setDisplaySize(figureWidth, fixedHeight)
 
           if (this.intervals.all.length !== totalFigures) {
-            const posInterval = [posX + 25, y + 200]
+            const posInterval = [posX, y + 100]
             this.intervals.draw(posInterval)
           }
 
