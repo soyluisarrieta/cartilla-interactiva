@@ -38,20 +38,21 @@ export default class LevelSelectionScene extends Phaser.Scene {
     grid({
       totalItems: levels.length,
       item: { width: 500, height: 100 },
-      gap: 0,
+      gap: 10,
       position: [500, 300],
       element: ({ x, y }, i) => {
         const onClick = () => this.scene.start(SCENES.GAME, levels[i])
 
-        Button.draw(this)({
-          ...BUTTONS.ARROW_RIGHT,
-          position: [x, y],
-          withSound: false,
-          onClick
-        }).setScale(0.4)
+        this.add
+          .image(width / 2, y, 'listBanner')
+          .setScale(1.3)
+          .setOrigin(0.5)
+          .setFlipX(true)
+          .setInteractive()
+          .on('pointerup', onClick)
 
-        this.add.text(x + 50, y, levels[i].title, {
-          fontSize: '50px',
+        this.add.text(x, y, levels[i].title, {
+          fontSize: '40px',
           fontFamily: FONTS.SECONDARY,
           color: '#ffffff'
         }).setOrigin(0, 0.5)

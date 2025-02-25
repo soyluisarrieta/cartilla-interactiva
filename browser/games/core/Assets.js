@@ -30,7 +30,8 @@ export default class Assets {
           { key: 'decorativeFrame', path: '/ui/decorative-frame.png' },
           { key: 'bannerTitle', path: '/ui/banner-title.png' },
           { key: 'health-on', path: '/ui/health-on.png' },
-          { key: 'health-off', path: '/ui/health-off.png' }
+          { key: 'health-off', path: '/ui/health-off.png' },
+          { key: 'listBanner', path: '/ui/list-banner.png' }
         ],
         atlas: [
           { key: 'btnStart', dir: '/ui', fileName: 'start-button' },
