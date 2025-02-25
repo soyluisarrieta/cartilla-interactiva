@@ -108,7 +108,7 @@ export default class UIManager {
 
   // Mostrar los botones para seleccionar notas
   drawNoteButtons () {
-    const layout = { gap: 20, marginTop: 700, marginRight: 150 }
+    const layout = { gap: 20, marginTop: 800, marginRight: 150 }
     const { figures } = this.scene.level
     const totalWidth = figures.length * layout.gap + (figures.length - 1) * 100
     const startX = (this.scene.screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
@@ -145,7 +145,7 @@ export default class UIManager {
     const { tempo } = window.gameSettings
     const { width, height } = this.scene.cameras.main
 
-    const x = width / 2.42
+    const x = width - 380
     const y = height - 170
 
     const label = this.scene.add.text(x, y + 110, 'Melodía', {
@@ -187,7 +187,7 @@ export default class UIManager {
   drawConfirmButton () {
     const { width, height } = this.scene.cameras.main
 
-    const x = width / 1.95
+    const x = width - 200
     const y = height - 170
 
     const label = this.scene.add.text(x, y + 110, 'Confirmar', {

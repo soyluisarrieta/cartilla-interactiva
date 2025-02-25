@@ -18,7 +18,7 @@ export default class Slot {
     } = this.scene
     const { maxSlots, compass } = this.scene.level
 
-    const layout = { gap: 30, marginTop: 350, marginRight: 150 }
+    const layout = { gap: 30, marginTop: 400, marginRight: 150 }
     const totalBeats = maxSlots / 4 - 1
     const totalWidth = maxSlots * layout.gap + (maxSlots - 1) * 100 + (totalBeats * 50)
     const startX = (screen.width - totalWidth - layout.marginRight) / 2 + layout.gap / 2
