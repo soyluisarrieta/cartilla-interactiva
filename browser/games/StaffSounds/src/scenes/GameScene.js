@@ -24,7 +24,7 @@ export default class GameScene extends Phaser.Scene {
     this.exercises = new Exercises(this)
     this.health = new Health(this)
 
-    this.scaleNotes = 0.7
+    this.scaleNotes = 0.6
   }
 
   // Inicialización
@@ -100,6 +100,11 @@ export default class GameScene extends Phaser.Scene {
       .setOrigin(0)
       .setDisplaySize(widthScreen, heightScreen)
 
+    // Pentagrama musical
+    this.add
+      .image(10, 200, 'musicalStaff')
+      .setOrigin(0)
+
     this.ui.init()
     this.exercises.create(5)
     this.health.draw(3)
@@ -171,7 +176,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (isWriteMode) {
       const title = this.add
-        .image(width / 2 - 200, height - 140, 'titleKeyNotes')
+        .image(width / 2 - 100, height - 140, 'titleKeyNotes')
         .setScale(0.6)
       this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
     }
@@ -181,7 +186,7 @@ export default class GameScene extends Phaser.Scene {
       maxColumns: melody.length,
       item: { width: melody.length > 7 ? 130 : 200 },
       gap: 0,
-      position: [width / (isReadMode ? 1.8 : 2.2), height - 47],
+      position: [width / (isReadMode ? 1.8 : 1.93), height - 47],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const keyNote = this.add.text(x, y, melody[i].name, {
@@ -285,17 +290,17 @@ export default class GameScene extends Phaser.Scene {
   // Notas en el Pentagrama
   drawStaffTones () {
     const totalNotes = this.game.maxNotes
-    const figureSize = 40
+    const figureSize = 38.5
     const gapY = 0
-    const gapX = totalNotes < 7 ? 100 : 40
+    const gapX = totalNotes < 7 ? 100 : figureSize
 
     // Distribuir tonos
     grid({
       totalItems: totalNotes,
       item: { width: figureSize + gapX, height: figureSize },
       maxColumns: totalNotes,
-      gap: 60,
-      position: [270, 250],
+      gap: 61,
+      position: [400, 250],
       element: ({ x, y }, i) => {
         this.createTones(x, y, i, figureSize, gapY)
       }
@@ -309,7 +314,7 @@ export default class GameScene extends Phaser.Scene {
         .image(x, y + (figureSize + gapY) * index, TONE.key, TONE.HOVER)
         .setScale(this.scaleNotes)
         .setInteractive()
-        .setAlpha(0)
+        .setAlpha(0.07)
 
       tone.name = note.name
       tone.blocked = false
@@ -356,7 +361,7 @@ export default class GameScene extends Phaser.Scene {
     hitBox.on('pointerout', () => {
       if (tone.blocked) { return }
       if (this.composition[i]?.coords.y !== index) {
-        tone.setAlpha(0)
+        tone.setAlpha(0.07)
       }
     })
     hitBox.on('pointerup', () => {
@@ -370,7 +375,7 @@ export default class GameScene extends Phaser.Scene {
   activeTone (i, tone) {
     if (this.composition[i]) {
       const prevTone = this.composition[i]
-      prevTone.setTexture(TONE.key, TONE.HOVER).setAlpha(0)
+      prevTone.setTexture(TONE.key, TONE.HOVER).setAlpha(0.07)
       if (prevTone.alteration) {
         prevTone.alteration.setAlpha(0)
       }

@@ -22,6 +22,7 @@ export default class BootScene extends Phaser.Scene {
       setPath: `/games/${gameName}/assets`,
       assets: {
         images: [
+          { key: 'musicalStaff', path: '/images/musical-staff.png' },
           { key: 'titleKeyNotes', path: '/images/dictation-notes.png' },
           { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
           { key: 'itemBanner2', path: '/images/item-banner-2.png' },
