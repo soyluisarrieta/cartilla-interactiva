@@ -118,9 +118,9 @@ export const GAMES = [
 ]
 
 export const MODULES = [
-  { _id: '1', title: 'Módulo 1', description: 'Descripción del módulo 1' },
-  { _id: '2', title: 'Módulo 2', description: 'Descripción del módulo 2' },
-  { _id: '3', title: 'Módulo 3', description: 'Descripción del módulo 3' },
-  { _id: '4', title: 'Módulo 4', description: 'Descripción del módulo 4' },
-  { _id: '5', title: 'Módulo 5', description: 'Descripción del módulo 5' }
+  { _id: '1', title: 'Módulo 1', description: '' },
+  { _id: '2', title: 'Módulo 2', description: '' },
+  { _id: '3', title: 'Módulo 3', description: '' },
+  { _id: '4', title: 'Módulo 4', description: '' },
+  { _id: '5', title: 'Módulo 5', description: '' }
 ]
