@@ -20,7 +20,7 @@
     {{#each folders}}
       <div class="item">
         <a href="/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}">
-          <img src="/assets/images/icons/folder.png" alt="Carpeta" />
+          <img src="/assets/images/icons/folder.jpg" alt="Carpeta" style="border-radius: 2rem;" />
           <span style="font-size: 1.3vw">{{this}}</span>
         </a>
       </div>
@@ -30,17 +30,17 @@
       <div class="item">
         {{#if (endsWith this '.pdf')}}
           <a href="/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}" target="_blank">
-            <img src="/assets/images/icons/pdf.png" alt="PDF" />
+            <img src="/assets/images/icons/pdf.jpg" alt="PDF" style="border-radius: 2rem;" />
             <span>{{this}}</span>
           </a>
         {{else if (endsWith this '.mp3')}}
           <div class="audio-item" onclick="playAudio('{{this}}', '/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}')">
-            <img src="/assets/images/icons/audio.png" alt="PDF" />
+            <img src="/assets/images/icons/audio.jpg" alt="Audio" style="border-radius: 2rem;" />
             <span>{{this}}</span>
           </div>
         {{else}}
           <a href="/recursos/{{../language}}{{#if ../currentPath}}/{{../currentPath}}{{/if}}/{{this}}" target="_blank">
-            <img src="/assets/images/icons/file.png" alt="Archivo" />
+            <img src="/assets/images/icons/file.png" alt="Archivo" style="border-radius: 2rem;" />
             <span>{{this}}</span>
           </a>
         {{/if}}
