@@ -79,10 +79,12 @@ export default class Slot {
     this.scene.slots.forEach(slot => {
       slot.element.setScale(0.7)
       slot.isSelected = false
+      slot.element.clearTint()
     })
 
-    slotToSelect.element.setScale(0.77)
+    slotToSelect.element.setScale(0.8)
     slotToSelect.isSelected = true
+    slotToSelect.element.setTint(0xFFD700)
   }
 
   // Manejador para la selección de casillas
