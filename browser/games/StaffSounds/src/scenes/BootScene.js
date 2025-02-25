@@ -23,7 +23,10 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'titleKeyNotes', path: '/images/dictation-notes.png' },
-          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` }
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
+          { key: 'itemBanner2', path: '/images/item-banner-2.png' },
+          { key: 'itemBanner3', path: '/images/item-banner-3.png' }
+
         ],
         atlas: [
           { key: 'tone', dir: '../../assets/ui', fileName: 'tone' }

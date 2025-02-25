@@ -103,10 +103,10 @@ export default class LevelSelectionScene extends Phaser.Scene {
     grid({
       totalItems: noteGroups.length,
       maxColumns: 2,
-      item: { width: 500, height: 100 },
-      gap: 100,
+      item: { width: 400, height: 100 },
+      gap: 70,
       alignCenter: true,
-      position: [width / 1.8, 600],
+      position: [width / 1.94, 600],
       element: ({ x, y }, i) => {
         const groupSize = noteGroups[i]
         const notes = this.game.notes.get(groupSize)
@@ -116,15 +116,17 @@ export default class LevelSelectionScene extends Phaser.Scene {
           this.scene.start(SCENES.GAME, level)
         }
 
-        Button.draw(this)({
-          ...BUTTONS.ARROW_RIGHT,
-          position: [x, y],
-          onClick
-        }).setScale(0.4)
+        this.add
+          .image(x, y, 'itemBanner2')
+          .setScale(0.25)
+          .setOrigin(0, 0.5)
+          .setFlipX(true)
+          .setInteractive()
+          .on('pointerup', onClick)
 
-        this.add.text(x + 70, y, `${groupSize} notas`, {
-          fontSize: '55px',
-          fontFamily: FONTS.PRIMARY,
+        this.add.text(x + 40, y, `${groupSize} notas`, {
+          fontSize: '40px',
+          fontFamily: FONTS.SECONDARY,
           color: '#ffffff'
         }).setOrigin(0, 0.5)
           .setInteractive()
@@ -213,10 +215,10 @@ export default class LevelSelectionScene extends Phaser.Scene {
     grid({
       totalItems: scales.length,
       maxColumns: 2,
-      item: { width: 700, height: 100 },
+      item: { width: 500, height: 100 },
       gap: scales.length > 10 ? 0 : 100,
       alignCenter: true,
-      position: [width / 1.75, 600],
+      position: [width / 1.94, 600],
       element: ({ x, y }, i) => {
         const scale = scales[i]
         const level = {
@@ -226,14 +228,16 @@ export default class LevelSelectionScene extends Phaser.Scene {
         }
         const onClick = () => this.scene.start(SCENES.GAME, level)
 
-        Button.draw(this)({
-          ...BUTTONS.ARROW_RIGHT,
-          position: [x, y],
-          onClick
-        }).setScale(0.4)
+        this.add
+          .image(x, y, 'itemBanner3')
+          .setScale(0.25)
+          .setOrigin(0, 0.5)
+          .setFlipX(true)
+          .setInteractive()
+          .on('pointerup', onClick)
 
-        this.add.text(x + 70, y, scale.name, {
-          fontSize: '55px',
+        this.add.text(x + 40, y, scale.name, {
+          fontSize: '40px',
           fontFamily: FONTS.SECONDARY,
           color: '#ffffff'
         }).setOrigin(0, 0.5)
