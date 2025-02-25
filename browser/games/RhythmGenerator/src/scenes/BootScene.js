@@ -22,7 +22,8 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
-          { key: 'mannerBanner', path: '/ui/manner-banner.png' }
+          { key: 'mannerBanner', path: '/ui/manner-banner.png' },
+          { key: 'listBanner', path: '/ui/list-banner.png' }
         ],
         atlas: [
           { key: 'melodyControls', dir: '/ui', fileName: 'melody-controls' }
