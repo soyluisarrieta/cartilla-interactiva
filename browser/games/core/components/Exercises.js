@@ -3,8 +3,8 @@ import UIAnimations from '../UIAnimations.js'
 import { calculateElapsedTime } from '../utils/calculateElapsedTime.js'
 
 export default class Exercises {
-  static gap = 85
-  static position = [50, 200]
+  static gap = 90
+  static position = [90, 200]
 
   constructor (scene) {
     this.scene = scene
@@ -31,8 +31,7 @@ export default class Exercises {
       const positionY = y + (Exercises.gap * (index + 1))
       const exerciseElement = this.scene.add
         .image(positionX, positionY, EXERCISE.KEY, EXERCISE.PENDING)
-        .setScale(0.66)
-        .setOrigin(1, 0.5)
+        .setOrigin(0.5)
 
       this.all.push({
         index,
@@ -41,7 +40,7 @@ export default class Exercises {
         setTexture: (frame) => {
           exerciseElement
             .setTexture(EXERCISE.KEY, frame)
-            .setScale(0.8)
+            .setScale(1.3)
         }
       })
 
