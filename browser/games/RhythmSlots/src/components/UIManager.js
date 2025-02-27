@@ -306,13 +306,11 @@ export default class UIManager {
     if (index !== 0) {
       const prevInterval = slot.intervalIndicators[index - 1]
       slot.changeIntervalStatus(prevInterval, slot.invervalTextures.normal)
-        .setScale(0.4)
     }
 
     // Activar intervalo que está sonando
     const intervalActived = slot.intervalIndicators[index]
     slot.changeIntervalStatus(intervalActived, slot.invervalTextures.actived)
-      .setScale(0.5)
   }
 
   // Avanzar al siguiente ejercicio

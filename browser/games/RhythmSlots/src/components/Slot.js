@@ -4,8 +4,8 @@ export default class Slot {
     this.filledSlots = false
     this.intervalIndicators = []
     this.invervalTextures = {
-      normal: 'home',
-      actived: 'listen-melody'
+      normal: 'interval-off',
+      actived: 'interval-on'
     }
   }
 
@@ -34,8 +34,7 @@ export default class Slot {
         .setOrigin(0.5)
         .setInteractive()
 
-      const intervalIndicator = scene.image(position.x, position.y + 140, 'uiButtons', this.invervalTextures.normal)
-        .setScale(0.4)
+      const intervalIndicator = scene.image(position.x, position.y + 140, 'intervalIndicator', this.invervalTextures.normal)
         .setOrigin(0.5)
 
       this.intervalIndicators.push(intervalIndicator)
@@ -68,8 +67,7 @@ export default class Slot {
   // Cambiar estado del intervalo
   changeIntervalStatus (interval, state) {
     return interval
-      .setTexture('uiButtons', state)
-      .setScale(0.4)
+      .setTexture('intervalIndicator', state)
   }
 
   // Reiniciar texturas

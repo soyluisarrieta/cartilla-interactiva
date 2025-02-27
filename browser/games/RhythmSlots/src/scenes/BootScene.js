@@ -38,7 +38,8 @@ export default class BootScene extends Phaser.Scene {
         ],
         atlas: [
           { key: 'btnFigures', dir: '/ui', fileName: 'figure-buttons' },
-          { key: 'pieces', dir: '/ui', fileName: 'pieces' }
+          { key: 'pieces', dir: '/ui', fileName: 'pieces' },
+          { key: 'intervalIndicator', dir: '/ui', fileName: 'interval-indicator' }
         ]
       }
     }
