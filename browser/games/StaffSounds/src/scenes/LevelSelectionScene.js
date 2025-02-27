@@ -1,5 +1,6 @@
 import Button from '../../../core/components/Button.js'
 import { BUTTONS, FONTS, SCENES } from '../../../core/constants.js'
+import { addInteractions } from '../../../core/utils/addInteractions.js'
 import { grid } from '../../../core/utils/grid.js'
 
 export default class LevelSelectionScene extends Phaser.Scene {
@@ -34,10 +35,11 @@ export default class LevelSelectionScene extends Phaser.Scene {
     }).setOrigin(0.5)
 
     // Crear niveles
-    const modes = this.game.levels.length === 2 ? ['easy', 'medium'] : ['easy', 'medium', 'hard']
+    const modes = this.game.levels.length === 2 ? ['auditive', 'visual'] : ['write', 'listen', 'read']
     modes.forEach((mode, modeIndex) => {
       const offset = this.game.levels.length === 2 ? 150 : 0
-      this.add.image(width / 2 + (modeIndex - 1) * 300 + offset, 400, 'levels', `level-${mode}`)
+      const modeButton = this.add
+        .image(width / 2 + (modeIndex - 1) * 300 + offset, 400, 'modes', `mode-${mode}`)
         .setInteractive()
         .on('pointerup', () => {
           const level = {
@@ -67,6 +69,12 @@ export default class LevelSelectionScene extends Phaser.Scene {
           // Notas específicas
           this.scene.start(SCENES.GAME, level)
         })
+
+      addInteractions({
+        button: modeButton,
+        key: 'modes',
+        frame: `mode-${mode}`
+      })
     })
   }
 
@@ -164,21 +172,27 @@ export default class LevelSelectionScene extends Phaser.Scene {
       color: '#ffffff'
     }).setOrigin(0.5)
 
-    const contrasts = ['highs', 'lows']
+    const contrasts = ['high', 'low']
     contrasts.forEach((contrast, i) => {
-      this.add.image(
+      const modeButton = this.add.image(
         width / (i ? 1.7 : 2.3),
         400,
-        'levels',
-        `level-${level.name.toLowerCase()}-${contrast}`
+        'modes',
+        `mode-notes-${contrast}`
       )
         .setInteractive()
         .on('pointerup', () => {
           const translation = i ? 'Bajas' : 'Altas'
           level.name = `${level.name} (${translation})`
-          level.notes = level.notes[contrast]
+          level.notes = level.notes[contrast + 's']
           this.scene.start(SCENES.GAME, level)
         })
+
+      addInteractions({
+        button: modeButton,
+        key: 'modes',
+        frame: `mode-notes-${contrast}`
+      })
     })
   }
 
