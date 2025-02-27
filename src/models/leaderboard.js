@@ -45,7 +45,6 @@ export class LeaderboardModel {
         await this.Leaderboard
           .create({ profileId: this.profile.id, levelName, score, time, extradata })
           .save()
-        console.log('Nuevo record de jugador guardado.')
         return true
       }
 
@@ -54,7 +53,6 @@ export class LeaderboardModel {
         const profile = await this.Leaderboard
           .update({ profileId: this.profile.id }, { levelName, score, time, extradata, timestamp: Date.now() })
         profile.save()
-        console.log('Nuevo record de jugador actualizado.')
         return true
       }
       return false

@@ -85,7 +85,6 @@ export class TokensController {
 
             const allLevels = defaultLevels.map(levelName => {
               const completedLevel = completedLevels.find(l => l.name === levelName)
-              console.log({ completedLevel })
               return completedLevel || { name: levelName }
             })
 
