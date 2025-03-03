@@ -1,166 +1,166 @@
 {
-  "textures": [
-    {
-      "image": "tone",
-      "format": "RGBA8888",
-      "size": {
-        "w": 366,
-        "h": 334
-      },
-      "scale": 1,
-      "frames": [
-        {
-          "filename": "sharp",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 151,
-            "h": 112
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 151,
-            "h": 112
-          },
-          "frame": {
-            "x": 0,
-            "y": 0,
-            "w": 151,
-            "h": 112
-          }
-        },
-        {
-          "filename": "flat",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 138,
-            "h": 126
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 138,
-            "h": 126
-          },
-          "frame": {
-            "x": 151,
-            "y": 0,
-            "w": 138,
-            "h": 126
-          }
-        },
-        {
-          "filename": "tone-dashed",
-          "rotated": false,
-          "trimmed": true,
-          "sourceSize": {
-            "w": 126,
-            "h": 106
-          },
-          "spriteSourceSize": {
-            "x": 1,
-            "y": 1,
-            "w": 124,
-            "h": 104
-          },
-          "frame": {
-            "x": 0,
-            "y": 112,
-            "w": 124,
-            "h": 104
-          }
-        },
-        {
-          "filename": "tone-failed",
-          "rotated": false,
-          "trimmed": true,
-          "sourceSize": {
-            "w": 121,
-            "h": 107
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 3,
-            "w": 121,
-            "h": 104
-          },
-          "frame": {
-            "x": 124,
-            "y": 126,
-            "w": 121,
-            "h": 104
-          }
-        },
-        {
-          "filename": "tone-perfect",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 121,
-            "h": 104
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 121,
-            "h": 104
-          },
-          "frame": {
-            "x": 0,
-            "y": 216,
-            "w": 121,
-            "h": 104
-          }
-        },
-        {
-          "filename": "tone-sounding",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 121,
-            "h": 104
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 121,
-            "h": 104
-          },
-          "frame": {
-            "x": 245,
-            "y": 126,
-            "w": 121,
-            "h": 104
-          }
-        },
-        {
-          "filename": "tone",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 121,
-            "h": 104
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 121,
-            "h": 104
-          },
-          "frame": {
-            "x": 121,
-            "y": 230,
-            "w": 121,
-            "h": 104
-          }
-        }
-      ]
-    }
-  ],
-  "meta": {
-    "app": "http://free-tex-packer.com",
-    "version": "0.6.7"
-  }
+	"textures": [
+		{
+			"image": "tone",
+			"format": "RGBA8888",
+			"size": {
+				"w": 384,
+				"h": 214
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "tone-failed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 139,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 139,
+						"h": 110
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 139,
+						"h": 110
+					}
+				},
+				{
+					"filename": "tone-dashed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 126,
+						"h": 106
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 124,
+						"h": 104
+					},
+					"frame": {
+						"x": 139,
+						"y": 0,
+						"w": 124,
+						"h": 104
+					}
+				},
+				{
+					"filename": "tone-perfect",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 121,
+						"h": 104
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 121,
+						"h": 104
+					},
+					"frame": {
+						"x": 263,
+						"y": 0,
+						"w": 121,
+						"h": 104
+					}
+				},
+				{
+					"filename": "tone-sounding",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 121,
+						"h": 104
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 121,
+						"h": 104
+					},
+					"frame": {
+						"x": 139,
+						"y": 104,
+						"w": 121,
+						"h": 104
+					}
+				},
+				{
+					"filename": "tone",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 121,
+						"h": 104
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 121,
+						"h": 104
+					},
+					"frame": {
+						"x": 0,
+						"y": 110,
+						"w": 121,
+						"h": 104
+					}
+				},
+				{
+					"filename": "sharp",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 34,
+						"h": 49
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 34,
+						"h": 49
+					},
+					"frame": {
+						"x": 260,
+						"y": 104,
+						"w": 34,
+						"h": 49
+					}
+				},
+				{
+					"filename": "flat",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 21,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 21,
+						"h": 62
+					},
+					"frame": {
+						"x": 294,
+						"y": 104,
+						"w": 21,
+						"h": 62
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
 }
