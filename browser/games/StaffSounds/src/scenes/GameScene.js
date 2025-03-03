@@ -113,7 +113,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Botones de acción
     const mode = this.level.mode
-    const { LISTEN, READ } = GAME_MODES
+    const { LISTEN, READ, WRITE } = GAME_MODES
     if (mode === LISTEN) this.drawPlayButton()
     if (mode !== READ) this.drawConfirmButton()
 
@@ -123,6 +123,13 @@ export default class GameScene extends Phaser.Scene {
     // Sonido de inicio de partida
     this.sound.stopAll()
     this.sound.play('startGame')
+
+    if (mode === WRITE) {
+      const title = this.add
+        .image(this.cameras.main.width / 2 - 100, this.cameras.main.height - 140, 'titleKeyNotes')
+        .setScale(0.6)
+      this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
+    }
   }
 
   // Iniciar ejercicio
@@ -172,14 +179,6 @@ export default class GameScene extends Phaser.Scene {
   drawKeyNotes (melody, interactive = false) {
     const { width, height } = this.cameras.main
     const isReadMode = this.level.mode === GAME_MODES.READ
-    const isWriteMode = this.level.mode === GAME_MODES.WRITE
-
-    if (isWriteMode) {
-      const title = this.add
-        .image(width / 2 - 100, height - 140, 'titleKeyNotes')
-        .setScale(0.6)
-      this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
-    }
 
     grid({
       totalItems: melody.length,
