@@ -4,242 +4,11 @@
 			"image": "pieces",
 			"format": "RGBA8888",
 			"size": {
-				"w": 880,
-				"h": 2196
+				"w": 492,
+				"h": 3519
 			},
 			"scale": 1,
 			"frames": [
-				{
-					"filename": "piece-crotchet-rest-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-crotchet-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 176,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-minim-rest-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 352,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-minim-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 528,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-quaver-duo-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 704,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-quaver-quad-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 0,
-						"y": 283,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-quaver-rest-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 176,
-						"y": 283,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-quaver-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 352,
-						"y": 283,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-semibreve-rest-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 528,
-						"y": 283,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-semiquaver-quad-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 704,
-						"y": 283,
-						"w": 176,
-						"h": 283
-					}
-				},
-				{
-					"filename": "piece-semiquaver-selected",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 176,
-						"h": 284
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 176,
-						"h": 283
-					},
-					"frame": {
-						"x": 0,
-						"y": 566,
-						"w": 176,
-						"h": 283
-					}
-				},
 				{
 					"filename": "piece-crotchet-hovered",
 					"rotated": false,
@@ -255,8 +24,8 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 176,
-						"y": 566,
+						"x": 0,
+						"y": 0,
 						"w": 164,
 						"h": 275
 					}
@@ -276,8 +45,8 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 340,
-						"y": 566,
+						"x": 164,
+						"y": 0,
 						"w": 164,
 						"h": 275
 					}
@@ -297,8 +66,29 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 504,
-						"y": 566,
+						"x": 328,
+						"y": 0,
+						"w": 164,
+						"h": 275
+					}
+				},
+				{
+					"filename": "piece-minim-rest-hovered",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 164,
+						"h": 275
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 164,
+						"h": 275
+					},
+					"frame": {
+						"x": 0,
+						"y": 275,
 						"w": 164,
 						"h": 275
 					}
@@ -318,8 +108,29 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 668,
-						"y": 566,
+						"x": 164,
+						"y": 275,
+						"w": 164,
+						"h": 275
+					}
+				},
+				{
+					"filename": "piece-quaver-hovered",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 164,
+						"h": 275
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 164,
+						"h": 275
+					},
+					"frame": {
+						"x": 328,
+						"y": 275,
 						"w": 164,
 						"h": 275
 					}
@@ -339,8 +150,8 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 176,
-						"y": 841,
+						"x": 0,
+						"y": 550,
 						"w": 164,
 						"h": 275
 					}
@@ -360,8 +171,29 @@
 						"h": 275
 					},
 					"frame": {
+						"x": 164,
+						"y": 550,
+						"w": 164,
+						"h": 275
+					}
+				},
+				{
+					"filename": "piece-quaver-triplet-hovered",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 164,
+						"h": 275
+					},
+					"spriteSourceSize": {
 						"x": 0,
-						"y": 849,
+						"y": 0,
+						"w": 164,
+						"h": 275
+					},
+					"frame": {
+						"x": 328,
+						"y": 550,
 						"w": 164,
 						"h": 275
 					}
@@ -381,8 +213,29 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 340,
-						"y": 841,
+						"x": 0,
+						"y": 825,
+						"w": 164,
+						"h": 275
+					}
+				},
+				{
+					"filename": "piece-semibreve-rest-hovered",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 164,
+						"h": 275
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 164,
+						"h": 275
+					},
+					"frame": {
+						"x": 164,
+						"y": 825,
 						"w": 164,
 						"h": 275
 					}
@@ -402,8 +255,8 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 504,
-						"y": 841,
+						"x": 328,
+						"y": 825,
 						"w": 164,
 						"h": 275
 					}
@@ -423,8 +276,8 @@
 						"h": 275
 					},
 					"frame": {
-						"x": 668,
-						"y": 841,
+						"x": 0,
+						"y": 1100,
 						"w": 164,
 						"h": 275
 					}
@@ -445,7 +298,7 @@
 					},
 					"frame": {
 						"x": 164,
-						"y": 1116,
+						"y": 1100,
 						"w": 161,
 						"h": 271
 					}
@@ -465,8 +318,29 @@
 						"h": 271
 					},
 					"frame": {
+						"x": 325,
+						"y": 1100,
+						"w": 161,
+						"h": 271
+					}
+				},
+				{
+					"filename": "piece-minim-rest",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 161,
+						"h": 271
+					},
+					"spriteSourceSize": {
 						"x": 0,
-						"y": 1124,
+						"y": 0,
+						"w": 161,
+						"h": 271
+					},
+					"frame": {
+						"x": 164,
+						"y": 1371,
 						"w": 161,
 						"h": 271
 					}
@@ -486,8 +360,8 @@
 						"h": 271
 					},
 					"frame": {
-						"x": 325,
-						"y": 1116,
+						"x": 0,
+						"y": 1375,
 						"w": 161,
 						"h": 271
 					}
@@ -507,8 +381,8 @@
 						"h": 271
 					},
 					"frame": {
-						"x": 486,
-						"y": 1116,
+						"x": 325,
+						"y": 1371,
 						"w": 161,
 						"h": 271
 					}
@@ -528,8 +402,8 @@
 						"h": 271
 					},
 					"frame": {
-						"x": 647,
-						"y": 1116,
+						"x": 161,
+						"y": 1642,
 						"w": 161,
 						"h": 271
 					}
@@ -549,8 +423,50 @@
 						"h": 271
 					},
 					"frame": {
+						"x": 0,
+						"y": 1646,
+						"w": 161,
+						"h": 271
+					}
+				},
+				{
+					"filename": "piece-quaver-triplet",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 161,
+						"h": 271
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 161,
+						"h": 271
+					},
+					"frame": {
+						"x": 322,
+						"y": 1642,
+						"w": 161,
+						"h": 271
+					}
+				},
+				{
+					"filename": "piece-quaver",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 161,
+						"h": 271
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 161,
+						"h": 271
+					},
+					"frame": {
 						"x": 161,
-						"y": 1387,
+						"y": 1913,
 						"w": 161,
 						"h": 271
 					}
@@ -571,7 +487,28 @@
 					},
 					"frame": {
 						"x": 0,
-						"y": 1395,
+						"y": 1917,
+						"w": 161,
+						"h": 271
+					}
+				},
+				{
+					"filename": "piece-semibreve",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 161,
+						"h": 271
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 161,
+						"h": 271
+					},
+					"frame": {
+						"x": 322,
+						"y": 1913,
 						"w": 161,
 						"h": 271
 					}
@@ -591,8 +528,8 @@
 						"h": 271
 					},
 					"frame": {
-						"x": 322,
-						"y": 1387,
+						"x": 161,
+						"y": 2184,
 						"w": 161,
 						"h": 271
 					}
@@ -612,8 +549,8 @@
 						"h": 271
 					},
 					"frame": {
-						"x": 483,
-						"y": 1387,
+						"x": 0,
+						"y": 2188,
 						"w": 161,
 						"h": 271
 					}
@@ -633,8 +570,8 @@
 						"h": 265
 					},
 					"frame": {
-						"x": 644,
-						"y": 1387,
+						"x": 322,
+						"y": 2184,
 						"w": 158,
 						"h": 265
 					}
@@ -654,8 +591,8 @@
 						"h": 265
 					},
 					"frame": {
-						"x": 644,
-						"y": 1652,
+						"x": 322,
+						"y": 2449,
 						"w": 158,
 						"h": 265
 					}
@@ -676,7 +613,28 @@
 					},
 					"frame": {
 						"x": 161,
-						"y": 1658,
+						"y": 2455,
+						"w": 158,
+						"h": 265
+					}
+				},
+				{
+					"filename": "piece-minim-rest-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 158,
+						"h": 266
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 158,
+						"h": 265
+					},
+					"frame": {
+						"x": 0,
+						"y": 2459,
 						"w": 158,
 						"h": 265
 					}
@@ -696,8 +654,29 @@
 						"h": 265
 					},
 					"frame": {
+						"x": 319,
+						"y": 2714,
+						"w": 158,
+						"h": 265
+					}
+				},
+				{
+					"filename": "piece-quaver-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 158,
+						"h": 266
+					},
+					"spriteSourceSize": {
 						"x": 0,
-						"y": 1666,
+						"y": 0,
+						"w": 158,
+						"h": 265
+					},
+					"frame": {
+						"x": 158,
+						"y": 2720,
 						"w": 158,
 						"h": 265
 					}
@@ -717,8 +696,8 @@
 						"h": 265
 					},
 					"frame": {
-						"x": 319,
-						"y": 1658,
+						"x": 0,
+						"y": 2724,
 						"w": 158,
 						"h": 265
 					}
@@ -738,8 +717,50 @@
 						"h": 265
 					},
 					"frame": {
-						"x": 477,
-						"y": 1658,
+						"x": 316,
+						"y": 2979,
+						"w": 158,
+						"h": 265
+					}
+				},
+				{
+					"filename": "piece-quaver-triplet-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 158,
+						"h": 266
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 158,
+						"h": 265
+					},
+					"frame": {
+						"x": 158,
+						"y": 2985,
+						"w": 158,
+						"h": 265
+					}
+				},
+				{
+					"filename": "piece-semibreve-pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 158,
+						"h": 266
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 158,
+						"h": 265
+					},
+					"frame": {
+						"x": 0,
+						"y": 2989,
 						"w": 158,
 						"h": 265
 					}
@@ -759,8 +780,8 @@
 						"h": 265
 					},
 					"frame": {
-						"x": 635,
-						"y": 1917,
+						"x": 316,
+						"y": 3244,
 						"w": 158,
 						"h": 265
 					}
@@ -781,7 +802,7 @@
 					},
 					"frame": {
 						"x": 158,
-						"y": 1923,
+						"y": 3250,
 						"w": 158,
 						"h": 265
 					}
@@ -802,7 +823,7 @@
 					},
 					"frame": {
 						"x": 0,
-						"y": 1931,
+						"y": 3254,
 						"w": 158,
 						"h": 265
 					}
