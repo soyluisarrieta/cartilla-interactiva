@@ -34,6 +34,7 @@ export default class LevelSelectionScene extends Phaser.Scene {
     }).setOrigin(0.5)
 
     // Crear niveles
+    Levels.nextScene = SCENES.GAME
     this.levels.init()
   }
 }
