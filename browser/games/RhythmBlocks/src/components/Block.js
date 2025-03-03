@@ -44,7 +44,7 @@ export default class Block extends Phaser.GameObjects.Container {
       const figureInstante = this.scene.add
         .image(0, 0, 'figures', figure.name)
         .setData('figure', figure)
-        .setScale(Block.scale - 0.4)
+        .setScale(Block.scale + 0.1)
         .setOrigin(0.5)
       this.figures.push(figureInstante)
       this.add(figureInstante)
