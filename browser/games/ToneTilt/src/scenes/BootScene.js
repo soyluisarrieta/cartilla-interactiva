@@ -23,7 +23,8 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
-          { key: 'bannerGameScene', path: `../../assets/images/banners/banner-mod-${module}.png` }
+          { key: 'bannerGameScene', path: `../../assets/images/banners/banner-mod-${module}.png` },
+          { key: 'scoreTableScene', path: '/ui/score-table.png' }
         ],
         atlas: [
           { key: 'btnInclinations', dir: '/ui', fileName: 'inclination-buttons' }

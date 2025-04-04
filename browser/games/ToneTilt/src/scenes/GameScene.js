@@ -47,6 +47,10 @@ export default class GameScene extends Phaser.Scene {
       .image(widthScreen / 2, 110, 'bannerGameScene')
       .setScale(0.7)
 
+    this.add
+      .image(widthScreen - 200, heightScreen / 2 + 5, 'scoreTableScene')
+      .setScale(0.8)
+
     this.ui.init()
     this.health.draw(1)
     this.start()
