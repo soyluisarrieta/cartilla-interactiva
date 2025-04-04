@@ -27,7 +27,8 @@ export default class BootScene extends Phaser.Scene {
           { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
           { key: 'bannerGameScene', path: `../../assets/images/banners/banner-mod-${module}.png` },
           { key: 'itemBanner2', path: '../../assets/ui/item-banner-2.png' },
-          { key: 'itemBanner3', path: '../../assets/ui/item-banner-3.png' }
+          { key: 'itemBanner3', path: '../../assets/ui/item-banner-3.png' },
+          { key: 'bannerNotes', path: '/images/banner-notes.png' }
         ],
         atlas: [
           { key: 'tone', dir: '../../assets/ui', fileName: 'tone' },

@@ -93,6 +93,8 @@ export default class GameScene extends Phaser.Scene {
   // Principal
   create () {
     const { width: widthScreen, height: heightScreen } = this.cameras.main
+    const mode = this.level.mode
+    const { LISTEN, READ, WRITE } = GAME_MODES
 
     // Imagen de fondo, banner y Logo
     this.add
@@ -110,6 +112,17 @@ export default class GameScene extends Phaser.Scene {
       .image(10, 200, 'musicalStaff')
       .setOrigin(0)
 
+    if (mode === WRITE) {
+      this.add
+        .image(widthScreen / 2 - 70, heightScreen - 50, 'bannerNotes')
+        .setScale(0.87)
+
+      const title = this.add
+        .image(this.cameras.main.width / 2 - 100, this.cameras.main.height - 130, 'titleKeyNotes')
+        .setScale(0.5)
+      this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
+    }
+
     this.ui.init()
     this.exercises.create(5)
     this.health.draw(3)
@@ -117,8 +130,6 @@ export default class GameScene extends Phaser.Scene {
     this.exercises.play(0)
 
     // Botones de acción
-    const mode = this.level.mode
-    const { LISTEN, READ, WRITE } = GAME_MODES
     if (mode === LISTEN) this.drawPlayButton()
     if (mode !== READ) this.drawConfirmButton()
 
@@ -128,13 +139,6 @@ export default class GameScene extends Phaser.Scene {
     // Sonido de inicio de partida
     this.sound.stopAll()
     this.sound.play('startGame')
-
-    if (mode === WRITE) {
-      const title = this.add
-        .image(this.cameras.main.width / 2 - 100, this.cameras.main.height - 140, 'titleKeyNotes')
-        .setScale(0.6)
-      this.uiAnimations.slideInFromBottom({ targets: title, duration: 300, delay: 700 })
-    }
   }
 
   // Iniciar ejercicio
