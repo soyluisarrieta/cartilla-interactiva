@@ -42,6 +42,14 @@ export default class GameScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setScale(0.63)
 
+    this.add
+      .image(widthScreen / 2, 320, 'bannerFigures1')
+      .setScale(1.2)
+
+    this.add
+      .image(widthScreen / 2, 600, 'bannerFigures2')
+      .setScale(1.2)
+
     this.ui.init()
     this.start()
 
@@ -67,7 +75,7 @@ export default class GameScene extends Phaser.Scene {
     const { width } = this.cameras.main
     const { metrics: { compass, figures: notesPerColumn } } = this.level
     const totalFigures = compass * notesPerColumn
-    const figureWidth = 120
+    const figureWidth = 100
     const gapPerNotes = 20
 
     // Distribuir figuras por compás
@@ -76,7 +84,7 @@ export default class GameScene extends Phaser.Scene {
       item: { width: (55 + gapPerNotes) * notesPerColumn },
       maxColumns: compass,
       gap: 55,
-      position: [width / 2, 500],
+      position: [width / 2, 570],
       alignCenter: true,
       element: ({ x, y }, i) => {
         const compassIndex = Math.floor(i / compass)

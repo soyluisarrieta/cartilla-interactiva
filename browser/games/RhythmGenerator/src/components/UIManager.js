@@ -82,7 +82,7 @@ export default class UIManager {
           fontSize: '22px',
           fontFamily: FONTS.SECONDARY,
           color: '#ffffff',
-          wordWrap: { width: figureWidth * 4 },
+          wordWrap: { width: figureWidth * 2 },
           align: 'center'
         }).setOrigin(0.5, 0)
 
