@@ -197,7 +197,11 @@ export default class GameScene extends Phaser.Scene {
       position: [width / (isReadMode ? 1.8 : 1.93), height - 47],
       alignCenter: true,
       element: ({ x, y }, i) => {
-        const keyNote = this.add.text(x, y, melody[i].name, {
+        const keyNote = this.add.image(x, y, 'noteButton')
+          .setScale(0)
+          .setInteractive()
+
+        const keyNoteText = this.add.text(x, y, melody[i].name, {
           fontSize: melody.length > 7 ? '40px' : '48px',
           fontFamily: FONTS.SECONDARY,
           color: '#ffffff'
@@ -205,8 +209,30 @@ export default class GameScene extends Phaser.Scene {
 
         if (interactive) {
           keyNote.note = melody[i]
+          keyNote.setScale(0.7)
           keyNote.setInteractive()
+          keyNote.on('pointerover', () => {
+            if (keyNote.failed) { return }
+            keyNote.setScale(0.73)
+            keyNoteText.setScale(1.1)
+            keyNote.setTint(0xffcc77)
+            keyNote.alteration?.setTint(0xffcc77)
+          })
+          keyNote.on('pointerout', () => {
+            if (keyNote.failed) { return }
+            keyNote.setScale(0.7)
+            keyNoteText.setScale(1)
+            keyNote.setTint(0xffffff)
+            keyNote.alteration?.setTint(0xffffff)
+          })
           keyNote.on('pointerup', () => {
+            if (keyNote.failed) { return }
+            keyNote.setScale(0.6)
+            keyNoteText.setScale(0.9)
+            setTimeout(() => {
+              keyNote.setScale(0.7)
+              keyNoteText.setScale(1)
+            }, 200)
             this.sequence.push(keyNote)
             const index = this.sequence.length - 1
             const gotNote = this.sequence[index].note
@@ -215,8 +241,8 @@ export default class GameScene extends Phaser.Scene {
           })
         }
 
-        this.keyNotes.push(keyNote)
-        this.uiAnimations.slideInFromBottom({ targets: keyNote, duration: 300, delay: 1000 + i * 100 })
+        this.keyNotes.push(keyNoteText)
+        this.uiAnimations.slideInFromBottom({ targets: [keyNote, keyNoteText], duration: 300, delay: 1000 + i * 100 })
       }
     })
   }
