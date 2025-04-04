@@ -5,7 +5,7 @@ import { calculateElapsedTime } from '../../../core/utils/calculateElapsedTime.j
 import { UI } from '../constants.js'
 
 export default class UIManager {
-  static title = 'GAME SCENE'
+  static title = 'Arrastra los bloques en el orden correcto'
   static explanation = 'Escucha la melodía, mueve cada bloque de la melodía a su correspondiente casilla.'
 
   constructor (scene) {
@@ -49,7 +49,7 @@ export default class UIManager {
   // Títular
   setTitle (text) {
     const { width } = this.scene.cameras.main
-    return this.scene.add.text(width / 2, 100, text, {
+    return this.scene.add.text(width / 2, 70, text, {
       fontSize: '70px',
       fontFamily: FONTS.PRIMARY,
       color: '#ffffff'

@@ -99,7 +99,7 @@ export default class UIManager {
 
   // Mostrar la información del nivel actual
   drawLevelInfo () {
-    this.scene.add.text(this.scene.screen.width / 2, 70, `Jugando en el nivel ${this.scene.level.index + 1}`, {
+    this.scene.add.text(this.scene.screen.width / 2, 70, 'Encuentra el ritmo correcto', {
       fontSize: '90px',
       fontFamily: FONTS.PRIMARY,
       color: '#ffffff'
