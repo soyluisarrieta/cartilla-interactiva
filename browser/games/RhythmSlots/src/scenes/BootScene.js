@@ -21,6 +21,7 @@ export default class BootScene extends Phaser.Scene {
       assets: {
         images: [
           { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
+          { key: 'bannerGameScene', path: `../../assets/images/banners/banner-mod-${module}.png` },
           { key: 'slot', path: '/images/slot.png' },
           { key: 'semibreve', path: '/images/btn-semibreve.png' },
           { key: 'semibreve-rest', path: '/images/btn-semibreve-rest.png' },

@@ -23,7 +23,8 @@ export default class BootScene extends Phaser.Scene {
         images: [
           { key: 'metric2/4', path: '/metrics/metric-2x4.png' },
           { key: 'metric3/4', path: '/metrics/metric-3x4.png' },
-          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` }
+          { key: 'bgGameScene', path: `../../assets/images/backgrounds/bg-mod-${module}.png` },
+          { key: 'bannerGameScene', path: `../../assets/images/banners/banner-mod-${module}.png` }
         ],
         atlas: [
           { key: 'blocks', dir: '/ui', fileName: 'blocks' }

@@ -1,6 +1,6 @@
 export default class Opening {
   static imageKey = 'openingLogos'
-  static duration = 1000
+  static duration = 1
 
   constructor (scene) {
     this.phaser = scene
