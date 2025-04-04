@@ -342,7 +342,7 @@ export default class GameScene extends Phaser.Scene {
         tone.name = alteratedNote.name
         tone.frequency = alteratedNote.frequency
         tone.alteration = this.add
-          .image(x - 60, y + (figureSize + gapY) * index, TONE.key, TONE[alterationKey])
+          .image(x - 50, y + (figureSize + gapY) * index - 23, TONE.key, TONE[alterationKey])
           .setScale(this.scaleNotes)
           .setInteractive()
         tone.alteration.setAlpha(0)
