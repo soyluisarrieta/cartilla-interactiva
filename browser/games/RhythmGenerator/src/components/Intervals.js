@@ -1,5 +1,3 @@
-import { BUTTONS } from '../../../core/constants.js'
-
 export default class Intervals {
   constructor (scene) {
     this.scene = scene
@@ -15,8 +13,8 @@ export default class Intervals {
   draw (position = [0, 0]) {
     const [x, y] = position
     const interval = this.scene.add
-      .image(x, y, BUTTONS.HOME.key, BUTTONS.HOME.frame)
-      .setScale(0.3)
+      .image(x, y, 'intervalIndicator', 'interval-off')
+      .setScale(0.8)
       .setOrigin(0.5)
 
     interval.actived = false
@@ -37,11 +35,11 @@ export default class Intervals {
 
   // Activar/Desactivar estado
   setActived (isActived, interval = this.selected) {
-    const texture = isActived ? BUTTONS.HOME : BUTTONS.LISTEN_MELODY
-    const scale = isActived ? 0.4 : 0.3
+    const frame = isActived ? 'interval-on' : 'interval-off'
+    const scale = isActived ? 0.9 : 0.8
     this.resetAll()
     interval
-      .setTexture(texture.key, texture.frame)
+      .setTexture('intervalIndicator', frame)
       .setScale(scale)
     return interval
   }
@@ -50,8 +48,8 @@ export default class Intervals {
   resetAll () {
     this.all.forEach(interval => {
       interval
-        .setTexture(BUTTONS.HOME.key, BUTTONS.HOME.frame)
-        .setScale(0.3)
+        .setTexture('intervalIndicator', 'interval-off')
+        .setScale(0.8)
     })
   }
 }

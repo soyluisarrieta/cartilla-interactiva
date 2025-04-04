@@ -29,7 +29,8 @@ export default class BootScene extends Phaser.Scene {
           { key: 'bannerFigures2', path: '/ui/banner-figures-2.png' }
         ],
         atlas: [
-          { key: 'melodyControls', dir: '/ui', fileName: 'melody-controls' }
+          { key: 'melodyControls', dir: '/ui', fileName: 'melody-controls' },
+          { key: 'intervalIndicator', dir: '/ui', fileName: 'interval-indicator' }
         ]
       }
     }
